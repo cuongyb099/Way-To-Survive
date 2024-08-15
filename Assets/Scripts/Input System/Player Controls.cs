@@ -35,6 +35,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Rotate"",
+                    ""type"": ""Value"",
+                    ""id"": ""75fdb3ef-2697-45ed-9159-a1c5279fa76e"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -92,6 +101,28 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""044a9dc5-387c-493d-94be-f6b43c0277d9"",
+                    ""path"": ""<Gamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""29617d57-dbb4-491f-b327-9f5721c4c6a0"",
+                    ""path"": ""<Gamepad>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Rotate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -101,6 +132,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         // BasicAction
         m_BasicAction = asset.FindActionMap("BasicAction", throwIfNotFound: true);
         m_BasicAction_Movement = m_BasicAction.FindAction("Movement", throwIfNotFound: true);
+        m_BasicAction_Rotate = m_BasicAction.FindAction("Rotate", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -163,11 +195,13 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_BasicAction;
     private List<IBasicActionActions> m_BasicActionActionsCallbackInterfaces = new List<IBasicActionActions>();
     private readonly InputAction m_BasicAction_Movement;
+    private readonly InputAction m_BasicAction_Rotate;
     public struct BasicActionActions
     {
         private @PlayerControls m_Wrapper;
         public BasicActionActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_BasicAction_Movement;
+        public InputAction @Rotate => m_Wrapper.m_BasicAction_Rotate;
         public InputActionMap Get() { return m_Wrapper.m_BasicAction; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -180,6 +214,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Movement.started += instance.OnMovement;
             @Movement.performed += instance.OnMovement;
             @Movement.canceled += instance.OnMovement;
+            @Rotate.started += instance.OnRotate;
+            @Rotate.performed += instance.OnRotate;
+            @Rotate.canceled += instance.OnRotate;
         }
 
         private void UnregisterCallbacks(IBasicActionActions instance)
@@ -187,6 +224,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Movement.started -= instance.OnMovement;
             @Movement.performed -= instance.OnMovement;
             @Movement.canceled -= instance.OnMovement;
+            @Rotate.started -= instance.OnRotate;
+            @Rotate.performed -= instance.OnRotate;
+            @Rotate.canceled -= instance.OnRotate;
         }
 
         public void RemoveCallbacks(IBasicActionActions instance)
@@ -207,5 +247,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     public interface IBasicActionActions
     {
         void OnMovement(InputAction.CallbackContext context);
+        void OnRotate(InputAction.CallbackContext context);
     }
 }

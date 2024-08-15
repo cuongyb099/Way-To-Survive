@@ -10,8 +10,9 @@ namespace ResilientCore
 		public PlayerControls.BasicActionActions PlayerControlActions { get; private set; }
 		//Input
 		public Vector3 MovementInput { get { return GetMovementInput(); } }
+        public Vector3 RotationInput { get { return PlayerControlActions.Rotate.ReadValue<Vector2>(); } }
 
-		public bool IsWalkInput
+        public bool IsWalkInput
 		{
 			get
 			{
