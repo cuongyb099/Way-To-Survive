@@ -9,7 +9,7 @@ namespace ResilientCore
 		public PlayerControls InputActions { get; private set; }
 		public PlayerControls.BasicActionActions PlayerControlActions { get; private set; }
 		//Input
-		public Vector2 MovementInput { get { return GetMovementInput(); } }
+		public Vector3 MovementInput { get { return GetMovementInput(); } }
 
 		public bool IsWalkInput
 		{
@@ -32,7 +32,6 @@ namespace ResilientCore
 				return attaking && EnableAttack;
 			}
 		}
-		public bool IsRollInput { get; private set; }
 		public bool EnableAttack { get; set; } = true;
 		public bool EnableSkills { get; set; } = true;
 		public bool EnableWalk { get; set; } = true;
@@ -72,9 +71,11 @@ namespace ResilientCore
 
 		}
 		//Methods
-		private Vector2 GetMovementInput()
+		private Vector3 GetMovementInput()
 		{
-			return PlayerControlActions.Movement.ReadValue<Vector2>();
+			Vector2 v = PlayerControlActions.Movement.ReadValue<Vector2>();
+
+            return new Vector3(v.x,0,v.y);
 		}
 	}
 }
