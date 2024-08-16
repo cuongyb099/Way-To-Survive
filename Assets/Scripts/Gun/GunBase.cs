@@ -24,6 +24,7 @@ public class GunBase : MonoBehaviour
 	}
 	private void OnDisable()
 	{
+		if (PlayerInput.Instance == null) return;
 		PlayerInput.Instance.PlayerControlActions.Rotate.canceled -= Rotate_canceled;
 	}
 

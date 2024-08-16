@@ -11,18 +11,17 @@ public class Bullet : MonoBehaviour
 	public float Force = 10f;
 	public DamageInfo DamageInfo;
 	public Rigidbody RB { get; private set; }
+	public TrailRenderer TrailRenderer { get; private set; }
 	private void Awake()
 	{
 		RB = GetComponent<Rigidbody>();
+		TrailRenderer = GetComponent<TrailRenderer>();
 	}
 	public void OnEnable()
 	{
-        RB.velocity = Vector3.zero;
+		RB.velocity = Vector3.zero;
+		RB.velocity = Vector3.zero;
 		DOTween.Sequence().AppendInterval(LiveTime).OnComplete(() => { Deactivate(); });
-	}
-	private void OnDisable()
-	{
-		Debug.Log("return to pool");
 	}
 	private void OnCollisionEnter(Collision collision)
 	{
@@ -32,12 +31,16 @@ public class Bullet : MonoBehaviour
 	{
 		DamageInfo = info;
         RB.position = point;
-        Vector3 angle = RB.rotation.eulerAngles;
-        RB.rotation = Quaternion.Euler(angle.x, angle.y + accuracy, angle.z);
-        RB.AddForce(RB.rotation * Vector3.forward * Force, ForceMode.VelocityChange);
+        Vector3 angle = transform.rotation.eulerAngles;
+		
+		Quaternion temp = Quaternion.Euler(angle.x, angle.y + Mathf.Clamp(Random.Range(-accuracy, accuracy), -10, 10), angle.z);
+		TrailRenderer.Clear();
+		RB.AddForce(temp * Vector3.forward * Force, ForceMode.VelocityChange);
+		
     }
 	public void Deactivate()
 	{
+		TrailRenderer.Clear();
 		ObjectPool.Instance.ReturnObjectToPool(gameObject);
 	}
 }
