@@ -1,5 +1,8 @@
+using System;
+using Tech.Logger;
 using Tech.Singleton;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace ResilientCore
 {
@@ -10,29 +13,15 @@ namespace ResilientCore
 		public PlayerControls.BasicActionActions PlayerControlActions { get; private set; }
 		//Input
 		public Vector3 MovementInput => GetMovementInput();
-        public Vector3 RotationInput => PlayerControlActions.Rotate.ReadValue<Vector2>();
+		public Vector3 RotationInput => PlayerControlActions.Rotate.ReadValue<Vector2>();
 
-        public bool IsWalkInput
-		{
-			get
-			{
-				return walking && EnableWalk;
-			}
-		}
-		public bool IsSprintInput
-		{
-			get
-			{
-				return sprinting && EnableSprint;
-			}
-		}
-		public bool IsAttackInput
-		{
-			get
-			{
-				return attaking && EnableAttack;
-			}
-		}
+		public bool IsWalkInput => walking && EnableWalk;
+		public bool IsSprintInput => sprinting && EnableSprint;
+		public bool IsAttackInput => attaking && EnableAttack;
+		
+		public bool IsInBuildingMode { get; private set; }
+		public Action OnBuildingInput;
+		
 		public bool EnableAttack { get; set; } = true;
 		public bool EnableSkills { get; set; } = true;
 		public bool EnableWalk { get; set; } = true;
@@ -49,6 +38,21 @@ namespace ResilientCore
 
 			PlayerControlActions = InputActions.BasicAction;
 			AddListeners();
+		}
+
+		private void Start()
+		{
+			InputActions.Enable();
+			
+			InputActions.BasicAction.BuidingMode.started += ctx =>
+			{
+				IsInBuildingMode = !IsInBuildingMode;
+			};
+
+			InputActions.BasicAction.Buiding.started += ctx =>
+			{
+				OnBuildingInput?.Invoke();
+			};
 		}
 
 		private void OnDestroy()
@@ -79,6 +83,5 @@ namespace ResilientCore
 
             return new Vector3(v.x,0,v.y);
 		}
-
 	}
 }

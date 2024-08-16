@@ -44,6 +44,24 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""BuidingMode"",
+                    ""type"": ""Button"",
+                    ""id"": ""192dbd70-c23a-47d4-be4a-c5cea0ab92a4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Buiding"",
+                    ""type"": ""Button"",
+                    ""id"": ""90ea0459-4247-4033-9ff4-daec154bab5c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -123,6 +141,28 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Rotate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b869f076-c9f9-49e3-a215-b3fd028a1391"",
+                    ""path"": ""<Keyboard>/j"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""BuidingMode"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""07b803ad-691d-47b8-a11f-c1ab04d548bf"",
+                    ""path"": ""<Keyboard>/k"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Buiding"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -133,6 +173,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_BasicAction = asset.FindActionMap("BasicAction", throwIfNotFound: true);
         m_BasicAction_Movement = m_BasicAction.FindAction("Movement", throwIfNotFound: true);
         m_BasicAction_Rotate = m_BasicAction.FindAction("Rotate", throwIfNotFound: true);
+        m_BasicAction_BuidingMode = m_BasicAction.FindAction("BuidingMode", throwIfNotFound: true);
+        m_BasicAction_Buiding = m_BasicAction.FindAction("Buiding", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -196,12 +238,16 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private List<IBasicActionActions> m_BasicActionActionsCallbackInterfaces = new List<IBasicActionActions>();
     private readonly InputAction m_BasicAction_Movement;
     private readonly InputAction m_BasicAction_Rotate;
+    private readonly InputAction m_BasicAction_BuidingMode;
+    private readonly InputAction m_BasicAction_Buiding;
     public struct BasicActionActions
     {
         private @PlayerControls m_Wrapper;
         public BasicActionActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_BasicAction_Movement;
         public InputAction @Rotate => m_Wrapper.m_BasicAction_Rotate;
+        public InputAction @BuidingMode => m_Wrapper.m_BasicAction_BuidingMode;
+        public InputAction @Buiding => m_Wrapper.m_BasicAction_Buiding;
         public InputActionMap Get() { return m_Wrapper.m_BasicAction; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -217,6 +263,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Rotate.started += instance.OnRotate;
             @Rotate.performed += instance.OnRotate;
             @Rotate.canceled += instance.OnRotate;
+            @BuidingMode.started += instance.OnBuidingMode;
+            @BuidingMode.performed += instance.OnBuidingMode;
+            @BuidingMode.canceled += instance.OnBuidingMode;
+            @Buiding.started += instance.OnBuiding;
+            @Buiding.performed += instance.OnBuiding;
+            @Buiding.canceled += instance.OnBuiding;
         }
 
         private void UnregisterCallbacks(IBasicActionActions instance)
@@ -227,6 +279,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Rotate.started -= instance.OnRotate;
             @Rotate.performed -= instance.OnRotate;
             @Rotate.canceled -= instance.OnRotate;
+            @BuidingMode.started -= instance.OnBuidingMode;
+            @BuidingMode.performed -= instance.OnBuidingMode;
+            @BuidingMode.canceled -= instance.OnBuidingMode;
+            @Buiding.started -= instance.OnBuiding;
+            @Buiding.performed -= instance.OnBuiding;
+            @Buiding.canceled -= instance.OnBuiding;
         }
 
         public void RemoveCallbacks(IBasicActionActions instance)
@@ -248,5 +306,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnRotate(InputAction.CallbackContext context);
+        void OnBuidingMode(InputAction.CallbackContext context);
+        void OnBuiding(InputAction.CallbackContext context);
     }
 }
