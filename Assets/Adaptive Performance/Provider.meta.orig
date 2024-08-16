@@ -1,9 +1,9 @@
 fileFormatVersion: 2
 <<<<<<<< HEAD:Assets/Adaptive Performance/Provider.meta
-guid: 1f4de7923c897694b8212c824585594c
+guid: af460e37f00941f4ea4f134937823d60
 ========
-guid: a07433e605aec654c929a161ed5a593f
->>>>>>>> thinhDevelop:Assets/Art/Gun.meta
+guid: c2a3bdb5fc25c2a409821d63c1c16791
+>>>>>>>> thinhDevelop:Assets/Art/UI.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
