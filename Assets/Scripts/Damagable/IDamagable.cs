@@ -1,6 +1,11 @@
-public interface IDamagable
-{
-    public float Hp { get; set; }
+﻿using System.Collections;
+using UnityEngine;
 
-    public void Damage(DamageInfo info);
+namespace Assets.Scripts.Damagable
+{
+    public interface IDamagable
+    {
+        public float HP { get; set; }
+        public void Damage(DamageInfo info);
+    }
 }
