@@ -1,4 +1,8 @@
 using UnityEngine;
+<<<<<<< HEAD
+=======
+using Unity.Mathematics;
+>>>>>>> 186ffe6606f86b8f00005ec13f0c029857d056e7
 using UnityEngine.Rendering;
 using PlayerInput = ResilientCore.PlayerInput;
 
@@ -41,7 +45,11 @@ public class PlacementSystem : MonoBehaviour
     {
         var celltoPlace = grid.WorldToCell(player.position + Vector3Int.right);
 
+<<<<<<< HEAD
         var machine = Instantiate(testMachine.gameObject, curPosToPlace, Quaternion.identity).GetComponent<MeshRenderer>();
+=======
+        var machine = Instantiate(testMachine.gameObject, curPosToPlace, quaternion.identity).GetComponent<MeshRenderer>();
+>>>>>>> 186ffe6606f86b8f00005ec13f0c029857d056e7
         machine.materials = new []{defaultMat};
         machine.shadowCastingMode = ShadowCastingMode.On;
     }
