@@ -10,12 +10,13 @@ public class GunBase : MonoBehaviour
 	public Transform ShootPoint;
 	public Transform HandlePoint;
 	public LineRendererHelper RendererHelper;
-
 	private bool shootAble = true;
 	private bool trigger = false;
+	private PlayerController playerController;
 	private void Awake()
 	{
 		RendererHelper.AimAmmount = GunData.Aim;
+		playerController = GetComponentInParent<PlayerController>();
 	}
 	private void OnEnable()
 	{
@@ -49,8 +50,8 @@ public class GunBase : MonoBehaviour
 		Debug.Log("shoot");
 		StartCoroutine(shootCoolDown());
 		GameObject a = ObjectPool.Instance.SpawnObject(GunData.BulletPrefab, ShootPoint.position, transform.rotation);
-		Rigidbody rb = a.GetComponent<Rigidbody>();
-		rb.position = ShootPoint.position;
+		Bullet bullet = a.GetComponent<Bullet>();
+		bullet.InitBullet(ShootPoint.position,GunData.Accuracy,new DamageInfo(playerController.gameObject,GunData.Damage));
 	}
 	private IEnumerator shootCoolDown()
 	{
