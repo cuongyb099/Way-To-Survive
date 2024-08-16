@@ -4,48 +4,31 @@ namespace Tech.Singleton
 {
 	public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 	{
-		[SerializeField] protected bool dontDestroyOnLoad = true;
-		private static T instance;
-		public static T Instance
-		{
-			get
-			{
-				if (instance == null)
-				{
-					instance = FindObjectOfType<T>();
-					if (instance == null)
-					{
-						GameObject singleton = new GameObject(typeof(T).Name);
-						instance = singleton.AddComponent<T>();
-						DontDestroyOnLoad(singleton);
-					}
-				}
-				return instance;
-			}
-		}
-
+		public static T Instance { get; private set; }
+		#region Unity Methods
 		protected virtual void Awake()
 		{
-			if (instance == null)
+			if (Instance != null)
 			{
-				instance = this as T;
-				if (dontDestroyOnLoad)
-				{
-					var root = transform.root;
-					if (root != transform)
-					{
-						DontDestroyOnLoad(root);
-					}
-					else
-					{
-						DontDestroyOnLoad(this.gameObject);
-					}
-				}
+				Destroy(gameObject);
+				return;
 			}
-			else
-			{
-				Debug.LogError("Only 1 " + typeof(T).Name + " allow to exist");
-			}
+			Instance = this as T;
+		}
+		protected virtual void OnApplicationQuit()
+		{
+			Instance = null;
+			Destroy(gameObject);
+		}
+		#endregion
+	}
+
+	public class SingletonPersistent<T> : Singleton<T> where T : MonoBehaviour
+	{
+		protected override void Awake()
+		{
+			base.Awake();
+			DontDestroyOnLoad(gameObject);
 		}
 	}
 }

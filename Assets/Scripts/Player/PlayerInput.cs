@@ -9,8 +9,8 @@ namespace ResilientCore
 		public PlayerControls InputActions { get; private set; }
 		public PlayerControls.BasicActionActions PlayerControlActions { get; private set; }
 		//Input
-		public Vector3 MovementInput { get { return GetMovementInput(); } }
-        public Vector3 RotationInput { get { return PlayerControlActions.Rotate.ReadValue<Vector2>(); } }
+		public Vector3 MovementInput => GetMovementInput();
+        public Vector3 RotationInput => PlayerControlActions.Rotate.ReadValue<Vector2>();
 
         public bool IsWalkInput
 		{
@@ -50,6 +50,7 @@ namespace ResilientCore
 			PlayerControlActions = InputActions.BasicAction;
 			AddListeners();
 		}
+
 		private void OnDestroy()
 		{
 			RemoveListeners();
@@ -78,5 +79,6 @@ namespace ResilientCore
 
             return new Vector3(v.x,0,v.y);
 		}
+
 	}
 }
