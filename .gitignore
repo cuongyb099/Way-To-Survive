@@ -72,5 +72,9 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
 # Folder
+<<<<<<< HEAD
 Plugins/
 FarmSetting/
+=======
+Plugins/
+>>>>>>> 114e91e1349e7888f92f6a68148e5a02437723b1
