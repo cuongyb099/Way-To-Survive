@@ -8,7 +8,7 @@ public class GunSO : ScriptableObject
 	public GameObject BulletPrefab;
 	public float ShootingSpeed;
 	public float Damage;
-	public float Aim;
+	public float Spread;
 	public float Accuracy;
 	public bool ReleaseToShoot;
 }
