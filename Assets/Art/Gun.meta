@@ -1,9 +1,11 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 <<<<<<<< HEAD:Assets/Adaptive Performance/Provider.meta
 guid: a3569e96054cc6c4eb8ffe5f04fd0067
 ========
+=======
+>>>>>>> fd8f16f6f6897e09aebcadce7f2e637e3efb8399
 guid: a07433e605aec654c929a161ed5a593f
->>>>>>>> thinhDevelop:Assets/Art/Gun.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

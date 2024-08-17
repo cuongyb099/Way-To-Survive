@@ -1,34 +1,48 @@
-using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-public class BaseStructure : MonoBehaviour
+public class BaseStructure : MonoBehaviour, IDamagable
 {
-    private MeshRenderer renderer;
-    private MeshCollider collider;
-    private Material defaultMat;
-    
-    [SerializeField] private StructureSO structureData;
-    [SerializeField] private float curHp;    
+    public float HP { get; set; }
 
-    
-    private void Awake()
+    private MeshRenderer renderer;
+    private Collider collider;
+    public Material DefaultMat { get; private set; }
+
+    protected virtual void Awake()
     {
         renderer = GetComponent<MeshRenderer>();
-        collider = GetComponent<MeshCollider>();
-        
-        defaultMat = renderer.materials[0];
+        collider = GetComponent<Collider>();
+
+        DefaultMat = renderer.materials.FirstOrDefault();
     }
 
-    private void OnEnable()
+    //Unity only allow change array of materials meshRenderer 
+    public virtual void SetIsIndicator(Material matIndicator)
     {
-        curHp = structureData.MaxHp;
-    }
-
-    public void SetIsIndicatorStructure(Material matIndicator)
-    {
-        collider.enabled = false;
-        renderer.materials = new Material[] { matIndicator };
+        renderer.materials = new[] { matIndicator };
         renderer.shadowCastingMode = ShadowCastingMode.Off;
+        collider.enabled = false;
+    }
+
+    public virtual void SetIsStructure()
+    {
+        renderer.materials = new[] { DefaultMat };
+        renderer.shadowCastingMode = ShadowCastingMode.On;
+        collider.enabled = true;
+    }
+    
+    public virtual void SetIsStructure(Material Mat)
+    {
+        renderer.materials = new[] { Mat };
+        renderer.shadowCastingMode = ShadowCastingMode.On;
+        collider.enabled = true;
+    }
+    
+    public virtual void Damage(DamageInfo info)
+    {
+        HP -= info.Damage;
+        if (HP <= 0) HP = 0;
     }
 }
