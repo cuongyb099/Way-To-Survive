@@ -1,5 +1,4 @@
 
-using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,8 +12,8 @@ namespace ResilientCore
        
         void Update()
         {
-            //transform.position = Vector3.Lerp(transform.position, TargetPoint.transform.position, SwitchBlendValue);
-            transform.DOMove(TargetPoint.position, SwitchBlendValue);
+            transform.position = Vector3.Lerp(transform.position, TargetPoint.transform.position, SwitchBlendValue);
+            //transform.DOMove(TargetPoint.position, SwitchBlendValue);
         }
 	}
 }
