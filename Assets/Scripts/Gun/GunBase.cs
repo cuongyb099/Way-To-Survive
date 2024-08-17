@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using Tech.Pooling;
 using UnityEngine;
@@ -46,16 +47,18 @@ public class GunBase : MonoBehaviour
 	public virtual void Shoot()
 	{
 		if (!shootAble) return;
+		shootAble = false;
 		Debug.Log("shoot");
-		StartCoroutine(shootCoolDown());
+		DOTween.Sequence().AppendInterval(GunData.ShootingSpeed).OnComplete(() => { shootAble = true; });
+
 		GameObject a = ObjectPool.Instance.SpawnObject(GunData.BulletPrefab, ShootPoint.position, transform.rotation);
 		Bullet bullet = a.GetComponent<Bullet>();
 		bullet.InitBullet(ShootPoint.position,GunData.Accuracy,new DamageInfo(playerController.gameObject,GunData.Damage));
 	}
 	private IEnumerator shootCoolDown()
 	{
-		shootAble = false;
+
 		yield return new WaitForSeconds(GunData.ShootingSpeed);
-		shootAble = true;
+		
 	}
 }
