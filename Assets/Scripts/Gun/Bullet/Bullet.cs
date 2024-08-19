@@ -9,9 +9,11 @@ public class Bullet : MonoBehaviour
 {
 	public float LiveTime = 3f;
 	public float Force = 10f;
+	public ParticleSystem HitEffect;
 	public DamageInfo DamageInfo;
 	public Rigidbody RB { get; private set; }
 	public TrailRenderer TrailRenderer { get; private set; }
+	private Sequence seq;
 	private void Awake()
 	{
 		RB = GetComponent<Rigidbody>();
@@ -19,12 +21,12 @@ public class Bullet : MonoBehaviour
 	}
 	public void OnEnable()
 	{
-		RB.velocity = Vector3.zero;
-		DOTween.Sequence().AppendInterval(LiveTime).OnComplete(() => { Deactivate(); });
+		seq = DOTween.Sequence().AppendInterval(LiveTime).OnComplete(() => { Deactivate(); });
 	}
 	private void OnCollisionEnter(Collision collision)
 	{
-		Deactivate();
+		Instantiate(HitEffect, collision.contacts[0].point,Quaternion.identity);
+		seq.Complete();
 	}
 	public void InitBullet(Vector3 point,float accuracy, DamageInfo info)
 	{
@@ -34,12 +36,13 @@ public class Bullet : MonoBehaviour
 		
 		Quaternion temp = Quaternion.Euler(angle.x, angle.y + Mathf.Clamp(Random.Range(-accuracy, accuracy), -10, 10), angle.z);
 		TrailRenderer.Clear();
-		RB.velocity = Vector3.zero;
+
 		RB.AddForce(temp * Vector3.forward * Force, ForceMode.VelocityChange);
 		
     }
 	public void Deactivate()
 	{
+		RB.velocity = Vector3.zero;
 		TrailRenderer.Clear();
 		ObjectPool.Instance.ReturnObjectToPool(gameObject);
 	}
