@@ -50,11 +50,7 @@ public class GunBase : MonoBehaviour
 		shootAble = false;
 		Debug.Log("shoot");
 		DOTween.Sequence().AppendInterval(GunData.ShootingSpeed).OnComplete(() => { shootAble = true; });
-<<<<<<< HEAD
-=======
-
->>>>>>> 3471ad8a871de7ba167150ffcb5b2c337efbcf7c
-		GameObject a = ObjectPool.Instance.SpawnObject(GunData.BulletPrefab, ShootPoint.position, transform.rotation);
+		GameObject a = ObjectPool.Instance.SpawnObject(GunData.BulletPrefab, ShootPoint.position, transform.rotation,PoolType.GameObject);
 		Bullet bullet = a.GetComponent<Bullet>();
 		bullet.InitBullet(ShootPoint.position,GunData.Accuracy,new DamageInfo(playerController.gameObject,GunData.Damage));
 	}

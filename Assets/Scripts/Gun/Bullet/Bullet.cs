@@ -9,7 +9,7 @@ public class Bullet : MonoBehaviour
 {
 	public float LiveTime = 3f;
 	public float Force = 10f;
-	public ParticleSystem HitEffect;
+	public GameObject HitEffectWall;
 	public DamageInfo DamageInfo;
 	public Rigidbody RB { get; private set; }
 	public TrailRenderer TrailRenderer { get; private set; }
@@ -25,7 +25,7 @@ public class Bullet : MonoBehaviour
 	}
 	private void OnCollisionEnter(Collision collision)
 	{
-		Instantiate(HitEffect, collision.contacts[0].point,Quaternion.identity);
+		ObjectPool.Instance.SpawnObject(HitEffectWall, collision.contacts[0].point,Quaternion.identity,PoolType.ParticleSystem);
 		seq.Complete();
 	}
 	public void InitBullet(Vector3 point,float accuracy, DamageInfo info)

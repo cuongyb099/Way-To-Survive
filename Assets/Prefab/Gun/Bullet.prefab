@@ -50,7 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LiveTime: 1
   Force: 100
-  HitEffect: {fileID: 4634222905894458046, guid: 46d5ff5f9098d414890a45404c2adda3, type: 3}
+  HitEffectWall: {fileID: 381577045362741523, guid: 46d5ff5f9098d414890a45404c2adda3, type: 3}
 --- !u!54 &1203955708225218666
 Rigidbody:
   m_ObjectHideFlags: 0
