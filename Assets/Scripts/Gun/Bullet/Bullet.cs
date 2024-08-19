@@ -20,7 +20,6 @@ public class Bullet : MonoBehaviour
 	public void OnEnable()
 	{
 		RB.velocity = Vector3.zero;
-		RB.velocity = Vector3.zero;
 		DOTween.Sequence().AppendInterval(LiveTime).OnComplete(() => { Deactivate(); });
 	}
 	private void OnCollisionEnter(Collision collision)
@@ -35,6 +34,7 @@ public class Bullet : MonoBehaviour
 		
 		Quaternion temp = Quaternion.Euler(angle.x, angle.y + Mathf.Clamp(Random.Range(-accuracy, accuracy), -10, 10), angle.z);
 		TrailRenderer.Clear();
+		RB.velocity = Vector3.zero;
 		RB.AddForce(temp * Vector3.forward * Force, ForceMode.VelocityChange);
 		
     }

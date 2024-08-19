@@ -47,16 +47,21 @@ public class GunBase : MonoBehaviour
 	public virtual void Shoot()
 	{
 		if (!shootAble) return;
+		shootAble = false;
 		Debug.Log("shoot");
 		DOTween.Sequence().AppendInterval(GunData.ShootingSpeed).OnComplete(() => { shootAble = true; });
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3471ad8a871de7ba167150ffcb5b2c337efbcf7c
 		GameObject a = ObjectPool.Instance.SpawnObject(GunData.BulletPrefab, ShootPoint.position, transform.rotation);
 		Bullet bullet = a.GetComponent<Bullet>();
 		bullet.InitBullet(ShootPoint.position,GunData.Accuracy,new DamageInfo(playerController.gameObject,GunData.Damage));
 	}
 	private IEnumerator shootCoolDown()
 	{
-		shootAble = false;
+
 		yield return new WaitForSeconds(GunData.ShootingSpeed);
-		shootAble = true;
+		
 	}
 }
