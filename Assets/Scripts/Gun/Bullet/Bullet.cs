@@ -13,7 +13,7 @@ public class Bullet : MonoBehaviour
 	public DamageInfo DamageInfo;
 	public Rigidbody RB { get; private set; }
 	public TrailRenderer TrailRenderer { get; private set; }
-	private Sequence seq;
+	private Tween seq;
 	private void Awake()
 	{
 		RB = GetComponent<Rigidbody>();
@@ -21,12 +21,13 @@ public class Bullet : MonoBehaviour
 	}
 	public void OnEnable()
 	{
-		seq = DOTween.Sequence().AppendInterval(LiveTime).OnComplete(() => { Deactivate(); });
-	}
+        seq = DOVirtual.DelayedCall(LiveTime, () => { Deactivate(); });
+    }
 	private void OnCollisionEnter(Collision collision)
 	{
 		ObjectPool.Instance.SpawnObject(HitEffectWall, collision.contacts[0].point,Quaternion.identity,PoolType.ParticleSystem);
-		seq.Complete();
+		seq.Kill();
+		Deactivate();
 	}
 	public void InitBullet(Vector3 point,float accuracy, DamageInfo info)
 	{
