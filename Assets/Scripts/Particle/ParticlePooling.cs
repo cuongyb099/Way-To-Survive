@@ -16,6 +16,6 @@ public class ParticlePooling : MonoBehaviour
     }
     private void OnDisable()
     {
-        ObjectPool.Instance.ReturnObjectToPool(gameObject);
+        ObjectPool.Instance?.ReturnObjectToPool(gameObject);
     }
 }

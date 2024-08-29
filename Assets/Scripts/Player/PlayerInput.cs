@@ -16,6 +16,7 @@ public class PlayerInput : Singleton<PlayerInput>
 	
 	public bool IsInBuildingMode { get; private set; }
 	public Action OnBuildingInput;
+	public Action OnSwitchGuns;
 	
 	public bool EnableAttack { get; set; } = true;
 	public bool EnableSkills { get; set; } = true;
@@ -30,25 +31,10 @@ public class PlayerInput : Singleton<PlayerInput>
 	{
 		base.Awake();
 		InputActions = new PlayerControls();
-
 		PlayerControlActions = InputActions.BasicAction;
+        InputActions.Enable();
 		AddListeners();
-	}
-
-	private void Start()
-	{
-		InputActions.Enable();
-		
-		InputActions.BasicAction.BuidingMode.started += ctx =>
-		{
-			IsInBuildingMode = !IsInBuildingMode;
-		};
-
-		InputActions.BasicAction.Buiding.started += ctx =>
-		{
-			OnBuildingInput?.Invoke();
-		};
-	}
+    }
 
 	private void OnDestroy()
 	{
@@ -58,19 +44,45 @@ public class PlayerInput : Singleton<PlayerInput>
 	private void OnEnable()
 	{
 		InputActions.Enable();
-	}
+    }
 	private void OnDisable()
 	{
 		InputActions.Disable();
 	}
 	private void AddListeners()
 	{
+        InputActions.BasicAction.BuidingMode.started += ctx =>
+        {
+            IsInBuildingMode = !IsInBuildingMode;
+        };
 
-	}
+        InputActions.BasicAction.Buiding.started += ctx =>
+        {
+            OnBuildingInput?.Invoke();
+        };
+
+        InputActions.BasicAction.SwitchGuns.started += ctx =>
+        {
+            OnSwitchGuns?.Invoke();
+        };
+    }
 	private void RemoveListeners()
 	{
+        InputActions.BasicAction.BuidingMode.started -= ctx =>
+        {
+            IsInBuildingMode = !IsInBuildingMode;
+        };
 
-	}
+        InputActions.BasicAction.Buiding.started -= ctx =>
+        {
+            OnBuildingInput?.Invoke();
+        };
+
+        InputActions.BasicAction.SwitchGuns.started -= ctx =>
+        {
+            OnSwitchGuns?.Invoke();
+        };
+    }
 	//Methods
 	private Vector3 GetMovementInput()
 	{

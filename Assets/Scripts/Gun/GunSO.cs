@@ -8,7 +8,9 @@ public class GunSO : ScriptableObject
 	public GameObject BulletPrefab;
 	public float ShootingSpeed;
 	public float Damage;
-	public float Spread;
-	public float Accuracy;
-	public bool ReleaseToShoot;
+	public float Aim;
+	public float SpreadMax;
+	public float Recoil;
+    public float RecoilResetTime;
+    public bool ReleaseToShoot;
 }

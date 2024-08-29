@@ -15,6 +15,8 @@ MonoBehaviour:
   BulletPrefab: {fileID: 984755602444092648, guid: bff9cb15c026277498f4541bb37853a4, type: 3}
   ShootingSpeed: 0.1
   Damage: 10
-  Aim: 100
-  Accuracy: 1
+  Aim: 1
+  SpreadMax: 10
+  Recoil: 0.05
+  RecoilResetTime: 3
   ReleaseToShoot: 0

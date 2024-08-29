@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using Tech.Singleton;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Singleton<GameManager>
 {
     public PlayerController Player { get; private set; }
-    public void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         Player = FindAnyObjectByType<PlayerController>();
     }
     // Start is called before the first frame update

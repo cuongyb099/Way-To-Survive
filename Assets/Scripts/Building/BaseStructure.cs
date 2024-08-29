@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -9,6 +10,7 @@ public class BaseStructure : MonoBehaviour, IDamagable
     private MeshRenderer renderer;
     private Collider collider;
     public Material DefaultMat { get; private set; }
+    public Action OnDamaged { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
     protected virtual void Awake()
     {
@@ -44,5 +46,10 @@ public class BaseStructure : MonoBehaviour, IDamagable
     {
         HP -= info.Damage;
         if (HP <= 0) HP = 0;
+    }
+
+    public void Death()
+    {
+        throw new System.NotImplementedException();
     }
 }
