@@ -33,7 +33,7 @@ public class Bullet : MonoBehaviour
 	{
 		DamageInfo = info;
         RB.position = point;
-        Vector3 angle = transform.rotation.eulerAngles;
+        Vector3 angle = info.Dealer.gameObject.transform.rotation.eulerAngles;
 		
 		Quaternion temp = Quaternion.Euler(angle.x, angle.y + Mathf.Clamp(Random.Range(-accuracy, accuracy), -10, 10), angle.z);
 		TrailRenderer.Clear();

@@ -7,13 +7,16 @@ using UnityEngine.Rendering.UI;
 public class PlayerController : MonoBehaviour, IDamagable
 {
     public Rigidbody Rigidbody { get; private set; }
+    public CapsuleCollider Collider { get; private set; }
+    public Animator Animator { get; private set; }
+    public BaseStats BaseStats { get; private set; }
     public float HP { get; set; }
     //Player Data
     public float Speed = 5.0f;
     public float GunSwitchCooldown = .1f;
     public BaseStatsData StatData;
     public GunBase[] StartGun;
-    public BaseStats Stats { get; private set; }
+    public LayerMask GroundLayer;
     //GunSystem
     public Transform GunHoldPoint;
     public List<GunBase> Guns { get; private set; }
@@ -25,7 +28,8 @@ public class PlayerController : MonoBehaviour, IDamagable
     private void Awake()
     {
         Rigidbody = GetComponent<Rigidbody>();
-        Stats = GetComponent<BaseStats>();
+        BaseStats = GetComponent<BaseStats>();
+        Collider = GetComponent<CapsuleCollider>();
         Guns = new List<GunBase>();
         for (int i = 0; i < StartGun.Length; i++)
         {
@@ -43,8 +47,8 @@ public class PlayerController : MonoBehaviour, IDamagable
     }
     private void Start()
     {
-        Stats.LoadValues(StatData);
-        HP = Stats.StatsMap[EStatType.HP].Value;
+        BaseStats.LoadValues(StatData);
+        HP = BaseStats.StatsMap[EStatType.HP].Value;
         EquipGun(0);
     }
 

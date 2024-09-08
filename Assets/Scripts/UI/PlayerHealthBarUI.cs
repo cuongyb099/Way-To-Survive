@@ -25,8 +25,8 @@ namespace ResilientCore
         }
         public void ChangeHealthBarValue()
         {
-            PlayerHealthtext.text = controller.HP + " / " + controller.Stats.StatsMap[EStatType.HP].Value;
-            PlayerHealthSlider.value = controller.HP / controller.Stats.StatsMap[EStatType.HP].Value;
+            PlayerHealthtext.text = controller.HP + " / " + controller.BaseStats.StatsMap[EStatType.HP].Value;
+            PlayerHealthSlider.value = controller.HP / controller.BaseStats.StatsMap[EStatType.HP].Value;
         }
     }
 }
