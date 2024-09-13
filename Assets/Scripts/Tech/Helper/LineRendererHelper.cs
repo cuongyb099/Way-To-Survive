@@ -5,7 +5,8 @@ using UnityEngine;
 public class LineRendererHelper : MonoBehaviour
 {
     public Transform Start;
-	public float AimAmmount { get; set; } = 1.0f;
+	public Transform Forward;
+	public float AimAmount { get; set; } = 1.0f;
     private LineRenderer LR;
 	private void Awake()
 	{
@@ -15,6 +16,12 @@ public class LineRendererHelper : MonoBehaviour
 	private void Update()
 	{
 		LR.SetPosition(0, Start.transform.position);
-		LR.SetPosition(1, Start.transform.position + Start.transform.rotation * Vector3.forward*AimAmmount);
+		LR.SetPosition(1, Start.transform.position + Forward.forward*AimAmount);
+	}
+	public void SetLineRenderer(Transform start, float aimAmount,Transform forward)
+	{
+		Start = start;
+		AimAmount = aimAmount;
+		Forward = forward;
 	}
 }

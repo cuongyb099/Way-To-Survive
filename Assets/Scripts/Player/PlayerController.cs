@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour, IDamagable
     public CapsuleCollider Collider { get; private set; }
     public Animator Animator { get; private set; }
     public BaseStats BaseStats { get; private set; }
+    public LineRendererHelper LineRenderer { get; private set; }
     public float HP { get; set; }
     //Player Data
     public float Speed = 5.0f;
@@ -30,12 +31,15 @@ public class PlayerController : MonoBehaviour, IDamagable
         Rigidbody = GetComponent<Rigidbody>();
         BaseStats = GetComponent<BaseStats>();
         Collider = GetComponent<CapsuleCollider>();
+        Animator = GetComponentInChildren<Animator>();
+        LineRenderer = GetComponentInChildren<LineRendererHelper>();
         Guns = new List<GunBase>();
         for (int i = 0; i < StartGun.Length; i++)
         {
             Guns.Add(Instantiate(StartGun[i], GunHoldPoint.transform));
             Guns[i].gameObject.layer = this.gameObject.layer;
             Guns[i].gameObject.SetActive(false);
+            Guns[i].OnShoot += AnimShoot;
         }
 
         PlayerInput.Instance.OnSwitchGuns += SwitchGun;
@@ -63,6 +67,8 @@ public class PlayerController : MonoBehaviour, IDamagable
         Guns[CurrentGunIndex].gameObject.SetActive(false);
         Guns[index].gameObject.SetActive(true);
         CurrentGunIndex = index;
+
+        LineRenderer.SetLineRenderer(Guns[index].ShootPoint, Guns[index].GunData.Aim, transform);
     }
     [ContextMenu("sw")]
     public void SwitchGun()
@@ -100,5 +106,9 @@ public class PlayerController : MonoBehaviour, IDamagable
     public void Death()
     {
         Guns[CurrentGunIndex].gameObject.SetActive(false);
+    }
+    public void AnimShoot()
+    {
+        Animator.SetTrigger("Shoot");
     }
 }

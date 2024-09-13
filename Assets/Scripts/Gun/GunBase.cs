@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System;
 using System.Collections;
 using Tech.Pooling;
 using UnityEditor.Rendering;
@@ -9,15 +10,15 @@ public class GunBase : MonoBehaviour
 	public GunSO GunData;
 	public Transform ShootPoint;
 	public Transform HandlePoint;
-	public LineRendererHelper RendererHelper;
+	public Action OnShoot { get; set; }
+
+	private PlayerController playerController;
 	private bool shootAble = true;
 	private bool trigger = false;
 	private bool isFocus = true;
-	private PlayerController playerController;
 	private float gunRecoil = 0f;
 	private void Awake()
 	{
-		RendererHelper.AimAmmount = GunData.Aim;
 		playerController = GetComponentInParent<PlayerController>();
 	}
 	private void OnEnable()
@@ -62,6 +63,7 @@ public class GunBase : MonoBehaviour
 		if (!shootAble) return;
 		shootAble = false;
 
+		OnShoot.Invoke();
 		DOVirtual.DelayedCall(GunData.ShootingSpeed,() => { shootAble = true; });
         GameObject a = ObjectPool.Instance.SpawnObject(GunData.BulletPrefab, ShootPoint.position, transform.rotation,PoolType.GameObject);
 		Bullet bullet = a.GetComponent<Bullet>();
