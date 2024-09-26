@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BulletPrefab: {fileID: 984755602444092648, guid: bff9cb15c026277498f4541bb37853a4, type: 3}
   ShootingSpeed: 0.2
-  Damage: 10
+  Damage: 1
   Aim: 10
   SpreadMax: 0
   Recoil: 0.03

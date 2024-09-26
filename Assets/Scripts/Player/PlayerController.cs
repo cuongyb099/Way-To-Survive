@@ -4,32 +4,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.UI;
 
-public class PlayerController : MonoBehaviour, IDamagable
+public class PlayerController : BasicController
 {
     public Rigidbody Rigidbody { get; private set; }
     public CapsuleCollider Collider { get; private set; }
     public Animator Animator { get; private set; }
-    public BaseStats BaseStats { get; private set; }
     public LineRendererHelper LineRenderer { get; private set; }
-    public float HP { get; set; }
+
     //Player Data
-    public float Speed = 5.0f;
     public float GunSwitchCooldown = .1f;
-    public BaseStatsData StatData;
     public GunBase[] StartGun;
     public LayerMask GroundLayer;
     //GunSystem
     public Transform GunHoldPoint;
     public List<GunBase> Guns { get; private set; }
     public int CurrentGunIndex { get; private set; }
-    public Action OnDamaged { get; set; }
 
     private bool gunSwitchable = true;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         Rigidbody = GetComponent<Rigidbody>();
-        BaseStats = GetComponent<BaseStats>();
         Collider = GetComponent<CapsuleCollider>();
         Animator = GetComponentInChildren<Animator>();
         LineRenderer = GetComponentInChildren<LineRendererHelper>();
@@ -46,14 +42,19 @@ public class PlayerController : MonoBehaviour, IDamagable
     }
     private void OnDestroy()
     {
-        if (PlayerInput.Instance == null) return;
-        PlayerInput.Instance.OnSwitchGuns -= SwitchGun;
+        if (Stats != null)
+        {
+            _hp.OnValueChange -= HandleHealthChange;
+            _maxHp.OnValueChange -= HandleMaxHpChange;
+        }
+
+        if (PlayerInput.Instance != null) 
+            PlayerInput.Instance.OnSwitchGuns -= SwitchGun;
     }
     private void Start()
     {
-        BaseStats.LoadValues(StatData);
-        HP = BaseStats.StatsMap[EStatType.HP].Value;
         EquipGun(0);
+        InitHealthBar();
     }
 
     void FixedUpdate()
@@ -80,10 +81,18 @@ public class PlayerController : MonoBehaviour, IDamagable
         Guns[CurrentGunIndex].ResetRecoil();
         EquipGun((CurrentGunIndex+1)%(Guns.Count));
     }
+    Vector2 CurrentBlend;
     private void MovePlayer()
     {
+        Vector3 MovementInput = PlayerInput.Instance.MovementInput;
         Rigidbody.velocity = new Vector3(0f, Rigidbody.velocity.y, 0f);
-        Rigidbody.AddForce(PlayerInput.Instance.MovementInput * Speed, ForceMode.VelocityChange);
+        Rigidbody.AddForce(MovementInput * Stats.GetStat(StatType.Speed).Value, ForceMode.VelocityChange);
+        //Animation
+        var x =Vector3.Dot(MovementInput, transform.right);
+        var y =Vector3.Dot(MovementInput, transform.forward);
+        CurrentBlend = Vector2.Lerp(CurrentBlend, new Vector2(x,y) , 0.1f);
+        Animator.SetFloat("PosX",CurrentBlend.x);
+        Animator.SetFloat("PosY",CurrentBlend.y);
     }
 
     public void RotatePlayer()
@@ -94,21 +103,41 @@ public class PlayerController : MonoBehaviour, IDamagable
         Rigidbody.rotation = Quaternion.Euler(0,atan,0);
     }
 
-    public void Damage(DamageInfo info)
+
+    public override void Death()
     {
-        HP -= info.Damage;
-        if (HP <=0)
-        {
-            HP = 0;
-            Death();
-        }
-    }
-    public void Death()
-    {
+        base.Death();
         Guns[CurrentGunIndex].gameObject.SetActive(false);
     }
     public void AnimShoot()
     {
         Animator.SetTrigger("Shoot");
+    }
+    //Health Bar
+    private Attribute _hp;
+    private Stat _maxHp;
+    private void InitHealthBar()
+    {
+        if (Stats.TryGetAttribute(AttributeType.Hp, out _hp))
+        {
+            _hp.OnValueChange += HandleHealthChange;
+            PlayerEvent.OnInitStatusBar?.Invoke(AttributeType.Hp, _hp.Value, _hp.MaxValue);
+        }
+
+        if (Stats.TryGetStat(StatType.MaxHP, out _maxHp))
+        {
+            _maxHp.OnValueChange += HandleMaxHpChange;
+        }
+    }
+
+    private void HandleMaxHpChange()
+    {
+        PlayerEvent.OnMaxHeathChange?.Invoke(_hp.Value, _maxHp.Value);
+    }
+
+    private void HandleHealthChange()
+    {
+        if (_hp == null) return;
+        PlayerEvent.OnHeathChange?.Invoke(_hp.Value, _hp.MaxValue);
     }
 }

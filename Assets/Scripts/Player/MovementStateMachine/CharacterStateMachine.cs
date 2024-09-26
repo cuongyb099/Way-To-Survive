@@ -135,7 +135,7 @@ namespace ResilientCore
 
 		public float GetMovementSpeed()
 		{
-			return Controller.BaseStats.Speed.Value * MovementSpeedModifier;
+			return 1 * MovementSpeedModifier;
 		}
 
 		public Vector3 GetCurrentHorizontalVelocity()

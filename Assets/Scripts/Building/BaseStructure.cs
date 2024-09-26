@@ -11,6 +11,8 @@ public class BaseStructure : MonoBehaviour, IDamagable
     private Collider collider;
     public Material DefaultMat { get; private set; }
     public Action OnDamaged { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+    Action IDamagable.OnDamaged { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+    Action IDamagable.OnDeath { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
     protected virtual void Awake()
     {
@@ -51,5 +53,15 @@ public class BaseStructure : MonoBehaviour, IDamagable
     public void Death()
     {
         throw new System.NotImplementedException();
+    }
+
+    void IDamagable.Damage(DamageInfo info)
+    {
+        throw new NotImplementedException();
+    }
+
+    void IDamagable.Death()
+    {
+        throw new NotImplementedException();
     }
 }

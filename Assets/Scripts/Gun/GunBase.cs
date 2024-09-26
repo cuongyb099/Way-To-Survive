@@ -67,7 +67,10 @@ public class GunBase : MonoBehaviour
 		DOVirtual.DelayedCall(GunData.ShootingSpeed,() => { shootAble = true; });
         GameObject a = ObjectPool.Instance.SpawnObject(GunData.BulletPrefab, ShootPoint.position, transform.rotation,PoolType.GameObject);
 		Bullet bullet = a.GetComponent<Bullet>();
-		bullet.InitBullet(ShootPoint.position,GunData.SpreadMax * gunRecoil, new DamageInfo(playerController.gameObject,GunData.Damage));
+
+		float dmg = GunData.Damage * playerController.Stats.GetStat(StatType.ATK).Value;
+
+        bullet.InitBullet(ShootPoint.position,GunData.SpreadMax * gunRecoil, new DamageInfo(playerController.gameObject,dmg));
 		if (gunRecoil >= 1) { gunRecoil = 1f; }
 			gunRecoil += GunData.Recoil;
 	}
