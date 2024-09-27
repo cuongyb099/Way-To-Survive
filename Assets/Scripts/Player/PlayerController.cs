@@ -30,16 +30,15 @@ public class PlayerController : BasicController
         Animator = GetComponentInChildren<Animator>();
         LineRenderer = GetComponentInChildren<LineRendererHelper>();
         Guns = new List<GunBase>();
-        for (int i = 0; i < StartGun.Length; i++)
-        {
-            Guns.Add(Instantiate(StartGun[i], GunHoldPoint.transform));
-            Guns[i].gameObject.layer = this.gameObject.layer;
-            Guns[i].gameObject.SetActive(false);
-            Guns[i].OnShoot += AnimShoot;
-        }
-
-        PlayerInput.Instance.OnSwitchGuns += SwitchGun;
-    }
+		for (int i = 0; i < StartGun.Length; i++)
+		{
+			Guns.Add(Instantiate(StartGun[i], GunHoldPoint.transform));
+			Guns[i].gameObject.layer = this.gameObject.layer;
+			Guns[i].gameObject.SetActive(false);
+			Guns[i].OnShoot += AnimShoot;
+		}
+		PlayerInput.Instance.OnSwitchGuns += SwitchGun;
+	}
     private void OnDestroy()
     {
         if (Stats != null)
@@ -53,7 +52,8 @@ public class PlayerController : BasicController
     }
     private void Start()
     {
-        EquipGun(0);
+
+		EquipGun(0);
         InitHealthBar();
     }
 
