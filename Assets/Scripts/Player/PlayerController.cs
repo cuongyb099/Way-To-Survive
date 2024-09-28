@@ -61,6 +61,7 @@ public class PlayerController : BasicController
     {
         MovePlayer();
         RotatePlayer();
+        Debug.Log((int)Guns[CurrentGunIndex].GunData.WeaponType);
     }
 
     public void EquipGun(int index)
@@ -68,6 +69,7 @@ public class PlayerController : BasicController
         Guns[CurrentGunIndex].gameObject.SetActive(false);
         Guns[index].gameObject.SetActive(true);
         CurrentGunIndex = index;
+        Animator.SetFloat("WeaponType", (float)Guns[index].GunData.WeaponType);
 
         LineRenderer.SetLineRenderer(Guns[index].ShootPoint, Guns[index].GunData.Aim, transform);
     }

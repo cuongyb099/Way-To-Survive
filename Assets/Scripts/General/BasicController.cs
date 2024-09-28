@@ -16,7 +16,6 @@ public class BasicController : MonoBehaviour, IDamagable
     public virtual void Damage(DamageInfo info)
     {
         float finalDamage = Mathf.Clamp(info.Damage - Stats.GetStat(StatType.DEF).Value, 0, 999999);
-        Debug.Log(finalDamage);
         Stats.GetAttribute(AttributeType.Hp).Value -= finalDamage;
         OnDamaged?.Invoke();
         if (Stats.GetAttribute(AttributeType.Hp).Value <= 0)

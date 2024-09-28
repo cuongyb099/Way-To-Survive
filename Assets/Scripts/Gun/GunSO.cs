@@ -6,6 +6,7 @@ using UnityEngine;
 public class GunSO : ScriptableObject
 {
 	public GameObject BulletPrefab;
+	public WeaponType WeaponType;
 	public float ShootingSpeed;
 	public float Damage;
 	public float Aim;

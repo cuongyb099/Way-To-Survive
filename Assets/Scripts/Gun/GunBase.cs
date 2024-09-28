@@ -5,6 +5,13 @@ using Tech.Pooling;
 using UnityEditor.Rendering;
 using UnityEngine;
 
+public enum WeaponType
+{
+	Rifle,
+	Shotgun,
+	Pistol,
+	Sniper
+}
 public class GunBase : MonoBehaviour
 {
 	public GunSO GunData;
