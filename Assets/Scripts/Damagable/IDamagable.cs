@@ -1,5 +1,9 @@
-﻿public interface IDamagable
+﻿using System;
+
+public interface IDamagable
 {
-    public float HP { get; set; }
+    public Action OnDamaged { get; set; }
+    public Action OnDeath { get; set; }
     public void Damage(DamageInfo info);
+    public void Death();
 }

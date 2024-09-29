@@ -40,6 +40,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "SwitchGuns",
+                    "type": "Button",
+                    "id": "dc97664a-34f1-4b4a-86de-a0c79b3ef6c8",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -112,7 +121,7 @@
                 {
                     "name": "",
                     "id": "29617d57-dbb4-491f-b327-9f5721c4c6a0",
-                    "path": "<Gamepad>/rightStick",
+                    "path": "<Keyboard>/l",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -139,6 +148,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Buiding",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1cfaffca-514b-4566-a243-4cf3916d4242",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SwitchGuns",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

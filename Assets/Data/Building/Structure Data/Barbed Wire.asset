@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IconUI: {fileID: 0}
   Name: Bared Wire
-  Prefab: {fileID: 3345671302911736542, guid: 8067d855b8656b44c979611053ee0965, type: 3}
+  Prefab: {fileID: 2326158280570794973, guid: 05349964184ec1e4bb75ba849196a960, type: 3}
   MaxHP: 30
   Damage: 20
