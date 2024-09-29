@@ -10,6 +10,6 @@ public static class PlayerEvent
     public static Action OnAiming;
     public static Action OnCancelAiming;
     public static Action OnEquipBtnDown;
-    
-    public static Action<AttributeType, float ,float> OnInitStatusBar;
+
+	public static Action<AttributeType, float ,float> OnInitStatusBar;
 }

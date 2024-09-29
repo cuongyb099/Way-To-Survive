@@ -4,24 +4,14 @@ using UnityEngine;
 
 public class LineRendererHelper : MonoBehaviour
 {
-    public Transform Start;
-	public Transform Forward;
-	public float AimAmount { get; set; } = 1.0f;
-    private LineRenderer LR;
+    public LineRenderer LR { get; private set; }
 	private void Awake()
 	{
 		LR = GetComponent<LineRenderer>();
 	}
-
-	private void Update()
+	public void SetLineRenderer(Transform start, float aimAmount,Vector3 forward)
 	{
-		LR.SetPosition(0, Start.transform.position);
-		LR.SetPosition(1, Start.transform.position + Forward.forward*AimAmount);
-	}
-	public void SetLineRenderer(Transform start, float aimAmount,Transform forward)
-	{
-		Start = start;
-		AimAmount = aimAmount;
-		Forward = forward;
+		LR.SetPosition(0, start.transform.position);
+		LR.SetPosition(1, start.transform.position + forward * aimAmount);
 	}
 }

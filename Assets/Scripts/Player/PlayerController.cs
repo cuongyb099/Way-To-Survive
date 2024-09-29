@@ -3,20 +3,22 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.UI;
+using UnityEngine.UIElements;
 
 public class PlayerController : BasicController
 {
     public Rigidbody Rigidbody { get; private set; }
     public CapsuleCollider Collider { get; private set; }
     public Animator Animator { get; private set; }
-    public LineRendererHelper LineRenderer { get; private set; }
 
-    //Player Data
-    public float GunSwitchCooldown = .1f;
+	//Player Data
+	public float GunSwitchCooldown = .1f;
     public GunBase[] StartGun;
     public LayerMask GroundLayer;
     //GunSystem
     public Transform GunHoldPoint;
+    public LineRendererHelper LineRendererL;
+    public LineRendererHelper LineRendererR;
     public List<GunBase> Guns { get; private set; }
     public int CurrentGunIndex { get; private set; }
 
@@ -28,7 +30,6 @@ public class PlayerController : BasicController
         Rigidbody = GetComponent<Rigidbody>();
         Collider = GetComponent<CapsuleCollider>();
         Animator = GetComponentInChildren<Animator>();
-        LineRenderer = GetComponentInChildren<LineRendererHelper>();
         Guns = new List<GunBase>();
 		for (int i = 0; i < StartGun.Length; i++)
 		{
@@ -52,7 +53,6 @@ public class PlayerController : BasicController
     }
     private void Start()
     {
-
 		EquipGun(0);
         InitHealthBar();
     }
@@ -63,15 +63,18 @@ public class PlayerController : BasicController
         RotatePlayer();
         Debug.Log((int)Guns[CurrentGunIndex].GunData.WeaponType);
     }
-
-    public void EquipGun(int index)
+	private void Update()
+	{
+		SetLineRenderers();
+	}
+	// Gun handle
+	public void EquipGun(int index)
     {
         Guns[CurrentGunIndex].gameObject.SetActive(false);
         Guns[index].gameObject.SetActive(true);
         CurrentGunIndex = index;
         Animator.SetFloat("WeaponType", (float)Guns[index].GunData.WeaponType);
-
-        LineRenderer.SetLineRenderer(Guns[index].ShootPoint, Guns[index].GunData.Aim, transform);
+        
     }
     [ContextMenu("sw")]
     public void SwitchGun()
@@ -80,10 +83,52 @@ public class PlayerController : BasicController
         gunSwitchable = false;
         DOVirtual.DelayedCall(GunSwitchCooldown, () => { gunSwitchable = true; });
         //Switch
-        Guns[CurrentGunIndex].ResetRecoil();
+		DisableShooting();
+		Guns[CurrentGunIndex].ResetRecoil();
         EquipGun((CurrentGunIndex+1)%(Guns.Count));
     }
-    Vector2 CurrentBlend;
+	public void AnimShoot()
+	{
+		Animator.SetTrigger("Shoot");
+	}
+	public void DisableShooting()
+	{
+		foreach (var gun in Guns)
+		{
+			gun.ShootAble = false;
+		}
+		Animator.SetBool("SwitchWeapon", true);
+        DisableLineRenderer();
+	}
+	public void EnableShooting()
+	{
+		EnableLineRenderer();
+		Animator.SetBool("SwitchWeapon", false);
+		foreach (var gun in Guns)
+		{
+			gun.ShootAble = true;
+		}
+	}
+	public void EnableLineRenderer()
+	{
+		LineRendererL.LR.enabled = true;
+		LineRendererR.LR.enabled = true;
+	}
+	public void DisableLineRenderer()
+    {
+        LineRendererL.LR.enabled = false;
+		LineRendererR.LR.enabled = false;
+	}
+	public void SetLineRenderers()
+	{
+        GunBase gun = Guns[CurrentGunIndex];
+        float accuracy = gun.GunData.SpreadMax * gun.GunRecoil;
+		LineRendererL.SetLineRenderer(gun.ShootPoint, gun.GunData.Aim, Quaternion.Euler(0, -accuracy, 0) * transform.forward);
+		LineRendererR.SetLineRenderer(gun.ShootPoint, gun.GunData.Aim, Quaternion.Euler(0, accuracy, 0) * transform.forward);
+	}
+
+	// Movement
+	Vector2 CurrentBlend;
     private void MovePlayer()
     {
         Vector3 MovementInput = PlayerInput.Instance.MovementInput;
@@ -111,12 +156,9 @@ public class PlayerController : BasicController
         base.Death();
         Guns[CurrentGunIndex].gameObject.SetActive(false);
     }
-    public void AnimShoot()
-    {
-        Animator.SetTrigger("Shoot");
-    }
-    //Health Bar
-    private Attribute _hp;
+    
+	//Health Bar
+	private Attribute _hp;
     private Stat _maxHp;
     private void InitHealthBar()
     {

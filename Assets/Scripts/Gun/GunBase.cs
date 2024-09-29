@@ -7,9 +7,9 @@ using UnityEngine;
 
 public enum WeaponType
 {
+	Pistol,
 	Rifle,
 	Shotgun,
-	Pistol,
 	Sniper
 }
 public class GunBase : MonoBehaviour
@@ -17,13 +17,13 @@ public class GunBase : MonoBehaviour
 	public GunSO GunData;
 	public Transform ShootPoint;
 	public Transform HandlePoint;
+	public bool ShootAble { get; set; } = true;
 	public Action OnShoot { get; set; }
+	public float GunRecoil { get; private set; } = 0f;
 
 	private PlayerController playerController;
-	private bool shootAble = true;
+	private bool repeatAble = true;
 	private bool trigger = false;
-	private bool isFocus = true;
-	private float gunRecoil = 0f;
 	private void Awake()
 	{
 		playerController = GetComponentInParent<PlayerController>();
@@ -59,7 +59,7 @@ public class GunBase : MonoBehaviour
 
     public void ResetRecoil()
     {
-        temp = DOVirtual.DelayedCall(GunData.RecoilResetTime, () => { gunRecoil = 0f; });
+		temp = DOVirtual.Float(GunRecoil, 0, GunData.RecoilResetTime, (x) => { GunRecoil = x; });
     }
     private void Rotate_canceled(UnityEngine.InputSystem.InputAction.CallbackContext obj)
 	{
@@ -67,18 +67,20 @@ public class GunBase : MonoBehaviour
 	}
 	public virtual void Shoot()
 	{
-		if (!shootAble) return;
-		shootAble = false;
+		if (!ShootAble) return;
+		if (!repeatAble) return;
+		repeatAble = false;
 
+		temp.Kill();
 		OnShoot.Invoke();
-		DOVirtual.DelayedCall(GunData.ShootingSpeed,() => { shootAble = true; });
+		DOVirtual.DelayedCall(GunData.ShootingSpeed,() => { repeatAble = true; });
         GameObject a = ObjectPool.Instance.SpawnObject(GunData.BulletPrefab, ShootPoint.position, transform.rotation,PoolType.GameObject);
 		Bullet bullet = a.GetComponent<Bullet>();
 
 		float dmg = GunData.Damage * playerController.Stats.GetStat(StatType.ATK).Value;
 
-        bullet.InitBullet(ShootPoint.position,GunData.SpreadMax * gunRecoil, new DamageInfo(playerController.gameObject,dmg));
-		if (gunRecoil >= 1) { gunRecoil = 1f; }
-			gunRecoil += GunData.Recoil;
+        bullet.InitBullet(ShootPoint.position,GunData.SpreadMax * GunRecoil, new DamageInfo(playerController.gameObject,dmg));
+		if (GunRecoil >= 1) { GunRecoil = 1f; }
+			GunRecoil += GunData.Recoil;
 	}
 }
