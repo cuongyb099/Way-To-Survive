@@ -42,9 +42,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "RotateBulid",
+                    "name": "SwitchGuns",
                     "type": "Button",
-                    "id": "4d22968d-f0ad-491c-a6e6-e1d6f29e376e",
+                    "id": "dc97664a-34f1-4b4a-86de-a0c79b3ef6c8",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -153,12 +153,12 @@
                 },
                 {
                     "name": "",
-                    "id": "8d351c1d-bd48-4324-82e8-9ffe58b346c0",
-                    "path": "<Keyboard>/l",
+                    "id": "1cfaffca-514b-4566-a243-4cf3916d4242",
+                    "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "RotateBulid",
+                    "action": "SwitchGuns",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

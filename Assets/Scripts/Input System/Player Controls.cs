@@ -64,9 +64,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""RotateBulid"",
+                    ""name"": ""SwitchGuns"",
                     ""type"": ""Button"",
-                    ""id"": ""4d22968d-f0ad-491c-a6e6-e1d6f29e376e"",
+                    ""id"": ""dc97664a-34f1-4b4a-86de-a0c79b3ef6c8"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -175,12 +175,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""8d351c1d-bd48-4324-82e8-9ffe58b346c0"",
-                    ""path"": ""<Keyboard>/l"",
+                    ""id"": ""1cfaffca-514b-4566-a243-4cf3916d4242"",
+                    ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""RotateBulid"",
+                    ""action"": ""SwitchGuns"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -195,7 +195,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_BasicAction_Rotate = m_BasicAction.FindAction("Rotate", throwIfNotFound: true);
         m_BasicAction_BuidingMode = m_BasicAction.FindAction("BuidingMode", throwIfNotFound: true);
         m_BasicAction_Buiding = m_BasicAction.FindAction("Buiding", throwIfNotFound: true);
-        m_BasicAction_RotateBulid = m_BasicAction.FindAction("RotateBulid", throwIfNotFound: true);
+        m_BasicAction_SwitchGuns = m_BasicAction.FindAction("SwitchGuns", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -261,7 +261,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_BasicAction_Rotate;
     private readonly InputAction m_BasicAction_BuidingMode;
     private readonly InputAction m_BasicAction_Buiding;
-    private readonly InputAction m_BasicAction_RotateBulid;
+    private readonly InputAction m_BasicAction_SwitchGuns;
     public struct BasicActionActions
     {
         private @PlayerControls m_Wrapper;
@@ -270,7 +270,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @Rotate => m_Wrapper.m_BasicAction_Rotate;
         public InputAction @BuidingMode => m_Wrapper.m_BasicAction_BuidingMode;
         public InputAction @Buiding => m_Wrapper.m_BasicAction_Buiding;
-        public InputAction @RotateBulid => m_Wrapper.m_BasicAction_RotateBulid;
+        public InputAction @SwitchGuns => m_Wrapper.m_BasicAction_SwitchGuns;
         public InputActionMap Get() { return m_Wrapper.m_BasicAction; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -292,9 +292,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Buiding.started += instance.OnBuiding;
             @Buiding.performed += instance.OnBuiding;
             @Buiding.canceled += instance.OnBuiding;
-            @RotateBulid.started += instance.OnRotateBulid;
-            @RotateBulid.performed += instance.OnRotateBulid;
-            @RotateBulid.canceled += instance.OnRotateBulid;
+            @SwitchGuns.started += instance.OnSwitchGuns;
+            @SwitchGuns.performed += instance.OnSwitchGuns;
+            @SwitchGuns.canceled += instance.OnSwitchGuns;
         }
 
         private void UnregisterCallbacks(IBasicActionActions instance)
@@ -311,9 +311,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Buiding.started -= instance.OnBuiding;
             @Buiding.performed -= instance.OnBuiding;
             @Buiding.canceled -= instance.OnBuiding;
-            @RotateBulid.started -= instance.OnRotateBulid;
-            @RotateBulid.performed -= instance.OnRotateBulid;
-            @RotateBulid.canceled -= instance.OnRotateBulid;
+            @SwitchGuns.started -= instance.OnSwitchGuns;
+            @SwitchGuns.performed -= instance.OnSwitchGuns;
+            @SwitchGuns.canceled -= instance.OnSwitchGuns;
         }
 
         public void RemoveCallbacks(IBasicActionActions instance)
@@ -337,6 +337,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnRotate(InputAction.CallbackContext context);
         void OnBuidingMode(InputAction.CallbackContext context);
         void OnBuiding(InputAction.CallbackContext context);
-        void OnRotateBulid(InputAction.CallbackContext context);
+        void OnSwitchGuns(InputAction.CallbackContext context);
     }
 }
