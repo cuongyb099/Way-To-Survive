@@ -20,11 +20,17 @@ public class Bullet : MonoBehaviour
 	public void OnEnable()
 	{
 		RB.velocity = Vector3.zero;
-		RB.velocity = Vector3.zero;
 		DOTween.Sequence().AppendInterval(LiveTime).OnComplete(() => { Deactivate(); });
 	}
 	private void OnCollisionEnter(Collision collision)
 	{
+		if (collision.gameObject.CompareTag("Enemy"))
+		{
+			if (collision.transform.TryGetComponent(out IDamagable target))
+			{
+				target.Damage(10f);
+			}
+		}
 		Deactivate();
 	}
 	public void InitBullet(Vector3 point,float accuracy, DamageInfo info)

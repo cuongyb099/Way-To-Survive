@@ -1,11 +1,9 @@
 using System;
 using System.Collections.Generic;
-using Tech.Singleton;
-using UnityEngine;
 
 namespace Tech.Observer
 {
-    public class Subject : MonoBehaviour
+    public static class Subject
     {
         private static readonly Dictionary<EventID, Action<object[]>> observer = new ();
         
