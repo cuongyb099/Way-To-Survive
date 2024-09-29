@@ -19,5 +19,5 @@ MonoBehaviour:
   Aim: 10
   SpreadMax: 0
   Recoil: 0.03
-  RecoilResetTime: 3
+  RecoilResetTime: 1
   ReleaseToShoot: 0
