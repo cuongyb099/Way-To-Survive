@@ -1,6 +1,7 @@
 using System;
 using Tech.Singleton;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerInput : Singleton<PlayerInput>
 {
@@ -15,9 +16,7 @@ public class PlayerInput : Singleton<PlayerInput>
 	public bool IsAttackInput => attaking && EnableAttack;
 	
 	public bool IsInBuildingMode { get; private set; }
-	public Action OnBuildingInput;
-	public Action OnSwitchGuns;
-	
+
 	public bool EnableAttack { get; set; } = true;
 	public bool EnableSkills { get; set; } = true;
 	public bool EnableWalk { get; set; } = true;
@@ -51,45 +50,39 @@ public class PlayerInput : Singleton<PlayerInput>
 	}
 	private void AddListeners()
 	{
-        InputActions.BasicAction.BuidingMode.started += ctx =>
-        {
-            IsInBuildingMode = !IsInBuildingMode;
-        };
+		InputActions.BasicAction.BuidingMode.performed += HandleBuildingMode;
+		InputActions.BasicAction.Buiding.performed += HandleBuilding;
+		InputActions.BasicAction.SwitchGuns.performed += HandleSwitchGuns;
+		InputActions.BasicAction.Rotate.performed += HandleRotateStructure;
+	}
 
-        InputActions.BasicAction.Buiding.started += ctx =>
-        {
-            OnBuildingInput?.Invoke();
-        };
-
-        InputActions.BasicAction.SwitchGuns.started += ctx =>
-        {
-            OnSwitchGuns?.Invoke();
-        };
-    }
 	private void RemoveListeners()
 	{
-        InputActions.BasicAction.BuidingMode.started -= ctx =>
-        {
-            IsInBuildingMode = !IsInBuildingMode;
-        };
-
-        InputActions.BasicAction.Buiding.started -= ctx =>
-        {
-            OnBuildingInput?.Invoke();
-        };
-
-        InputActions.BasicAction.SwitchGuns.started -= ctx =>
-        {
-            OnSwitchGuns?.Invoke();
-        };
-    }
-	//Methods
-	private Vector3 GetMovementInput()
-	{
-		Vector2 v = PlayerControlActions.Movement.ReadValue<Vector2>();
-
-        return new Vector3(v.x,0,v.y);
+		InputActions.BasicAction.BuidingMode.performed -= HandleBuildingMode;
+		InputActions.BasicAction.Buiding.performed -= HandleBuilding;
+		InputActions.BasicAction.SwitchGuns.performed -= HandleSwitchGuns;
+		InputActions.BasicAction.Rotate.performed -= HandleRotateStructure;
 	}
+	private void HandleRotateStructure(InputAction.CallbackContext context)
+	{
+		InputEvent.OnRotateStructure?.Invoke();
+	}
+	private void HandleBuildingMode(InputAction.CallbackContext ctx)
+	{
+		IsInBuildingMode = !IsInBuildingMode;
+		InputEvent.OnBuildingMode?.Invoke();
+	}
+
+	private void HandleBuilding(InputAction.CallbackContext ctx)
+	{
+		InputEvent.OnBuilding?.Invoke();
+	}
+
+	private void HandleSwitchGuns(InputAction.CallbackContext ctx)
+	{
+		InputEvent.OnSwitchGuns?.Invoke();
+	}
+
 	//Methods
 	private Vector3 GetMovementInput()
 	{

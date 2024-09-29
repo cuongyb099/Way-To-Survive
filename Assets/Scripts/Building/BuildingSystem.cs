@@ -27,17 +27,20 @@ public class BuildingSystem : Singleton<BuildingSystem>
         player = FindObjectOfType<PlayerController>().transform;
         grid = FindObjectOfType<Grid>();
         indicatorHolder = transform.parent.Find("Structure Indicator Holder");
-    }
-    
-    private void Start()
-    {
-        PlayerInput.Instance.OnBuildingInput += Build;
-        PlayerInput.Instance.OnRotateBuildInput += RotateIndicator;
-        
+
+        InputEvent.OnBuilding += Build;
+        InputEvent.OnRotateStructure += RotateIndicator;
+
         InitAllIndicator();
     }
 
-    private void InitAllIndicator()
+	private void OnDestroy()
+	{
+		InputEvent.OnBuilding -= Build;
+		InputEvent.OnRotateStructure -= RotateIndicator;
+	}
+
+	private void InitAllIndicator()
     {
         listPrefabStructure = new();
         

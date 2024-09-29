@@ -57,7 +57,7 @@ public class DefaultAttack : BaseZombieAction
 
         if (other.TryGetComponent(out IDamagable target))
         {
-            target.Damage(10f);
+            //target.Damage(10f);
             DOVirtual.DelayedCall(0.01f,() => hitBoxDetect.SetActiveCollider(false));
         }
     }
