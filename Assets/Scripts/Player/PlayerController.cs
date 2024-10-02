@@ -38,7 +38,8 @@ public class PlayerController : BasicController
 			Guns[i].gameObject.SetActive(false);
 			Guns[i].OnShoot += AnimShoot;
 		}
-		PlayerInput.Instance.OnSwitchGuns += SwitchGun;
+
+		InputEvent.OnSwitchGuns += SwitchGun;
 	}
     private void OnDestroy()
     {
@@ -48,9 +49,8 @@ public class PlayerController : BasicController
             _maxHp.OnValueChange -= HandleMaxHpChange;
         }
 
-        if (PlayerInput.Instance != null) 
-            PlayerInput.Instance.OnSwitchGuns -= SwitchGun;
-    }
+		InputEvent.OnSwitchGuns -= SwitchGun;
+	}
     private void Start()
     {
 		EquipGun(0);

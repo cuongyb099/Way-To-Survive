@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -7,7 +6,8 @@ using UnityEngine;
 public class BuildingInventorySO : ScriptableObject
 {
     public List<ItemBuiding> listItem = new List<ItemBuiding>();
-    
+
+#if UNITY_EDITOR
     //Utilities Method
     [ContextMenu("Auto Find All Data")]
     public void AutoFindAll()
@@ -27,6 +27,7 @@ public class BuildingInventorySO : ScriptableObject
             }
         }
     }
+#endif
 }
 
 [System.Serializable]

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Tech.Singleton;
@@ -10,40 +11,42 @@ namespace Tech.Pooling
 		ParticleSystem,
 		GameObject,
 		DamagePopUp,
+		Audio,
 		None
 	}
 
 	public class ObjectPool : Singleton<ObjectPool>
 	{
-		private GameObject gameObjectEmpty;
-		private GameObject particleSystemEmpty;
-		[SerializeField] private GameObject dmgPopupEmpty;
+		private List<PooledObject> objectPools = new ();
 
-		private List<PooledObject> ObjectPools = new List<PooledObject>();
-
+		private Dictionary<PoolType, GameObject> poolsHolder = new(); 
+		
 		protected override void Awake()
 		{
 			base.Awake();
-			SetupEmpties();
+			SetupHolder();
 		}
 
-		private void SetupEmpties()
+		private void SetupHolder()
 		{
-			gameObjectEmpty = new GameObject("GameObject");
-			particleSystemEmpty = new GameObject("Particle Effect");
-
-			gameObjectEmpty.transform.SetParent(transform);
-			particleSystemEmpty.transform.SetParent(transform);
+			foreach (PoolType pool in Enum.GetValues(typeof(PoolType)))
+			{
+				if (pool == PoolType.None) continue;
+				
+				GameObject empty = new (pool.ToString());
+				empty.transform.SetParent(transform);
+				poolsHolder.Add(pool, empty);
+			}
 		}
 
 		public GameObject SpawnObject(GameObject objectToSpawn, Vector3 position, Quaternion rotation, PoolType poolType = PoolType.None)
 		{
-			PooledObject pool = ObjectPools.Find(p => p.LookupString == objectToSpawn.name);
+			PooledObject pool = objectPools.Find(p => p.LookupString == objectToSpawn.name);
 
 			if (pool == null)
 			{
 				pool = new PooledObject() { LookupString = objectToSpawn.name };
-				ObjectPools.Add(pool);
+				objectPools.Add(pool);
 			}
 
 			GameObject spawnableObj = pool.InactiveObjects.FirstOrDefault();
@@ -71,7 +74,7 @@ namespace Tech.Pooling
 		public void ReturnObjectToPool(GameObject obj)
 		{
 			string goName = obj.name.Substring(0, obj.name.Length - 7);
-			PooledObject pool = ObjectPools.Find(p => p.LookupString == goName);
+			PooledObject pool = objectPools.Find(p => p.LookupString == goName);
 
 			if (pool == null)
 			{
@@ -86,14 +89,8 @@ namespace Tech.Pooling
 
 		private GameObject SetParentObject(PoolType poolType)
 		{
-			return poolType switch
-			{
-				PoolType.GameObject => gameObjectEmpty,
-				PoolType.ParticleSystem => particleSystemEmpty,
-				PoolType.DamagePopUp => dmgPopupEmpty,
-				PoolType.None => null,
-				_ => null
-			};
+			if (poolType == PoolType.None) return null;
+			return poolsHolder[poolType];
 		}
 	}
 

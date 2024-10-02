@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Building Inventory
   m_EditorClassIdentifier: 
   listItem:
-  - Data: {fileID: 11400000, guid: e7e69be57ae523c45ac10643a77a1710, type: 2}
-    Quantity: 0
+  - Data: {fileID: 11400000, guid: 38b384001fb0b7549ac0e35153a9fca1, type: 2}
+    Quantity: 1
   - Data: {fileID: 11400000, guid: 4ac188778fde2dc4ea428bc051fd9976, type: 2}
-    Quantity: 0
+    Quantity: 1

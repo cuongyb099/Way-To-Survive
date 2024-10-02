@@ -1,23 +1,19 @@
 using System;
 using System.Linq;
+using Tech.Logger;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-public class BaseStructure : MonoBehaviour, IDamagable
+public class BaseStructure : MonoBehaviour
 {
-    public float HP { get; set; }
-
-    private MeshRenderer renderer;
-    private Collider collider;
+    private new MeshRenderer renderer;
+    private new Collider collider;
     public Material DefaultMat { get; private set; }
-    public Action OnDamaged { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-    Action IDamagable.OnDamaged { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-    Action IDamagable.OnDeath { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
+    
     protected virtual void Awake()
     {
-        renderer = GetComponent<MeshRenderer>();
-        collider = GetComponent<Collider>();
+        renderer = GetComponentInChildren<MeshRenderer>();
+        collider = GetComponentInChildren<Collider>();
 
         DefaultMat = renderer.materials.FirstOrDefault();
     }
@@ -27,41 +23,36 @@ public class BaseStructure : MonoBehaviour, IDamagable
     {
         renderer.materials = new[] { matIndicator };
         renderer.shadowCastingMode = ShadowCastingMode.Off;
-        collider.enabled = false;
+        collider.isTrigger = true;
     }
 
     public virtual void SetIsStructure()
     {
         renderer.materials = new[] { DefaultMat };
         renderer.shadowCastingMode = ShadowCastingMode.On;
-        collider.enabled = true;
+        collider.isTrigger = false;
+        Destroy(GetComponent<Rigidbody>());
     }
     
     public virtual void SetIsStructure(Material Mat)
     {
         renderer.materials = new[] { Mat };
         renderer.shadowCastingMode = ShadowCastingMode.On;
-        collider.enabled = true;
-    }
-    
-    public virtual void Damage(DamageInfo info)
-    {
-        HP -= info.Damage;
-        if (HP <= 0) HP = 0;
+        collider.isTrigger = false;
+        Destroy(GetComponent<Rigidbody>());
     }
 
-    public void Death()
+    private void OnTriggerEnter(Collider other)
     {
-        throw new System.NotImplementedException();
+        if (!other.CompareTag("Structure")) return;
+        Debug.Log(other.gameObject.name + "Enter");
+        BuildingSystem.Instance.ObstaclesOccupy++;
     }
 
-    void IDamagable.Damage(DamageInfo info)
+    private void OnTriggerExit(Collider other)
     {
-        throw new NotImplementedException();
-    }
-
-    void IDamagable.Death()
-    {
-        throw new NotImplementedException();
+        if (!other.CompareTag("Structure")) return;
+        Debug.Log(other.gameObject.name + "Exit");
+        BuildingSystem.Instance.ObstaclesOccupy--;
     }
 }

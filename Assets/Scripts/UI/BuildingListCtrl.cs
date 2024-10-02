@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Tech.Observer;
 using UnityEngine;
 
 public class BuildingListCtrl : MonoBehaviour
@@ -33,7 +32,7 @@ public class BuildingListCtrl : MonoBehaviour
             function.OnSlotBtnClick += () =>
             {
                 ToggleBuildingList();
-                Subject.Notify(EventID.OnBuidingSlotBtnClick, listSlotUI[function]);
+                //Subject.Notify(EventID.OnBuidingSlotBtnClick, listSlotUI[function]);
             };
             function.transform.SetParent(slotHolder);
         });
