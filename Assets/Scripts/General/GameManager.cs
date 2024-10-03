@@ -1,3 +1,4 @@
+using BehaviorDesigner.Runtime;
 using System.Collections;
 using System.Collections.Generic;
 using Tech.Singleton;
@@ -10,11 +11,9 @@ public class GameManager : Singleton<GameManager>
     {
         base.Awake();
         Player = FindAnyObjectByType<PlayerController>();
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+        SharedTransform tmp = new();
+        tmp.SetValue(Player.transform);
+        GlobalVariables.Instance.SetVariable(Constant.Target, tmp);
     }
 
     // Update is called once per frame

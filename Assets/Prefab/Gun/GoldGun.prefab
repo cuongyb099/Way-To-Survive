@@ -124,6 +124,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5704549460169601475}
   - component: {fileID: -3266218082765736061}
+  - component: {fileID: 2242392862026769603}
   m_Layer: 0
   m_Name: GoldGun
   m_TagString: Untagged
@@ -164,6 +165,20 @@ MonoBehaviour:
   GunData: {fileID: 11400000, guid: a497cb0315eb41e47a21732a3f20c31e, type: 2}
   ShootPoint: {fileID: 314904007054090758}
   HandlePoint: {fileID: 7325495084739041794}
+  Stats: {fileID: 0}
+--- !u!114 &2242392862026769603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4180766260500403244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 430a0c91cf831ae42bc0e66f5da519ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _statsHolder: {fileID: 11400000, guid: 5981bca633ed02d49a8f593cab883e59, type: 2}
 --- !u!1 &9172046676269477216
 GameObject:
   m_ObjectHideFlags: 0

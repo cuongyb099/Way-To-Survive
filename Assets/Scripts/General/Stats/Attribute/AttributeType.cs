@@ -2,6 +2,7 @@
 {
 	Hp,
 	Mana,
-	Stamina
+	Stamina,
+	Bullets,
 }
 

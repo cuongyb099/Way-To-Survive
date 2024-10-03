@@ -35,6 +35,7 @@ public class PlayerController : BasicController
 		{
 			Guns.Add(Instantiate(StartGun[i], GunHoldPoint.transform));
 			Guns[i].gameObject.layer = this.gameObject.layer;
+            Guns[i].Initialize();
 			Guns[i].gameObject.SetActive(false);
 			Guns[i].OnShoot += AnimShoot;
 		}

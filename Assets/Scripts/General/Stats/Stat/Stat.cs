@@ -6,7 +6,11 @@ public class Stat
 {
 	private float _baseValue;
 
-	public float BaseValue => _baseValue;
+	public float BaseValue
+	{
+		get { return _baseValue; }
+		set { _baseValue = value; _isDirty = true; }
+	}
 
 	private bool _isDirty = true;
 

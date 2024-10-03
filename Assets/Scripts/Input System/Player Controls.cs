@@ -71,6 +71,33 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PlayerRotate"",
+                    ""type"": ""Value"",
+                    ""id"": ""74597e96-d7c1-4953-8288-f6843fdcf775"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Shoot"",
+                    ""type"": ""Button"",
+                    ""id"": ""42013816-30bf-4da3-a05a-ded2cd042162"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ShootStick"",
+                    ""type"": ""Value"",
+                    ""id"": ""eb05b435-0d87-49ed-bc03-59d464ee8a85"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -143,7 +170,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""29617d57-dbb4-491f-b327-9f5721c4c6a0"",
-                    ""path"": ""<Gamepad>/rightStick"",
+                    ""path"": ""<Keyboard>/l"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -183,6 +210,50 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""SwitchGuns"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d8ebe369-7272-48fc-baf6-12ef0bd49275"",
+                    ""path"": ""<Gamepad>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PlayerRotate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""30f3a804-ca3a-40d0-89c5-50b746bcb667"",
+                    ""path"": ""<Joystick>/stick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PlayerRotate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b6082a4b-b643-47c7-ab59-b6b4f32b4fe1"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""038a0d30-2a36-45b1-827b-f1ad80580dae"",
+                    ""path"": ""<Joystick>/stick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShootStick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -196,6 +267,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_BasicAction_BuidingMode = m_BasicAction.FindAction("BuidingMode", throwIfNotFound: true);
         m_BasicAction_Buiding = m_BasicAction.FindAction("Buiding", throwIfNotFound: true);
         m_BasicAction_SwitchGuns = m_BasicAction.FindAction("SwitchGuns", throwIfNotFound: true);
+        m_BasicAction_PlayerRotate = m_BasicAction.FindAction("PlayerRotate", throwIfNotFound: true);
+        m_BasicAction_Shoot = m_BasicAction.FindAction("Shoot", throwIfNotFound: true);
+        m_BasicAction_ShootStick = m_BasicAction.FindAction("ShootStick", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -262,6 +336,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_BasicAction_BuidingMode;
     private readonly InputAction m_BasicAction_Buiding;
     private readonly InputAction m_BasicAction_SwitchGuns;
+    private readonly InputAction m_BasicAction_PlayerRotate;
+    private readonly InputAction m_BasicAction_Shoot;
+    private readonly InputAction m_BasicAction_ShootStick;
     public struct BasicActionActions
     {
         private @PlayerControls m_Wrapper;
@@ -271,6 +348,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @BuidingMode => m_Wrapper.m_BasicAction_BuidingMode;
         public InputAction @Buiding => m_Wrapper.m_BasicAction_Buiding;
         public InputAction @SwitchGuns => m_Wrapper.m_BasicAction_SwitchGuns;
+        public InputAction @PlayerRotate => m_Wrapper.m_BasicAction_PlayerRotate;
+        public InputAction @Shoot => m_Wrapper.m_BasicAction_Shoot;
+        public InputAction @ShootStick => m_Wrapper.m_BasicAction_ShootStick;
         public InputActionMap Get() { return m_Wrapper.m_BasicAction; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -295,6 +375,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @SwitchGuns.started += instance.OnSwitchGuns;
             @SwitchGuns.performed += instance.OnSwitchGuns;
             @SwitchGuns.canceled += instance.OnSwitchGuns;
+            @PlayerRotate.started += instance.OnPlayerRotate;
+            @PlayerRotate.performed += instance.OnPlayerRotate;
+            @PlayerRotate.canceled += instance.OnPlayerRotate;
+            @Shoot.started += instance.OnShoot;
+            @Shoot.performed += instance.OnShoot;
+            @Shoot.canceled += instance.OnShoot;
+            @ShootStick.started += instance.OnShootStick;
+            @ShootStick.performed += instance.OnShootStick;
+            @ShootStick.canceled += instance.OnShootStick;
         }
 
         private void UnregisterCallbacks(IBasicActionActions instance)
@@ -314,6 +403,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @SwitchGuns.started -= instance.OnSwitchGuns;
             @SwitchGuns.performed -= instance.OnSwitchGuns;
             @SwitchGuns.canceled -= instance.OnSwitchGuns;
+            @PlayerRotate.started -= instance.OnPlayerRotate;
+            @PlayerRotate.performed -= instance.OnPlayerRotate;
+            @PlayerRotate.canceled -= instance.OnPlayerRotate;
+            @Shoot.started -= instance.OnShoot;
+            @Shoot.performed -= instance.OnShoot;
+            @Shoot.canceled -= instance.OnShoot;
+            @ShootStick.started -= instance.OnShootStick;
+            @ShootStick.performed -= instance.OnShootStick;
+            @ShootStick.canceled -= instance.OnShootStick;
         }
 
         public void RemoveCallbacks(IBasicActionActions instance)
@@ -338,5 +436,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnBuidingMode(InputAction.CallbackContext context);
         void OnBuiding(InputAction.CallbackContext context);
         void OnSwitchGuns(InputAction.CallbackContext context);
+        void OnPlayerRotate(InputAction.CallbackContext context);
+        void OnShoot(InputAction.CallbackContext context);
+        void OnShootStick(InputAction.CallbackContext context);
     }
 }

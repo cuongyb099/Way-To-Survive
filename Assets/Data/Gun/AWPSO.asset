@@ -20,4 +20,5 @@ MonoBehaviour:
   SpreadMax: 0
   Recoil: 0
   RecoilResetTime: 0
+  MaxCapacity: 5
   ReleaseToShoot: 1

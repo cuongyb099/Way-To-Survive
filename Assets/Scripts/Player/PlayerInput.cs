@@ -9,11 +9,13 @@ public class PlayerInput : Singleton<PlayerInput>
 	public PlayerControls.BasicActionActions PlayerControlActions { get; private set; }
 	//Input
 	public Vector3 MovementInput => GetMovementInput();
-	public Vector3 RotationInput => PlayerControlActions.Rotate.ReadValue<Vector2>();
+	public Vector3 RotationInput => PlayerControlActions.PlayerRotate.ReadValue<Vector2>();
+    public Vector3 ShootStickInput => PlayerControlActions.ShootStick.ReadValue<Vector2>();
 
-	public bool IsWalkInput => walking && EnableWalk;
+    public bool IsWalkInput => walking && EnableWalk;
 	public bool IsSprintInput => sprinting && EnableSprint;
 	public bool IsAttackInput => attaking && EnableAttack;
+
 	
 	public bool IsInBuildingMode { get; private set; }
 
@@ -26,7 +28,8 @@ public class PlayerInput : Singleton<PlayerInput>
 	private bool walking = false;
 	private bool sprinting = false;
 
-	protected override void Awake()
+
+    protected override void Awake()
 	{
 		base.Awake();
 		InputActions = new PlayerControls();
@@ -54,16 +57,27 @@ public class PlayerInput : Singleton<PlayerInput>
 		InputActions.BasicAction.Buiding.performed += HandleBuilding;
 		InputActions.BasicAction.SwitchGuns.performed += HandleSwitchGuns;
 		InputActions.BasicAction.Rotate.performed += HandleRotateStructure;
-	}
+        InputActions.BasicAction.Shoot.started += ShootInput;
+        InputActions.BasicAction.Shoot.canceled += ShootInput;
+        InputActions.BasicAction.PlayerRotate.canceled += PlayerRotate_canceled;
+    }
 
-	private void RemoveListeners()
+    private void RemoveListeners()
 	{
 		InputActions.BasicAction.BuidingMode.performed -= HandleBuildingMode;
 		InputActions.BasicAction.Buiding.performed -= HandleBuilding;
 		InputActions.BasicAction.SwitchGuns.performed -= HandleSwitchGuns;
 		InputActions.BasicAction.Rotate.performed -= HandleRotateStructure;
-	}
-	private void HandleRotateStructure(InputAction.CallbackContext context)
+        InputActions.BasicAction.Shoot.started -= ShootInput;
+        InputActions.BasicAction.Shoot.canceled -= ShootInput;
+        InputActions.BasicAction.PlayerRotate.canceled -= PlayerRotate_canceled;
+    }
+    private void PlayerRotate_canceled(InputAction.CallbackContext obj)
+    {
+		InputEvent.OnShootStickCanceled?.Invoke();
+    }
+
+    private void HandleRotateStructure(InputAction.CallbackContext context)
 	{
 		InputEvent.OnRotateStructure?.Invoke();
 	}
@@ -82,6 +96,16 @@ public class PlayerInput : Singleton<PlayerInput>
 	{
 		InputEvent.OnSwitchGuns?.Invoke();
 	}
+    private void ShootInput(InputAction.CallbackContext obj)
+    {
+		if (obj.canceled)
+		{ 
+			attaking = false;
+			return; 
+		}
+		attaking = true;
+    }
+
 
 	//Methods
 	private Vector3 GetMovementInput()
