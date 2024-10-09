@@ -32,7 +32,7 @@ public class GunBase : MonoBehaviour
     public void Initialize()
     {
 		Stats.GetStat(StatType.MaxBulletCap).BaseValue = GunData.MaxCapacity;
-		Stats.GetAttribute(AttributeType.Bullets).Value = Stats.GetAttribute(AttributeType.Bullets).MaxValue;
+		Stats.GetAttribute(AttributeType.Bullets).SetValueToMax();
     }
     private void OnEnable()
 	{
@@ -40,31 +40,33 @@ public class GunBase : MonoBehaviour
 	}
 	private void OnDisable()
 	{
-		if (PlayerInput.Instance == null) return;
         InputEvent.OnShootStickCanceled -= Rotate_canceled;
 	}
 	private Tween temp;
 	private void Update()
 	{
 		Vector2 rotateInput = PlayerInput.Instance.ShootStickInput;
-		if (rotateInput.magnitude > 0.875f || PlayerInput.Instance.IsAttackInput)
+		//Controller
+		if(PlayerInput.Instance.IsAttackInput)
 		{
-			temp.Kill();
+			Shoot();
+			return;
+		}
+		//Mobile
+		if (rotateInput.magnitude > 0.875f)
+		{
 			if (!GunData.ReleaseToShoot) { Shoot();}
 			trigger = true;
 		}
 		else
 		{
-			if (trigger)
-			{
-				ResetRecoil();
-			}
 			trigger = false;
 		}
 	}
 
     public void ResetRecoil()
     {
+		temp.Kill();
 		temp = DOVirtual.Float(GunRecoil, 0, GunData.RecoilResetTime, (x) => { GunRecoil = x; });
     }
     private void Rotate_canceled()
@@ -81,14 +83,14 @@ public class GunBase : MonoBehaviour
 		temp.Kill();
 		OnShoot.Invoke();
 		Stats.GetAttribute(AttributeType.Bullets).Value--;
-		DOVirtual.DelayedCall(GunData.ShootingSpeed,() => { repeatAble = true; });
+		DOVirtual.DelayedCall(GunData.ShootingSpeed,() => { repeatAble = true; ResetRecoil(); });
         GameObject a = ObjectPool.Instance.SpawnObject(GunData.BulletPrefab, ShootPoint.position, transform.rotation,PoolType.GameObject);
 		Bullet bullet = a.GetComponent<Bullet>();
 
 		float dmg = GunData.Damage * playerController.Stats.GetStat(StatType.ATK).Value;
 
         bullet.InitBullet(ShootPoint.position,GunData.SpreadMax * GunRecoil, new DamageInfo(playerController.gameObject,dmg));
+		GunRecoil += GunData.Recoil;
 		if (GunRecoil >= 1) { GunRecoil = 1f; }
-			GunRecoil += GunData.Recoil;
 	}
 }

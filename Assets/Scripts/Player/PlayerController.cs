@@ -75,7 +75,6 @@ public class PlayerController : BasicController
         Guns[index].gameObject.SetActive(true);
         CurrentGunIndex = index;
         Animator.SetFloat("WeaponType", (float)Guns[index].GunData.WeaponType);
-        
     }
     [ContextMenu("sw")]
     public void SwitchGun()
@@ -85,9 +84,20 @@ public class PlayerController : BasicController
         DOVirtual.DelayedCall(GunSwitchCooldown, () => { gunSwitchable = true; });
         //Switch
 		DisableShooting();
+		Animator.SetBool("SwitchWeapon", true);
 		Guns[CurrentGunIndex].ResetRecoil();
         EquipGun((CurrentGunIndex+1)%(Guns.Count));
     }
+    bool gunReloadable = true;
+    public void ReloadGun()
+    {
+		if (!gunReloadable) return;
+		gunReloadable = false;
+
+		DisableShooting();
+		Animator.SetBool("SwitchWeapon", true);
+		Guns[CurrentGunIndex].ResetRecoil();
+	}
 	public void AnimShoot()
 	{
 		Animator.SetTrigger("Shoot");
@@ -98,17 +108,21 @@ public class PlayerController : BasicController
 		{
 			gun.ShootAble = false;
 		}
-		Animator.SetBool("SwitchWeapon", true);
         DisableLineRenderer();
 	}
 	public void EnableShooting()
 	{
 		EnableLineRenderer();
-		Animator.SetBool("SwitchWeapon", false);
 		foreach (var gun in Guns)
 		{
 			gun.ShootAble = true;
 		}
+	}
+    public void AfterReload()
+    {
+        Guns[CurrentGunIndex].Stats.GetAttribute(AttributeType.Bullets).SetValueToMax();
+        gunReloadable = true;
+        EnableShooting();
 	}
 	public void EnableLineRenderer()
 	{
@@ -124,8 +138,8 @@ public class PlayerController : BasicController
 	{
         GunBase gun = Guns[CurrentGunIndex];
         float accuracy = gun.GunData.SpreadMax * gun.GunRecoil;
-		LineRendererL.SetLineRenderer(gun.ShootPoint, gun.GunData.Aim, Quaternion.Euler(0, -accuracy, 0) * transform.forward);
-		LineRendererR.SetLineRenderer(gun.ShootPoint, gun.GunData.Aim, Quaternion.Euler(0, accuracy, 0) * transform.forward);
+		LineRendererL.SetLineRenderer(gun.ShootPoint, gun.GunData.Aim, Quaternion.Euler(0, Mathf.Clamp(-accuracy, -15,0), 0) * transform.forward);
+		LineRendererR.SetLineRenderer(gun.ShootPoint, gun.GunData.Aim, Quaternion.Euler(0, Mathf.Clamp(accuracy, 0, 15), 0) * transform.forward);
 	}
 
 	// Movement

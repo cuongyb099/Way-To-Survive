@@ -59,7 +59,7 @@ public class PlayerInput : Singleton<PlayerInput>
 		InputActions.BasicAction.Rotate.performed += HandleRotateStructure;
         InputActions.BasicAction.Shoot.started += ShootInput;
         InputActions.BasicAction.Shoot.canceled += ShootInput;
-        InputActions.BasicAction.PlayerRotate.canceled += PlayerRotate_canceled;
+        InputActions.BasicAction.ShootStick.canceled += ShootStick_canceled;
     }
 
     private void RemoveListeners()
@@ -70,9 +70,9 @@ public class PlayerInput : Singleton<PlayerInput>
 		InputActions.BasicAction.Rotate.performed -= HandleRotateStructure;
         InputActions.BasicAction.Shoot.started -= ShootInput;
         InputActions.BasicAction.Shoot.canceled -= ShootInput;
-        InputActions.BasicAction.PlayerRotate.canceled -= PlayerRotate_canceled;
+        InputActions.BasicAction.ShootStick.canceled -= ShootStick_canceled;
     }
-    private void PlayerRotate_canceled(InputAction.CallbackContext obj)
+    private void ShootStick_canceled(InputAction.CallbackContext obj)
     {
 		InputEvent.OnShootStickCanceled?.Invoke();
     }

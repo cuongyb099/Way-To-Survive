@@ -43,4 +43,8 @@ public class Attribute
 
 		_value = Mathf.Lerp(minValue, MaxValue, startPercent);
 	}
+	public void SetValueToMax()
+	{
+		Value = MaxValue;
+	}
 }

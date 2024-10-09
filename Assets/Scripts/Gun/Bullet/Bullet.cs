@@ -48,7 +48,7 @@ public class Bullet : MonoBehaviour
         RB.position = point;
         Vector3 angle = info.Dealer.gameObject.transform.rotation.eulerAngles;
 		
-		Quaternion temp = Quaternion.Euler(angle.x, angle.y + Mathf.Clamp(UnityEngine.Random.Range(-accuracy, accuracy), -10, 10), angle.z);
+		Quaternion temp = Quaternion.Euler(angle.x, angle.y + Mathf.Clamp(UnityEngine.Random.Range(-accuracy, accuracy), -15, 15), angle.z);
 		TrailRenderer.Clear();
 
 		RB.AddForce(temp * Vector3.forward * Force, ForceMode.VelocityChange);

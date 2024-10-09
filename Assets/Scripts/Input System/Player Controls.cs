@@ -213,6 +213,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""80a21415-b486-42c7-a809-0f2eb46eb55c"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SwitchGuns"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""d8ebe369-7272-48fc-baf6-12ef0bd49275"",
                     ""path"": ""<Gamepad>/rightStick"",
                     ""interactions"": """",
