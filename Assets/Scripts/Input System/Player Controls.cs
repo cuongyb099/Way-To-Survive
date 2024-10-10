@@ -98,6 +98,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Reload"",
+                    ""type"": ""Button"",
+                    ""id"": ""752e2304-83ec-45e1-a632-e7956241a486"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -265,6 +274,28 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""ShootStick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""eb49533a-3107-4fed-8439-14df55d01b05"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Reload"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fdbfa880-5c02-4c10-8fba-288bf79acb89"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Reload"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -281,6 +312,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_BasicAction_PlayerRotate = m_BasicAction.FindAction("PlayerRotate", throwIfNotFound: true);
         m_BasicAction_Shoot = m_BasicAction.FindAction("Shoot", throwIfNotFound: true);
         m_BasicAction_ShootStick = m_BasicAction.FindAction("ShootStick", throwIfNotFound: true);
+        m_BasicAction_Reload = m_BasicAction.FindAction("Reload", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -350,6 +382,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_BasicAction_PlayerRotate;
     private readonly InputAction m_BasicAction_Shoot;
     private readonly InputAction m_BasicAction_ShootStick;
+    private readonly InputAction m_BasicAction_Reload;
     public struct BasicActionActions
     {
         private @PlayerControls m_Wrapper;
@@ -362,6 +395,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @PlayerRotate => m_Wrapper.m_BasicAction_PlayerRotate;
         public InputAction @Shoot => m_Wrapper.m_BasicAction_Shoot;
         public InputAction @ShootStick => m_Wrapper.m_BasicAction_ShootStick;
+        public InputAction @Reload => m_Wrapper.m_BasicAction_Reload;
         public InputActionMap Get() { return m_Wrapper.m_BasicAction; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -395,6 +429,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @ShootStick.started += instance.OnShootStick;
             @ShootStick.performed += instance.OnShootStick;
             @ShootStick.canceled += instance.OnShootStick;
+            @Reload.started += instance.OnReload;
+            @Reload.performed += instance.OnReload;
+            @Reload.canceled += instance.OnReload;
         }
 
         private void UnregisterCallbacks(IBasicActionActions instance)
@@ -423,6 +460,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @ShootStick.started -= instance.OnShootStick;
             @ShootStick.performed -= instance.OnShootStick;
             @ShootStick.canceled -= instance.OnShootStick;
+            @Reload.started -= instance.OnReload;
+            @Reload.performed -= instance.OnReload;
+            @Reload.canceled -= instance.OnReload;
         }
 
         public void RemoveCallbacks(IBasicActionActions instance)
@@ -450,5 +490,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnPlayerRotate(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
         void OnShootStick(InputAction.CallbackContext context);
+        void OnReload(InputAction.CallbackContext context);
     }
 }

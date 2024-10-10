@@ -60,6 +60,7 @@ public class PlayerInput : Singleton<PlayerInput>
         InputActions.BasicAction.Shoot.started += ShootInput;
         InputActions.BasicAction.Shoot.canceled += ShootInput;
         InputActions.BasicAction.ShootStick.canceled += ShootStick_canceled;
+		InputActions.BasicAction.Reload.performed += HandleReloading;
     }
 
     private void RemoveListeners()
@@ -71,6 +72,12 @@ public class PlayerInput : Singleton<PlayerInput>
         InputActions.BasicAction.Shoot.started -= ShootInput;
         InputActions.BasicAction.Shoot.canceled -= ShootInput;
         InputActions.BasicAction.ShootStick.canceled -= ShootStick_canceled;
+        InputActions.BasicAction.Reload.performed -= HandleReloading;
+    }
+
+    private void HandleReloading(InputAction.CallbackContext obj)
+    {
+        InputEvent.OnReloadGun?.Invoke();
     }
     private void ShootStick_canceled(InputAction.CallbackContext obj)
     {

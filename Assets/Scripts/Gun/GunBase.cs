@@ -16,7 +16,8 @@ public class GunBase : MonoBehaviour
 {
 	public GunSO GunData;
 	public Transform ShootPoint;
-	public bool ShootAble { get; set; } = true;
+    public bool IsFullCap { get { return Stats.GetAttribute(AttributeType.Bullets).Value == Stats.GetStat(StatType.MaxBulletCap).Value; } }
+    public bool ShootAble { get; set; } = true;
 	public Action OnShoot { get; set; }
 	public float GunRecoil { get; private set; } = 0f;
 	public StatsController Stats { get; private set; }

@@ -12,21 +12,21 @@ public class AnimationEvents : MonoBehaviour
 	public void EnableShooting()
 	{
 		PlayerController.Animator.SetBool("SwitchWeapon", false);
-		PlayerController.EnableShooting();
+		PlayerController.EnableAfterSwitching();
 	}
 	public void DisableShooting()
 	{
 		PlayerController.Animator.SetBool("SwitchWeapon", true);
-		PlayerController?.DisableShooting();
+		PlayerController?.DisableBeforeSwitching();
 	}
 	public void AfterReload()
 	{
-		PlayerController.Animator.SetBool("SwitchWeapon", false);
-		PlayerController.EnableShooting();
+		PlayerController.Animator.SetBool("ReloadGun", false);
+		PlayerController.AfterReload();
 	}
 	public void BeforeReload()
 	{
-		PlayerController.Animator.SetBool("SwitchWeapon", true);
-		PlayerController?.DisableShooting();
+		PlayerController.Animator.SetBool("ReloadGun", true);
+		PlayerController?.DisableBeforeSwitching();
 	}
 }
