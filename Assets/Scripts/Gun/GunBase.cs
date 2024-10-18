@@ -19,12 +19,12 @@ public class GunBase : MonoBehaviour
     public bool IsFullCap { get { return Stats.GetAttribute(AttributeType.Bullets).Value == Stats.GetStat(StatType.MaxBulletCap).Value; } }
     public bool ShootAble { get; set; } = true;
 	public Action OnShoot { get; set; }
-	public float GunRecoil { get; private set; } = 0f;
-	public StatsController Stats { get; private set; }
+	public float GunRecoil { get; protected set; } = 0f;
+	public StatsController Stats { get; protected set; }
 
-	private PlayerController playerController;
-	private bool repeatAble = true;
-	private bool trigger = false;
+	protected PlayerController playerController;
+	protected bool repeatAble = true;
+	protected bool trigger = false;
 	private void Awake()
 	{
 		Stats = GetComponent<StatsController>();
@@ -65,7 +65,7 @@ public class GunBase : MonoBehaviour
 		}
 	}
 
-    public void ResetRecoil()
+    public virtual void ResetRecoil()
     {
 		temp.Kill();
 		temp = DOVirtual.Float(GunRecoil, 0, GunData.RecoilResetTime, (x) => { GunRecoil = x; });
@@ -80,18 +80,25 @@ public class GunBase : MonoBehaviour
 			Stats.GetAttribute(AttributeType.Bullets).Value<= 0 ||
             !repeatAble) return;
 		repeatAble = false;
-
-		temp.Kill();
+        temp.Kill();
 		OnShoot.Invoke();
 		Stats.GetAttribute(AttributeType.Bullets).Value--;
-		DOVirtual.DelayedCall(GunData.ShootingSpeed,() => { repeatAble = true; ResetRecoil(); });
-        GameObject a = ObjectPool.Instance.SpawnObject(GunData.BulletPrefab, ShootPoint.position, transform.rotation,PoolType.GameObject);
-		Bullet bullet = a.GetComponent<Bullet>();
-
-		float dmg = GunData.Damage * playerController.Stats.GetStat(StatType.ATK).Value;
-
-        bullet.InitBullet(ShootPoint.position,GunData.SpreadMax * GunRecoil, new DamageInfo(playerController.gameObject,dmg));
-		GunRecoil += GunData.Recoil;
-		if (GunRecoil >= 1) { GunRecoil = 1f; }
+        DOVirtual.DelayedCall(GunData.ShootingSpeed, () => { repeatAble = true; ResetRecoil(); });
+		BulletInstantiate();
+		GunRecoilUpdate();
 	}
+	public virtual void GunRecoilUpdate()
+	{
+        GunRecoil += GunData.Recoil;
+        if (GunRecoil >= 1) { GunRecoil = 1f; }
+    }
+	public virtual void BulletInstantiate()
+	{
+        GameObject a = ObjectPool.Instance.SpawnObject(GunData.BulletPrefab, ShootPoint.position, transform.rotation, PoolType.GameObject);
+        Bullet bullet = a.GetComponent<Bullet>();
+
+        float dmg = GunData.Damage * playerController.Stats.GetStat(StatType.ATK).Value;
+
+        bullet.InitBullet(ShootPoint.position, GunData.SpreadMax * GunRecoil, new DamageInfo(playerController.gameObject, dmg));
+    }
 }
