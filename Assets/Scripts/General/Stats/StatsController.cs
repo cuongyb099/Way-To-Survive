@@ -182,5 +182,10 @@ public class StatsController : MonoBehaviour
 	{
 		AddModifier(StatType.MaxHP, new StatModifier(10, StatModType.Flat));
 	}
+	[ContextMenu("Add 10% Shoting Speed")]
+	public void test3()
+	{
+		AddModifier(StatType.ShootSpeed, new StatModifier(10, StatModType.PercentAdd));
+	}
 }
 

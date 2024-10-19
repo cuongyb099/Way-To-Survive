@@ -3,8 +3,7 @@ using UnityEngine;
 
 public class ShotgunBase : GunBase
 {
-
-    // Use this for initialization
+    public float BulletsPerShot = 5f;
     void Start()
     {
         GunRecoil = 1f;
@@ -12,7 +11,7 @@ public class ShotgunBase : GunBase
 
     public override void BulletInstantiate()
     {
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < BulletsPerShot; i++)
         {
             base.BulletInstantiate();
         }

@@ -94,7 +94,7 @@ public class Stat
 
 				if (i + 1 >= statModifiers.Count || statModifiers[i + 1].Type != StatModType.PercentAdd)
 				{
-					finalValue *= 1 + sumPercentAdd;
+					finalValue *= 1 + sumPercentAdd/100;
 					sumPercentAdd = 0;
 				}
 			}

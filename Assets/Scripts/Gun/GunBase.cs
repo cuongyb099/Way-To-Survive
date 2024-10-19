@@ -1,4 +1,5 @@
 using DG.Tweening;
+using ResilientCore;
 using System;
 using System.Collections;
 using Tech.Pooling;
@@ -16,8 +17,8 @@ public class GunBase : MonoBehaviour
 {
 	public GunSO GunData;
 	public Transform ShootPoint;
-    public bool IsFullCap { get { return Stats.GetAttribute(AttributeType.Bullets).Value == Stats.GetStat(StatType.MaxBulletCap).Value; } }
-    public bool ShootAble { get; set; } = true;
+	public bool IsFullCap { get { return Stats.GetAttribute(AttributeType.Bullets).Value == Stats.GetStat(StatType.MaxBulletCap).Value; } }
+	public bool ShootAble { get; set; } = true;
 	public Action OnShoot { get; set; }
 	public float GunRecoil { get; protected set; } = 0f;
 	public StatsController Stats { get; protected set; }
@@ -30,25 +31,25 @@ public class GunBase : MonoBehaviour
 		Stats = GetComponent<StatsController>();
 		playerController = GetComponentInParent<PlayerController>();
 	}
-    public void Initialize()
-    {
+	public void Initialize()
+	{
 		Stats.GetStat(StatType.MaxBulletCap).BaseValue = GunData.MaxCapacity;
 		Stats.GetAttribute(AttributeType.Bullets).SetValueToMax();
-    }
-    private void OnEnable()
+	}
+	private void OnEnable()
 	{
 		InputEvent.OnShootStickCanceled += Rotate_canceled;
 	}
 	private void OnDisable()
 	{
-        InputEvent.OnShootStickCanceled -= Rotate_canceled;
+		InputEvent.OnShootStickCanceled -= Rotate_canceled;
 	}
 	private Tween temp;
 	private void Update()
 	{
 		Vector2 rotateInput = PlayerInput.Instance.ShootStickInput;
 		//Controller
-		if(PlayerInput.Instance.IsAttackInput)
+		if (PlayerInput.Instance.IsAttackInput)
 		{
 			Shoot();
 			return;
@@ -56,7 +57,7 @@ public class GunBase : MonoBehaviour
 		//Mobile
 		if (rotateInput.magnitude > 0.875f)
 		{
-			if (!GunData.ReleaseToShoot) { Shoot();}
+			if (!GunData.ReleaseToShoot) { Shoot(); }
 			trigger = true;
 		}
 		else
@@ -65,40 +66,43 @@ public class GunBase : MonoBehaviour
 		}
 	}
 
-    public virtual void ResetRecoil()
-    {
+	public virtual void ResetRecoil()
+	{
 		temp.Kill();
 		temp = DOVirtual.Float(GunRecoil, 0, GunData.RecoilResetTime, (x) => { GunRecoil = x; });
-    }
-    private void Rotate_canceled()
+	}
+	private void Rotate_canceled()
 	{
 		if (GunData.ReleaseToShoot && trigger) Shoot();
 	}
 	public virtual void Shoot()
 	{
-		if (!ShootAble || 
-			Stats.GetAttribute(AttributeType.Bullets).Value<= 0 ||
-            !repeatAble) return;
+		if (!ShootAble ||
+			Stats.GetAttribute(AttributeType.Bullets).Value <= 0 ||
+			!repeatAble) return;
 		repeatAble = false;
-        temp.Kill();
+		temp.Kill();
 		OnShoot.Invoke();
 		Stats.GetAttribute(AttributeType.Bullets).Value--;
-        DOVirtual.DelayedCall(GunData.ShootingSpeed, () => { repeatAble = true; ResetRecoil(); });
+		DOVirtual.DelayedCall(GunData.ShootingSpeed/playerController.Stats.GetStat(StatType.ShootSpeed).Value, () => { repeatAble = true; ResetRecoil(); });
 		BulletInstantiate();
 		GunRecoilUpdate();
 	}
 	public virtual void GunRecoilUpdate()
 	{
-        GunRecoil += GunData.Recoil;
-        if (GunRecoil >= 1) { GunRecoil = 1f; }
-    }
+		GunRecoil += GunData.Recoil;
+		if (GunRecoil >= 1) { GunRecoil = 1f; }
+	}
 	public virtual void BulletInstantiate()
 	{
-        GameObject a = ObjectPool.Instance.SpawnObject(GunData.BulletPrefab, ShootPoint.position, transform.rotation, PoolType.GameObject);
-        Bullet bullet = a.GetComponent<Bullet>();
+		GameObject a = ObjectPool.Instance.SpawnObject(GunData.BulletPrefab, ShootPoint.position, transform.rotation, PoolType.GameObject);
+		Bullet bullet = a.GetComponent<Bullet>();
 
-        float dmg = GunData.Damage * playerController.Stats.GetStat(StatType.ATK).Value;
+		float dmg = GunData.Damage * playerController.Stats.GetStat(StatType.ATK).Value;
 
-        bullet.InitBullet(ShootPoint.position, GunData.SpreadMax * GunRecoil, new DamageInfo(playerController.gameObject, dmg));
-    }
+		bool doesCrit = UnityEngine.Random.value < playerController.Stats.GetStat(StatType.CritRate).Value;
+		float critDMG = playerController.Stats.GetStat(StatType.CritDamage).Value;
+		Debug.Log(doesCrit);
+		bullet.InitBullet(ShootPoint.position, GunData.SpreadMax * GunRecoil, new DamageInfo(playerController.gameObject, dmg * (1f + (doesCrit ? critDMG : 0f)), doesCrit));
+	}
 }
