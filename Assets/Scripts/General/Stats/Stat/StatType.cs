@@ -8,5 +8,8 @@ public enum StatType
 	CritRate,
 	CritDamage,
 	BonusDMG,
+	ShootSpeed,
+	//Guns
+	MaxBulletCap,
 }
 

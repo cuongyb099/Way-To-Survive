@@ -13,5 +13,6 @@ public class GunSO : ScriptableObject
 	public float SpreadMax;
 	public float Recoil;
     public float RecoilResetTime;
+	public float MaxCapacity;
     public bool ReleaseToShoot;
 }

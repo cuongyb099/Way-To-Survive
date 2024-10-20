@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 139378833207461386}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.069, z: 0.822}
+  m_LocalPosition: {x: 0, y: 0.069, z: 0.355}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -124,6 +124,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5704549460169601475}
   - component: {fileID: -3266218082765736061}
+  - component: {fileID: 526068766936958343}
   m_Layer: 0
   m_Name: TestGun
   m_TagString: Untagged
@@ -162,5 +163,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GunData: {fileID: 11400000, guid: fbaa39571a1af6d4ca87feae3c9d8df4, type: 2}
   ShootPoint: {fileID: 314904007054090758}
-  HandlePoint: {fileID: 0}
-  RendererHelper: {fileID: 0}
+--- !u!114 &526068766936958343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4180766260500403244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 430a0c91cf831ae42bc0e66f5da519ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _statsHolder: {fileID: 11400000, guid: 5981bca633ed02d49a8f593cab883e59, type: 2}

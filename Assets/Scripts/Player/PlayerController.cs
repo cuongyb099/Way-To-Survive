@@ -1,4 +1,5 @@
 using DG.Tweening;
+using ResilientCore;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,7 @@ using UnityEngine.UIElements;
 public class PlayerController : BasicController
 {
     public Rigidbody Rigidbody { get; private set; }
+    public FloatingCapsule FloatingCapsule { get; private set; }
     public CapsuleCollider Collider { get; private set; }
     public Animator Animator { get; private set; }
 
@@ -29,18 +31,26 @@ public class PlayerController : BasicController
         base.Awake();
         Rigidbody = GetComponent<Rigidbody>();
         Collider = GetComponent<CapsuleCollider>();
+        FloatingCapsule = GetComponent<FloatingCapsule>();
         Animator = GetComponentInChildren<Animator>();
         Guns = new List<GunBase>();
 		for (int i = 0; i < StartGun.Length; i++)
 		{
 			Guns.Add(Instantiate(StartGun[i], GunHoldPoint.transform));
 			Guns[i].gameObject.layer = this.gameObject.layer;
+            Guns[i].Initialize();
 			Guns[i].gameObject.SetActive(false);
 			Guns[i].OnShoot += AnimShoot;
 		}
 
 		InputEvent.OnSwitchGuns += SwitchGun;
+<<<<<<< HEAD
 	}
+=======
+        InputEvent.OnReloadGun += ReloadGun;
+
+    }
+>>>>>>> thinhDevelop
     private void OnDestroy()
     {
         if (Stats != null)
@@ -61,20 +71,26 @@ public class PlayerController : BasicController
     {
         MovePlayer();
         RotatePlayer();
-        Debug.Log((int)Guns[CurrentGunIndex].GunData.WeaponType);
+        Float();
     }
 	private void Update()
 	{
 		SetLineRenderers();
-	}
-	// Gun handle
-	public void EquipGun(int index)
+    }
+
+    public override void Death()
+    {
+        base.Death();
+        Guns[CurrentGunIndex].gameObject.SetActive(false);
+    }
+
+    // Gun handle
+    public void EquipGun(int index)
     {
         Guns[CurrentGunIndex].gameObject.SetActive(false);
         Guns[index].gameObject.SetActive(true);
         CurrentGunIndex = index;
         Animator.SetFloat("WeaponType", (float)Guns[index].GunData.WeaponType);
-        
     }
     [ContextMenu("sw")]
     public void SwitchGun()
@@ -83,31 +99,47 @@ public class PlayerController : BasicController
         gunSwitchable = false;
         DOVirtual.DelayedCall(GunSwitchCooldown, () => { gunSwitchable = true; });
         //Switch
-		DisableShooting();
-		Guns[CurrentGunIndex].ResetRecoil();
+		DisableBeforeSwitching();
+		Animator.SetBool("SwitchWeapon", true);
+        Animator.SetBool("ReloadGun", false);
+        Guns[CurrentGunIndex].ResetRecoil();
         EquipGun((CurrentGunIndex+1)%(Guns.Count));
     }
+    bool gunReloadable = true;
+    public void ReloadGun()
+    {
+		if (!gunReloadable || Guns[CurrentGunIndex].IsFullCap) return;
+		DisableBeforeSwitching();
+		Animator.SetBool("ReloadGun", true);
+		Guns[CurrentGunIndex].ResetRecoil();
+	}
 	public void AnimShoot()
 	{
 		Animator.SetTrigger("Shoot");
 	}
-	public void DisableShooting()
+	public void DisableBeforeSwitching()
 	{
 		foreach (var gun in Guns)
 		{
 			gun.ShootAble = false;
 		}
-		Animator.SetBool("SwitchWeapon", true);
+        gunReloadable = false;
         DisableLineRenderer();
 	}
-	public void EnableShooting()
+	public void EnableAfterSwitching()
 	{
 		EnableLineRenderer();
-		Animator.SetBool("SwitchWeapon", false);
+        gunReloadable = true;
 		foreach (var gun in Guns)
 		{
 			gun.ShootAble = true;
 		}
+	}
+    public void AfterReload()
+    {
+        Guns[CurrentGunIndex].Stats.GetAttribute(AttributeType.Bullets).SetValueToMax();
+        Animator.SetBool("ReloadGun", false);
+        EnableAfterSwitching();
 	}
 	public void EnableLineRenderer()
 	{
@@ -123,8 +155,8 @@ public class PlayerController : BasicController
 	{
         GunBase gun = Guns[CurrentGunIndex];
         float accuracy = gun.GunData.SpreadMax * gun.GunRecoil;
-		LineRendererL.SetLineRenderer(gun.ShootPoint, gun.GunData.Aim, Quaternion.Euler(0, -accuracy, 0) * transform.forward);
-		LineRendererR.SetLineRenderer(gun.ShootPoint, gun.GunData.Aim, Quaternion.Euler(0, accuracy, 0) * transform.forward);
+		LineRendererL.SetLineRenderer(gun.ShootPoint, gun.GunData.Aim, Quaternion.Euler(0, Mathf.Clamp(-accuracy, -15,0), 0) * transform.forward);
+		LineRendererR.SetLineRenderer(gun.ShootPoint, gun.GunData.Aim, Quaternion.Euler(0, Mathf.Clamp(accuracy, 0, 15), 0) * transform.forward);
 	}
 
 	// Movement
@@ -149,16 +181,25 @@ public class PlayerController : BasicController
         float atan = Mathf.Atan2(rotateInput.x,rotateInput.y)*Mathf.Rad2Deg;
         Rigidbody.rotation = Quaternion.Euler(0,atan,0);
     }
-
-
-    public override void Death()
+    public void Float()
     {
-        base.Death();
-        Guns[CurrentGunIndex].gameObject.SetActive(false);
+        Ray ray = new Ray(FloatingCapsule.CapsuleColliderData.Collider.bounds.center, Vector3.down);
+        if (Physics.Raycast(ray, out RaycastHit hit, FloatingCapsule.FloatingData.FloatRayLength, GroundLayer, QueryTriggerInteraction.Ignore))
+        {
+            float distanceFromGround = FloatingCapsule.CapsuleColliderData.ColliderCenterLocalSpace.y * transform.localScale.y - hit.distance;
+            if (distanceFromGround == 0)
+            {
+                return;
+            }
+            float liftAmount = distanceFromGround * FloatingCapsule.FloatingData.StepHeightMultiplier - Rigidbody.velocity.y;
+            Rigidbody.AddForce(new Vector3(0, liftAmount, 0), ForceMode.VelocityChange);
+            
+            return;
+        }
     }
-    
-	//Health Bar
-	private Attribute _hp;
+
+    //Health Bar
+    private Attribute _hp;
     private Stat _maxHp;
     private void InitHealthBar()
     {

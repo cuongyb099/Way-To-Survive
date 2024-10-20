@@ -1380,6 +1380,10 @@ GameObject:
   - component: {fileID: 4441137568081172468}
   - component: {fileID: 1344002956957756566}
   - component: {fileID: 2863445448530772482}
+<<<<<<< HEAD
+=======
+  - component: {fileID: 4454159923514909359}
+>>>>>>> thinhDevelop
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -1493,6 +1497,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _statsHolder: {fileID: 11400000, guid: 2798a2e05f682804eb5abaf6ebf31f6e, type: 2}
+<<<<<<< HEAD
+=======
+--- !u!114 &4454159923514909359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6863344380182567666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a412fd0424f38684c8e93feed47a2484, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <CapsuleColliderData>k__BackingField:
+    <Collider>k__BackingField: {fileID: 0}
+  <DefaultColliderData>k__BackingField:
+    <Height>k__BackingField: 1.8
+    <CenterY>k__BackingField: 0.9
+    <Radius>k__BackingField: 0.2
+  <FloatingData>k__BackingField:
+    <StepHeightPercentage>k__BackingField: 0.25
+    <FloatRayLength>k__BackingField: 2
+    <StepHeightMultiplier>k__BackingField: 10
+    <CheckWallFWDRayLength>k__BackingField: 0.4
+>>>>>>> thinhDevelop
 --- !u!1 &7094026302077752721
 GameObject:
   m_ObjectHideFlags: 0

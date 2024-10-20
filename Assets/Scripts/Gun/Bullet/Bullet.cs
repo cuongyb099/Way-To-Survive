@@ -23,37 +23,38 @@ public class Bullet : MonoBehaviour
 	}
 	public void OnEnable()
 	{
-        seq = DOVirtual.DelayedCall(LiveTime, () => { Deactivate(); });
-    }
+		seq = DOVirtual.DelayedCall(LiveTime, () => { Deactivate(); });
+	}
 	private void OnCollisionEnter(Collision collision)
 	{
-		ObjectPool.Instance.SpawnObject(HitEffectWall, collision.contacts[0].point,Quaternion.identity,PoolType.ParticleSystem);
+		ObjectPool.Instance.SpawnObject(HitEffectWall, collision.contacts[0].point, Quaternion.identity, PoolType.ParticleSystem);
 		seq.Kill();
 
-        Collider collider = collision.contacts[0].otherCollider;
+		Collider collider = collision.contacts[0].otherCollider;
 
-        if (!collider.CompareTag(DamageInfo.Dealer.tag))
+		if (!collider.CompareTag(DamageInfo.Dealer.tag))
 		{
-			if(collider.TryGetComponent(out IDamagable damagable))
+			if (collider.TryGetComponent(out IDamagable damagable))
 			{
+				DamagePopUpGenerator.Instance.CreateDamagePopUp(collision.contacts[0].point,DamageInfo);
 				damagable.Damage(DamageInfo);
 			}
 		}
 		Deactivate();
 	}
 
-	public void InitBullet(Vector3 point,float accuracy, DamageInfo info)
+	public void InitBullet(Vector3 point, float accuracy, DamageInfo info)
 	{
 		DamageInfo = info;
-        RB.position = point;
-        Vector3 angle = info.Dealer.gameObject.transform.rotation.eulerAngles;
-		
-		Quaternion temp = Quaternion.Euler(angle.x, angle.y + Mathf.Clamp(UnityEngine.Random.Range(-accuracy, accuracy), -10, 10), angle.z);
+		RB.position = point;
+		Vector3 angle = info.Dealer.gameObject.transform.rotation.eulerAngles;
+
+		Quaternion temp = Quaternion.Euler(angle.x, angle.y + Mathf.Clamp(UnityEngine.Random.Range(-accuracy, accuracy), -15, 15), angle.z);
 		TrailRenderer.Clear();
 
 		RB.AddForce(temp * Vector3.forward * Force, ForceMode.VelocityChange);
-		
-    }
+
+	}
 	public void Deactivate()
 	{
 		RB.velocity = Vector3.zero;
@@ -62,6 +63,6 @@ public class Bullet : MonoBehaviour
 	}
 	public void DealDamage()
 	{
-		
+
 	}
 }

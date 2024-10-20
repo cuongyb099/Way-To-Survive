@@ -9,11 +9,13 @@ public class PlayerInput : Singleton<PlayerInput>
 	public PlayerControls.BasicActionActions PlayerControlActions { get; private set; }
 	//Input
 	public Vector3 MovementInput => GetMovementInput();
-	public Vector3 RotationInput => PlayerControlActions.Rotate.ReadValue<Vector2>();
+	public Vector3 RotationInput => PlayerControlActions.PlayerRotate.ReadValue<Vector2>();
+    public Vector3 ShootStickInput => PlayerControlActions.ShootStick.ReadValue<Vector2>();
 
-	public bool IsWalkInput => walking && EnableWalk;
+    public bool IsWalkInput => walking && EnableWalk;
 	public bool IsSprintInput => sprinting && EnableSprint;
 	public bool IsAttackInput => attaking && EnableAttack;
+
 	
 	public bool IsInBuildingMode { get; private set; }
 
@@ -26,7 +28,8 @@ public class PlayerInput : Singleton<PlayerInput>
 	private bool walking = false;
 	private bool sprinting = false;
 
-	protected override void Awake()
+
+    protected override void Awake()
 	{
 		base.Awake();
 		InputActions = new PlayerControls();
@@ -54,16 +57,45 @@ public class PlayerInput : Singleton<PlayerInput>
 		InputActions.BasicAction.Buiding.performed += HandleBuilding;
 		InputActions.BasicAction.SwitchGuns.performed += HandleSwitchGuns;
 		InputActions.BasicAction.Rotate.performed += HandleRotateStructure;
+<<<<<<< HEAD
 	}
 
 	private void RemoveListeners()
+=======
+        InputActions.BasicAction.Shoot.started += ShootInput;
+        InputActions.BasicAction.Shoot.canceled += ShootInput;
+        InputActions.BasicAction.ShootStick.canceled += ShootStick_canceled;
+		InputActions.BasicAction.Reload.performed += HandleReloading;
+    }
+
+    private void RemoveListeners()
+>>>>>>> thinhDevelop
 	{
 		InputActions.BasicAction.BuidingMode.performed -= HandleBuildingMode;
 		InputActions.BasicAction.Buiding.performed -= HandleBuilding;
 		InputActions.BasicAction.SwitchGuns.performed -= HandleSwitchGuns;
 		InputActions.BasicAction.Rotate.performed -= HandleRotateStructure;
+<<<<<<< HEAD
 	}
 	private void HandleRotateStructure(InputAction.CallbackContext context)
+=======
+        InputActions.BasicAction.Shoot.started -= ShootInput;
+        InputActions.BasicAction.Shoot.canceled -= ShootInput;
+        InputActions.BasicAction.ShootStick.canceled -= ShootStick_canceled;
+        InputActions.BasicAction.Reload.performed -= HandleReloading;
+    }
+
+    private void HandleReloading(InputAction.CallbackContext obj)
+    {
+        InputEvent.OnReloadGun?.Invoke();
+    }
+    private void ShootStick_canceled(InputAction.CallbackContext obj)
+    {
+		InputEvent.OnShootStickCanceled?.Invoke();
+    }
+
+    private void HandleRotateStructure(InputAction.CallbackContext context)
+>>>>>>> thinhDevelop
 	{
 		InputEvent.OnRotateStructure?.Invoke();
 	}
@@ -82,6 +114,19 @@ public class PlayerInput : Singleton<PlayerInput>
 	{
 		InputEvent.OnSwitchGuns?.Invoke();
 	}
+<<<<<<< HEAD
+=======
+    private void ShootInput(InputAction.CallbackContext obj)
+    {
+		if (obj.canceled)
+		{ 
+			attaking = false;
+			return; 
+		}
+		attaking = true;
+    }
+
+>>>>>>> thinhDevelop
 
 	//Methods
 	private Vector3 GetMovementInput()
