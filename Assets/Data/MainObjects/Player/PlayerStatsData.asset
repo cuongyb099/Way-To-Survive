@@ -28,7 +28,7 @@ MonoBehaviour:
         _baseValue: 5
     - Key: 4
       Value:
-        _baseValue: 0.1
+        _baseValue: 0.5
     - Key: 5
       Value:
         _baseValue: 0.5
