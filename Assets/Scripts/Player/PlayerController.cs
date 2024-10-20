@@ -220,4 +220,23 @@ public class PlayerController : BasicController
         if (_hp == null) return;
         PlayerEvent.OnHeathChange?.Invoke(_hp.Value, _hp.MaxValue);
     }
+    public List<BuffEffect> BuffList { get; private set; }
+    public BuffSO buffSO;
+    //Buffs
+    private void AddBuffToPlayer(BuffSO buff)
+    {
+        Stats.ApplyEffect(new BuffEffect(buff, Stats));
+	}
+	[ContextMenu("Add 10% Shoting Speed")]
+	public void test3()
+	{
+        AddBuffToPlayer(buffSO);
+		
+	}
+	[ContextMenu("Add 10% Mag Cap Speed")]
+	public void test5()
+	{
+		AddBuffToPlayer(buffSO);
+
+	}
 }
