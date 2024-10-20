@@ -80,8 +80,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GunData: {fileID: 11400000, guid: 07f07cdf9f67d7443981a8e24f086779, type: 2}
   ShootPoint: {fileID: 314904007054090758}
-  HandlePoint: {fileID: 0}
-  Stats: {fileID: 0}
 --- !u!114 &9212072447739369604
 MonoBehaviour:
   m_ObjectHideFlags: 0

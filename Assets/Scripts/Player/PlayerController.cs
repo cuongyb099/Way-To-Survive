@@ -44,13 +44,8 @@ public class PlayerController : BasicController
 		}
 
 		InputEvent.OnSwitchGuns += SwitchGun;
-<<<<<<< HEAD
-	}
-=======
         InputEvent.OnReloadGun += ReloadGun;
-
     }
->>>>>>> thinhDevelop
     private void OnDestroy()
     {
         if (Stats != null)

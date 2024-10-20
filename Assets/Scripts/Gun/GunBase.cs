@@ -11,7 +11,8 @@ public enum WeaponType
 	Pistol,
 	Rifle,
 	Shotgun,
-	Sniper
+	Sniper,
+	SMG,
 }
 public class GunBase : MonoBehaviour
 {

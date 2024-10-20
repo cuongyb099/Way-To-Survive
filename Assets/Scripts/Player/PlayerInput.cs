@@ -57,11 +57,6 @@ public class PlayerInput : Singleton<PlayerInput>
 		InputActions.BasicAction.Buiding.performed += HandleBuilding;
 		InputActions.BasicAction.SwitchGuns.performed += HandleSwitchGuns;
 		InputActions.BasicAction.Rotate.performed += HandleRotateStructure;
-<<<<<<< HEAD
-	}
-
-	private void RemoveListeners()
-=======
         InputActions.BasicAction.Shoot.started += ShootInput;
         InputActions.BasicAction.Shoot.canceled += ShootInput;
         InputActions.BasicAction.ShootStick.canceled += ShootStick_canceled;
@@ -69,16 +64,11 @@ public class PlayerInput : Singleton<PlayerInput>
     }
 
     private void RemoveListeners()
->>>>>>> thinhDevelop
 	{
 		InputActions.BasicAction.BuidingMode.performed -= HandleBuildingMode;
 		InputActions.BasicAction.Buiding.performed -= HandleBuilding;
 		InputActions.BasicAction.SwitchGuns.performed -= HandleSwitchGuns;
 		InputActions.BasicAction.Rotate.performed -= HandleRotateStructure;
-<<<<<<< HEAD
-	}
-	private void HandleRotateStructure(InputAction.CallbackContext context)
-=======
         InputActions.BasicAction.Shoot.started -= ShootInput;
         InputActions.BasicAction.Shoot.canceled -= ShootInput;
         InputActions.BasicAction.ShootStick.canceled -= ShootStick_canceled;
@@ -95,7 +85,6 @@ public class PlayerInput : Singleton<PlayerInput>
     }
 
     private void HandleRotateStructure(InputAction.CallbackContext context)
->>>>>>> thinhDevelop
 	{
 		InputEvent.OnRotateStructure?.Invoke();
 	}
@@ -114,8 +103,6 @@ public class PlayerInput : Singleton<PlayerInput>
 	{
 		InputEvent.OnSwitchGuns?.Invoke();
 	}
-<<<<<<< HEAD
-=======
     private void ShootInput(InputAction.CallbackContext obj)
     {
 		if (obj.canceled)
@@ -125,8 +112,6 @@ public class PlayerInput : Singleton<PlayerInput>
 		}
 		attaking = true;
     }
-
->>>>>>> thinhDevelop
 
 	//Methods
 	private Vector3 GetMovementInput()

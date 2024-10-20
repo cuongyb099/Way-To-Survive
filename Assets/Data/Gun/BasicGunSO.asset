@@ -20,8 +20,5 @@ MonoBehaviour:
   SpreadMax: 3
   Recoil: 0.03
   RecoilResetTime: 2
-<<<<<<< HEAD
-=======
   MaxCapacity: 10
->>>>>>> thinhDevelop
   ReleaseToShoot: 0

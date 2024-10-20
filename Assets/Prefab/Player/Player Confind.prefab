@@ -1380,10 +1380,7 @@ GameObject:
   - component: {fileID: 4441137568081172468}
   - component: {fileID: 1344002956957756566}
   - component: {fileID: 2863445448530772482}
-<<<<<<< HEAD
-=======
   - component: {fileID: 4454159923514909359}
->>>>>>> thinhDevelop
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -1477,7 +1474,7 @@ MonoBehaviour:
   StartGun:
   - {fileID: -3266218082765736061, guid: 2e468aa121b751a478a7f85d5ead8f76, type: 3}
   - {fileID: -3266218082765736061, guid: 7143da844342c4246b9739697957abb4, type: 3}
-  - {fileID: -3266218082765736061, guid: 55bea74e7951f2446bb7a1db61cd392e, type: 3}
+  - {fileID: 0}
   GroundLayer:
     serializedVersion: 2
     m_Bits: 1
@@ -1497,8 +1494,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _statsHolder: {fileID: 11400000, guid: 2798a2e05f682804eb5abaf6ebf31f6e, type: 2}
-<<<<<<< HEAD
-=======
 --- !u!114 &4454159923514909359
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1522,7 +1517,6 @@ MonoBehaviour:
     <FloatRayLength>k__BackingField: 2
     <StepHeightMultiplier>k__BackingField: 10
     <CheckWallFWDRayLength>k__BackingField: 0.4
->>>>>>> thinhDevelop
 --- !u!1 &7094026302077752721
 GameObject:
   m_ObjectHideFlags: 0
