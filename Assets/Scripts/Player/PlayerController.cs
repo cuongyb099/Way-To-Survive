@@ -40,22 +40,19 @@ public class PlayerController : BasicController
 			Guns[i].gameObject.layer = this.gameObject.layer;
             Guns[i].Initialize();
 			Guns[i].gameObject.SetActive(false);
-			Guns[i].OnShoot += AnimShoot;
+			
 		}
-
-		InputEvent.OnSwitchGuns += SwitchGun;
-        InputEvent.OnReloadGun += ReloadGun;
-
-    }
+		InputEvent.OnInputSwitchGuns += SwitchGun;
+        InputEvent.OnInputReloadGun += ReloadGun;
+		PlayerEvent.OnShoot += AnimShoot;
+	}
     private void OnDestroy()
     {
-        if (Stats != null)
-        {
-            _hp.OnValueChange -= HandleHealthChange;
-            _maxHp.OnValueChange -= HandleMaxHpChange;
-        }
-
-		InputEvent.OnSwitchGuns -= SwitchGun;
+        _hp.OnValueChange -= HandleHealthChange;
+        _maxHp.OnValueChange -= HandleMaxHpChange;
+		InputEvent.OnInputSwitchGuns -= SwitchGun;
+		InputEvent.OnInputReloadGun -= ReloadGun;
+		PlayerEvent.OnShoot -= AnimShoot;
 	}
     private void Start()
     {
@@ -87,6 +84,7 @@ public class PlayerController : BasicController
         Guns[index].gameObject.SetActive(true);
         CurrentGunIndex = index;
         Animator.SetFloat("WeaponType", (float)Guns[index].GunData.WeaponType);
+        PlayerEvent.OnSwitchGuns?.Invoke(Guns[index]);
     }
     [ContextMenu("sw")]
     public void SwitchGun()
@@ -134,7 +132,8 @@ public class PlayerController : BasicController
     public void AfterReload()
     {
         Guns[CurrentGunIndex].Stats.GetAttribute(AttributeType.Bullets).SetValueToMax();
-        Animator.SetBool("ReloadGun", false);
+		PlayerEvent.OnReload?.Invoke();
+		Animator.SetBool("ReloadGun", false);
         EnableAfterSwitching();
 	}
 	public void EnableLineRenderer()

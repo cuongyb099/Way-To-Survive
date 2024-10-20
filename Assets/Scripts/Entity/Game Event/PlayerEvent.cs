@@ -7,4 +7,8 @@ public static class PlayerEvent
     public static Action<float, float> OnMaxManaChange;
     public static Action<float, float> OnManaChange;
 	public static Action<AttributeType, float ,float> OnInitStatusBar;
+	// Gun
+	public static Action<GunBase> OnSwitchGuns;
+	public static Action OnShoot;
+	public static Action OnReload;
 }

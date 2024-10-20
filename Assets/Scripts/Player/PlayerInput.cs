@@ -77,7 +77,7 @@ public class PlayerInput : Singleton<PlayerInput>
 
     private void HandleReloading(InputAction.CallbackContext obj)
     {
-        InputEvent.OnReloadGun?.Invoke();
+        InputEvent.OnInputReloadGun?.Invoke();
     }
     private void ShootStick_canceled(InputAction.CallbackContext obj)
     {
@@ -101,7 +101,7 @@ public class PlayerInput : Singleton<PlayerInput>
 
 	private void HandleSwitchGuns(InputAction.CallbackContext ctx)
 	{
-		InputEvent.OnSwitchGuns?.Invoke();
+		InputEvent.OnInputSwitchGuns?.Invoke();
 	}
     private void ShootInput(InputAction.CallbackContext obj)
     {

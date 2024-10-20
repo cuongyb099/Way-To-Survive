@@ -11,7 +11,8 @@ public enum WeaponType
 	Pistol,
 	Rifle,
 	Shotgun,
-	Sniper
+	Sniper,
+	SMG,
 }
 public class GunBase : MonoBehaviour
 {
@@ -19,7 +20,6 @@ public class GunBase : MonoBehaviour
 	public Transform ShootPoint;
 	public bool IsFullCap { get { return Stats.GetAttribute(AttributeType.Bullets).Value == Stats.GetStat(StatType.MaxBulletCap).Value; } }
 	public bool ShootAble { get; set; } = true;
-	public Action OnShoot { get; set; }
 	public float GunRecoil { get; protected set; } = 0f;
 	public StatsController Stats { get; protected set; }
 
@@ -82,8 +82,8 @@ public class GunBase : MonoBehaviour
 			!repeatAble) return;
 		repeatAble = false;
 		temp.Kill();
-		OnShoot.Invoke();
 		Stats.GetAttribute(AttributeType.Bullets).Value--;
+		PlayerEvent.OnShoot?.Invoke();
 		DOVirtual.DelayedCall(GunData.ShootingSpeed/playerController.Stats.GetStat(StatType.ShootSpeed).Value, () => { repeatAble = true; ResetRecoil(); });
 		BulletInstantiate();
 		GunRecoilUpdate();
@@ -102,7 +102,6 @@ public class GunBase : MonoBehaviour
 
 		bool doesCrit = UnityEngine.Random.value < playerController.Stats.GetStat(StatType.CritRate).Value;
 		float critDMG = playerController.Stats.GetStat(StatType.CritDamage).Value;
-		Debug.Log(doesCrit);
 		bullet.InitBullet(ShootPoint.position, GunData.SpreadMax * GunRecoil, new DamageInfo(playerController.gameObject, dmg * (1f + (doesCrit ? critDMG : 0f)), doesCrit));
 	}
 }

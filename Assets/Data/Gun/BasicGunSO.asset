@@ -14,6 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BulletPrefab: {fileID: 984755602444092648, guid: bff9cb15c026277498f4541bb37853a4, type: 3}
   WeaponType: 0
+  GunName: USP
+  GunDescription: sss
+  Icon: {fileID: 21300000, guid: f7a64cc504985ff439775623bfbc724c, type: 3}
   ShootingSpeed: 0.3
   Damage: 1
   Aim: 10
