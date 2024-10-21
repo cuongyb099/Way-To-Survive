@@ -40,6 +40,12 @@ public class ZombieCtrl : EnemyCtrlBase
         StartCoroutine(MoveAgent(Position));
     }
 
+    public void StopDestination()
+    {
+        StopAllCoroutines();
+        Agent.SetDestination(transform.position);
+    }
+    
     private IEnumerator MoveAgent(Vector3 Position)
     {
         yield return null;

@@ -24,13 +24,6 @@ public class ZombieChasing : BaseZombieAction
         controller.Animator.SetFloat(Constant.ZombieRandomStatus,
             Random.Range(0,Constant.ZombieStatusCount));
     }
-    
-    public override void OnStart()
-    {
-        /*controller.NavMeshObstacle.enabled = false;
-        StartCoroutine(DelayAFrame());*/
-        controller.Agent.isStopped = false;
-    }
 
     public override TaskStatus OnUpdate()
     {
@@ -42,8 +35,6 @@ public class ZombieChasing : BaseZombieAction
 
     public override void OnEnd()
     {
-        /*controller.Agent.enabled = false;
-        controller.NavMeshObstacle.enabled = true;*/
-        controller.Agent.isStopped = true;
+        controller.StopDestination();        
     }
 }
