@@ -1,8 +1,8 @@
 public enum StatModType
 {
 	Flat,
-	PercentAdd,
-	PercentMult,
+	Percentage,
+	BaseFlat,
 }
 
 public class StatModifier

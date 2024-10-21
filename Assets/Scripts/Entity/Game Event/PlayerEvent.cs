@@ -11,4 +11,5 @@ public static class PlayerEvent
 	public static Action<GunBase> OnSwitchGuns;
 	public static Action OnShoot;
 	public static Action OnReload;
+	public static Action OnChangeCap;
 }

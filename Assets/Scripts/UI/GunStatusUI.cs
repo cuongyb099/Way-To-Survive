@@ -19,12 +19,15 @@ public class GunStatusUI : MonoBehaviour
         PlayerEvent.OnSwitchGuns += ChangeGun;
         PlayerEvent.OnShoot += UpdateGunAmmo;
 		PlayerEvent.OnReload += UpdateGunAmmo;
+		PlayerEvent.OnChangeCap += UpdateGunAmmo;
 	}
 	private void OnDestroy()
 	{
 		PlayerEvent.OnSwitchGuns -= ChangeGun;
 		PlayerEvent.OnShoot -= UpdateGunAmmo;
 		PlayerEvent.OnReload -= UpdateGunAmmo;
+		PlayerEvent.OnChangeCap -= UpdateGunAmmo;
+
 	}
 	public void UpdateGunAmmo()
     {

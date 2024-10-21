@@ -10,12 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6410e6fc845cb21468863360930066bd, type: 3}
-  m_Name: ATKSPDBuffSO
+  m_Name: SmallDEFBuff
   m_EditorClassIdentifier: 
-  BuffName: Rapid Fire
-  BuffDescription: Increase weapon <color=#FFFFFF4C>/ Fire Rate</color> by 10%
-  StatType: 7
+  BuffName: Small Tweak
+  BuffDescription: Increase <color=#FFAF00> DEF</color> by <color=#3ED1FF>3%</color>
+  BuffIcon: {fileID: 21300000, guid: e712aee572cf137488582730e20872b8, type: 3}
+  RareType: 0
+  StatType: 1
   ModifierType: 1
-  Value: 10
+  Value: 3
   HasDuration: 0
   Duration: 0

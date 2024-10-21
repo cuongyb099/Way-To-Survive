@@ -33,7 +33,7 @@ public class GunBase : MonoBehaviour
 	}
 	public void Initialize()
 	{
-		Stats.GetStat(StatType.MaxBulletCap).BaseValue = GunData.MaxCapacity;
+		SetBulletCap();
 		Stats.GetAttribute(AttributeType.Bullets).SetValueToMax();
 	}
 	private void OnEnable()
@@ -103,5 +103,9 @@ public class GunBase : MonoBehaviour
 		bool doesCrit = UnityEngine.Random.value < playerController.Stats.GetStat(StatType.CritRate).Value;
 		float critDMG = playerController.Stats.GetStat(StatType.CritDamage).Value;
 		bullet.InitBullet(ShootPoint.position, GunData.SpreadMax * GunRecoil, new DamageInfo(playerController.gameObject, dmg * (1f + (doesCrit ? critDMG : 0f)), doesCrit));
+	}
+	public void SetBulletCap(float mul=1)
+	{
+		Stats.GetStat(StatType.MaxBulletCap).BaseValue = (int)(GunData.MaxCapacity * mul);
 	}
 }

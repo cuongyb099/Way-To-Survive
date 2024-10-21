@@ -40,11 +40,13 @@ public class PlayerController : BasicController
 			Guns[i].gameObject.layer = this.gameObject.layer;
             Guns[i].Initialize();
 			Guns[i].gameObject.SetActive(false);
-			
 		}
 		InputEvent.OnInputSwitchGuns += SwitchGun;
         InputEvent.OnInputReloadGun += ReloadGun;
-		PlayerEvent.OnShoot += AnimShoot;
+		PlayerEvent.OnShoot += SetShootAnim;
+        Stats.GetStat(StatType.MagCapMultiplier).OnValueChange += CalculateMaxCap;
+		Stats.GetStat(StatType.ShootSpeed).OnValueChange += SetShootingSpeedAnim;
+		Stats.GetStat(StatType.Speed).OnValueChange += SetMovementSpeedAnim;
 	}
     private void OnDestroy()
     {
@@ -52,10 +54,14 @@ public class PlayerController : BasicController
         _maxHp.OnValueChange -= HandleMaxHpChange;
 		InputEvent.OnInputSwitchGuns -= SwitchGun;
 		InputEvent.OnInputReloadGun -= ReloadGun;
-		PlayerEvent.OnShoot -= AnimShoot;
+		PlayerEvent.OnShoot -= SetShootAnim;
+		Stats.GetStat(StatType.MagCapMultiplier).OnValueChange -= CalculateMaxCap;
+		Stats.GetStat(StatType.ShootSpeed).OnValueChange -= SetShootingSpeedAnim;
+		Stats.GetStat(StatType.Speed).OnValueChange -= SetMovementSpeedAnim;
 	}
-    private void Start()
+	private void Start()
     {
+        CalculateMaxCap();
 		EquipGun(0);
         InitHealthBar();
     }
@@ -107,10 +113,7 @@ public class PlayerController : BasicController
 		Animator.SetBool("ReloadGun", true);
 		Guns[CurrentGunIndex].ResetRecoil();
 	}
-	public void AnimShoot()
-	{
-		Animator.SetTrigger("Shoot");
-	}
+
 	public void DisableBeforeSwitching()
 	{
 		foreach (var gun in Guns)
@@ -135,6 +138,18 @@ public class PlayerController : BasicController
 		PlayerEvent.OnReload?.Invoke();
 		Animator.SetBool("ReloadGun", false);
         EnableAfterSwitching();
+	}
+    public void SetShootingSpeedAnim()
+    {
+		Animator.SetFloat("ShootingSpeed",Stats.GetStat(StatType.ShootSpeed).Value);
+	}
+	public void SetMovementSpeedAnim()
+	{
+		Animator.SetFloat("MovementSpeed", Stats.GetStat(StatType.Speed).Value/5f);
+	}
+	public void SetShootAnim()
+	{
+		Animator.SetTrigger("Shoot");
 	}
 	public void EnableLineRenderer()
 	{
@@ -220,23 +235,23 @@ public class PlayerController : BasicController
         if (_hp == null) return;
         PlayerEvent.OnHeathChange?.Invoke(_hp.Value, _hp.MaxValue);
     }
-    public List<BuffEffect> BuffList { get; private set; }
-    public BuffSO buffSO;
     //Buffs
-    private void AddBuffToPlayer(BuffSO buff)
+    public List<BuffSO> BuffList { get; private set; }
+    public void AddBuffToPlayer(BuffSO buff)
     {
         Stats.ApplyEffect(new BuffEffect(buff, Stats));
 	}
-	[ContextMenu("Add 10% Shoting Speed")]
-	public void test3()
-	{
-        AddBuffToPlayer(buffSO);
-		
+    public void CalculateMaxCap()
+    {
+		for (int i = 0; i < StartGun.Length; i++)
+		{
+            Guns[i].SetBulletCap(Stats.GetStat(StatType.MagCapMultiplier).Value);
+		}
+        PlayerEvent.OnChangeCap?.Invoke();
 	}
-	[ContextMenu("Add 10% Mag Cap Speed")]
-	public void test5()
-	{
-		AddBuffToPlayer(buffSO);
-
-	}
+    [ContextMenu("Add 10% move spd")]
+    public void AddMoveSPD()
+    {
+        Stats.GetStat(StatType.Speed).AddModifier(new StatModifier(10,StatModType.Percentage));
+    }
 }

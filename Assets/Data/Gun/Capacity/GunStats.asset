@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _statItems:
     _serializedList:
-    - Key: 8
+    - Key: 9
       Value:
         _baseValue: 30
   _attributeItems:
@@ -23,4 +23,4 @@ MonoBehaviour:
       Value:
         _startPercent: 1
         _minValue: 0
-        _maxValue: 8
+        _maxValue: 9
