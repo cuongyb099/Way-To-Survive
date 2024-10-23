@@ -3,12 +3,10 @@ using UnityEngine;
 
 public class BehaviorInit : MonoBehaviour
 {
-    [SerializeField] private Transform player;
+    private Transform player;
     
-    private void Awake()
+    private void Start()
     {
-        SharedTransform tmp = new ();
-        tmp.SetValue(player);
-        GlobalVariables.Instance.SetVariable(Constant.Target, tmp);
+        player = GameManager.Instance.Player.transform;
     }
 }

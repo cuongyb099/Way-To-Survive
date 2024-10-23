@@ -1,23 +1,30 @@
 using BehaviorDesigner.Runtime;
+using ProjectDawn.Navigation.Hybrid;
 using UnityEngine;
 using UnityEngine.AI;
 
-public abstract class EnemyCtrlBase : MonoBehaviour
+public abstract class EnemyCtrlBase : BasicController
 {
-    public NavMeshAgent Agent { get; private set; }
     public Animator Animator { get; private set; }
     public BehaviorTree OriginTree { get; private set; }
     public AnimEventHelper AnimHelper  { get; private set; }
     public BaseStat Stat { get; private set; }
-    public NavMeshObstacle NavMeshObstacle { get; private set; }
+    /*public NavMeshObstacle NavMeshObstacle { get; private set; }
+    public NavMeshAgent Agent { get; private set; }*/
+    public AgentAuthoring AgentAuthor { get; private set;}
+    public CustomAgent Agent { get; private set; }
+    public ColliderDetectionCtrl DetectionCtrl { get; private set; }
     
-    protected virtual void Awake()
+    protected override void Awake()
     {
-        Agent = GetComponent<NavMeshAgent>();
+        base.Awake();
+        AgentAuthor = GetComponent<AgentAuthoring>();
         Animator = GetComponentInChildren<Animator>();
         AnimHelper = GetComponentInChildren<AnimEventHelper>();
+        DetectionCtrl = GetComponentInChildren<ColliderDetectionCtrl>();
         OriginTree = GetComponent<BehaviorTree>();
         Stat = GetComponentInChildren<BaseStat>();
-        NavMeshObstacle = GetComponent<NavMeshObstacle>();
+        /*Agent = GetComponent<NavMeshAgent>();
+        NavMeshObstacle = GetComponent<NavMeshObstacle>();*/
     }
 }

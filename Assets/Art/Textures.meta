@@ -1,5 +1,9 @@
 fileFormatVersion: 2
-guid: c25c711409d73094681c91d2a4f5cd46
+<<<<<<<< HEAD:Assets/Art/Textures.meta
+guid: 0c4dc23a478e2e94e9beba9ec1e2a9c5
+========
+guid: cd0ba3bf75d61084a80ae898a34d9997
+>>>>>>>> origin/katDevelop:Assets/Animation.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

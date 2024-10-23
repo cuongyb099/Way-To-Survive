@@ -14,7 +14,7 @@ public class IsTargetInRange : Conditional
     {
         base.OnAwake();
         controller = GetComponent<ZombieCtrl>();
-        target = ((SharedTransform)GlobalVariables.Instance.GetVariable(Constant.Target)).Value;
+        target = ((SharedTransform)GlobalVariables.Instance.GetVariable(EnemyConstant.Target)).Value;
     }
 
     public override TaskStatus OnUpdate()
@@ -23,7 +23,7 @@ public class IsTargetInRange : Conditional
         
         if (Physics.OverlapSphereNonAlloc(controller.transform.position + OffSetRange, Radius, results, TargetLayer) > 0)
         {
-            controller.OriginTree.SetVariableValue(Constant.AiCurTarget, results[0].transform);
+            controller.OriginTree.SetVariableValue(EnemyConstant.AiCurTarget, results[0].transform);
             return TaskStatus.Success;
         }
         

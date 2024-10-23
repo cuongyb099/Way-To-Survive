@@ -13,23 +13,16 @@ public class ZombieChasing : BaseZombieAction
     public override void OnAwake()
     {
         base.OnAwake();
-        player = ((SharedTransform)GlobalVariables.Instance.GetVariable(Constant.Target)).Value;
+        player = ((SharedTransform)GlobalVariables.Instance.GetVariable(EnemyConstant.Target)).Value;
         SetUpAnimation();
     }
     
     private void SetUpAnimation()
     {
-        controller.Agent.speed = Speed;
+        controller.AgentAuthor.Speed = Speed;
         
-        controller.Animator.SetFloat(Constant.ZombieRandomStatus,
-            Random.Range(0,Constant.ZombieStatusCount));
-    }
-    
-    public override void OnStart()
-    {
-        /*controller.NavMeshObstacle.enabled = false;
-        StartCoroutine(DelayAFrame());*/
-        controller.Agent.isStopped = false;
+        controller.Animator.SetFloat(EnemyConstant.ZombieRandomStatus,
+            Random.Range(0,EnemyConstant.ZombieStatusCount));
     }
 
     public override TaskStatus OnUpdate()
@@ -42,8 +35,6 @@ public class ZombieChasing : BaseZombieAction
 
     public override void OnEnd()
     {
-        /*controller.Agent.enabled = false;
-        controller.NavMeshObstacle.enabled = true;*/
-        controller.Agent.isStopped = true;
+        controller.StopDestination();        
     }
 }

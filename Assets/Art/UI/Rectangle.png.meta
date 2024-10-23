@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Art/UI/Rectangle.png.meta
 guid: 7b426cc1b7ab01b45b4621aee35f89f6
+========
+guid: a8fb796fc1663c3409f66cb623e29327
+>>>>>>>> thinhDevelop:Assets/3D Model Prefab/textures/Metal_Rust1.png.meta
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}

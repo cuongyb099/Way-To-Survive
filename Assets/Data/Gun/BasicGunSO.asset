@@ -13,8 +13,12 @@ MonoBehaviour:
   m_Name: BasicGunSO
   m_EditorClassIdentifier: 
   BulletPrefab: {fileID: 984755602444092648, guid: bff9cb15c026277498f4541bb37853a4, type: 3}
-  ShootingSpeed: 0.1
+  WeaponType: 0
+  ShootingSpeed: 0.3
   Damage: 1
-  Aim: 2
-  Accuracy: 5
+  Aim: 10
+  SpreadMax: 3
+  Recoil: 0.03
+  RecoilResetTime: 2
+  MaxCapacity: 10
   ReleaseToShoot: 0

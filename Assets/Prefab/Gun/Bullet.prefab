@@ -45,11 +45,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 984755602444092648}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db1a86c4f33a26545ae1786caf0552b3, type: 3}
+  m_Script: {fileID: 11500000, guid: 0f483b6edf440034ba7aea28dbdfe9a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LiveTime: 1
+  LiveTime: 3
   Force: 100
+  HitEffectWall: {fileID: 381577045362741523, guid: 46d5ff5f9098d414890a45404c2adda3, type: 3}
 --- !u!54 &1203955708225218666
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -69,7 +70,7 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 72
+    m_Bits: 200
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
@@ -90,13 +91,13 @@ CapsuleCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 72
+    m_Bits: 200
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.15
+  m_Radius: 0.5
   m_Height: 0.5
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0}

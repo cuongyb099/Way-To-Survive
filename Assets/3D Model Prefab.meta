@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/3D Model Prefab.meta
 guid: f5eac091e9ac95d498b0732e8ce5dd6d
+========
+guid: a07433e605aec654c929a161ed5a593f
+>>>>>>>> origin/katDevelop:Assets/Art/Gun.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

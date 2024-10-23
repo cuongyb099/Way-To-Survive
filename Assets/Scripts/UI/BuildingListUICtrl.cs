@@ -1,12 +1,11 @@
 using System.Collections.Generic;
-using Tech.Observer;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class BuildingListUICtrl : MonoBehaviour
 {
-    [SerializeField] private Transform slotPrefab;
-    [SerializeField] private Transform slotHolder;
+    private Transform slotPrefab;
+    private Transform slotHolder;
 
     [SerializeField] private Button buildBtn;
     [SerializeField] private Button rotateBtn;
@@ -17,15 +16,27 @@ public class BuildingListUICtrl : MonoBehaviour
     private void Awake()
     {
         scrollView = transform.Find("Structure Panel");
-        PlayerInput.Instance.OnBuildingModeInput += SetInActiveBtn;
-    }
+        slotHolder = transform.GetChild(0).GetChild(0).GetChild(0);
 
-    private void Start()
-    {
+        AddressablesManager.Instance.CreateAsset<GameObject>("UI/Structure Slot", (prefab) =>
+        {
+            slotPrefab = prefab.transform;
+		});
+
+        InputEvent.OnBuildingMode += SetInActiveBtn;
+    }
+	private void OnDestroy()
+	{
+		InputEvent.OnBuildingMode -= SetInActiveBtn;
+	}
+
+	private void Start()
+	{
         InitAllItemView();
-    }
+	}
 
-    private void InitAllItemView()
+
+	private void InitAllItemView()
     {
         listSlotUI = new();
         

@@ -1,18 +1,23 @@
+using BehaviorDesigner.Runtime;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
+using DG.Tweening.Core;
+using Tech.Singleton;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Singleton<GameManager>
 {
-    // Start is called before the first frame update
-    void Start()
+    public PlayerController Player { get; private set; }
+    protected override void Awake()
     {
+        base.Awake();
+        Player = FindAnyObjectByType<PlayerController>();
         
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
+        SharedTransform tmp = new();
+        tmp.SetValue(Player.transform);
+        GlobalVariables.Instance.SetVariable(EnemyConstant.Target, tmp);
         
+        DOTween.Init().SetCapacity(200, 50);
     }
 }

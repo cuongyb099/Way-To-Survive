@@ -3,12 +3,15 @@ using UnityEngine;
 
 public class ColliderDetection : MonoBehaviour
 {
-    private Collider col;
-    public Action<Collider> CallbackOnTriggerEnter;
+    private Collider _collider;
+    public Action<Collider> CallbackColliderEnter;
+    
+    [field: SerializeField] public ColliderDetectionType DetectionType {get; private set;}
     
     private void Awake()
     {
-        col = GetComponent<Collider>();
+        _collider = GetComponent<Collider>();
+        _collider.isTrigger = true;
     }
 
     private void Start()
@@ -18,11 +21,11 @@ public class ColliderDetection : MonoBehaviour
 
     public void SetActiveCollider(bool value)
     {
-        col.enabled = value;
+        _collider.enabled = value;
     }
     
     private void OnTriggerEnter(Collider other)
     {
-        CallbackOnTriggerEnter?.Invoke(other);
+        CallbackColliderEnter?.Invoke(other);
     }
 }

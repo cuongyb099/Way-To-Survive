@@ -8,7 +8,7 @@ public class RotateToTarget : BaseZombieAction
     
     public override void OnStart()
     {
-        Transform targetToRotate = (Transform)controller.OriginTree.GetVariable(Constant.AiCurTarget).GetValue();
+        Transform targetToRotate = (Transform)controller.OriginTree.GetVariable(EnemyConstant.AiCurTarget).GetValue();
         var dirToRotate = (targetToRotate.position - controller.transform.position).normalized;
         dirToRotate.y = 0;
         var targetRotation = Quaternion.LookRotation(dirToRotate, Vector3.up);
