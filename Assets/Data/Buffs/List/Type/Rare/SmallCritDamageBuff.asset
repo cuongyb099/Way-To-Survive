@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SmallCritDamageBuff
   m_EditorClassIdentifier: 
   BuffName: Damaging Strike
-  BuffDescription: Increase <color=#FFAF00>Crit Damage</color> by <color=#3ED1FF>6%</color>
+  BuffDescription: Increase <color=#FFAF00>Crit Damage</color> by <color=#3ED1FF>{pvalue}</color>
   BuffIcon: {fileID: 21300000, guid: 614bebf5ca5dce1408ae5109911f190d, type: 3}
   RareType: 2
   StatType: 5

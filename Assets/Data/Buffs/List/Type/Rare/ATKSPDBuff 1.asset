@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6410e6fc845cb21468863360930066bd, type: 3}
   m_Name: ATKSPDBuff 1
   m_EditorClassIdentifier: 
-  BuffName: Bullet Per Second
-  BuffDescription: Increase weapon <color=#FFAF00>Fire Rate</color> by <color=#3ED1FF>10%</color>
+  BuffName: Rapid Fire I
+  BuffDescription: Increase weapon <color=#FFAF00>Fire Rate</color> by <color=#3ED1FF>{value}</color>
   BuffIcon: {fileID: 21300000, guid: aeb4ae058eb6a3d41b5f5293aaaa9e91, type: 3}
   RareType: 2
   StatType: 7

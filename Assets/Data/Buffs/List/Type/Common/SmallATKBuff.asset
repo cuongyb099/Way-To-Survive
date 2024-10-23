@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6410e6fc845cb21468863360930066bd, type: 3}
   m_Name: SmallATKBuff
   m_EditorClassIdentifier: 
-  BuffName: Small Tweak
-  BuffDescription: Increase <color=#FFAF00>ATK</color> by <color=#3ED1FF>5%</color>
+  BuffName: Rage I
+  BuffDescription: Increase <color=#FFAF00>ATK</color> by <color=#3ED1FF>{value}</color>
   BuffIcon: {fileID: 21300000, guid: 11afddc54d0dca740b1b80fa6a184d2e, type: 3}
   RareType: 0
   StatType: 0

@@ -12,7 +12,6 @@ public class PlayerController : BasicController
     public FloatingCapsule FloatingCapsule { get; private set; }
     public CapsuleCollider Collider { get; private set; }
     public Animator Animator { get; private set; }
-
 	//Player Data
 	public float GunSwitchCooldown = .1f;
     public GunBase[] StartGun;
@@ -44,7 +43,7 @@ public class PlayerController : BasicController
 		InputEvent.OnInputSwitchGuns += SwitchGun;
         InputEvent.OnInputReloadGun += ReloadGun;
 		PlayerEvent.OnShoot += SetShootAnim;
-        Stats.GetStat(StatType.MagCapMultiplier).OnValueChange += CalculateMaxCap;
+        Stats.GetStat(StatType.MagCapacity).OnValueChange += CalculateMaxCap;
 		Stats.GetStat(StatType.ShootSpeed).OnValueChange += SetShootingSpeedAnim;
 		Stats.GetStat(StatType.Speed).OnValueChange += SetMovementSpeedAnim;
 	}
@@ -55,7 +54,7 @@ public class PlayerController : BasicController
 		InputEvent.OnInputSwitchGuns -= SwitchGun;
 		InputEvent.OnInputReloadGun -= ReloadGun;
 		PlayerEvent.OnShoot -= SetShootAnim;
-		Stats.GetStat(StatType.MagCapMultiplier).OnValueChange -= CalculateMaxCap;
+		Stats.GetStat(StatType.MagCapacity).OnValueChange -= CalculateMaxCap;
 		Stats.GetStat(StatType.ShootSpeed).OnValueChange -= SetShootingSpeedAnim;
 		Stats.GetStat(StatType.Speed).OnValueChange -= SetMovementSpeedAnim;
 	}
@@ -245,7 +244,7 @@ public class PlayerController : BasicController
     {
 		for (int i = 0; i < StartGun.Length; i++)
 		{
-            Guns[i].SetBulletCap(Stats.GetStat(StatType.MagCapMultiplier).Value);
+            Guns[i].SetBulletCap(Stats.GetStat(StatType.MagCapacity).Value);
 		}
         PlayerEvent.OnChangeCap?.Invoke();
 	}

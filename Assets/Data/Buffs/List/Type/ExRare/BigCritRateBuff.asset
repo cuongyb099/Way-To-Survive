@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BigCritRateBuff
   m_EditorClassIdentifier: 
   BuffName: Cunning
-  BuffDescription: Increase <color=#FFAF00>Crit Chance</color> by <color=#3ED1FF>7%</color>
+  BuffDescription: Increase <color=#FFAF00>Crit Chance</color> by <color=#3ED1FF>{pvalue}</color>
   BuffIcon: {fileID: 21300000, guid: 173b1bad15248c44580cc0d4a785c6bd, type: 3}
   RareType: 3
   StatType: 4

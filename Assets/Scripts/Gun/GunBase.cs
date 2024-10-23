@@ -22,6 +22,7 @@ public class GunBase : MonoBehaviour
 	public bool ShootAble { get; set; } = true;
 	public float GunRecoil { get; protected set; } = 0f;
 	public StatsController Stats { get; protected set; }
+	public TriggerHandler GunOverlap { get; protected set; }
 
 	protected PlayerController playerController;
 	protected bool repeatAble = true;
@@ -29,6 +30,7 @@ public class GunBase : MonoBehaviour
 	private void Awake()
 	{
 		Stats = GetComponent<StatsController>();
+		GunOverlap = GetComponent<TriggerHandler>();
 		playerController = GetComponentInParent<PlayerController>();
 	}
 	public void Initialize()
@@ -79,7 +81,8 @@ public class GunBase : MonoBehaviour
 	{
 		if (!ShootAble ||
 			Stats.GetAttribute(AttributeType.Bullets).Value <= 0 ||
-			!repeatAble) return;
+			!repeatAble ||
+			GunOverlap.IsTriggered) return;
 		repeatAble = false;
 		temp.Kill();
 		Stats.GetAttribute(AttributeType.Bullets).Value--;
