@@ -21,3 +21,4 @@ MonoBehaviour:
   Value: 10
   HasDuration: 1
   Duration: 0
+  Stackable: 1

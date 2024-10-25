@@ -33,6 +33,7 @@ public class PlayerController : BasicController
         FloatingCapsule = GetComponent<FloatingCapsule>();
         Animator = GetComponentInChildren<Animator>();
         Guns = new List<GunBase>();
+        BuffList = new List<int>();
 		for (int i = 0; i < StartGun.Length; i++)
 		{
 			Guns.Add(Instantiate(StartGun[i], GunHoldPoint.transform));
@@ -235,11 +236,14 @@ public class PlayerController : BasicController
         PlayerEvent.OnHeathChange?.Invoke(_hp.Value, _hp.MaxValue);
     }
     //Buffs
-    public List<BuffSO> BuffList { get; private set; }
-    public void AddBuffToPlayer(BuffSO buff)
+    public List<int> BuffList { get; private set; }
+    public void AddBuffToPlayer(BasicBuffSO buff)
     {
-        Stats.ApplyEffect(new BuffEffect(buff, Stats));
-	}
+        BuffStatusEffect buffEffect = new BuffStatusEffect(buff, Stats);
+        Stats.ApplyEffect(buffEffect);
+        BuffList.Add(buff.ID);
+        buffEffect.OnEnd += () => BuffList.Remove(buff.ID);
+    }
     public void CalculateMaxCap()
     {
 		for (int i = 0; i < StartGun.Length; i++)

@@ -31,8 +31,8 @@ public class BuffSelector : MonoBehaviour
 	}
 	public void InitializeAll()
 	{
-		List<BuffSO> buffs = BuffsData.ChoseRandomBuffAmmount(CardCount);
-		for (int i = 0; i < CardCount; i++)
+		List<BasicBuffSO> buffs = BuffsData.ChoseRandomBuffAmmount(CardCount);
+		for (int i = 0; i < buffs.Count; i++)
 		{
 			BuffCardUI card = Instantiate(BuffsData.BuffRarityCard[buffs[i].RareType],transform);
 			card.Initialize(buffs[i]);

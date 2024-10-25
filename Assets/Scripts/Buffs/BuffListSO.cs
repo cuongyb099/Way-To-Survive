@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using AYellowpaper.SerializedCollections;
+using System;
+using System.Threading;
 
 [CreateAssetMenu(fileName = "BuffListSO", menuName = "Item/Buff/new BuffListSO")]
 public class BuffListSO : ScriptableObject
@@ -13,10 +15,10 @@ public class BuffListSO : ScriptableObject
 	[SerializeField] public SerializedDictionary<BuffRarity, BuffCardUI> BuffRarityCard = new();
 	[SerializedDictionary("Rarity", "Rate")]
 	[SerializeField] public SerializedDictionary<BuffRarity, float> BuffRarityRate = new();
-	public BuffSO ChoseRandomRarityBuff()
+	public BasicBuffSO ChoseRandomRarityBuff()
     {
         float curSum = 0;
-        float rdnNum = Random.value* calSumNumber();
+        float rdnNum = UnityEngine.Random.value* calSumNumber();
 		foreach (var key in BuffRarityRate.Keys)
 		{
             curSum += BuffRarityRate[key];
@@ -34,17 +36,21 @@ public class BuffListSO : ScriptableObject
         }
         return sum;
     }
-	public List<BuffSO> ChoseRandomBuffAmmount(int n)
+	public List<BasicBuffSO> ChoseRandomBuffAmmount(int n)
 	{
-        List<BuffSO> l = new List<BuffSO>();
-        while (l.Count < n)
+        List<BasicBuffSO> l = new List<BasicBuffSO>();
+        int count = 0;
+        while (l.Count < n && count <999)
         {
-            BuffSO t = ChoseRandomRarityBuff();
+            count++;    
+            BasicBuffSO t = ChoseRandomRarityBuff();
             if (!l.Contains(t))
             {
+                if (!t.Stackable && GameManager.Instance.Player.BuffList.Contains(t.ID)) continue;
                 l.Add(t);
             }
-		}
+        }
+
         return l;
 	}
 }

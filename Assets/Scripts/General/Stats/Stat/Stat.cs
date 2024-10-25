@@ -1,7 +1,5 @@
-using Mono.Cecil;
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 [Serializable]
 public class Stat
@@ -79,27 +77,28 @@ public class Stat
 
 	protected virtual float CalculateFinalValue()
 	{
-		float _baseFlatSum = 0f;
-		float _percentageSum = 0f;
-		float _flatSum = 0f;
+        float _baseFlatSum = 0f;
+        float _percentageSum = 0f;
+        float _flatSum = 0f;
 
-		foreach (StatModifier modifier in StatModifiers)
-		{
-			if (modifier.Type == StatModType.BaseFlat)
-			{
-				_baseFlatSum += modifier.Value;
-			}
-			else if (modifier.Type == StatModType.Percentage)
-			{
-				_percentageSum += modifier.Value;
-			}
-			else if (modifier.Type == StatModType.Flat)
-			{
-				_flatSum += modifier.Value;
-			}
-		}
-		float _finalValue = (BaseValue + _baseFlatSum) * (1f + _percentageSum / 100f) + _flatSum;
+        foreach (StatModifier modifier in StatModifiers)
+        {
+            if (modifier.Type == StatModType.BaseFlat)
+            {
+                _baseFlatSum += modifier.Value;
+            }
+            else if (modifier.Type == StatModType.Percentage)
+            {
+                _percentageSum += modifier.Value;
+            }
+            else if (modifier.Type == StatModType.Flat)
+            {
+                _flatSum += modifier.Value;
+            }
+        }
+        float _finalValue = (BaseValue + _baseFlatSum) * (1f + _percentageSum / 100f) + _flatSum;
 
-		return (float)Math.Round(_finalValue, 4);
+
+        return (float)Math.Round(_finalValue, 4);
 	}
 }
