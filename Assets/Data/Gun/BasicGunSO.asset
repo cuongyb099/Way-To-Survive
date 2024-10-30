@@ -16,7 +16,7 @@ MonoBehaviour:
   WeaponType: 0
   GunName: USP
   GunDescription: sss
-  Icon: {fileID: 21300000, guid: f7a64cc504985ff439775623bfbc724c, type: 3}
+  Icon: {fileID: 212650312, guid: 92a4fe653152e9244b4849b9dba1c92b, type: 3}
   ShootingSpeed: 0.3
   Damage: 1
   Aim: 10

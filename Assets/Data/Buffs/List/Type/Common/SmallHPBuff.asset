@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: SmallHPBuff
   m_EditorClassIdentifier: 
   <Name>k__BackingField: 56565
-  <Description>k__BackingField: 
-  <Icon>k__BackingField: {fileID: 0}
+  <Description>k__BackingField: Increase <color=#FFB600>Max HP</color> by <color=#3ECDFF>{value}</color>
+  <Icon>k__BackingField: {fileID: 21300000, guid: 39d482461f75ff2439684aa9875929eb, type: 3}
   <HasDuration>k__BackingField: 0
   <Duration>k__BackingField: 0
   <Stackable>k__BackingField: 1
@@ -22,6 +22,6 @@ MonoBehaviour:
   <EffectType>k__BackingField: 0
   <UseAdvanceUpdate>k__BackingField: 1
   RareType: 0
-  StatType: 0
-  ModifierType: 1
+  StatType: 2
+  ModifierType: 2
   Value: 10

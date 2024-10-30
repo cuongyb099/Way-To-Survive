@@ -44,8 +44,6 @@ public abstract class BaseStatusEffect
         ForceStop = false;
         CurrentStack = 0;
         HandleStart();
-        Data.StartStatus(stats);
-
         OnStart?.Invoke();
         if (Data.UseAdvanceUpdate)
         {
@@ -69,7 +67,6 @@ public abstract class BaseStatusEffect
     {
         if (!Data.UseAdvanceUpdate)
         {
-            Data.UpdateStatus(stats);
             HandleOnUpdate();
             OnActive?.Invoke();
         }
@@ -85,7 +82,6 @@ public abstract class BaseStatusEffect
 #if UNITY_EDITOR
             if (!Application.isPlaying) break;
 #endif
-            Data.UpdateStatus(stats);
             HandleOnUpdate();
             OnActive?.Invoke();
             await Task.Yield();
@@ -95,7 +91,6 @@ public abstract class BaseStatusEffect
     public void Stop()
     {
         ForceStop = true;
-        Data.EndStatus(stats);
         HandleOnEnd();
         OnEnd?.Invoke();
     }

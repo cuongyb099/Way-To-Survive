@@ -239,8 +239,7 @@ public class PlayerController : BasicController
     public List<int> BuffList { get; private set; }
     public void AddBuffToPlayer(BasicBuffSO buff)
     {
-        BuffStatusEffect buffEffect = new BuffStatusEffect(buff, Stats);
-        Stats.ApplyEffect(buffEffect);
+		BuffStatusEffect buffEffect = buff.AddStatusEffect(Stats);
         BuffList.Add(buff.ID);
         buffEffect.OnEnd += () => BuffList.Remove(buff.ID);
     }

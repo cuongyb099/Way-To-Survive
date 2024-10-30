@@ -16,7 +16,7 @@ MonoBehaviour:
   WeaponType: 2
   GunName: XM1014
   GunDescription: asd
-  Icon: {fileID: 21300000, guid: aeb4ae058eb6a3d41b5f5293aaaa9e91, type: 3}
+  Icon: {fileID: 1247450681, guid: 92a4fe653152e9244b4849b9dba1c92b, type: 3}
   ShootingSpeed: 1
   Damage: 3
   Aim: 5

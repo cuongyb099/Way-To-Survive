@@ -21,7 +21,7 @@ MonoBehaviour:
     in the 1980s. The rifles have features that improve performance in extremely
     cold conditions (which gave the rifle its name) without impairing operation in
     less extreme conditions.
-  Icon: {fileID: 21300000, guid: 4e3cfc801a02b4b4e899317b49d44259, type: 3}
+  Icon: {fileID: 1041082314, guid: 92a4fe653152e9244b4849b9dba1c92b, type: 3}
   ShootingSpeed: 1
   Damage: 5
   Aim: 20

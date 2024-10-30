@@ -12,13 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6410e6fc845cb21468863360930066bd, type: 3}
   m_Name: HugeCritRateBuff
   m_EditorClassIdentifier: 
-  BuffName: Cunning
-  BuffDescription: Increase <color=#FFAF00>Crit Chance</color> by <color=#3ED1FF>{pvalue}</color>
-  BuffIcon: {fileID: 21300000, guid: 173b1bad15248c44580cc0d4a785c6bd, type: 3}
+  <Name>k__BackingField: 
+  <Description>k__BackingField: 
+  <Icon>k__BackingField: {fileID: 0}
+  <HasDuration>k__BackingField: 0
+  <Duration>k__BackingField: 0
+  <Stackable>k__BackingField: 1
+  <MaxStack>k__BackingField: 64
+  <EffectType>k__BackingField: 0
+  <UseAdvanceUpdate>k__BackingField: 1
   RareType: 4
   StatType: 4
   ModifierType: 2
   Value: 0.15
-  HasDuration: 0
-  Duration: 0
-  Stackable: 1

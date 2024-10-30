@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6410e6fc845cb21468863360930066bd, type: 3}
   m_Name: SmallFlatATKBuff
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: 5655
-  <Description>k__BackingField: 
-  <Icon>k__BackingField: {fileID: 0}
+  <Name>k__BackingField: Gun Tweaking I
+  <Description>k__BackingField: Increase <color=#FFB600>Flat ATK</color> by <color=#3ECDFF>{value}</color>
+  <Icon>k__BackingField: {fileID: 21300000, guid: a759de1d42ef65543a24d7105f90fc79, type: 3}
   <HasDuration>k__BackingField: 0
   <Duration>k__BackingField: 0
   <Stackable>k__BackingField: 1
@@ -23,5 +23,5 @@ MonoBehaviour:
   <UseAdvanceUpdate>k__BackingField: 1
   RareType: 0
   StatType: 0
-  ModifierType: 0
+  ModifierType: 1
   Value: 2

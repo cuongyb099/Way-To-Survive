@@ -42,7 +42,7 @@ public class BuffListSO : ScriptableObject
         int count = 0;
         while (l.Count < n && count <999)
         {
-            count++;    
+            count++;
             BasicBuffSO t = ChoseRandomRarityBuff();
             if (!l.Contains(t))
             {

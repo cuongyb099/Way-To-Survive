@@ -1,3 +1,4 @@
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Stats/Status Effect")]
@@ -16,16 +17,10 @@ public class StatusEffectSO : ScriptableObject
     
     [field: Header("MultiThreading Update")]
     [field: SerializeField] public bool UseAdvanceUpdate { get; protected set; } = true;
-    public virtual void StartStatus(StatsController controller)
+
+    public virtual BuffStatusEffect AddStatusEffect(StatsController controller)
     {
 
-    }
-    public virtual void UpdateStatus(StatsController controller)
-    {
-
-    }
-    public virtual void EndStatus(StatsController controller)
-    {
-
+		return null;
     }
 }

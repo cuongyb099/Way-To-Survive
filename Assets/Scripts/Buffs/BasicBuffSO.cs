@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 public enum BuffRarity
@@ -19,15 +20,10 @@ public class BasicBuffSO : StatusEffectSO
     public StatModType ModifierType;
 	public float Value;
 
-    public override void StartStatus(StatsController controller)
-    {
-        base.StartStatus(controller);
-        controller.AddModifier(StatType, new StatModifier(Value, ModifierType));
-    }
-    public override void EndStatus(StatsController controller)
-    {
-        base.EndStatus(controller);
-        controller.RemoveModifier(StatType, new StatModifier(Value, ModifierType));
-
-    }
+	public override BuffStatusEffect AddStatusEffect(StatsController controller)
+	{
+		BuffStatusEffect buffEffect = new BuffStatusEffect(this, controller);
+		controller.ApplyEffect(buffEffect);
+		return buffEffect;
+	}
 }

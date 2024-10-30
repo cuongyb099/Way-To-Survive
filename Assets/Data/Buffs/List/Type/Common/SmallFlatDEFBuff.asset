@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SmallFlatDEFBuff
   m_EditorClassIdentifier: 
   <Name>k__BackingField: 5655
-  <Description>k__BackingField: 
+  <Description>k__BackingField: Increase <color=#FFB600>ATK</color> by <color=#3ECDFF>{value}</color>
   <Icon>k__BackingField: {fileID: 0}
   <HasDuration>k__BackingField: 0
   <Duration>k__BackingField: 0
@@ -22,6 +22,6 @@ MonoBehaviour:
   <EffectType>k__BackingField: 0
   <UseAdvanceUpdate>k__BackingField: 1
   RareType: 0
-  StatType: 0
-  ModifierType: 0
+  StatType: 1
+  ModifierType: 1
   Value: 1
