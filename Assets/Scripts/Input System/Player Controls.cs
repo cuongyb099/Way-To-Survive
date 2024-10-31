@@ -116,6 +116,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""1a3415ca-9c96-4077-a196-0ddc3632f6ef"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -316,6 +325,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Zoom"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8bea649e-e39a-4a0a-9887-5ea7caf6ab16"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -334,6 +354,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_BasicAction_ShootStick = m_BasicAction.FindAction("ShootStick", throwIfNotFound: true);
         m_BasicAction_Reload = m_BasicAction.FindAction("Reload", throwIfNotFound: true);
         m_BasicAction_Zoom = m_BasicAction.FindAction("Zoom", throwIfNotFound: true);
+        m_BasicAction_Interact = m_BasicAction.FindAction("Interact", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -405,6 +426,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_BasicAction_ShootStick;
     private readonly InputAction m_BasicAction_Reload;
     private readonly InputAction m_BasicAction_Zoom;
+    private readonly InputAction m_BasicAction_Interact;
     public struct BasicActionActions
     {
         private @PlayerControls m_Wrapper;
@@ -419,6 +441,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @ShootStick => m_Wrapper.m_BasicAction_ShootStick;
         public InputAction @Reload => m_Wrapper.m_BasicAction_Reload;
         public InputAction @Zoom => m_Wrapper.m_BasicAction_Zoom;
+        public InputAction @Interact => m_Wrapper.m_BasicAction_Interact;
         public InputActionMap Get() { return m_Wrapper.m_BasicAction; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -458,6 +481,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Zoom.started += instance.OnZoom;
             @Zoom.performed += instance.OnZoom;
             @Zoom.canceled += instance.OnZoom;
+            @Interact.started += instance.OnInteract;
+            @Interact.performed += instance.OnInteract;
+            @Interact.canceled += instance.OnInteract;
         }
 
         private void UnregisterCallbacks(IBasicActionActions instance)
@@ -492,6 +518,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Zoom.started -= instance.OnZoom;
             @Zoom.performed -= instance.OnZoom;
             @Zoom.canceled -= instance.OnZoom;
+            @Interact.started -= instance.OnInteract;
+            @Interact.performed -= instance.OnInteract;
+            @Interact.canceled -= instance.OnInteract;
         }
 
         public void RemoveCallbacks(IBasicActionActions instance)
@@ -521,5 +550,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnShootStick(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);
         void OnZoom(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
     }
 }

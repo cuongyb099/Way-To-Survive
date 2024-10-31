@@ -9,4 +9,5 @@ public static class InputEvent
 	public static Action OnRotateStructure;
 	public static Action OnInputShoot;
     public static Action OnShootStickCanceled;
+    public static Action OnInputInteract;
 }
