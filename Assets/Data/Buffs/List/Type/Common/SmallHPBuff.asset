@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6410e6fc845cb21468863360930066bd, type: 3}
   m_Name: SmallHPBuff
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: 56565
+  <Name>k__BackingField: Life Line I
   <Description>k__BackingField: Increase <color=#FFB600>Max HP</color> by <color=#3ECDFF>{value}</color>
-  <Icon>k__BackingField: {fileID: 21300000, guid: 39d482461f75ff2439684aa9875929eb, type: 3}
+  <Icon>k__BackingField: {fileID: 21300000, guid: b6e3278905f95714d9fd6822595e8838, type: 3}
   <HasDuration>k__BackingField: 0
   <Duration>k__BackingField: 0
   <Stackable>k__BackingField: 1

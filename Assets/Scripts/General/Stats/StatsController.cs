@@ -146,14 +146,23 @@ public class StatsController : MonoBehaviour
 	{
 		if (!effect.Data.Stackable)
 		{
-			var clone = effect.Clone();
-			_statusEffects.Add(clone);
-			clone.Begin();
+			effect.Begin();
+			_statusEffects.Add(effect);
 			OnChange?.Invoke();
 			return;
 		}
 		
 		AddEffectStackable(effect);
+	}
+
+	public void RemoveEffect(BaseStatusEffect effect)
+	{
+		if (_statusEffects.Contains(effect))
+		{
+			effect.Stop();
+			_statusEffects.Remove(effect);
+			OnChange?.Invoke();
+		}
 	}
 
 	private void AddEffectStackable(BaseStatusEffect effect)

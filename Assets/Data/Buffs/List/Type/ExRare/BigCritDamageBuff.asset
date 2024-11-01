@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6410e6fc845cb21468863360930066bd, type: 3}
   m_Name: BigCritDamageBuff
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: 
-  <Description>k__BackingField: 
-  <Icon>k__BackingField: {fileID: 0}
+  <Name>k__BackingField: True Sight II
+  <Description>k__BackingField: Increase <color=#FFB600>Crit Damage</color> by <color=#3ECDFF>{pvalue}</color>
+  <Icon>k__BackingField: {fileID: 21300000, guid: 614bebf5ca5dce1408ae5109911f190d, type: 3}
   <HasDuration>k__BackingField: 0
   <Duration>k__BackingField: 0
   <Stackable>k__BackingField: 1
@@ -23,5 +23,5 @@ MonoBehaviour:
   <UseAdvanceUpdate>k__BackingField: 1
   RareType: 3
   StatType: 5
-  ModifierType: 2
+  ModifierType: 1
   Value: 0.14

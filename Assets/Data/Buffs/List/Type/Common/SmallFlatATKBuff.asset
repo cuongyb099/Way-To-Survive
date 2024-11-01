@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Gun Tweaking I
   <Description>k__BackingField: Increase <color=#FFB600>Flat ATK</color> by <color=#3ECDFF>{value}</color>
-  <Icon>k__BackingField: {fileID: 21300000, guid: a759de1d42ef65543a24d7105f90fc79, type: 3}
+  <Icon>k__BackingField: {fileID: 21300000, guid: e8dae9afc8559b641b381da1f4baabc2, type: 3}
   <HasDuration>k__BackingField: 0
   <Duration>k__BackingField: 0
   <Stackable>k__BackingField: 1

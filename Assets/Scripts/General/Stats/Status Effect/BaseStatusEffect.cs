@@ -12,7 +12,7 @@ public enum StackStatus
 /// Not Stackable Is Clone Effect
 /// Stackable Is Reference Effect 
 /// </summary>
-public abstract class BaseStatusEffect 
+public abstract class BaseStatusEffect
 {
     public Action OnStart, OnEnd, OnActive;
     protected float timer;
@@ -111,6 +111,6 @@ public abstract class BaseStatusEffect
     protected abstract void HandleStart();
     protected abstract void HandleOnUpdate();
     protected abstract void HandleOnEnd();
-
+    
 }
 

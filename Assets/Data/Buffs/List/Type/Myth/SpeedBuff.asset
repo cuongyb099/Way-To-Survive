@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6410e6fc845cb21468863360930066bd, type: 3}
   m_Name: SpeedBuff
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: 
-  <Description>k__BackingField: 
-  <Icon>k__BackingField: {fileID: 0}
+  <Name>k__BackingField: Haste II
+  <Description>k__BackingField: Increase <color=#FFB600>Movement Speed</color> by
+    <color=#3ECDFF>{value}</color>
+  <Icon>k__BackingField: {fileID: 21300000, guid: af8fa43421416af4b8b21d9a01673299, type: 3}
   <HasDuration>k__BackingField: 0
   <Duration>k__BackingField: 0
   <Stackable>k__BackingField: 1
@@ -23,5 +24,5 @@ MonoBehaviour:
   <UseAdvanceUpdate>k__BackingField: 1
   RareType: 4
   StatType: 3
-  ModifierType: 1
+  ModifierType: 2
   Value: 10

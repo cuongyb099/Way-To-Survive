@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Rage IV
   <Description>k__BackingField: Increase <color=#FFB600>ATK</color> by <color=#3ECDFF>{value}</color>
-  <Icon>k__BackingField: {fileID: 21300000, guid: e21088f5706d65f45b419beefaa91854, type: 3}
+  <Icon>k__BackingField: {fileID: 21300000, guid: e8dae9afc8559b641b381da1f4baabc2, type: 3}
   <HasDuration>k__BackingField: 0
   <Duration>k__BackingField: 0
   <Stackable>k__BackingField: 1

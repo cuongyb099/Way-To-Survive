@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class BuffStatusEffect : BaseStatusEffect
 {
-
+    private BasicBuffSO basicBuffSO => Data as BasicBuffSO;
+    private StatModifier statModifier;
     public BuffStatusEffect(BasicBuffSO data, StatsController target, Action OnStart = null, Action onEnd = null, Action onActive = null) : base(data, target, OnStart, onEnd, onActive)
     {
 
@@ -12,7 +13,8 @@ public class BuffStatusEffect : BaseStatusEffect
 
     protected override void HandleStart()
     {
-        stats.AddModifier(Data.StatType, new StatModifier(DataReal.Value, DataReal.ModifierType));
+        statModifier = new StatModifier(basicBuffSO.Value, basicBuffSO.ModifierType);
+        stats.AddModifier(basicBuffSO.StatType, statModifier);
     }
     protected override void HandleOnUpdate()
     {
@@ -20,7 +22,7 @@ public class BuffStatusEffect : BaseStatusEffect
     }
     protected override void HandleOnEnd()
     {
-
+        stats.RemoveModifier(basicBuffSO.StatType,statModifier);
     }
 
     public override void HandleStackChange(StackStatus stackStatus)

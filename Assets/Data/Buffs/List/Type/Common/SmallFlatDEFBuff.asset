@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6410e6fc845cb21468863360930066bd, type: 3}
   m_Name: SmallFlatDEFBuff
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: 5655
-  <Description>k__BackingField: Increase <color=#FFB600>ATK</color> by <color=#3ECDFF>{value}</color>
-  <Icon>k__BackingField: {fileID: 0}
+  <Name>k__BackingField: Harden I
+  <Description>k__BackingField: Increase <color=#FFB600>Flat DEF</color> by <color=#3ECDFF>{value}</color>
+  <Icon>k__BackingField: {fileID: 21300000, guid: 0b88d093a142d7646bdb4f10cb365266, type: 3}
   <HasDuration>k__BackingField: 0
   <Duration>k__BackingField: 0
   <Stackable>k__BackingField: 1

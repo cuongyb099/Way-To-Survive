@@ -16,7 +16,7 @@ MonoBehaviour:
   <Description>k__BackingField: For every <color=#3ECDFF>5 bullets</color> shot,
     increase <color=#FFB600>Shooting Speed</color> by <color=#3ECDFF>{value}</color>
     lasting for <color=#3ECDFF>5</color> seconds, every stack is time independent
-  <Icon>k__BackingField: {fileID: 21300000, guid: 8f1f196fb1fad444f9a38390b36eb5b0, type: 3}
+  <Icon>k__BackingField: {fileID: 21300000, guid: b5009f2dd76783e428cca27a3c82b872, type: 3}
   <HasDuration>k__BackingField: 0
   <Duration>k__BackingField: 0
   <Stackable>k__BackingField: 0
@@ -27,4 +27,5 @@ MonoBehaviour:
   StatType: 7
   ModifierType: 2
   Value: 5
+  BuffSO1: {fileID: 11400000, guid: 506779823d7affb499d7ba14ad071eed, type: 2}
   BuffAfter: 5

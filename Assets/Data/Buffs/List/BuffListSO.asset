@@ -15,7 +15,7 @@ MonoBehaviour:
   Buffs:
     _serializedList:
     - Key: 0
-      Value: {fileID: 11400000, guid: 47b340003829af64c854b62a798a69fc, type: 2}
+      Value: {fileID: 11400000, guid: 8196702b7f3dc2b469faa6f09d75488c, type: 2}
     - Key: 1
       Value: {fileID: 11400000, guid: dd6d938039d60bc47a7c7371ea9eefc7, type: 2}
     - Key: 2

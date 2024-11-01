@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6410e6fc845cb21468863360930066bd, type: 3}
   m_Name: SmallFlatHPBuff
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: 56556
-  <Description>k__BackingField: Increase <color=#FFB600>ATK</color> by <color=#3ECDFF>{value}</color>
+  <Name>k__BackingField: Healthy Body I
+  <Description>k__BackingField: Increase <color=#FFB600>Flat HP</color> by <color=#3ECDFF>{value}</color>
   <Icon>k__BackingField: {fileID: 21300000, guid: b6e3278905f95714d9fd6822595e8838, type: 3}
   <HasDuration>k__BackingField: 0
   <Duration>k__BackingField: 0
