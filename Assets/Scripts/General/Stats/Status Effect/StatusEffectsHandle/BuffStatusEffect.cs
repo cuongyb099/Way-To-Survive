@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BuffStatusEffect : BaseStatusEffect
 {
+
     public BuffStatusEffect(BasicBuffSO data, StatsController target, Action OnStart = null, Action onEnd = null, Action onActive = null) : base(data, target, OnStart, onEnd, onActive)
     {
 
@@ -11,7 +12,7 @@ public class BuffStatusEffect : BaseStatusEffect
 
     protected override void HandleStart()
     {
-
+        stats.AddModifier(Data.StatType, new StatModifier(DataReal.Value, DataReal.ModifierType));
     }
     protected override void HandleOnUpdate()
     {
