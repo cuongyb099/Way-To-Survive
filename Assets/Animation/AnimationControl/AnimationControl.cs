@@ -3,28 +3,43 @@
 public class PlayerAnimationController : MonoBehaviour
 {
     private Animator animator;
-    private PlayerController playerController;
+    private bool isWalking = false;
+    private bool isShooting = false;
 
     private void Start()
     {
         animator = GetComponent<Animator>();
-        playerController = GetComponent<PlayerController>();
     }
 
     private void Update()
     {
-       
-        bool isWalking = Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0;
-        animator.SetBool("isWalking", isWalking);
+        HandleMovementAnimation();
+        HandleShootingAnimation();
+    }
 
-        
-        if (Input.GetButtonDown("Fire1"))
+    // Kiểm soát animation cho di chuyển
+    private void HandleMovementAnimation()
+    {
+        bool moving = Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0;
+
+        // Nếu trạng thái di chuyển thay đổi, cập nhật animation
+        if (moving != isWalking)
         {
-            animator.SetBool("isShooting", true);
+            isWalking = moving;
+            animator.SetBool("isWalking", isWalking);
         }
-        else if (Input.GetButtonUp("Fire1"))
+    }
+
+    // Kiểm soát animation khi bắn súng
+    private void HandleShootingAnimation()
+    {
+        bool shooting = Input.GetButton("Fire1");
+
+        // Nếu trạng thái bắn thay đổi, cập nhật animation
+        if (shooting != isShooting)
         {
-            animator.SetBool("isShooting", false);
+            isShooting = shooting;
+            animator.SetBool("isShooting", isShooting);
         }
     }
 }
