@@ -8,14 +8,14 @@ public class ScoreManagerUI : MonoBehaviour
     public int zombieCount = 0;            // Số zombie đã tiêu diệt
     public Text scoreText;                 // Tham chiếu đến Text điểm số
     public Text zombieCountText;           // Tham chiếu đến Text số zombie
-    public Text killNotificationText;      // Tham chiếu đến Text thông báo
-    private float notificationTime = 2f;   // Thời gian hiển thị thông báo
+    public Text rewardNotificationText;    // Tham chiếu đến Text thông báo
+    private float notificationTime = 2f;    // Thời gian hiển thị thông báo
 
     void Start()
     {
         UpdateScoreText();                 // Cập nhật điểm số lúc bắt đầu
         UpdateZombieCountText();           // Cập nhật số zombie lúc bắt đầu
-        killNotificationText.gameObject.SetActive(false); // Tắt thông báo
+        rewardNotificationText.gameObject.SetActive(false); // Tắt thông báo
     }
 
     // Phương thức thêm điểm
@@ -36,7 +36,7 @@ public class ScoreManagerUI : MonoBehaviour
     {
         zombieCount++;
         UpdateZombieCountText();
-        ShowKillNotification(); // Hiển thị thông báo
+        ShowRewardNotification(); // Hiển thị thông báo nhận thưởng
     }
 
     // Cập nhật UI số zombie đã tiêu diệt
@@ -45,16 +45,16 @@ public class ScoreManagerUI : MonoBehaviour
         zombieCountText.text = "Zombie đã tiêu diệt: " + zombieCount.ToString();
     }
 
-    // Hiển thị thông báo tiêu diệt
-    private void ShowKillNotification()
+    // Hiển thị thông báo nhận thưởng
+    private void ShowRewardNotification()
     {
         StartCoroutine(DisplayNotification());
     }
 
     private IEnumerator DisplayNotification()
     {
-        killNotificationText.gameObject.SetActive(true); // Bật thông báo
-        yield return new WaitForSeconds(notificationTime); // Chờ trong thời gian quy định
-        killNotificationText.gameObject.SetActive(false); // Tắt thông báo
+        rewardNotificationText.gameObject.SetActive(true); // Bật hiển thị thông báo
+        yield return new WaitForSeconds(notificationTime);  // Chờ trong thời gian quy định
+        rewardNotificationText.gameObject.SetActive(false); // Tắt hiển thị thông báo
     }
 }
