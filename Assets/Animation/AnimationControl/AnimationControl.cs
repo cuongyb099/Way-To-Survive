@@ -13,11 +13,11 @@ public class PlayerAnimationController : MonoBehaviour
 
     private void Update()
     {
-        // Kiểm tra trạng thái di chuyển để kích hoạt animation đi bộ
+       
         bool isWalking = Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0;
         animator.SetBool("isWalking", isWalking);
 
-        // Animation khi bắn súng
+        
         if (Input.GetButtonDown("Fire1"))
         {
             animator.SetBool("isShooting", true);
