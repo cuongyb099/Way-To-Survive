@@ -16,6 +16,20 @@ public class PlayerController : BasicController
 	public float GunSwitchCooldown = .1f;
     public GunBase[] StartGun;
     public LayerMask GroundLayer;
+    public int Cash
+    {
+	    get => cash;
+	    set
+	    {
+		    cash = value;
+		    if (cash < 0)
+		    {
+			    cash = 0;
+		    }
+		    PlayerEvent.OnCashChange?.Invoke(cash);
+	    }
+    }
+    private int cash;
     //GunSystem
     public Transform GunHoldPoint;
     public LineRendererHelper LineRendererL;
@@ -77,9 +91,9 @@ public class PlayerController : BasicController
 		SetLineRenderers();
     }
 
-    public override void Death()
+    public override void Death(GameObject dealer)
     {
-        base.Death();
+        base.Death(dealer);
         Guns[CurrentGunIndex].gameObject.SetActive(false);
     }
 
@@ -243,17 +257,14 @@ public class PlayerController : BasicController
         BuffList.Add(buff.ID);
         buffEffect.OnEnd += () => BuffList.Remove(buff.ID);
     }
+
     public void CalculateMaxCap()
     {
-		for (int i = 0; i < StartGun.Length; i++)
-		{
-            Guns[i].SetBulletCap(Stats.GetStat(StatType.MagCapacity).Value);
-		}
-        PlayerEvent.OnChangeCap?.Invoke();
-	}
-    [ContextMenu("Add 10% move spd")]
-    public void AddMoveSPD()
-    {
-        Stats.GetStat(StatType.Speed).AddModifier(new StatModifier(10,StatModType.Percentage));
+	    for (int i = 0; i < StartGun.Length; i++)
+	    {
+		    Guns[i].SetBulletCap(Stats.GetStat(StatType.MagCapacity).Value);
+	    }
+
+	    PlayerEvent.OnChangeCap?.Invoke();
     }
 }

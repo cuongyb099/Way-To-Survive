@@ -10,15 +10,9 @@ public class ShopController : BasicController, IInteractable
     public GameObject SelectedUI;
     public Transform ObjTransform => transform;
     public Action OnKill { get; set; }
-    public int Cash { get; set; }
-	protected override void Awake()
-    {
-        base.Awake();
-        PlayerEvent.OnCashRecieve += IncreaseCash;
-    }
+    
     private void OnDestroy()
     {
-        PlayerEvent.OnCashRecieve -= IncreaseCash;
         OnKill?.Invoke();
     }
 
@@ -36,14 +30,5 @@ public class ShopController : BasicController, IInteractable
     {
         SelectedUI.gameObject.SetActive(false);
     }
-
-    public void IncreaseCash(int value)
-    {
-        Cash += value;
-    }
-    public void DecreaseCash(int value)
-    {
-        Cash -= value;
-        if (Cash < 0) Cash = 0;
-    }
+    
 }

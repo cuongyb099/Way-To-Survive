@@ -5,13 +5,13 @@ using UnityEngine;
 public class CanvasUIHandler : MonoBehaviour
 {
     public bool StopTime = false;
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
         PlayerInput.Instance.InputActions.BasicAction.Disable();
         if(StopTime)
             Time.timeScale = 0;
     }
-    private void OnDisable()
+    protected virtual void OnDisable()
     {
         PlayerInput.Instance.InputActions.BasicAction.Enable();
         if (StopTime)

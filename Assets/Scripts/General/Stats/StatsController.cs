@@ -146,32 +146,18 @@ public class StatsController : MonoBehaviour
 	{
 		if (!effect.Data.Stackable)
 		{
+			if (_statusEffects.Contains(effect)) return;
 			effect.Begin();
 			_statusEffects.Add(effect);
 			OnChange?.Invoke();
 			return;
 		}
 		
-		AddEffectStackable(effect);
-	}
-
-	public void RemoveEffect(BaseStatusEffect effect)
-	{
 		if (_statusEffects.Contains(effect))
 		{
-			effect.Stop();
-			_statusEffects.Remove(effect);
-			OnChange?.Invoke();
-		}
-	}
-
-	private void AddEffectStackable(BaseStatusEffect effect)
-	{
-		if (_statusEffects.Contains(effect))
-		{
-			if (effect.CurrentStack >= effect.Data.MaxStack) return;
-			effect.CurrentStack++;
-			effect.HandleStackChange(StackStatus.Increase);
+			BaseStatusEffect sf = _statusEffects.Find(x => x.Equals(effect));
+			if (sf.CurrentStack >= sf.Data.MaxStack) return;
+			sf.CurrentStack++;
 			OnChange?.Invoke();
 			return;
 		}
@@ -181,7 +167,34 @@ public class StatsController : MonoBehaviour
 		_statusEffects.Add(effect);
 		OnChange?.Invoke();
 	}
-	
+
+	public void RemoveEffect(BaseStatusEffect effect)
+	{
+		if (!effect.Data.Stackable)
+		{
+			if (_statusEffects.Contains(effect))
+			{
+				BaseStatusEffect sf = _statusEffects.Find(x => x.Equals(effect));
+				sf.Stop();
+				_statusEffects.Remove(sf);
+				OnChange?.Invoke();
+			}
+			return;
+		}
+		
+		if (_statusEffects.Contains(effect))
+		{
+			BaseStatusEffect sf = _statusEffects.Find(x => x.Equals(effect));
+			sf.CurrentStack--;
+			if (sf.CurrentStack == 0)
+			{
+				sf.Stop();
+				_statusEffects.Remove(effect);
+			}
+			OnChange?.Invoke();
+		}
+	}
+
 	public Attribute GetAttribute(AttributeType type)
 	{
 		return _attributes.GetValueOrDefault(type);

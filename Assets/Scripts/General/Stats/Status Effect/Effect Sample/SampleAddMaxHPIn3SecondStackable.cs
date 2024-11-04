@@ -36,7 +36,7 @@ public class SampleAddMaxHPIn3SecondStackable : BaseStatusEffect
             if (ListTimer[i] > Data.Duration)
             {
                 CurrentStack--;
-                HandleStackChange(StackStatus.Decrease);
+                HandleStackChange();
                 ListTimer.RemoveAt(i);
             }
         }
@@ -44,21 +44,9 @@ public class SampleAddMaxHPIn3SecondStackable : BaseStatusEffect
         return ListTimer.Count <= 0;
     }
 
-    public override void HandleStackChange(StackStatus stackStatus)
+    public override void HandleStackChange()
     {
-        switch (stackStatus)
-        {
-            case StackStatus.Increase:
-                var clone = BaseModifier.Clone();
-                HpToAdd.Push(clone);
-                stats.AddModifier(StatType.MaxHP, clone);
-                ListTimer.Add(0);
-                return;
-            case StackStatus.Decrease:
-                if(HpToAdd.Count < 0) return;
-                stats.RemoveModifier(StatType.MaxHP, HpToAdd.Pop());
-                return;
-        }
+
     }
 
     protected override void HandleOnUpdate()
@@ -68,10 +56,7 @@ public class SampleAddMaxHPIn3SecondStackable : BaseStatusEffect
 
     protected override void HandleOnEnd()
     {
-        while (HpToAdd.Count > 0)
-        {
-            stats.RemoveModifier(StatType.MaxHP, HpToAdd.Pop());
-        }
+ 
     }
     
     public override BaseStatusEffect Clone()

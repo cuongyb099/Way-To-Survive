@@ -3,25 +3,28 @@ using System;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public enum StackStatus
-{
-    Increase,
-    Decrease,
-}
 /// <summary>
 /// Not Stackable Is Clone Effect
 /// Stackable Is Reference Effect 
 /// </summary>
-public abstract class BaseStatusEffect
+public abstract class BaseStatusEffect :IEquatable<BaseStatusEffect>
 {
     public Action OnStart, OnEnd, OnActive;
     protected float timer;
     protected StatsController stats;
     public bool ForceStop { get; protected set; }
-    public int CurrentStack;
 
     public StatusEffectSO Data;
-    
+    public int CurrentStack
+    {
+        get => currentStack;
+        set
+        {
+            currentStack = value;
+            HandleStackChange();
+        } 
+    }
+    private int currentStack;
     protected BaseStatusEffect(StatusEffectSO data, StatsController target,
         Action OnStart = null, Action onEnd = null, Action onActive = null)
     {
@@ -42,7 +45,7 @@ public abstract class BaseStatusEffect
     public void Begin()
     {
         ForceStop = false;
-        CurrentStack = 0;
+        currentStack = 0;
         HandleStart();
         OnStart?.Invoke();
         if (Data.UseAdvanceUpdate)
@@ -57,7 +60,7 @@ public abstract class BaseStatusEffect
         timer = 0f;
         Data = data;
         stats = target;
-        CurrentStack = 0;
+        currentStack = 0;
     }
     
     /// <summary>
@@ -107,10 +110,14 @@ public abstract class BaseStatusEffect
     /// <summary>
     /// HandleStackChange Not Apply When Begin
     /// </summary>
-    public abstract void HandleStackChange(StackStatus stackStatus);
+    public abstract void HandleStackChange();
     protected abstract void HandleStart();
     protected abstract void HandleOnUpdate();
     protected abstract void HandleOnEnd();
-    
+
+    public bool Equals(BaseStatusEffect other)
+    {
+        return (Data.ID == other.Data.ID) && timer.Equals(other.timer);
+    }
 }
 

@@ -13,7 +13,7 @@ public class SampleAdd10MaxHPIn3SecondNotStackable : BaseStatusEffect
         this.modifier = modifier;
     }
 
-    public override void HandleStackChange(StackStatus stackStatus)
+    public override void HandleStackChange()
     {
         
     }

@@ -29,7 +29,7 @@ public class ShootingAddEffect : BuffStatusEffect
 		PlayerEvent.OnShoot -= AddSpeed;
 	}
 
-    public override void HandleStackChange(StackStatus stackStatus)
+    public override void HandleStackChange()
     {
         
     }
