@@ -4,11 +4,9 @@ using System.Collections;
 
 public class ScoreManagerUI : MonoBehaviour
 {
-    [Header("Score Variables")]
-    public int score = 0;
-    public int zombieCount = 0;
+    public int score { get; private set; }
+    public int zombieCount { get; private set; }
 
-    [Header("UI References")]
     public Text scoreText;
     public Text zombieCountText;
     public Text rewardNotificationText;
@@ -21,22 +19,16 @@ public class ScoreManagerUI : MonoBehaviour
         rewardNotificationText.gameObject.SetActive(false);
     }
 
-    private void UpdateUI()
-    {
-        scoreText.text = $"Điểm: {score}";
-        zombieCountText.text = $"Zombie đã tiêu diệt: {zombieCount}";
-    }
-
     public void AddScore(int amount)
     {
         score += amount;
-        UpdateUI();
+        scoreText.text = "Điểm: " + score;
     }
 
     public void AddZombieCount()
     {
         zombieCount++;
-        UpdateUI();
+        zombieCountText.text = "Zombie đã tiêu diệt: " + zombieCount;
         ShowRewardNotification();
     }
 
@@ -45,5 +37,10 @@ public class ScoreManagerUI : MonoBehaviour
         StartCoroutine(DisplayNotification());
     }
 
-    
+    private IEnumerator DisplayNotification()
+    {
+        rewardNotificationText.gameObject.SetActive(true);
+        yield return new WaitForSeconds(notificationTime);
+        rewardNotificationText.gameObject.SetActive(false);
+    }
 }
