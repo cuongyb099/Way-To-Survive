@@ -12,6 +12,7 @@ public class GunSO : ScriptableObject
 	[TextArea]
 	public string GunDescription;
 	public Sprite Icon;
+	public int GunPrice;
 	public float ShootingSpeed;
 	public float Damage;
 	public float Aim;

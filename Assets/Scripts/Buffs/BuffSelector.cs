@@ -42,6 +42,6 @@ public class BuffSelector : MonoBehaviour
 	}
 	public void DeactivateParent()
 	{
-		transform.parent.gameObject.SetActive(false);
+		transform.parent.parent.gameObject.SetActive(false);
 	}
 }

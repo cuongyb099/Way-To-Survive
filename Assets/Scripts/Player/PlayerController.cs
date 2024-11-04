@@ -2,8 +2,10 @@ using DG.Tweening;
 using ResilientCore;
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering.UI;
+using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 
 public class PlayerController : BasicController
@@ -14,8 +16,8 @@ public class PlayerController : BasicController
     public Animator Animator { get; private set; }
 	//Player Data
 	public float GunSwitchCooldown = .1f;
-    public GunBase[] StartGun;
     public LayerMask GroundLayer;
+    public GunListSO GunListSO;
     public int Cash
     {
 	    get => cash;
@@ -48,9 +50,9 @@ public class PlayerController : BasicController
         Animator = GetComponentInChildren<Animator>();
         Guns = new List<GunBase>();
         BuffList = new List<int>();
-		for (int i = 0; i < StartGun.Length; i++)
+		for (int i = 0; i < GunListSO.Guns.Count; i++)
 		{
-			Guns.Add(Instantiate(StartGun[i], GunHoldPoint.transform));
+			Guns.Add(Instantiate(GunListSO.Guns[i], GunHoldPoint.transform));
 			Guns[i].gameObject.layer = this.gameObject.layer;
             Guns[i].Initialize();
 			Guns[i].gameObject.SetActive(false);
@@ -260,7 +262,7 @@ public class PlayerController : BasicController
 
     public void CalculateMaxCap()
     {
-	    for (int i = 0; i < StartGun.Length; i++)
+	    for (int i = 0; i < Guns.Count; i++)
 	    {
 		    Guns[i].SetBulletCap(Stats.GetStat(StatType.MagCapacity).Value);
 	    }
