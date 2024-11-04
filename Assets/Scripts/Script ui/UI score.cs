@@ -45,10 +45,5 @@ public class ScoreManagerUI : MonoBehaviour
         StartCoroutine(DisplayNotification());
     }
 
-    private IEnumerator DisplayNotification()
-    {
-        rewardNotificationText.gameObject.SetActive(true);
-        yield return new WaitForSeconds(notificationTime);
-        rewardNotificationText.gameObject.SetActive(false);
-    }
+    
 }
