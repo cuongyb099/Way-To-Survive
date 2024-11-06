@@ -3,23 +3,31 @@ using UnityEngine.UI;
 
 public class GameGuideManager : MonoBehaviour
 {
-    public GameObject guidePanel;           // Panel chứa hướng dẫn
-    public Text guideText;                  // Text hiển thị nội dung hướng dẫn
+    [SerializeField] private GameObject guidePanel;   // Panel chứa hướng dẫn
+    [SerializeField] private Text guideText;           // Text hiển thị nội dung hướng dẫn
 
     private void Start()
     {
-        guidePanel.SetActive(false);         // Ẩn hướng dẫn khi bắt đầu
+        HideGuide();  // Ẩn hướng dẫn khi bắt đầu
+    }
+
+    public void ToggleGuide()
+    {
+        if (guidePanel.activeSelf)
+            HideGuide();
+        else
+            ShowGuide();
     }
 
     public void ShowGuide()
     {
-        guidePanel.SetActive(true);          // Hiện hướng dẫn
-        guideText.text = GetGuideText();    // Cập nhật nội dung hướng dẫn
+        guidePanel.SetActive(true);
+        guideText.text = GetGuideText();
     }
 
     public void HideGuide()
     {
-        guidePanel.SetActive(false);         // Ẩn hướng dẫn
+        guidePanel.SetActive(false);
     }
 
     private string GetGuideText()
