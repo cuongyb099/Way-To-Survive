@@ -3,12 +3,26 @@ using UnityEngine.UI;
 
 public class GameGuideManager : MonoBehaviour
 {
-    [SerializeField] private GameObject guidePanel;   // Panel chứa hướng dẫn
-    [SerializeField] private Text guideText;           // Text hiển thị nội dung hướng dẫn
+    [SerializeField] private GameObject guidePanel;
+    [SerializeField] private Text guideText;
+    [SerializeField] private Button nextButton;
+    [SerializeField] private Button previousButton;
+
+    private string[] guideSteps;
+    private int currentStepIndex = 0;
 
     private void Start()
     {
-        HideGuide();  // Ẩn hướng dẫn khi bắt đầu
+        guideSteps = new string[]
+        {
+            "Hướng Dẫn Chơi:\n\nĐiều Khiển:\n- W: Tiến\n- A: Sang trái\n- S: Lùi\n- D: Sang phải\n- Space: Nhảy",
+            "Kỹ Năng:\n- Sử dụng kỹ năng để tăng cường sức mạnh.\n- Hãy chú ý tới thời gian hồi chiêu.",
+            "Mẹo:\n- Tìm kiếm vật phẩm để tăng khả năng chiến đấu.\n- Thực hành để làm quen với điều khiển."
+        };
+
+        HideGuide();
+        nextButton.onClick.AddListener(NextStep);
+        previousButton.onClick.AddListener(PreviousStep);
     }
 
     public void ToggleGuide()
@@ -22,7 +36,8 @@ public class GameGuideManager : MonoBehaviour
     public void ShowGuide()
     {
         guidePanel.SetActive(true);
-        guideText.text = GetGuideText();
+        currentStepIndex = 0;
+        UpdateGuideText();
     }
 
     public void HideGuide()
@@ -30,20 +45,28 @@ public class GameGuideManager : MonoBehaviour
         guidePanel.SetActive(false);
     }
 
-    private string GetGuideText()
+    private void UpdateGuideText()
     {
-        return "Hướng Dẫn Chơi:\n\n" +
-               "Điều Khiển:\n" +
-               "- W: Tiến\n" +
-               "- A: Sang trái\n" +
-               "- S: Lùi\n" +
-               "- D: Sang phải\n" +
-               "- Space: Nhảy\n\n" +
-               "Kỹ Năng:\n" +
-               "- Sử dụng kỹ năng để tăng cường sức mạnh.\n" +
-               "- Hãy chú ý tới thời gian hồi chiêu.\n\n" +
-               "Mẹo:\n" +
-               "- Tìm kiếm vật phẩm để tăng khả năng chiến đấu.\n" +
-               "- Thực hành để làm quen với điều khiển.";
+        guideText.text = guideSteps[currentStepIndex];
+        previousButton.interactable = currentStepIndex > 0;
+        nextButton.interactable = currentStepIndex < guideSteps.Length - 1;
+    }
+
+    private void NextStep()
+    {
+        if (currentStepIndex < guideSteps.Length - 1)
+        {
+            currentStepIndex++;
+            UpdateGuideText();
+        }
+    }
+
+    private void PreviousStep()
+    {
+        if (currentStepIndex > 0)
+        {
+            currentStepIndex--;
+            UpdateGuideText();
+        }
     }
 }
