@@ -8,29 +8,27 @@ public class GameGuideManager : MonoBehaviour
     [SerializeField] private Button nextButton;
     [SerializeField] private Button previousButton;
 
-    private string[] guideSteps;
+    private string[] guideSteps =
+    {
+        "Hướng Dẫn Chơi:\n\nĐiều Khiển:\n- W: Tiến\n- A: Sang trái\n- S: Lùi\n- D: Sang phải\n- Space: Nhảy",
+        "Kỹ Năng:\n- Sử dụng kỹ năng để tăng cường sức mạnh.\n- Hãy chú ý tới thời gian hồi chiêu.",
+        "Mẹo:\n- Tìm kiếm vật phẩm để tăng khả năng chiến đấu.\n- Thực hành để làm quen với điều khiển."
+    };
+
     private int currentStepIndex = 0;
 
     private void Start()
     {
-        guideSteps = new string[]
-        {
-            "Hướng Dẫn Chơi:\n\nĐiều Khiển:\n- W: Tiến\n- A: Sang trái\n- S: Lùi\n- D: Sang phải\n- Space: Nhảy",
-            "Kỹ Năng:\n- Sử dụng kỹ năng để tăng cường sức mạnh.\n- Hãy chú ý tới thời gian hồi chiêu.",
-            "Mẹo:\n- Tìm kiếm vật phẩm để tăng khả năng chiến đấu.\n- Thực hành để làm quen với điều khiển."
-        };
-
         HideGuide();
         nextButton.onClick.AddListener(NextStep);
         previousButton.onClick.AddListener(PreviousStep);
+        UpdateGuideText();
     }
 
     public void ToggleGuide()
     {
-        if (guidePanel.activeSelf)
-            HideGuide();
-        else
-            ShowGuide();
+        guidePanel.SetActive(!guidePanel.activeSelf);
+        if (guidePanel.activeSelf) UpdateGuideText();
     }
 
     public void ShowGuide()
