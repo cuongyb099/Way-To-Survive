@@ -8,7 +8,7 @@ public class GameGuideManager : MonoBehaviour
     [SerializeField] private Button nextButton;
     [SerializeField] private Button previousButton;
 
-    private string[] guideSteps =
+    private readonly string[] guideSteps =
     {
         "Hướng Dẫn Chơi:\n\nĐiều Khiển:\n- W: Tiến\n- A: Sang trái\n- S: Lùi\n- D: Sang phải\n- Space: Nhảy",
         "Kỹ Năng:\n- Sử dụng kỹ năng để tăng cường sức mạnh.\n- Hãy chú ý tới thời gian hồi chiêu.",
