@@ -3,39 +3,33 @@ using UnityEngine.UI;
 
 public class PlayerControls : MonoBehaviour
 {
-    public float moveSpeed = 5f;
+    [Header("UI Buttons")]
     public Button moveLeftButton;
     public Button moveRightButton;
     public Button jumpButton;
     public Button shootButton;
 
+    [Header("Movement Settings")]
+    public float moveSpeed = 5f;
+    public float jumpForce = 5f;
+
+    private Rigidbody2D rb;
     private bool isJumping = false;
 
     private void Start()
     {
-        moveLeftButton.onClick.AddListener(MoveLeft);
-        moveRightButton.onClick.AddListener(MoveRight);
+        rb = GetComponent<Rigidbody2D>();
+
+        moveLeftButton.onClick.AddListener(() => Move(-1));
+        moveRightButton.onClick.AddListener(() => Move(1));
         jumpButton.onClick.AddListener(Jump);
         shootButton.onClick.AddListener(Shoot);
     }
 
-    private void Update()
+    private void Move(int direction)
     {
-        // Kiểm tra trạng thái nhảy
-        if (isJumping)
-        {
-            // Thêm logic nhảy ở đây nếu cần
-        }
-    }
-
-    private void MoveLeft()
-    {
-        transform.Translate(Vector3.left * moveSpeed * Time.deltaTime);
-    }
-
-    private void MoveRight()
-    {
-        transform.Translate(Vector3.right * moveSpeed * Time.deltaTime);
+        Vector2 movement = new Vector2(direction * moveSpeed * Time.deltaTime, 0);
+        rb.MovePosition(rb.position + movement);
     }
 
     private void Jump()
@@ -43,10 +37,8 @@ public class PlayerControls : MonoBehaviour
         if (!isJumping)
         {
             isJumping = true;
-            // Thêm logic nhảy ở đây
-            Debug.Log("Nhảy!");
-            // Reset nhảy sau một thời gian
-            Invoke("ResetJump", 1f); // Ví dụ: một giây để nhảy
+            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            Invoke("ResetJump", 1f); // Thay đổi thời gian nếu cần
         }
     }
 
@@ -59,5 +51,14 @@ public class PlayerControls : MonoBehaviour
     private void ResetJump()
     {
         isJumping = false;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        // Kiểm tra va chạm với mặt đất để reset trạng thái nhảy
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isJumping = false;
+        }
     }
 }
