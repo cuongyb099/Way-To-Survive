@@ -60,7 +60,15 @@ public class FadeObject : MonoBehaviour
                     
                     continue;
                 }
-                materials[j] = poolMaterials.Pop();
+
+                if (poolMaterials.Count > 0)
+                {
+                    materials[j] = poolMaterials.Pop();
+                }
+                else
+                {
+                    return;
+                }
                 materials[j].SetTexture("_MainTex", Renderers[i].materials[j].GetTexture("_MainTex")) ;
             }
             Renderers[i].materials = materials;

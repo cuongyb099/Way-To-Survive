@@ -14,10 +14,6 @@ public class GameManager : Singleton<GameManager>
         base.Awake();
         Player = FindAnyObjectByType<PlayerController>();
         
-        SharedTransform tmp = new();
-        tmp.SetValue(Player.transform);
-        GlobalVariables.Instance.SetVariable(EnemyConstant.Target, tmp);
-        
         DOTween.Init().SetCapacity(200, 50);
     }
 }

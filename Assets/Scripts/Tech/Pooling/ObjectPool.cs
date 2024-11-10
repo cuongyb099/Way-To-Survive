@@ -11,6 +11,7 @@ namespace Tech.Pooling
 		ParticleSystem,
 		GameObject,
 		DamagePopUp,
+		ENEMY,
 		Audio,
 		None
 	}

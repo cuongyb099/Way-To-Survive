@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections;
 using Tech.Logger;
-using TMPro.EditorUtilities;
 using UnityEngine;
 
 public class BasicController : MonoBehaviour, IDamagable
