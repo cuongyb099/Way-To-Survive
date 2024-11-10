@@ -15,7 +15,7 @@ MonoBehaviour:
   <Name>k__BackingField: Chaos
   <Description>k__BackingField: For every <color=#3ECDFF>5 bullets</color> shot,
     increase <color=#FFB600>Shooting Speed</color> by <color=#3ECDFF>{value}</color>
-    lasting for <color=#3ECDFF>5</color> seconds, every stack is time independent
+    lasting for <color=#3ECDFF>3</color> seconds, every stack is time independent
   <Icon>k__BackingField: {fileID: 21300000, guid: b5009f2dd76783e428cca27a3c82b872, type: 3}
   <HasDuration>k__BackingField: 0
   <Duration>k__BackingField: 0

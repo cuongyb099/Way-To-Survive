@@ -24,10 +24,11 @@ MonoBehaviour:
   Icon: {fileID: 1041082314, guid: 92a4fe653152e9244b4849b9dba1c92b, type: 3}
   GunPrice: 30
   ShootingSpeed: 1
-  Damage: 5
+  Damage: 8
   Aim: 20
   SpreadMax: 10
   Recoil: 0.5
   RecoilResetTime: 1
+  Weight: 2
   MaxCapacity: 5
   ReleaseToShoot: 1

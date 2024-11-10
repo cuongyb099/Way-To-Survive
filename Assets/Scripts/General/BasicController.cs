@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections;
-using TMPro.EditorUtilities;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BasicController : MonoBehaviour, IDamagable
@@ -36,5 +35,11 @@ public class BasicController : MonoBehaviour, IDamagable
         Debug.Log(gameObject.name + "has been slain!!");
         isDead = true;
         OnDeath?.Invoke();
+    }
+
+    [ContextMenu("Deal 10 DMG")]
+    public void Damage10Dmg()
+    {
+        Damage(new DamageInfo(gameObject,10));
     }
 }

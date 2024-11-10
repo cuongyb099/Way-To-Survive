@@ -2,6 +2,7 @@ using Cinemachine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 public class CameraZoom : MonoBehaviour
@@ -46,4 +47,5 @@ public class CameraZoom : MonoBehaviour
 
 		transposer.m_FollowOffset = transposer.m_FollowOffset.normalized * learpedZoomValue;
     }
+
 }

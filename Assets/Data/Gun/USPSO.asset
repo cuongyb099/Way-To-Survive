@@ -17,11 +17,13 @@ MonoBehaviour:
   GunName: USP
   GunDescription: sss
   Icon: {fileID: 212650312, guid: 92a4fe653152e9244b4849b9dba1c92b, type: 3}
+  GunPrice: 0
   ShootingSpeed: 0.3
   Damage: 1
   Aim: 10
   SpreadMax: 3
   Recoil: 0.03
   RecoilResetTime: 2
+  Weight: 0.2
   MaxCapacity: 10
   ReleaseToShoot: 0

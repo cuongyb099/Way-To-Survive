@@ -42,10 +42,12 @@ public class GunBase : MonoBehaviour
 	{
 		InputEvent.OnShootStickCanceled += Rotate_canceled;
 	}
+
 	private void OnDisable()
 	{
 		InputEvent.OnShootStickCanceled -= Rotate_canceled;
 	}
+
 	private Tween temp;
 	private void Update()
 	{
@@ -67,7 +69,6 @@ public class GunBase : MonoBehaviour
 			trigger = false;
 		}
 	}
-
 	public virtual void ResetRecoil()
 	{
 		temp.Kill();

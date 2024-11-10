@@ -16,7 +16,7 @@ MonoBehaviour:
   WeaponType: 4
   GunName: MP5
   GunDescription: af
-  Icon: {fileID: 21300000, guid: 17c5faa5b404feb4d8dc00837775f8ff, type: 3}
+  Icon: {fileID: 21300000, guid: ba5d55742a1120d4f86753510da786bb, type: 3}
   GunPrice: 50
   ShootingSpeed: 0.075
   Damage: 1
@@ -24,5 +24,6 @@ MonoBehaviour:
   SpreadMax: 10
   Recoil: 0.1
   RecoilResetTime: 2
+  Weight: 0.6
   MaxCapacity: 25
   ReleaseToShoot: 0

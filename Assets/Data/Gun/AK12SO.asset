@@ -22,9 +22,10 @@ MonoBehaviour:
   GunPrice: 12
   ShootingSpeed: 0.15
   Damage: 3
-  Aim: 5
+  Aim: 8
   SpreadMax: 7
   Recoil: 0.06
   RecoilResetTime: 2
+  Weight: 1
   MaxCapacity: 30
   ReleaseToShoot: 0
