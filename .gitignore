@@ -72,7 +72,6 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
 # Folder
-Plugins/
 FarmSetting/
 3D Model Prefab/
 Sound/
