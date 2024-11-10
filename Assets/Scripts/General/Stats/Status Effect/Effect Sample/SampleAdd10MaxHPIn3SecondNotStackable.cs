@@ -28,7 +28,7 @@ public class SampleAdd10MaxHPIn3SecondNotStackable : BaseStatusEffect
         
     }
 
-    protected override void HandleOnEnd()
+    protected override void HandleEnd()
     {
         stats.RemoveModifier(StatType.MaxHP, modifier);
     }

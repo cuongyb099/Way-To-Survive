@@ -1,4 +1,3 @@
-using System;
 using BehaviorDesigner.Runtime;
 using ProjectDawn.Navigation.Hybrid;
 using UnityEngine;
@@ -14,7 +13,6 @@ public class EnemyCtrl : BasicController
     public BehaviorTree BTree { get; protected set; }
     
     [HideInInspector] public bool IsTakingDamage;
-    [HideInInspector] public bool IsDead;
     
     protected override void Awake()
     {
@@ -33,11 +31,10 @@ public class EnemyCtrl : BasicController
         base.Damage(info);
     }
 
-    public override void Death()
+    public override void Death(GameObject dealer)
     {
         if(IsDead) return;
         
-        IsDead = true;
         if(!EnemyManager.Instance) return;
         EnemyManager.Instance.ReturnEnemyToPool();
     }

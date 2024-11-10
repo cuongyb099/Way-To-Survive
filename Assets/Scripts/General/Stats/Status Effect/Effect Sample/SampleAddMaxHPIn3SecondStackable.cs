@@ -54,7 +54,7 @@ public class SampleAddMaxHPIn3SecondStackable : BaseStatusEffect
         
     }
 
-    protected override void HandleOnEnd()
+    protected override void HandleEnd()
     {
  
     }

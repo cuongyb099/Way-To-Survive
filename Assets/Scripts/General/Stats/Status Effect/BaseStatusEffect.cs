@@ -94,7 +94,7 @@ public abstract class BaseStatusEffect :IEquatable<BaseStatusEffect>
     public void Stop()
     {
         ForceStop = true;
-        HandleOnEnd();
+        HandleEnd();
         OnEnd?.Invoke();
     }
 
@@ -113,7 +113,7 @@ public abstract class BaseStatusEffect :IEquatable<BaseStatusEffect>
     public abstract void HandleStackChange();
     protected abstract void HandleStart();
     protected abstract void HandleOnUpdate();
-    protected abstract void HandleOnEnd();
+    protected abstract void HandleEnd();
 
     public bool Equals(BaseStatusEffect other)
     {

@@ -19,7 +19,7 @@ public class BuffStatusEffect : BaseStatusEffect
     {
         
     }
-    protected override void HandleOnEnd()
+    protected override void HandleEnd()
     {
         stats.RemoveModifier(basicBuffSO.StatType,statModifier);
     }

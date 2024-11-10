@@ -19,7 +19,7 @@ public class FadeObjectBlockPlayer : MonoBehaviour
    private readonly List<FadeObject> _objectsNotRemove = new();
    private readonly List<FadeObject> _blockingViewObjects = new ();
    private readonly Dictionary<FadeObject, Tween> _cullingObjects = new ();
-   private readonly RaycastHit[] _hitObjects = new RaycastHit[3];
+   private readonly RaycastHit[] _hitObjects = new RaycastHit[10];
    
    private void Awake()
    {
@@ -97,7 +97,8 @@ public class FadeObjectBlockPlayer : MonoBehaviour
          }
       }*/
    }
-   
+
+#if UNITY_EDITOR
    [Header("Debug")]
    public bool DebugMode;
    private void OnDrawGizmos()
@@ -107,4 +108,5 @@ public class FadeObjectBlockPlayer : MonoBehaviour
       Gizmos.color = Color.red;
       Gizmos.DrawLine(_mainCam.transform.position, _target.position + _playerOffset);
    }
+#endif
 }

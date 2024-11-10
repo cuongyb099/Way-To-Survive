@@ -20,7 +20,7 @@ public class ShootingAddEffect : BuffStatusEffect
     {
 
     }
-    protected override void HandleOnEnd()
+    protected override void HandleEnd()
     {
 	    foreach (var x in effects)
 	    {
