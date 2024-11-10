@@ -8,8 +8,8 @@ public abstract class BaseStat : MonoBehaviour, IDamagable
 	public Action OnDeath { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
 	public bool IsDamaged;
-
-    public virtual bool IsDead() => HP <= 0;
+	public bool IsDead => isDead;
+	private bool isDead;
 
     public virtual void Damage(DamageInfo info)
     {
@@ -23,7 +23,7 @@ public abstract class BaseStat : MonoBehaviour, IDamagable
         if (HP < 0) HP = 0;
     }
 
-	public void Death()
+	public void Death(GameObject dealer)
 	{
 		throw new NotImplementedException();
 	}

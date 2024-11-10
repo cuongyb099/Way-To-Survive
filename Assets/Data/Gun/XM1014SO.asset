@@ -14,11 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BulletPrefab: {fileID: 984755602444092648, guid: bff9cb15c026277498f4541bb37853a4, type: 3}
   WeaponType: 2
+  GunName: XM1014
+  GunDescription: asd
+  Icon: {fileID: 1247450681, guid: 92a4fe653152e9244b4849b9dba1c92b, type: 3}
+  GunPrice: 50
   ShootingSpeed: 1
   Damage: 3
   Aim: 5
   SpreadMax: 10
   Recoil: 0
   RecoilResetTime: 0
+  Weight: 1
   MaxCapacity: 10
   ReleaseToShoot: 0

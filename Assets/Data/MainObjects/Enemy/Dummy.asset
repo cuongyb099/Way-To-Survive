@@ -19,7 +19,7 @@ MonoBehaviour:
         _baseValue: 2
     - Key: 2
       Value:
-        _baseValue: 100000
+        _baseValue: 1000
   _attributeItems:
     _serializedList:
     - Key: 0

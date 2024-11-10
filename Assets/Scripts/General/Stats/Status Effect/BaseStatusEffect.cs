@@ -1,69 +1,123 @@
+///Package Create By Kat
 using System;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public abstract class BaseStatusEffect
+/// <summary>
+/// Not Stackable Is Clone Effect
+/// Stackable Is Reference Effect 
+/// </summary>
+public abstract class BaseStatusEffect :IEquatable<BaseStatusEffect>
 {
     public Action OnStart, OnEnd, OnActive;
-
-	protected float duration;
-	protected StatusEffectType type;
-	protected float startTime;
-    protected bool isCancelled;
+    protected float timer;
     protected StatsController stats;
-    protected bool hasDuration;
+    public bool ForceStop { get; protected set; }
 
-    public StatusEffectType Type => type;
-
-    public BaseStatusEffect(bool hasDuration, StatsController target, float duration = 0f)
+    public StatusEffectSO Data;
+    public int CurrentStack
     {
-        this.duration = duration;
-        this.hasDuration = hasDuration;
-        isCancelled = false;
-        startTime = Time.time;
-        stats = target;
+        get => currentStack;
+        set
+        {
+            currentStack = value;
+            HandleStackChange();
+        } 
+    }
+    private int currentStack;
+    protected BaseStatusEffect(StatusEffectSO data, StatsController target,
+        Action OnStart = null, Action onEnd = null, Action onActive = null)
+    {
+        OnInit(data, target);
+        
+        this.OnStart = OnStart;
+        this.OnEnd = onEnd;
+        this.OnActive = onActive;
+    }
+    
+    protected BaseStatusEffect(){}
 
+    
+
+    /// <summary>
+    /// This Function To Active Effect
+    /// </summary>
+    public void Begin()
+    {
+        ForceStop = false;
+        currentStack = 0;
         HandleStart();
-        _ = UpdateRuntime();
+        OnStart?.Invoke();
+        if (Data.UseAdvanceUpdate)
+        {
+            _ = UpdateAsync();
+        }
+    }
+    
+    protected virtual void OnInit(StatusEffectSO data, StatsController target)
+    {
+        ForceStop = false;
+        timer = 0f;
+        Data = data;
+        stats = target;
+        currentStack = 0;
+    }
+    
+    /// <summary>
+    /// This MonoUpdate Work With Effect Stack Same Timer  
+    /// </summary>
+    public virtual bool MonoUpdate()
+    {
+        if (!Data.UseAdvanceUpdate)
+        {
+            HandleOnUpdate();
+            OnActive?.Invoke();
+        }
+        if (!Data.HasDuration) return false;
+        timer += Time.deltaTime;
+        return timer > Data.Duration;
     }
 
-    public virtual bool Update()
+    private async Task UpdateAsync()
     {
-        if (!hasDuration) return false;
-        return Time.time > startTime + duration;
-    }
-
-    protected virtual void HandleStart()
-    {
-		OnStart?.Invoke();
-	}
-
-	protected virtual async Task UpdateRuntime()
-    {
-        while (!isCancelled)
+        while (!ForceStop)
         {
 #if UNITY_EDITOR
             if (!Application.isPlaying) break;
 #endif
-            
-            HandleWhileActive();
+            HandleOnUpdate();
+            OnActive?.Invoke();
             await Task.Yield();
         }
     }
 
-    protected virtual void HandleWhileActive()
+    public void Stop()
     {
-        OnActive?.Invoke();
-    }
-    
-    protected virtual void HandleEnd()
-    {
+        ForceStop = true;
+        HandleOnEnd();
         OnEnd?.Invoke();
     }
 
-    public virtual void Stop()
+    
+    /// <summary>
+    /// Clone Must Override In Other Effect
+    /// </summary>
+    public virtual BaseStatusEffect Clone()
     {
-        isCancelled = true;
-        HandleEnd();
+        return (BaseStatusEffect)this.MemberwiseClone();
+    }
+    
+    /// <summary>
+    /// HandleStackChange Not Apply When Begin
+    /// </summary>
+    public abstract void HandleStackChange();
+    protected abstract void HandleStart();
+    protected abstract void HandleOnUpdate();
+    protected abstract void HandleOnEnd();
+
+    public bool Equals(BaseStatusEffect other)
+    {
+        return (Data.ID == other.Data.ID) && timer.Equals(other.timer);
     }
 }
+

@@ -77,34 +77,28 @@ public class Stat
 
 	protected virtual float CalculateFinalValue()
 	{
-		float finalValue = _baseValue;
-		float sumPercentAdd = 0;
+        float _baseFlatSum = 0f;
+        float _percentageSum = 0f;
+        float _flatSum = 0f;
 
-		for (int i = 0; i < statModifiers.Count; i++)
-		{
-			StatModifier mod = statModifiers[i];
-
-			if (mod.Type == StatModType.Flat)
-			{
-				finalValue += mod.Value;
-			}
-			else if (mod.Type == StatModType.PercentAdd)
-			{
-				sumPercentAdd += mod.Value;
-
-				if (i + 1 >= statModifiers.Count || statModifiers[i + 1].Type != StatModType.PercentAdd)
-				{
-					finalValue *= 1 + sumPercentAdd/100;
-					sumPercentAdd = 0;
-				}
-			}
-			else if (mod.Type == StatModType.PercentMult)
-			{
-				finalValue *= 1 + mod.Value;
-			}
-		}
+        foreach (StatModifier modifier in StatModifiers)
+        {
+            if (modifier.Type == StatModType.BaseFlat)
+            {
+                _baseFlatSum += modifier.Value;
+            }
+            else if (modifier.Type == StatModType.Percentage)
+            {
+                _percentageSum += modifier.Value;
+            }
+            else if (modifier.Type == StatModType.Flat)
+            {
+                _flatSum += modifier.Value;
+            }
+        }
+        float _finalValue = (BaseValue + _baseFlatSum) * (1f + _percentageSum / 100f) + _flatSum;
 
 
-		return (float)Math.Round(finalValue, 4);
+        return (float)Math.Round(_finalValue, 4);
 	}
 }
