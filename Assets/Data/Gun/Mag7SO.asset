@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Mag7SO
   m_EditorClassIdentifier: 
   BulletPrefab: {fileID: 984755602444092648, guid: bff9cb15c026277498f4541bb37853a4, type: 3}
-<<<<<<<< HEAD:Assets/Data/Gun/Mag7SO.asset
   WeaponType: 2
   GunName: MAG-7
   GunDescription: 
@@ -27,14 +26,4 @@ MonoBehaviour:
   RecoilResetTime: 1
   Weight: 1
   MaxCapacity: 100
-========
-  WeaponType: 1
-  ShootingSpeed: 0.075
-  Damage: 1
-  Aim: 1
-  SpreadMax: 10
-  Recoil: 0.1
-  RecoilResetTime: 2
-  MaxCapacity: 25
->>>>>>>> katDevelop:Assets/Data/Gun/GoldGunSO.asset
   ReleaseToShoot: 0

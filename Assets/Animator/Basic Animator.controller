@@ -776,7 +776,7 @@ AnimatorController:
   - serializedVersion: 5
     m_Name: Hand Layer
     m_StateMachine: {fileID: -3231672363518012956}
-    m_Mask: {fileID: 31900000, guid: 68b95ded350beac4e9fa4380d94a27be, type: 2}
+    m_Mask: {fileID: 31900000, guid: 19d9079b221297b42bd853192d292ee5, type: 2}
     m_Motions: []
     m_Behaviours: []
     m_BlendingMode: 0
