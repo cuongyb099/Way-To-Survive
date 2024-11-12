@@ -1,34 +1,36 @@
 ﻿using UnityEngine;
+using UnityEngine.AI;
 
-public class ZombieAnimationController : MonoBehaviour
+public class ZombieAI : MonoBehaviour
 {
-    private Animator animator;
-    private ZombieAI zombieAI;
-    private bool isDead = false;
+    public Transform player;
+    public float attackRange = 2f;
+    public float moveSpeed = 3.5f;
+    private NavMeshAgent agent;
 
-    private void Start()
+    void Start()
     {
-        animator = GetComponent<Animator>();
-        zombieAI = GetComponent<ZombieAI>();
+        agent = GetComponent<NavMeshAgent>();
     }
 
-    private void Update()
+    void Update()
     {
-        if (isDead) return; // Dừng mọi hoạt động nếu zombie đã chết
-
-        // Kiểm tra trạng thái đuổi theo
-        bool isChasing = zombieAI.IsChasingPlayer(); // Phương thức kiểm tra trong ZombieAI
-        animator.SetBool("isChasing", isChasing);
-
-        // Kiểm tra trạng thái tấn công
-        bool isAttacking = zombieAI.IsAttackingPlayer(); // Phương thức kiểm tra trong ZombieAI
-        animator.SetBool("isAttacking", isAttacking);
+        float distance = Vector3.Distance(player.position, transform.position);
+        if (distance < attackRange)
+        {
+            // Tấn công người chơi
+            Attack();
+        }
+        else
+        {
+            // Di chuyển về phía người chơi
+            agent.SetDestination(player.position);
+        }
     }
 
-    public void Die()
+    void Attack()
     {
-        isDead = true;
-        animator.SetBool("isDead", true);
-        zombieAI.enabled = false; // Tắt AI khi zombie chết
+        // Logic tấn công (như mất máu)
+        Debug.Log("Zombie attacks!");
     }
 }
