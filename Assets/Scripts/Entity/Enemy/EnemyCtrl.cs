@@ -33,7 +33,7 @@ public class EnemyCtrl : BasicController
 
     public override void Death(GameObject dealer)
     {
-        if(IsDead) return;
+        base.Death(dealer);
         
         if(!EnemyManager.Instance) return;
         EnemyManager.Instance.ReturnEnemyToPool();
