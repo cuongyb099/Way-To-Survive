@@ -15,61 +15,46 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private int maxHealth = 100;
     [SerializeField] private float critChance = 0.1f; // Tỉ lệ bạo kích (10%)
 
-    private string currentBuff;
-    private float buffDuration = 5f; // Thời gian buff có hiệu lực
-
-    private Dictionary<string, System.Action> buffs;
+    private BuffManager buffManager;
 
     private void Start()
     {
+        buffManager = new BuffManager();
         buffPanel.SetActive(false);
         activateBuffButton.onClick.AddListener(ActivateBuff);
-
-        // Định nghĩa các buff và hành động tương ứng
-        buffs = new Dictionary<string, System.Action>
-        {
-            { "Tăng Tốc Độ", () => StartCoroutine(ApplySpeedBuff()) },
-            { "Tăng Máu", () => StartCoroutine(ApplyHealthBuff()) },
-            { "Tỉ Lệ Bạo Kích", () => StartCoroutine(ApplyCritChanceBuff()) }
-        };
     }
 
     public void ShowBuff(string buffName)
     {
-        currentBuff = buffName;
-        buffNameText.text = $"Buff: {currentBuff}";
+        buffNameText.text = $"Buff: {buffName}";
         buffPanel.SetActive(true);
     }
 
     private void ActivateBuff()
     {
-        if (!string.IsNullOrEmpty(currentBuff) && buffs.ContainsKey(currentBuff))
+        // Tạo các buff
+        if (buffNameText.text == "Buff: Tăng Tốc Độ")
         {
-            buffs[currentBuff].Invoke();
-            HideBuff();
+            Buff speedBuff = new Buff("Tăng Tốc Độ", 5f,
+                () => moveSpeed *= 1.5f,
+                () => moveSpeed /= 1.5f);
+            buffManager.ApplyBuff(speedBuff);
         }
-    }
-
-    private IEnumerator ApplySpeedBuff()
-    {
-        yield return ApplyBuff(() => moveSpeed *= 1.5f, () => moveSpeed /= 1.5f);
-    }
-
-    private IEnumerator ApplyHealthBuff()
-    {
-        yield return ApplyBuff(() => maxHealth += 20, () => maxHealth -= 20);
-    }
-
-    private IEnumerator ApplyCritChanceBuff()
-    {
-        yield return ApplyBuff(() => critChance += 0.1f, () => critChance -= 0.1f);
-    }
-
-    private IEnumerator ApplyBuff(System.Action apply, System.Action revert)
-    {
-        apply.Invoke(); // Áp dụng buff
-        yield return new WaitForSeconds(buffDuration);
-        revert.Invoke(); // Khôi phục buff
+        else if (buffNameText.text == "Buff: Tăng Máu")
+        {
+            Buff healthBuff = new Buff("Tăng Máu", 5f,
+                () => maxHealth += 20,
+                () => maxHealth -= 20);
+            buffManager.ApplyBuff(healthBuff);
+        }
+        else if (buffNameText.text == "Buff: Tỉ Lệ Bạo Kích")
+        {
+            Buff critBuff = new Buff("Tỉ Lệ Bạo Kích", 5f,
+                () => critChance += 0.1f,
+                () => critChance -= 0.1f);
+            buffManager.ApplyBuff(critBuff);
+        }
+        HideBuff();
     }
 
     public void HideBuff()
@@ -83,5 +68,46 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha1)) ShowBuff("Tăng Tốc Độ");
         else if (Input.GetKeyDown(KeyCode.Alpha2)) ShowBuff("Tăng Máu");
         else if (Input.GetKeyDown(KeyCode.Alpha3)) ShowBuff("Tỉ Lệ Bạo Kích");
+    }
+
+    // Lớp Buff
+    [System.Serializable]
+    public class Buff
+    {
+        public string buffName;
+        public float duration;
+        public System.Action applyBuff;
+        public System.Action revertBuff;
+
+        public Buff(string name, float duration, System.Action apply, System.Action revert)
+        {
+            this.buffName = name;
+            this.duration = duration;
+            this.applyBuff = apply;
+            this.revertBuff = revert;
+        }
+    }
+
+    // Lớp BuffManager
+    public class BuffManager : MonoBehaviour
+    {
+        private List<Buff> activeBuffs = new List<Buff>();
+
+        public void ApplyBuff(Buff buff)
+        {
+            if (activeBuffs.Contains(buff)) return; // Kiểm tra nếu buff đã tồn tại
+
+            activeBuffs.Add(buff);
+            buff.applyBuff.Invoke();
+            Coroutine coroutine = StartCoroutine(RemoveBuffAfterDuration(buff));
+            // Khởi tạo coroutine để quản lý thời gian buff
+        }
+
+        private IEnumerator RemoveBuffAfterDuration(Buff buff)
+        {
+            yield return new WaitForSeconds(buff.duration);
+            buff.revertBuff.Invoke();
+            activeBuffs.Remove(buff);
+        }
     }
 }
