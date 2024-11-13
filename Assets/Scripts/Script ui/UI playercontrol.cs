@@ -1,61 +1,87 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
+using System.Collections.Generic;
 
-public class PlayerControls : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
-    [Header("UI Buttons")]
-    [SerializeField] private Button moveLeftButton;
-    [SerializeField] private Button moveRightButton;
-    [SerializeField] private Button jumpButton;
-    [SerializeField] private Button shootButton;
+    [Header("UI References")]
+    [SerializeField] private GameObject buffPanel;
+    [SerializeField] private Text buffNameText;
+    [SerializeField] private Button activateBuffButton;
 
-    [Header("Movement Settings")]
+    [Header("Player Stats")]
     [SerializeField] private float moveSpeed = 5f;
-    [SerializeField] private float jumpForce = 5f;
+    [SerializeField] private int maxHealth = 100;
+    [SerializeField] private float critChance = 0.1f; // Tỉ lệ bạo kích (10%)
 
-    private Rigidbody2D rb;
-    private bool isJumping;
+    private string currentBuff;
+    private float buffDuration = 5f; // Thời gian buff có hiệu lực
 
-    private void Awake()
+    private Dictionary<string, System.Action> buffs;
+
+    private void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        InitializeButtons();
-    }
+        buffPanel.SetActive(false);
+        activateBuffButton.onClick.AddListener(ActivateBuff);
 
-    private void InitializeButtons()
-    {
-        moveLeftButton.onClick.AddListener(() => Move(-1));
-        moveRightButton.onClick.AddListener(() => Move(1));
-        jumpButton.onClick.AddListener(Jump);
-        shootButton.onClick.AddListener(Shoot);
-    }
-
-    private void Move(int direction)
-    {
-        Vector2 movement = new Vector2(direction * moveSpeed * Time.deltaTime, 0);
-        rb.MovePosition(rb.position + movement);
-    }
-
-    private void Jump()
-    {
-        if (!isJumping)
+        // Định nghĩa các buff và hành động tương ứng
+        buffs = new Dictionary<string, System.Action>
         {
-            isJumping = true;
-            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            { "Tăng Tốc Độ", () => StartCoroutine(ApplySpeedBuff()) },
+            { "Tăng Máu", () => StartCoroutine(ApplyHealthBuff()) },
+            { "Tỉ Lệ Bạo Kích", () => StartCoroutine(ApplyCritChanceBuff()) }
+        };
+    }
+
+    public void ShowBuff(string buffName)
+    {
+        currentBuff = buffName;
+        buffNameText.text = $"Buff: {currentBuff}";
+        buffPanel.SetActive(true);
+    }
+
+    private void ActivateBuff()
+    {
+        if (!string.IsNullOrEmpty(currentBuff) && buffs.ContainsKey(currentBuff))
+        {
+            buffs[currentBuff].Invoke();
+            HideBuff();
         }
     }
 
-    private void Shoot()
+    private IEnumerator ApplySpeedBuff()
     {
-        Debug.Log("Bắn!");
-        // Thêm logic bắn ở đây
+        yield return ApplyBuff(() => moveSpeed *= 1.5f, () => moveSpeed /= 1.5f);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private IEnumerator ApplyHealthBuff()
     {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            isJumping = false;
-        }
+        yield return ApplyBuff(() => maxHealth += 20, () => maxHealth -= 20);
+    }
+
+    private IEnumerator ApplyCritChanceBuff()
+    {
+        yield return ApplyBuff(() => critChance += 0.1f, () => critChance -= 0.1f);
+    }
+
+    private IEnumerator ApplyBuff(System.Action apply, System.Action revert)
+    {
+        apply.Invoke(); // Áp dụng buff
+        yield return new WaitForSeconds(buffDuration);
+        revert.Invoke(); // Khôi phục buff
+    }
+
+    public void HideBuff()
+    {
+        buffPanel.SetActive(false);
+    }
+
+    private void Update()
+    {
+        // Kiểm tra đầu vào để kích hoạt buff
+        if (Input.GetKeyDown(KeyCode.Alpha1)) ShowBuff("Tăng Tốc Độ");
+        else if (Input.GetKeyDown(KeyCode.Alpha2)) ShowBuff("Tăng Máu");
+        else if (Input.GetKeyDown(KeyCode.Alpha3)) ShowBuff("Tỉ Lệ Bạo Kích");
     }
 }
