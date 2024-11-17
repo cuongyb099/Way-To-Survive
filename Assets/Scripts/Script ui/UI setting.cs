@@ -13,11 +13,18 @@ public class OptionsManager : MonoBehaviour
 
     private void Start()
     {
-        // Thiết lập giá trị ban đầu cho slider
-        soundSlider.value = PlayerPrefs.GetFloat(SoundVolumeKey, 1f); // Mặc định là 1 (max)
-        brightnessSlider.value = PlayerPrefs.GetFloat(BrightnessKey, 1f); // Mặc định là 1 (max)
+        LoadSettings();
+        AssignListeners();
+    }
 
-        // Gán sự kiện cho slider và nút
+    private void LoadSettings()
+    {
+        soundSlider.value = PlayerPrefs.GetFloat(SoundVolumeKey, 1f);
+        brightnessSlider.value = PlayerPrefs.GetFloat(BrightnessKey, 1f);
+    }
+
+    private void AssignListeners()
+    {
         soundSlider.onValueChanged.AddListener(UpdateSoundVolume);
         brightnessSlider.onValueChanged.AddListener(UpdateBrightness);
         saveButton.onClick.AddListener(SaveOptions);
@@ -25,24 +32,28 @@ public class OptionsManager : MonoBehaviour
 
     private void UpdateSoundVolume(float value)
     {
-        AudioListener.volume = value; // Cập nhật âm thanh
+        AudioListener.volume = value;
     }
 
     private void UpdateBrightness(float value)
     {
-        RenderSettings.ambientIntensity = value; // Cập nhật độ sáng
+        RenderSettings.ambientIntensity = value;
     }
 
     private void SaveOptions()
     {
         PlayerPrefs.SetFloat(SoundVolumeKey, soundSlider.value);
         PlayerPrefs.SetFloat(BrightnessKey, brightnessSlider.value);
-        PlayerPrefs.Save(); // Lưu vào ổ đĩa
+        PlayerPrefs.Save();
     }
 
     private void OnDestroy()
     {
-        // Xóa sự kiện khi đối tượng bị hủy
+        RemoveListeners();
+    }
+
+    private void RemoveListeners()
+    {
         soundSlider.onValueChanged.RemoveListener(UpdateSoundVolume);
         brightnessSlider.onValueChanged.RemoveListener(UpdateBrightness);
         saveButton.onClick.RemoveListener(SaveOptions);
