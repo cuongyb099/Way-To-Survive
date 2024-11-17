@@ -23,4 +23,11 @@ public class GunSO : ScriptableObject
     public float Weight;
 	public float MaxCapacity;
     public bool ReleaseToShoot;
+    [Header("Sounds")]
+    public List<AudioClip> ShootingSounds;
+
+    public AudioClip TailSound;
+    public AudioClip CockingSound;
+    public AudioClip MagSoundIn;
+    public AudioClip MagSoundOut;
 }

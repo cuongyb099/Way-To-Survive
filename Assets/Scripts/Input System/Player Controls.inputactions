@@ -163,17 +163,6 @@
                 },
                 {
                     "name": "",
-                    "id": "044a9dc5-387c-493d-94be-f6b43c0277d9",
-                    "path": "<Gamepad>/leftStick",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "29617d57-dbb4-491f-b327-9f5721c4c6a0",
                     "path": "<Keyboard>/l",
                     "interactions": "",
@@ -224,17 +213,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "SwitchGuns",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "d8ebe369-7272-48fc-baf6-12ef0bd49275",
-                    "path": "<Gamepad>/rightStick",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "PlayerRotate",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

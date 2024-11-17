@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Tech.Singleton;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -19,14 +20,5 @@ public class GameManager : Singleton<GameManager>
         //tmp.SetValue(Player.transform);
         //GlobalVariables.Instance.SetVariable(Constant.Target, tmp);
     }
-
-    public void PlaySound(AudioClip clip)
-    {
-        GMAudioSource.PlayOneShot(clip);
-    }
-
-    public void PlaySoundAtPosition(AudioClip clip, Vector3 position)
-    {
-        AudioSource.PlayClipAtPoint(clip, position);
-    }
+    
 }

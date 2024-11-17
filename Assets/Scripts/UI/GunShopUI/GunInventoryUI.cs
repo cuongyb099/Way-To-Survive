@@ -38,13 +38,8 @@ public class GunInventoryUI : CanvasUIHandler
         for (int i = 0; i < GunEquipedSlots.Count; i++)
         {
             var x = i;
-            GunEquipedSlots[i].GunButton.onClick.AddListener(() =>
-            {
-                if(!player.Guns.Contains(Selected.GunHolder))
-                    player.InstantiateGun(Selected.GunHolder,x);
-            });
+            GunEquipedSlots[i].GunButton.onClick.AddListener(()=>InitEquippedSlots(x));
         }
-        Initialize();
     }
 
     protected override void OnEnable()
@@ -55,6 +50,15 @@ public class GunInventoryUI : CanvasUIHandler
 
     private void Initialize()
     {
+        //delete gun panel
+        for(int i = GunsMiniUI.Count - 1; i >= 0; i--)
+        {
+            GunMiniUI g = GunsMiniUI[i];
+            g.GunButton.onClick.RemoveAllListeners();
+            GunsMiniUI.RemoveAt(i);
+            Destroy(g.gameObject);
+        }
+        //instantiate gun panel
         foreach (var x in player.OwnedGuns)
         {
             GunMiniUI temp = Instantiate(GunMiniPrefab, GunsPanel.transform);
@@ -75,33 +79,14 @@ public class GunInventoryUI : CanvasUIHandler
         Selected = gunUI;
         gunUI.GunButton.Select();
         GunDataUI.ChangeGun(gunUI.GunHolder.GunData);
-        
-        PlayerController player = GameManager.Instance.Player;
-        if (player.OwnedGuns.Contains(Selected.GunHolder))
-        {
-            BuyButton.interactable = false;
-            BuyButtonText.text = "Owned";
-        }
-        else
-        {
-            BuyButton.interactable = true;
-            BuyButtonText.text = "Buy";
-        }
     }
-
-    public void OnBuyGun()
+    private void InitEquippedSlots(int index)
     {
-        PlayerController player = GameManager.Instance.Player;
-        player.OwnedGuns.Add(Selected.GunHolder);
-
-        for(int i = 0; i< player.Guns.Length; i++)
+        if (!player.ContainsGun(Selected.GunHolder))
         {
-            if (player.Guns[i] != null) continue;
-            player.InstantiateGun(Selected.GunHolder,i);
-            break;
+            player.InstantiateGun(Selected.GunHolder,index);
+            GunEquipedSlots[index].Initialize(Selected.GunHolder);
         }
-        
-        BuyButton.interactable = false;
-        BuyButtonText.text = "Owned";
+
     }
 }

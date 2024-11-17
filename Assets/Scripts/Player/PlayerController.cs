@@ -13,6 +13,7 @@ public class PlayerController : BasicController
 	public float GunSwitchCooldown = .1f;
     public LayerMask GroundLayer;
     public GunBase StartingGun;
+    public int StartingCash = 0;
     public List<GunBase> OwnedGuns { get; private set; }
     public int Cash
     {
@@ -33,6 +34,7 @@ public class PlayerController : BasicController
     public LineRendererHelper LineRendererL;
     public LineRendererHelper LineRendererR;
     public GunBase[] Guns;
+    public GunBase CurrentGun => Guns[CurrentGunIndex];
     public int CurrentGunIndex { get; private set; }
 
     private bool gunSwitchable = true;
@@ -74,6 +76,7 @@ public class PlayerController : BasicController
         CalculateMaxCap();
 		EquipGun(0);
         InitHealthBar();
+        Cash = StartingCash;
     }
 
     void FixedUpdate()
@@ -98,12 +101,21 @@ public class PlayerController : BasicController
     {
 	    if (Guns[index] != null)
 	    {
+		    Stats.GetStat(StatType.Speed).RemoveModifier(new StatModifier(-Guns[index].GunData.Weight,StatModType.Flat));
 		    Destroy(Guns[index].gameObject);
 	    }
 	    Guns[index] = (Instantiate(gun, GunHoldPoint.transform));
 	    Guns[index].gameObject.layer = gameObject.layer;
+	    CalculateMaxCap();
 	    Guns[index].Initialize();
 	    Guns[index].gameObject.SetActive(false);
+	    EquipGun(CurrentGunIndex);
+    }
+
+    public void SwapGuns(int x, int y)
+    {
+	    (Guns[x], Guns[y]) = (Guns[y], Guns[x]);
+	    EquipGun(CurrentGunIndex);
     }
 
     public void SetPlayerGuns(GunBase[] guns)
@@ -118,6 +130,7 @@ public class PlayerController : BasicController
 	    GunBase currentSlot = Guns[index];
 
 	    if (currentSlot == null) return false;
+        Stats.GetStat(StatType.Speed).RemoveModifier(new StatModifier(-Guns[CurrentGunIndex].GunData.Weight,StatModType.Flat));
         Guns[CurrentGunIndex].gameObject.SetActive(false);
         currentSlot.gameObject.SetActive(true);
         CurrentGunIndex = index;
@@ -139,7 +152,6 @@ public class PlayerController : BasicController
 	    Animator.SetBool("SwitchWeapon", true);
 	    Animator.SetBool("ReloadGun", false);
 	    Guns[CurrentGunIndex].ResetRecoil();
-	    Stats.GetStat(StatType.Speed).RemoveModifier(new StatModifier(-Guns[CurrentGunIndex].GunData.Weight,StatModType.Flat));
 	    EquipGun(index);
     }
     public void SwitchGun()
@@ -159,6 +171,16 @@ public class PlayerController : BasicController
 	        if(EquipGun((CurrentGunIndex+1)%Guns.Length)) break;
 	        n++;
         }
+    }
+
+    public bool ContainsGun(GunBase gun)
+    {
+	    foreach (var x in Guns)
+	    {
+		    if (x.Equals(gun)) return true;
+	    }
+
+	    return false;
     }
     bool gunReloadable = true;
     public void ReloadGun()

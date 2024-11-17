@@ -14,16 +14,18 @@ public enum WeaponType
 	Sniper,
 	SMG,
 }
-public class GunBase : MonoBehaviour
+public class GunBase : MonoBehaviour, IEquatable<GunBase>
 {
 	public GunSO GunData;
 	public Transform ShootPoint;
 	public bool IsFullCap { get { return Stats.GetAttribute(AttributeType.Bullets).Value == Stats.GetStat(StatType.MaxBulletCap).Value; } }
+	public bool IsEmpty { get { return Stats.GetAttribute(AttributeType.Bullets).Value == 0; } }
 	public bool ShootAble { get; set; } = true;
 	public float GunRecoil { get; protected set; } = 0f;
 	public StatsController Stats { get; protected set; }
 	public TriggerHandler GunOverlap { get; protected set; }
 
+	protected AudioSource Audio;
 	protected PlayerController playerController;
 	protected bool repeatAble = true;
 	protected bool trigger = false;
@@ -31,6 +33,7 @@ public class GunBase : MonoBehaviour
 	{
 		Stats = GetComponent<StatsController>();
 		GunOverlap = GetComponent<TriggerHandler>();
+		Audio = GetComponent<AudioSource>();
 		playerController = GetComponentInParent<PlayerController>();
 	}
 	public void Initialize()
@@ -66,6 +69,11 @@ public class GunBase : MonoBehaviour
 		}
 		else
 		{
+			if (IsEmpty)
+			{
+				playerController.ReloadGun();
+			}
+
 			trigger = false;
 		}
 	}
@@ -89,9 +97,18 @@ public class GunBase : MonoBehaviour
 		Stats.GetAttribute(AttributeType.Bullets).Value--;
 		PlayerEvent.OnShoot?.Invoke();
 		DOVirtual.DelayedCall(GunData.ShootingSpeed/playerController.Stats.GetStat(StatType.ShootSpeed).Value, () => { repeatAble = true; ResetRecoil(); });
+		GunSoundPlay();
 		BulletInstantiate();
 		GunRecoilUpdate();
 	}
+
+	private void GunSoundPlay()
+	{
+		SoundFXManager.Instance.PlayRandomSound(GunData.ShootingSounds,SoundType.Game);
+		if(GunData.TailSound)
+			SoundFXManager.Instance.PlaySound(GunData.TailSound,SoundType.Game);
+	}
+
 	public virtual void GunRecoilUpdate()
 	{
 		GunRecoil += GunData.Recoil;
@@ -111,5 +128,16 @@ public class GunBase : MonoBehaviour
 	public void SetBulletCap(float mul=1)
 	{
 		Stats.GetStat(StatType.MaxBulletCap).BaseValue = (int)(GunData.MaxCapacity * mul);
+	}
+
+	public bool Equals(GunBase other)
+	{
+		return GunData == other.GunData;
+	}
+	
+
+	public override int GetHashCode()
+	{
+		return HashCode.Combine(base.GetHashCode(), GunData);
 	}
 }

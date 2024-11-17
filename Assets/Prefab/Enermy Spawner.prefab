@@ -195,7 +195,7 @@ MonoBehaviour:
   _overlapSpawnRadiusCheck: 0.76
   _overlapLayerMask:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 0
   OnEnemyDead:
     m_PersistentCalls:
       m_Calls: []

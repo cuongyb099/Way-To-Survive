@@ -32,3 +32,13 @@ MonoBehaviour:
   Weight: 2
   MaxCapacity: 5
   ReleaseToShoot: 1
+  ShootingSounds:
+  - {fileID: 8300000, guid: 21face996a7148e48937e87c2e4fd5a0, type: 3}
+  - {fileID: 8300000, guid: 299806d6faa30834e9501d7ea4e3b640, type: 3}
+  - {fileID: 8300000, guid: f179f4dc44d8de74081c055d36835a53, type: 3}
+  - {fileID: 8300000, guid: 97928792d43d16640956572b20f055fd, type: 3}
+  - {fileID: 8300000, guid: a8ae94806001c5d458df5da998e7a882, type: 3}
+  TailSound: {fileID: 8300000, guid: d8627089056a2b141aa017af9cf45e18, type: 3}
+  CockingSound: {fileID: 8300000, guid: 48e0ad872319cbd458c5373053cbd50b, type: 3}
+  MagSoundIn: {fileID: 8300000, guid: 587a3f37adbb9a942883c3fc572878b6, type: 3}
+  MagSoundOut: {fileID: 8300000, guid: 7a59dde985bdfcf458a8dcae0e299541, type: 3}
