@@ -9,14 +9,19 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] private GameObject itemSlotPrefab;
     [SerializeField] private Transform itemGrid;
     [SerializeField] private Text itemInfoText;
+    [SerializeField] private Button closeButton;
 
     private List<Item> inventory = new List<Item>();
 
     private void Start()
     {
-        inventoryPanel.SetActive(false); // Ẩn inventory ban đầu
+        // Ẩn inventory ban đầu
+        inventoryPanel.SetActive(false);
         PopulateInventory();
         UpdateInventoryUI();
+
+        // Gán sự kiện cho nút đóng
+        closeButton.onClick.AddListener(HideInventory);
     }
 
     private void PopulateInventory()
@@ -55,6 +60,11 @@ public class InventoryManager : MonoBehaviour
     public void ToggleInventory()
     {
         inventoryPanel.SetActive(!inventoryPanel.activeSelf);
+    }
+
+    private void HideInventory()
+    {
+        inventoryPanel.SetActive(false);
     }
 }
 
