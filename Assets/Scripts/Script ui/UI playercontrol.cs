@@ -16,60 +16,45 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float critChance = 0.1f; // Tỉ lệ bạo kích (10%)
 
     private string currentBuff;
-    private float buffDuration = 5f; // Thời gian buff có hiệu lực
+    private const float buffDuration = 5f; // Thời gian buff có hiệu lực
 
-    private Dictionary<string, System.Action> buffs;
+    private readonly Dictionary<string, System.Action> buffs = new Dictionary<string, System.Action>
+    {
+        { "Tăng Tốc Độ", () => ApplyBuff(ref moveSpeed, 1.5f) },
+        { "Tăng Máu", () => ApplyBuff(ref maxHealth, 20) },
+        { "Tỉ Lệ Bạo Kích", () => ApplyBuff(ref critChance, 0.1f) }
+    };
 
     private void Start()
     {
         buffPanel.SetActive(false);
         activateBuffButton.onClick.AddListener(ActivateBuff);
-
-        // Định nghĩa các buff và hành động tương ứng
-        buffs = new Dictionary<string, System.Action>
-        {
-            { "Tăng Tốc Độ", () => StartCoroutine(ApplySpeedBuff()) },
-            { "Tăng Máu", () => StartCoroutine(ApplyHealthBuff()) },
-            { "Tỉ Lệ Bạo Kích", () => StartCoroutine(ApplyCritChanceBuff()) }
-        };
     }
 
     public void ShowBuff(string buffName)
     {
-        currentBuff = buffName;
-        buffNameText.text = $"Buff: {currentBuff}";
-        buffPanel.SetActive(true);
+        if (buffs.ContainsKey(buffName))
+        {
+            currentBuff = buffName;
+            buffNameText.text = $"Buff: {currentBuff}";
+            buffPanel.SetActive(true);
+        }
     }
 
     private void ActivateBuff()
     {
-        if (!string.IsNullOrEmpty(currentBuff) && buffs.ContainsKey(currentBuff))
+        if (!string.IsNullOrEmpty(currentBuff))
         {
             buffs[currentBuff].Invoke();
             HideBuff();
         }
     }
 
-    private IEnumerator ApplySpeedBuff()
+    private static IEnumerator ApplyBuff<T>(ref T stat, T increment)
     {
-        yield return ApplyBuff(() => moveSpeed *= 1.5f, () => moveSpeed /= 1.5f);
-    }
-
-    private IEnumerator ApplyHealthBuff()
-    {
-        yield return ApplyBuff(() => maxHealth += 20, () => maxHealth -= 20);
-    }
-
-    private IEnumerator ApplyCritChanceBuff()
-    {
-        yield return ApplyBuff(() => critChance += 0.1f, () => critChance -= 0.1f);
-    }
-
-    private IEnumerator ApplyBuff(System.Action apply, System.Action revert)
-    {
-        apply.Invoke(); // Áp dụng buff
+        stat = (dynamic)stat * (dynamic)increment; // Áp dụng buff
         yield return new WaitForSeconds(buffDuration);
-        revert.Invoke(); // Khôi phục buff
+        stat = (dynamic)stat / (dynamic)increment; // Khôi phục buff
     }
 
     public void HideBuff()
@@ -79,7 +64,6 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        // Kiểm tra đầu vào để kích hoạt buff
         if (Input.GetKeyDown(KeyCode.Alpha1)) ShowBuff("Tăng Tốc Độ");
         else if (Input.GetKeyDown(KeyCode.Alpha2)) ShowBuff("Tăng Máu");
         else if (Input.GetKeyDown(KeyCode.Alpha3)) ShowBuff("Tỉ Lệ Bạo Kích");
