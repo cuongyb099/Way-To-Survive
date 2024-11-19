@@ -1,40 +1,52 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class PlayerAmmo : MonoBehaviour
 {
-    public int maxAmmo = 30;           // Số đạn tối đa
-    private int currentAmmo;           // Số đạn hiện tại
-    public Text ammoCountText;         // Text hiển thị số đạn
-    public Image ammoBar;              // Thanh hiển thị số đạn
+    [Header("Ammo Settings")]
+    [SerializeField] private int maxAmmo = 30;  // Số đạn tối đa
+    private int currentAmmo;                     // Số đạn hiện tại
 
-    // Khởi tạo giá trị
-    void Start()
+    [Header("UI References")]
+    [SerializeField] private Text ammoCountText; // Text hiển thị số đạn
+    [SerializeField] private Image ammoBar;      // Thanh hiển thị số đạn
+
+    [Header("Ammo Types")]
+    [SerializeField] private List<string> ammoTypes; // Danh sách các loại đạn
+    private int currentAmmoTypeIndex = 0;          // Chỉ số loại đạn hiện tại
+
+    private void Start()
     {
-        currentAmmo = maxAmmo;         // Gán số đạn hiện tại bằng số đạn tối đa
-        UpdateAmmoUI();                // Cập nhật UI
+        currentAmmo = maxAmmo;                   // Khởi tạo số đạn
+        UpdateAmmoUI();                          // Cập nhật UI
     }
 
-    // Phương thức sử dụng đạn
     public void UseAmmo(int amount)
     {
-        currentAmmo -= amount;          // Giảm số đạn
-        if (currentAmmo < 0) currentAmmo = 0; // Không cho số đạn nhỏ hơn 0
-        UpdateAmmoUI();                 // Cập nhật UI
+        ChangeAmmo(-amount);                     // Giảm số đạn
     }
 
-    // Phương thức nạp đạn
     public void Reload(int amount)
     {
-        currentAmmo += amount;          // Tăng số đạn
-        if (currentAmmo > maxAmmo) currentAmmo = maxAmmo; // Không cho số đạn vượt quá tối đa
-        UpdateAmmoUI();                 // Cập nhật UI
+        ChangeAmmo(amount);                      // Tăng số đạn
     }
 
-    // Cập nhật UI cho số đạn
+    private void ChangeAmmo(int amount)
+    {
+        currentAmmo = Mathf.Clamp(currentAmmo + amount, 0, maxAmmo); // Cập nhật số đạn
+        UpdateAmmoUI();                          // Cập nhật UI
+    }
+
     private void UpdateAmmoUI()
     {
-        ammoCountText.text = "Đạn: " + currentAmmo.ToString(); // Cập nhật text
-        ammoBar.fillAmount = (float)currentAmmo / maxAmmo;     // Cập nhật thanh đạn
+        ammoCountText.text = $"Đạn: {currentAmmo} ({ammoTypes[currentAmmoTypeIndex]})"; // Cập nhật text với loại đạn
+        ammoBar.fillAmount = (float)currentAmmo / maxAmmo; // Cập nhật thanh đạn
+    }
+
+    public void SwitchAmmoType()
+    {
+        currentAmmoTypeIndex = (currentAmmoTypeIndex + 1) % ammoTypes.Count; // Chuyển đổi loại đạn
+        UpdateAmmoUI(); // Cập nhật UI với loại đạn mới
     }
 }
