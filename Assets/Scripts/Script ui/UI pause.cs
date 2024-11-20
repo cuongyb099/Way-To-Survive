@@ -38,11 +38,15 @@ public class PauseMenu : MonoBehaviour
 
     private void LoadMainMenu()
     {
+        // Tải lại menu chính
         SceneManager.LoadScene("MainMenu"); // Thay "MainMenu" bằng tên scene của bạn
     }
 
     private void QuitGame()
     {
         Application.Quit(); // Thoát khỏi trò chơi
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false; // Dừng chơi trong Editor
+#endif
     }
 }
