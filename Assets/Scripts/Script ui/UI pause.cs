@@ -1,59 +1,59 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour
 {
-    public GameObject pauseMenuUI;
-    public Button resumeButton;
-    public Button settingsButton;
-    public Button quitButton;
+    [Header("UI References")]
+    [SerializeField] private GameObject pauseMenuUI; // Giao diện menu tạm dừng
+    [SerializeField] private Button resumeButton;     // Nút tiếp tục
+    [SerializeField] private Button mainMenuButton;    // Nút menu chính
+    [SerializeField] private Button quitButton;        // Nút thoát
 
     private bool isPaused = false;
 
-    void Start()
+    private void Start()
     {
-        resumeButton.onClick.AddListener(Resume);
-        settingsButton.onClick.AddListener(OpenSettings);
+        pauseMenuUI.SetActive(false); // Ẩn menu khi bắt đầu
+        resumeButton.onClick.AddListener(ResumeGame);
+        mainMenuButton.onClick.AddListener(LoadMainMenu);
         quitButton.onClick.AddListener(QuitGame);
-        pauseMenuUI.SetActive(false);
     }
 
-    void Update()
+    private void Update()
     {
+        // Kiểm tra phím tạm dừng
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (isPaused)
-            {
-                Resume();
-            }
+                ResumeGame();
             else
-            {
-                Pause();
-            }
+                PauseGame();
         }
     }
 
-    void Pause()
+    private void PauseGame()
     {
-        pauseMenuUI.SetActive(true);
-        Time.timeScale = 0f; // Dừng thời gian game
         isPaused = true;
+        pauseMenuUI.SetActive(true); // Hiển thị menu tạm dừng
+        Time.timeScale = 0f; // Dừng thời gian trong trò chơi
     }
 
-    void Resume()
+    public void ResumeGame()
     {
-        pauseMenuUI.SetActive(false);
-        Time.timeScale = 1f; // Tiếp tục thời gian game
         isPaused = false;
+        pauseMenuUI.SetActive(false); // Ẩn menu tạm dừng
+        Time.timeScale = 1f; // Tiếp tục thời gian trong trò chơi
     }
 
-    void OpenSettings()
+    private void LoadMainMenu()
     {
-        // Logic để mở cài đặt
+        // Tải lại menu chính (đảm bảo rằng tên scene đúng)
+        SceneManager.LoadScene("MainMenu"); // Thay "MainMenu" bằng tên scene của bạn
     }
 
-    void QuitGame()
+    private void QuitGame()
     {
-        Application.Quit();
+        Application.Quit(); // Thoát khỏi trò chơi
     }
 }
