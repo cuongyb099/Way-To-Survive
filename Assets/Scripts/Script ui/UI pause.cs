@@ -15,13 +15,12 @@ public class PauseMenu : MonoBehaviour
         pauseMenuUI.SetActive(false);
         resumeButton.onClick.AddListener(ResumeGame);
         mainMenuButton.onClick.AddListener(() => LoadScene("MainMenu"));
-        quitButton.onClick.AddListener(Application.Quit);
+        quitButton.onClick.AddListener(QuitGame);
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-            TogglePause();
+        if (Input.GetKeyDown(KeyCode.Escape)) TogglePause();
     }
 
     private void TogglePause()
@@ -35,5 +34,13 @@ public class PauseMenu : MonoBehaviour
     {
         Time.timeScale = 1f; // Đảm bảo thời gian được tiếp tục khi chuyển cảnh
         SceneManager.LoadScene(sceneName);
+    }
+
+    private void QuitGame()
+    {
+        Application.Quit();
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
     }
 }
