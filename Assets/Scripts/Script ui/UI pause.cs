@@ -25,30 +25,19 @@ public class PauseMenu : MonoBehaviour
         // Kiểm tra phím tạm dừng
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (isPaused)
-                ResumeGame();
-            else
-                PauseGame();
+            TogglePause();
         }
     }
 
-    private void PauseGame()
+    private void TogglePause()
     {
-        isPaused = true;
-        pauseMenuUI.SetActive(true); // Hiển thị menu tạm dừng
-        Time.timeScale = 0f; // Dừng thời gian trong trò chơi
-    }
-
-    public void ResumeGame()
-    {
-        isPaused = false;
-        pauseMenuUI.SetActive(false); // Ẩn menu tạm dừng
-        Time.timeScale = 1f; // Tiếp tục thời gian trong trò chơi
+        isPaused = !isPaused; // Đảo ngược trạng thái paused
+        pauseMenuUI.SetActive(isPaused); // Hiển thị hoặc ẩn menu
+        Time.timeScale = isPaused ? 0f : 1f; // Dừng hoặc tiếp tục thời gian
     }
 
     private void LoadMainMenu()
     {
-        // Tải lại menu chính (đảm bảo rằng tên scene đúng)
         SceneManager.LoadScene("MainMenu"); // Thay "MainMenu" bằng tên scene của bạn
     }
 
