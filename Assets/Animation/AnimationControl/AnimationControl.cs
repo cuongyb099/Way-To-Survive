@@ -3,43 +3,34 @@
 public class PlayerAnimationController : MonoBehaviour
 {
     private Animator animator;
-    private bool isWalking = false;
-    private bool isShooting = false;
+    private PlayerController playerController;
+
+    private static readonly int IsWalking = Animator.StringToHash("isWalking");
+    private static readonly int IsShooting = Animator.StringToHash("isShooting");
 
     private void Start()
     {
         animator = GetComponent<Animator>();
+        playerController = GetComponent<PlayerController>();
     }
 
     private void Update()
     {
-        HandleMovementAnimation();
-        HandleShootingAnimation();
+        UpdateMovementAnimation();
+        UpdateShootingAnimation();
     }
 
-    // Kiểm soát animation cho di chuyển
-    private void HandleMovementAnimation()
+    private void UpdateMovementAnimation()
     {
-        bool moving = Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0;
-
-        // Nếu trạng thái di chuyển thay đổi, cập nhật animation
-        if (moving != isWalking)
-        {
-            isWalking = moving;
-            animator.SetBool("isWalking", isWalking);
-        }
+        bool isWalking = Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0;
+        animator.SetBool(IsWalking, isWalking);
     }
 
-    // Kiểm soát animation khi bắn súng
-    private void HandleShootingAnimation()
+    private void UpdateShootingAnimation()
     {
-        bool shooting = Input.GetButton("Fire1");
-
-        // Nếu trạng thái bắn thay đổi, cập nhật animation
-        if (shooting != isShooting)
+        if (Input.GetButtonDown("Fire1"))
         {
-            isShooting = shooting;
-            animator.SetBool("isShooting", isShooting);
+            animator.SetTrigger(IsShooting);
         }
     }
 }
