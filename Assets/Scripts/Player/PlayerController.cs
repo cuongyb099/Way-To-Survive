@@ -9,6 +9,7 @@ public class PlayerController : BasicController
     public FloatingCapsule FloatingCapsule { get; private set; }
     public CapsuleCollider Collider { get; private set; }
     public Animator Animator { get; private set; }
+    public PlayerInteractor PlayerInteractor { get; private set; }
 	//Player Data
 	public float GunSwitchCooldown = .1f;
     public LayerMask GroundLayer;
@@ -46,6 +47,7 @@ public class PlayerController : BasicController
         Collider = GetComponent<CapsuleCollider>();
         FloatingCapsule = GetComponent<FloatingCapsule>();
         Animator = GetComponentInChildren<Animator>();
+        PlayerInteractor = GetComponentInChildren<PlayerInteractor>();
         
         BuffList = new List<int>();
         OwnedGuns = new List<GunBase> { StartingGun };

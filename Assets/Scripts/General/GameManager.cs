@@ -1,3 +1,4 @@
+using System;
 using BehaviorDesigner.Runtime;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,9 +17,9 @@ public class GameManager : Singleton<GameManager>
         Player = FindAnyObjectByType<PlayerController>();
         GMAudioSource = GetComponent<AudioSource>();
         Application.targetFrameRate= FPSLimitValue;
-        //SharedTransform tmp = new();
-        //tmp.SetValue(Player.transform);
-        //GlobalVariables.Instance.SetVariable(Constant.Target, tmp);
     }
-    
+
+    private void Start()
+    {
+    }
 }
