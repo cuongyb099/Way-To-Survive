@@ -1,123 +1,69 @@
-///Package Create By Kat
 using System;
 using System.Threading.Tasks;
 using UnityEngine;
 
-/// <summary>
-/// Not Stackable Is Clone Effect
-/// Stackable Is Reference Effect 
-/// </summary>
-public abstract class BaseStatusEffect :IEquatable<BaseStatusEffect>
+public abstract class BaseStatusEffect
 {
     public Action OnStart, OnEnd, OnActive;
-    protected float timer;
+
+	protected float duration;
+	protected StatusEffectType type;
+	protected float startTime;
+    protected bool isCancelled;
     protected StatsController stats;
-    public bool ForceStop { get; protected set; }
+    protected bool hasDuration;
 
-    public StatusEffectSO Data;
-    public int CurrentStack
-    {
-        get => currentStack;
-        set
-        {
-            currentStack = value;
-            HandleStackChange();
-        } 
-    }
-    private int currentStack;
-    protected BaseStatusEffect(StatusEffectSO data, StatsController target,
-        Action OnStart = null, Action onEnd = null, Action onActive = null)
-    {
-        OnInit(data, target);
-        
-        this.OnStart = OnStart;
-        this.OnEnd = onEnd;
-        this.OnActive = onActive;
-    }
-    
-    protected BaseStatusEffect(){}
+    public StatusEffectType Type => type;
 
-    
-
-    /// <summary>
-    /// This Function To Active Effect
-    /// </summary>
-    public void Begin()
+    public BaseStatusEffect(bool hasDuration, StatsController target, float duration = 0f)
     {
-        ForceStop = false;
-        currentStack = 0;
-        HandleStart();
-        OnStart?.Invoke();
-        if (Data.UseAdvanceUpdate)
-        {
-            _ = UpdateAsync();
-        }
-    }
-    
-    protected virtual void OnInit(StatusEffectSO data, StatsController target)
-    {
-        ForceStop = false;
-        timer = 0f;
-        Data = data;
+        this.duration = duration;
+        this.hasDuration = hasDuration;
+        isCancelled = false;
+        startTime = Time.time;
         stats = target;
-        currentStack = 0;
-    }
-    
-    /// <summary>
-    /// This MonoUpdate Work With Effect Stack Same Timer  
-    /// </summary>
-    public virtual bool MonoUpdate()
-    {
-        if (!Data.UseAdvanceUpdate)
-        {
-            HandleOnUpdate();
-            OnActive?.Invoke();
-        }
-        if (!Data.HasDuration) return false;
-        timer += Time.deltaTime;
-        return timer > Data.Duration;
+
+        HandleStart();
+        _ = UpdateRuntime();
     }
 
-    private async Task UpdateAsync()
+    public virtual bool Update()
     {
-        while (!ForceStop)
+        if (!hasDuration) return false;
+        return Time.time > startTime + duration;
+    }
+
+    protected virtual void HandleStart()
+    {
+		OnStart?.Invoke();
+	}
+
+	protected virtual async Task UpdateRuntime()
+    {
+        while (!isCancelled)
         {
 #if UNITY_EDITOR
             if (!Application.isPlaying) break;
 #endif
-            HandleOnUpdate();
-            OnActive?.Invoke();
+            
+            HandleWhileActive();
             await Task.Yield();
         }
     }
 
-    public void Stop()
+    protected virtual void HandleWhileActive()
     {
-        ForceStop = true;
-        HandleEnd();
+        OnActive?.Invoke();
+    }
+    
+    protected virtual void HandleEnd()
+    {
         OnEnd?.Invoke();
     }
 
-    
-    /// <summary>
-    /// Clone Must Override In Other Effect
-    /// </summary>
-    public virtual BaseStatusEffect Clone()
+    public virtual void Stop()
     {
-        return (BaseStatusEffect)this.MemberwiseClone();
-    }
-    
-    /// <summary>
-    /// HandleStackChange Not Apply When Begin
-    /// </summary>
-    public abstract void HandleStackChange();
-    protected abstract void HandleStart();
-    protected abstract void HandleOnUpdate();
-    protected abstract void HandleEnd();
-
-    public bool Equals(BaseStatusEffect other)
-    {
-        return (Data.ID == other.Data.ID) && timer.Equals(other.timer);
+        isCancelled = true;
+        HandleEnd();
     }
 }
-

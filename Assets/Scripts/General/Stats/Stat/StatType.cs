@@ -9,7 +9,6 @@ public enum StatType
 	CritDamage,
 	BonusDMG,
 	ShootSpeed,
-	MagCapacity,
 	//Guns
 	MaxBulletCap,
 }

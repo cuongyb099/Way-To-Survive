@@ -1,16 +1,16 @@
-
-using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class LerpToPoint : MonoBehaviour
+namespace ResilientCore
 {
-    [field: SerializeField] public Transform TargetPoint { get; private set; }
-	[field: SerializeField] public float SwitchBlendValue { get; private set; } = 100f;
-       
-    void Update()
+    public class LerpToPoint : MonoBehaviour
     {
-		transform.position = Vector3.Lerp(transform.position, TargetPoint.transform.position, SwitchBlendValue*Time.deltaTime);
+        [field: SerializeField] public Transform TargetPoint { get; private set; }
+		[field: SerializeField] public float LerpSpeed { get; private set; } = 25f;
+       
+        void Update()
+        {
+            transform.position =
+                Vector3.Lerp(transform.position, TargetPoint.position, LerpSpeed * Time.deltaTime);
+        }
 	}
 }

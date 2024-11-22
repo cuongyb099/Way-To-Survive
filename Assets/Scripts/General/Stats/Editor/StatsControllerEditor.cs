@@ -55,8 +55,6 @@ public class StatsControllerEditor : Editor
 
 		StatsHolderSO statsHolder = _PropertyStatHolder.objectReferenceValue as StatsHolderSO;
 
-		
-		if(!target) return;
 		bool playMode = EditorApplication.isPlayingOrWillChangePlaymode &&
 						  !PrefabUtility.IsPartOfPrefabAsset(target);
 
@@ -70,10 +68,10 @@ public class StatsControllerEditor : Editor
 			return;
 		}
 
-		InitBodyInEditor(statsHolder, controller);
+		InitBodyNotInPlaymode(statsHolder, controller);
 	}
 
-	private void InitBodyInEditor(StatsHolderSO statsHolder, StatsController controller)
+	private void InitBodyNotInPlaymode(StatsHolderSO statsHolder, StatsController controller)
 	{
 		var attributesView = new M_AttributeView();
 		var statsView = new M_StatView();

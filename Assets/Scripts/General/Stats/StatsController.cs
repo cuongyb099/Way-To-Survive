@@ -1,16 +1,17 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Tech.Logger;
+using UnityEditor;
 using UnityEngine;
 
+[CanEditMultipleObjects]
 public class StatsController : MonoBehaviour
 {
 	[SerializeField] private StatsHolderSO _statsHolder;
 
-	protected Dictionary<StatType, Stat> _stats;
-	protected Dictionary<AttributeType, Attribute> _attributes;
-	protected List<BaseStatusEffect> _statusEffects = new List<BaseStatusEffect>();
+	private Dictionary<StatType, Stat> _stats;
+	private Dictionary<AttributeType, Attribute> _attributes;
+	private List<BaseStatusEffect> _statusEffects = new List<BaseStatusEffect>();
 
 	public Dictionary<StatType, Stat> Stats
 	{
@@ -40,7 +41,22 @@ public class StatsController : MonoBehaviour
 		InitAttribute();
 	}
 
-	protected virtual void InitAttribute()
+	private void Update()
+	{
+		UpdateStatusEffect();
+		if (Input.GetKeyDown(KeyCode.V))
+		{
+			MinusAttributeValue(AttributeType.Hp, 10);
+		}
+
+		if (Input.GetKeyDown(KeyCode.C))
+		{
+			MinusAttributeValue(AttributeType.Hp, -10);
+		}
+	}
+
+	
+	private void InitAttribute()
 	{
 		if (!_statsHolder || _attributes != null)
 		{
@@ -58,6 +74,21 @@ public class StatsController : MonoBehaviour
 		}
 	}
 
+	public void ReInit()
+	{
+		foreach (Stat stat in _stats.Values)
+		{
+			stat.ClearAllModifiers();
+		}
+	
+		foreach (AttributeType key in _statsHolder.AttributeItems.Keys)
+		{
+			AttributeItem attributeItem = _statsHolder.GetAttribute(key);
+		
+			_attributes[key].ReInit(attributeItem.StartPercent);
+		}
+	}
+	
 	protected virtual void InitStats()
 	{
 		if (!_statsHolder || _stats != null)
@@ -74,7 +105,7 @@ public class StatsController : MonoBehaviour
 		}
 	}
 
-	public virtual void AddModifier(StatType type, StatModifier modifier)
+	public void AddModifier(StatType type, StatModifier modifier)
 	{
 		if (_stats.TryGetValue(type, out Stat value))
 		{
@@ -85,7 +116,7 @@ public class StatsController : MonoBehaviour
 		LogCommon.LogError($"{type} Not Found In {_statsHolder.name}");
 	}
 
-	public virtual void RemoveModifier(StatType type, StatModifier modifier)
+	public void RemoveModifier(StatType type, StatModifier modifier)
 	{
 		_stats[type].RemoveModifier(modifier);
 	}
@@ -121,20 +152,20 @@ public class StatsController : MonoBehaviour
 		stat = null;
 		return false;
 	}
+    public Attribute GetAttribute(AttributeType type)
+    {
+	    return _attributes.GetValueOrDefault(type);
+    }
+    public Stat GetStat(StatType type)
+    {
+	    return _stats.GetValueOrDefault(type);
+    }
 
 	private void UpdateStatusEffect()
 	{
 		for (int i = _statusEffects.Count - 1; i >= 0; --i)
 		{
-			if (_statusEffects[i].ForceStop)
-			{
-				_statusEffects[i].Stop();
-				_statusEffects.RemoveAt(i);
-				OnChange?.Invoke();
-				continue;
-			}
-			
-			if (!_statusEffects[i].MonoUpdate()) continue;
+			if (!_statusEffects[i].Update()) continue;
 
 			_statusEffects[i].Stop();
 			_statusEffects.RemoveAt(i);
@@ -144,70 +175,26 @@ public class StatsController : MonoBehaviour
 
 	public void ApplyEffect(BaseStatusEffect effect)
 	{
-		if (!effect.Data.Stackable)
-		{
-			if (_statusEffects.Contains(effect)) return;
-			effect.Begin();
-			_statusEffects.Add(effect);
-			OnChange?.Invoke();
-			return;
-		}
-		
-		if (_statusEffects.Contains(effect))
-		{
-			BaseStatusEffect sf = _statusEffects.Find(x => x.Equals(effect));
-			if (sf.CurrentStack >= sf.Data.MaxStack) return;
-			sf.CurrentStack++;
-			OnChange?.Invoke();
-			return;
-		}
-		
-		effect.Begin();
-		effect.CurrentStack++;
 		_statusEffects.Add(effect);
-		OnChange?.Invoke();
 	}
 
-	public void RemoveEffect(BaseStatusEffect effect)
+
+	[ContextMenu("Poison Effect")]
+	public void test()
 	{
-		if (!effect.Data.Stackable)
-		{
-			if (_statusEffects.Contains(effect))
-			{
-				BaseStatusEffect sf = _statusEffects.Find(x => x.Equals(effect));
-				sf.Stop();
-				_statusEffects.Remove(sf);
-				OnChange?.Invoke();
-			}
-			return;
-		}
-		
-		if (_statusEffects.Contains(effect))
-		{
-			BaseStatusEffect sf = _statusEffects.Find(x => x.Equals(effect));
-			sf.CurrentStack--;
-			if (sf.CurrentStack == 0)
-			{
-				sf.Stop();
-				_statusEffects.Remove(effect);
-			}
-			OnChange?.Invoke();
-		}
+		var poison = new PoisonEffect(true, this, 5f);
+		_statusEffects.Add(poison);
 	}
 
-	public Attribute GetAttribute(AttributeType type)
+	[ContextMenu("Add 10 MaxHP")]
+	public void test2()
 	{
-		return _attributes.GetValueOrDefault(type);
+		AddModifier(StatType.MaxHP, new StatModifier(10, StatModType.Flat));
 	}
-
-	public Stat GetStat(StatType type)
+	[ContextMenu("Add 10% Shoting Speed")]
+	public void test3()
 	{
-		return _stats.GetValueOrDefault(type);
-	}
-
-	private void Update()
-	{
-		UpdateStatusEffect();
+		AddModifier(StatType.ShootSpeed, new StatModifier(10, StatModType.PercentAdd));
 	}
 }
 

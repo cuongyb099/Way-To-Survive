@@ -15,7 +15,7 @@ public class Bullet : MonoBehaviour
 	public DamageInfo DamageInfo;
 	public Rigidbody RB { get; private set; }
 	public TrailRenderer TrailRenderer { get; private set; }
-	private Tween seq;
+	private DG.Tweening.Tween seq;
 	private void Awake()
 	{
 		RB = GetComponent<Rigidbody>();
@@ -23,7 +23,7 @@ public class Bullet : MonoBehaviour
 	}
 	public void OnEnable()
 	{
-		seq = DOVirtual.DelayedCall(LiveTime, () => { Deactivate(); }).SetUpdate(false);
+		seq = DOVirtual.DelayedCall(LiveTime, () => { Deactivate(); });
 	}
 	private void OnCollisionEnter(Collision collision)
 	{

@@ -1,17 +1,15 @@
-using System;
-
 public enum StatModType
 {
-	BaseFlat,
 	Flat,
-	Percentage
+	PercentAdd,
+	PercentMult,
 }
 
-public class StatModifier: IEquatable<StatModifier>
+public class StatModifier
 {
-	public float Value;
-	public StatModType Type;
-	public object Source;
+	public readonly float Value;
+	public readonly StatModType Type;
+	public readonly object Source;
 
 	public StatModifier(float value, StatModType type, object source = null)
 	{
@@ -20,14 +18,5 @@ public class StatModifier: IEquatable<StatModifier>
 		Source = source;
 	}
 
-	public StatModifier Clone()
-	{
-		return new StatModifier(Value, Type, Source);
-	}
-
-    public bool Equals(StatModifier other)
-    {
-        return (other.Value == Value && other.Type == Type && other.Source == Source);
-    }
 }
 
