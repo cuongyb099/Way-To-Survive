@@ -9,13 +9,16 @@ using UnityEngine.UIElements;
 
 public class Bullet : MonoBehaviour
 {
+	[field:SerializeField] public int DamageTime { get; private set; } = 1;
+	[field:SerializeField,Range(0f,1f)] public float DamageReduction { get; private set; }= 1f;
 	public float LiveTime = 3f;
 	public float Force = 10f;
 	public GameObject HitEffectWall;
 	public DamageInfo DamageInfo;
 	public Rigidbody RB { get; private set; }
 	public TrailRenderer TrailRenderer { get; private set; }
-	private DG.Tweening.Tween seq;
+	private Tween seq;
+	private int countDMG = 0;
 	private void Awake()
 	{
 		RB = GetComponent<Rigidbody>();
@@ -23,25 +26,33 @@ public class Bullet : MonoBehaviour
 	}
 	public void OnEnable()
 	{
-		seq = DOVirtual.DelayedCall(LiveTime, () => { Deactivate(); });
+		seq = DOVirtual.DelayedCall(LiveTime, Deactivate).SetUpdate(false);
+		countDMG = DamageTime;
 	}
-	private void OnCollisionEnter(Collision collision)
+	
+	private void OnCollisionEnter(Collision other)
 	{
-		ObjectPool.Instance.SpawnObject(HitEffectWall, collision.contacts[0].point, Quaternion.identity, PoolType.ParticleSystem);
+		
+		ObjectPool.Instance.SpawnObject(HitEffectWall, other.contacts[0].point, Quaternion.identity, PoolType.ParticleSystem);
 		seq.Kill();
-
-		Collider collider = collision.contacts[0].otherCollider;
-
-		if (!collider.CompareTag(DamageInfo.Dealer.tag))
+		
+		Collider otherCollider = other.collider;
+		if (!otherCollider.CompareTag(DamageInfo.Dealer.tag))
 		{
-			if (collider.TryGetComponent(out IDamagable damagable))
+			if (otherCollider.TryGetComponent(out IDamagable damagable))
 			{
-				DamagePopUpGenerator.Instance.CreateDamagePopUp(collision.contacts[0].point,DamageInfo);
+				DamagePopUpGenerator.Instance.CreateDamagePopUp(other.contacts[0].point,DamageInfo);
 				damagable.Damage(DamageInfo);
+				countDMG--;
+				DamageInfo = new DamageInfo(DamageInfo.Dealer,DamageInfo.Damage*DamageReduction,DamageInfo.IsCrit);
+				if(countDMG<=0)
+					Deactivate();
+				return;
 			}
 		}
 		Deactivate();
 	}
+	
 
 	public void InitBullet(Vector3 point, float accuracy, DamageInfo info)
 	{
@@ -60,9 +71,5 @@ public class Bullet : MonoBehaviour
 		RB.velocity = Vector3.zero;
 		TrailRenderer.Clear();
 		ObjectPool.Instance.ReturnObjectToPool(gameObject);
-	}
-	public void DealDamage()
-	{
-
 	}
 }

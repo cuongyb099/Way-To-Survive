@@ -17,6 +17,7 @@ public class GunShopUI : CanvasUIHandler
     public GunShopDataUI GunDataUI;
     public Button BuyButton;
     public TextMeshProUGUI BuyButtonText;
+    public TextMeshProUGUI CashText;
     [Header("Data")] 
     public GunListSO GunListSO;
     public GunMiniUI GunMiniPrefab;
@@ -25,9 +26,22 @@ public class GunShopUI : CanvasUIHandler
     public List<GunMiniUI> GunsMiniUI { get; private set; }
     private void Awake()
     {
+        PlayerEvent.OnCashChange += ChangeCashText;
         Initialize();
     }
-    
+
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        PlayerController player = GameManager.Instance.Player;
+        ChangeCashText(player.Cash);
+    }
+
+    private void OnDestroy()
+    {
+        PlayerEvent.OnCashChange -= ChangeCashText;
+    }
+
     private void Initialize()
     {
         GunsMiniUI = new List<GunMiniUI>();
@@ -63,6 +77,9 @@ public class GunShopUI : CanvasUIHandler
     public void OnBuyGun()
     {
         PlayerController player = GameManager.Instance.Player;
+        if (player.Cash < Selected.GunHolder.GunData.GunPrice) return;
+
+        player.Cash -= Selected.GunHolder.GunData.GunPrice;
         player.OwnedGuns.Add(Selected.GunHolder);
 
         for(int i = 0; i< player.Guns.Length; i++)
@@ -74,5 +91,10 @@ public class GunShopUI : CanvasUIHandler
         
         BuyButton.interactable = false;
         BuyButtonText.text = "Owned";
+    }
+
+    private void ChangeCashText(int value)
+    {
+        CashText.text = value+"$";
     }
 }

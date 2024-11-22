@@ -17,7 +17,7 @@ MonoBehaviour:
   GunName: XM1014
   GunDescription: asd
   Icon: {fileID: 1247450681, guid: 92a4fe653152e9244b4849b9dba1c92b, type: 3}
-  GunPrice: 50
+  GunPrice: 2000
   ShootingSpeed: 1
   Damage: 3
   Aim: 5
@@ -27,3 +27,9 @@ MonoBehaviour:
   Weight: 1
   MaxCapacity: 10
   ReleaseToShoot: 0
+  ShootingSounds:
+  - {fileID: 8300000, guid: fe9c6fc296f100044b864f2bd639c3ca, type: 3}
+  TailSound: {fileID: 8300000, guid: 577cb100552dc7044853df3840905615, type: 3}
+  CockingSound: {fileID: 8300000, guid: a02bc36fa5f93cf4a8fd0cf3114a6486, type: 3}
+  MagSoundIn: {fileID: 8300000, guid: b6f4cac3255303c4b88398310d196511, type: 3}
+  MagSoundOut: {fileID: 0}

@@ -14,7 +14,7 @@ namespace BehaviorDesigner.Runtime.Tasks.Unity.UnityGameObject
         public override TaskStatus OnUpdate()
         {
             GetDefaultGameObject(targetGameObject.Value).SetActive(active.Value);
-            
+
             return TaskStatus.Success;
         }
 

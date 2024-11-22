@@ -1,19 +1,15 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.Tilemaps;
 using UnityEngine;
 
 public class WheelHandlerUI : MonoBehaviour
 {
-    public GameObject InventoryUI;
-    public ItemWheelUI[] Items;
+    public List<ItemWheelUI> Items;
     private void Start()
     {
        InitalizeItems();
-               
-       for (int i = 0; i < Items.Length; i++)
+        
+       for (int i = 0; i < 4; i++)
        {
            ItemWheelUI item = Items[i];
            item.ItemButton.onClick.AddListener(()=>
@@ -30,8 +26,10 @@ public class WheelHandlerUI : MonoBehaviour
         //0->2 is for guns
         for (int i = 0; i < 3; i++)
         {
-            Items[i].Initialize(i, guns[i]!=null?guns[i].GunData.GunName : null,guns[i]!=null?guns[i].GunData.Icon : null);
+            Items[i].Initialize(i, guns[i] != null ? guns[i].GunData.GunName : null,
+                guns[i] != null ? guns[i].GunData.Icon : null);
         }
+
         Items[3].Initialize(3,"Inventory",null);
     }
 
@@ -47,9 +45,6 @@ public class WheelHandlerUI : MonoBehaviour
                 break;
             case 2:
                 GameManager.Instance.Player.SwitchGun(2);
-                break;
-            case 3:
-                InventoryUI.gameObject.SetActive(true);
                 break;
         }
     }

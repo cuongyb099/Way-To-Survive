@@ -20,7 +20,7 @@ public class CameraZoom : MonoBehaviour
     private CinemachineInputProvider inputProvider;
     private CinemachineTransposer transposer;
 
-    private void Awake()
+    private void Start()
     {
         transposer = GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTransposer>();
         inputProvider = GetComponent<CinemachineInputProvider>();
@@ -29,7 +29,7 @@ public class CameraZoom : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    { 
 		Zoom();
     }
 

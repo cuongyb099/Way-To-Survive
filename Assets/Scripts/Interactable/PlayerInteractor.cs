@@ -7,12 +7,13 @@ using UnityEngine;
 
 public class PlayerInteractor : MonoBehaviour
 {
+    public bool EnableInteraction { get; set; }
 	public List<IInteractable> Interactables { get; private set; }
     public IInteractable Target { get; private set; } = null;
 	public PlayerController Controller { get; private set; }
     private float minDist;
     private int curIndex;
-	private void Awake()
+    private void Awake()
 	{
         Interactables = new List<IInteractable>();
         Controller = GetComponentInParent<PlayerController>();
@@ -71,7 +72,7 @@ public class PlayerInteractor : MonoBehaviour
     }
     public void InteractWithTarget()
     {
-        if (Interactables.Count == 0) return;
+        if (Interactables.Count == 0 || !EnableInteraction) return;
         Target?.Interact(Controller);
 	}
 

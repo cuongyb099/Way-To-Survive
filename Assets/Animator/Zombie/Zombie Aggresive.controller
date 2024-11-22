@@ -683,7 +683,7 @@ AnimatorController:
   - serializedVersion: 5
     m_Name: Hit
     m_StateMachine: {fileID: -811140624398003916}
-    m_Mask: {fileID: 31900000, guid: 4c0bfe6dc2ed2124bafd8681c00621af, type: 2}
+    m_Mask: {fileID: 31900000, guid: 68b95ded350beac4e9fa4380d94a27be, type: 2}
     m_Motions: []
     m_Behaviours: []
     m_BlendingMode: 1
