@@ -47,10 +47,4 @@ public class Attribute
 	{
 		Value = MaxValue;
 	}
-	
-	public void ReInit(float startPercent)
-	{
-		_value = Mathf.Lerp(_minValue, _maxValue.Value, startPercent);
-		OnValueChange?.Invoke();
-	}
 }

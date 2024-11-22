@@ -1,70 +1,46 @@
 using System;
-using System.Collections;
 using System.Linq;
 using DG.Tweening;
 using Tech.Logger;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 
 public class WaveManager : MonoBehaviour
 {
     private int _currentWave;
     private int _activeSpawner;
     private bool _gameDone;
-    
     [SerializeField] private int _maxWaveCount = 20;
     [SerializeField] private float _shoppingTime = 30f;
     [SerializeField] private Wave[] _waves;
-    //Dotween
-    private Tween _shoppingTimeTween;
-    private TweenCallback _tweenCallbackNextWave;
-    private TweenCallback<float> _timerCallback;
     
+    //Dotween
+    private TweenCallback _tweenCallbackNextWave;
+
     private void Awake()
     {
         NormalizeWaves();
 
-        _tweenCallbackNextWave += NextWave;
-        _timerCallback += HandleShoppingTimeChange;
-
-        GameEvent.EnemyDeadEvent += EndWaveCheck;
-        GameEvent.SkipShoppingEvent += SkipToNextWave;
-    }
-
-    private void OnDestroy()
-    {
-        _tweenCallbackNextWave -= NextWave;
-        _timerCallback -= HandleShoppingTimeChange;
+        GameEvent.CallbackWaveDone += (x) =>
+        {
+            Debug.Log("Wave Done");
+        };
         
-        GameEvent.EnemyDeadEvent -= EndWaveCheck;
-        GameEvent.SkipShoppingEvent -= SkipToNextWave;
-    }
-    
-    private void SkipToNextWave()
-    {
-        if(!_shoppingTimeTween.IsActive()) return;
-        _shoppingTimeTween.Kill();
-    }
-    
-    private void Start()
-    {
-        LoadGame();
+        GameEvent.CallbackGameComplete += () =>
+        {
+            Debug.Log("Game Complete");
+        };
     }
 
-    private void LoadGame()
+    private void Start()
     {
         _currentWave = 1;
         StartWave();
-    }
-
-    private void HandleShoppingTimeChange(float currentTime)
-    {
-        GameEvent.ShoppingTimeChangeEvent?.Invoke(currentTime);
+        GameEvent.CallbackEnemyAmountChange += EndWaveCheck;
+        _tweenCallbackNextWave += NextWave;
     }
     
     private void StartWave()
     {
-        GameEvent.NextWaveEvent?.Invoke(_currentWave);
         Wave wave = FindWave(_currentWave);
 
         for (int i = 0; i < wave.MainWave.Length; i++)
@@ -209,25 +185,31 @@ public class WaveManager : MonoBehaviour
         }
     }
     
+    private void OnDestroy()
+    {
+        _tweenCallbackNextWave -= NextWave;
+        
+        if(!EnemyManager.Instance) return;
+        
+        GameEvent.CallbackEnemyAmountChange -= EndWaveCheck;
+    }
+
     private void EndWaveCheck(int currentEnemyAmount)
     {
         if(_gameDone) return;
         
-        if (currentEnemyAmount <= 0 && _activeSpawner <= 0 && _currentWave < _maxWaveCount )
+        if (currentEnemyAmount <= 0 && _activeSpawner <= 0)
         {
-            GameEvent.WaveDoneEvent?.Invoke(_currentWave);
-            //Sample 29 -> 0 30 Number In 30 Seconds
-            _shoppingTimeTween = DOVirtual.Float(_shoppingTime - 1, 0, _shoppingTime, _timerCallback)
-                .SetEase(Ease.Linear)
-                .OnKill(_tweenCallbackNextWave);
-            
+            GameEvent.CallbackWaveDone?.Invoke(_currentWave);
+            DOVirtual.DelayedCall(_shoppingTime, _tweenCallbackNextWave, false);
             return;
         }
 
-        if(_currentWave < _maxWaveCount || currentEnemyAmount > 0) return;
+        if (currentEnemyAmount > 0) return;
         
+        if(_currentWave <= _maxWaveCount ) return;
         _gameDone = true;
-        GameEvent.GameCompleteEvent?.Invoke();
+        GameEvent.CallbackGameComplete?.Invoke();
     }
 
     public void NextWave()
@@ -235,19 +217,30 @@ public class WaveManager : MonoBehaviour
         if(_gameDone) return;
         
         _currentWave++;
+        GameEvent.CallbackNextWave?.Invoke(_currentWave);
         StartWave();
+    }
+    
+    private void Load()
+    {
+        
+    }
+
+    private void Save()
+    {
+        
     }
 
     public Wave FindWave(int currentWave)
     {
         for (int i = 0; i < _waves.Length; i++)
         {
-            if(_waves[i].End < currentWave) continue;
+            if(_waves[i].End <= currentWave) continue;
             
             return _waves[i];
         }
 
-        return default;
+        return null;
     }
 
     public void DisposeSpawner()
@@ -297,7 +290,7 @@ public class WaveManager : MonoBehaviour
 }
 
 [Serializable]
-public struct Wave
+public class Wave
 {
     public int Start;
     public int End;
@@ -306,7 +299,7 @@ public struct Wave
 }
 
 [Serializable]
-public struct WaveChild
+public class WaveChild
 {
     public WaveChildSpawnStrategy SpawnStrategy;
     public int EnemyAmount;
