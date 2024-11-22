@@ -2,23 +2,25 @@ using System.Collections;
 using Tech.Pooling;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class AudioChild : MonoBehaviour
 {
-    private AudioSource audioSource;
-
+    public AudioSource Source {get; private set;}
+    private Coroutine _coroutine;
+    
     private void Awake()
     {
-        audioSource = GetComponent<AudioSource>();
+        Source = GetComponent<AudioSource>();
     }
 
-    private void OnEnable()
+    public void WaitToReturnPool()
     {
-        StartCoroutine(ReturnPool());
+        _coroutine = StartCoroutine(ReturnPool());
     }
 
     private IEnumerator ReturnPool()
     {
-        yield return new WaitUntil (() => !audioSource.isPlaying);
+        yield return new WaitUntil (() => !Source.isPlaying);
         ObjectPool.Instance.ReturnObjectToPool(gameObject);
     }
 }

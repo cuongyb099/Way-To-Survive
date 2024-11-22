@@ -18,6 +18,7 @@ public class NormalAttack : BaseEnemyBehavior
     {
         _canActive = true;
         enemyCtrl.Anim.SetTrigger(_hashAnimation);
+        enemyCtrl.Anim.SetBool(GlobalAnimation.IsAttackAnimationEnd, false);
     }
 
     public override void OnAwake()
@@ -40,6 +41,12 @@ public class NormalAttack : BaseEnemyBehavior
     public override TaskStatus OnUpdate()
     {
         return enemyCtrl.Anim.GetBool(GlobalAnimation.IsAttackAnimationEnd) ? TaskStatus.Success : TaskStatus.Running;
+    }
+
+    public override void OnEnd()
+    {
+        base.OnEnd();
+        _colliderDetection.SetActiveDetect(false);
     }
 
     private void SetActive(string eventName)

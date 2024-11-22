@@ -19,6 +19,7 @@ public class SoundFXManager : Singleton<SoundFXManager>
 
     public void PlaySound(AudioClip clip, SoundType soundType,float volume = 1f)
     {
+        if(!clip) return;
         AudioSource audioSource = null;
         switch (soundType)
         {

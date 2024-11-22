@@ -66,8 +66,8 @@ namespace Tech.Pooling
 				spawnableObj.transform.position = position;
 				spawnableObj.transform.rotation = rotation;
 				pool.InactiveObjects.Remove(spawnableObj);
-				spawnableObj.SetActive(true);
 			}
+			spawnableObj.SetActive(true);
 
 			return spawnableObj;
 		}

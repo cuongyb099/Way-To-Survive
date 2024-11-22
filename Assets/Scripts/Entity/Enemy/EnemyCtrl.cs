@@ -49,8 +49,9 @@ public class EnemyCtrl : BasicController
     private void OnDisable()
     {
         BTree.DisableBehavior(false);
+        isDead = false;
         if (!ObjectPool.Instance) return;
-        ObjectPool.Instance.ReturnObjectToPool(this.gameObject);
+        ObjectPool.Instance.ReturnObjectToPool(gameObject);
     }
 
     public void SetDestination(Vector3 destination)
@@ -60,6 +61,6 @@ public class EnemyCtrl : BasicController
 
     public void StopDestination()
     {
-        Authoring.SetDestination(transform.position);
+        Authoring.Stop();
     }
 }

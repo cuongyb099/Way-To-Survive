@@ -16,10 +16,10 @@ MonoBehaviour:
     _serializedList:
     - Key: 1
       Value:
-        _baseValue: 20
+        _baseValue: 1
     - Key: 2
       Value:
-        _baseValue: 300
+        _baseValue: 1
   _attributeItems:
     _serializedList:
     - Key: 0

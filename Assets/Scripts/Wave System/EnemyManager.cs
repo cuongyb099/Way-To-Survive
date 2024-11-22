@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Tech.Pooling;
 using Unity.Mathematics;
@@ -24,14 +25,17 @@ public class EnemyManager : Tech.Singleton.Singleton<EnemyManager>
     protected override void Awake()
     {
         base.Awake();
+        cancellationTokenSource = new CancellationTokenSource();
+        token = cancellationTokenSource.Token;
         _waveManager = GetComponent<WaveManager>();
-        GameEvent.CallbackWaveDone += ResetEnemyDeadAmount;
+        GameEvent.WaveDoneEvent += ResetEnemyDeadAmount;
     }
 
     private void OnDestroy()
     {
-        GameEvent.CallbackWaveDone -= ResetEnemyDeadAmount;
-    }
+        GameEvent.WaveDoneEvent -= ResetEnemyDeadAmount;
+        cancellationTokenSource.Cancel();
+	}
 
     private void ResetEnemyDeadAmount(int currentWave)
     {
@@ -48,7 +52,7 @@ public class EnemyManager : Tech.Singleton.Singleton<EnemyManager>
     {
         _currentEnemyAmount--;
         _enemyDeadAmount++;
-        GameEvent.CallbackEnemyAmountChange?.Invoke(_currentEnemyAmount);
+        GameEvent.EnemyDeadEvent?.Invoke(_currentEnemyAmount);
         OnEnemyDead?.Invoke(_enemyDeadAmount);
     }
     
@@ -93,8 +97,7 @@ public class EnemyManager : Tech.Singleton.Singleton<EnemyManager>
             M_SpawnPoint = spawnPoint,
             Amount = amount,
         };
-        
-        SpawnEnemyAsync(spawner);
+       
         return spawner;
     }
 
@@ -122,9 +125,23 @@ public class EnemyManager : Tech.Singleton.Singleton<EnemyManager>
         return spawner;
     }
     
-    public async void SpawnEnemyAsync(Spawner spawner)
+    private CancellationTokenSource cancellationTokenSource;
+    private CancellationToken token;
+    public async void StartSpawn(Spawner spawner)
     {
-        //Try Catch To Check Application Exit
+        try
+        {
+            await SpawnEnemyAsync(spawner, token);
+        }
+        catch (Exception e)
+        {
+        }
+    }
+    
+    
+    
+    public async Task SpawnEnemyAsync(Spawner spawner, CancellationToken token)
+    {
         try
         {
             var count = 0;
@@ -155,7 +172,7 @@ public class EnemyManager : Tech.Singleton.Singleton<EnemyManager>
                     break;
             }
 
-            int[] test = new int[1];
+            var colliders = new Collider[10];
 
             while (count < spawner.Amount)
             {
@@ -207,7 +224,6 @@ public class EnemyManager : Tech.Singleton.Singleton<EnemyManager>
                 finalPosition.z += Random.Range(-currentSpawnPoint.Radius, currentSpawnPoint.Radius);
                 finalPosition += currentSpawnPoint.SpawnOffset;
 
-                var colliders = new Collider[30];
                 var hitCount = Physics.OverlapSphereNonAlloc(finalPosition,
                     _overlapSpawnRadiusCheck, colliders, _overlapLayerMask);
                 for (int i = 0; i < hitCount; i++)
@@ -248,13 +264,12 @@ public class EnemyManager : Tech.Singleton.Singleton<EnemyManager>
                     minRate = maxRate;
                     maxRate += spawner.EnemyPrefabs[index].SpawnRate;
                 }
-                
                 count++;
                 spawner.CallbackSpawn?.Invoke(count);
                 if(!disiredPrefab) continue; 
                 _currentEnemyAmount++;
                 ObjectPool.Instance.SpawnObject(disiredPrefab, finalPosition, Quaternion.identity, PoolType.ENEMY);
-                GameEvent.CallbackEnemyAmountChange?.Invoke(_currentEnemyAmount);
+                GameEvent.EnemySpawnEvent?.Invoke(_currentEnemyAmount);
             }
             
             //Spawn At Least 1 Enemy If Spawn Rate Random All In To Null Value Prefab
@@ -262,16 +277,20 @@ public class EnemyManager : Tech.Singleton.Singleton<EnemyManager>
             {
                 _currentEnemyAmount++;
                 ObjectPool.Instance.SpawnObject(spawner.EnemyPrefabs[0].Prefab, finalPosition, Quaternion.identity, PoolType.ENEMY);
-                GameEvent.CallbackEnemyAmountChange?.Invoke(_currentEnemyAmount);
+                GameEvent.EnemySpawnEvent?.Invoke(_currentEnemyAmount);
             }
             _waveManager.DisposeSpawner();
             spawner.CallbackSpawnerDone?.Invoke();
         }
         catch (Exception e)
         {
-       
+          
         }
         
+        if (token.IsCancellationRequested)
+        {
+           
+        }
     }
     
 #if UNITY_EDITOR
@@ -348,7 +367,7 @@ public static class SpawnerExtension
     
     public static void StartAsync(this Spawner spawner)
     {
-        EnemyManager.Instance.SpawnEnemyAsync(spawner);
+        EnemyManager.Instance.StartSpawn(spawner);
     }
 }
 

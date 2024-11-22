@@ -39,7 +39,8 @@ MonoBehaviour:
       Dead State","IsShared":true,"IsGlobal":true,"SinglemValue":4},{"Type":"BehaviorDesigner.Runtime.SharedString","Name":"Anim
       Para Dead","IsShared":true,"IsGlobal":true,"StringmValue":"Dead"},{"Type":"BehaviorDesigner.Runtime.SharedString","Name":"Is
       Dead End","IsShared":true,"IsGlobal":true,"StringmValue":"Is Dead End"},{"Type":"BehaviorDesigner.Runtime.SharedString","Name":"Dead
-      State","IsShared":true,"IsGlobal":true,"StringmValue":"Dead State"}]}'
+      State","IsShared":true,"IsGlobal":true,"StringmValue":"Dead State"},{"Type":"SharedSoundSetting","Name":"Sound
+      Setting","IsShared":true,"IsGlobal":true,"SoundSettingmValue":{"SingleVolume":1,"SinglePitch":1,"SingleStereoPan":0,"SingleSpatialBlend":1,"SingleMinDistance":1,"SingleMaxDistance":30,"BooleanLoop":false,"AudioRolloffModeRolloffMode":"Linear"}}]}'
     fieldSerializationData:
       typeName: []
       fieldNameHash: 
@@ -48,4 +49,4 @@ MonoBehaviour:
       unityObjects: []
       byteData: 
       byteDataArray: 
-  mVersion: 1.7.9
+  mVersion: 1.7.8

@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Tech.Logger;
+using UnityEditor;
 using UnityEngine;
 
+[CanEditMultipleObjects]
 public class StatsController : MonoBehaviour
 {
 	[SerializeField] private StatsHolderSO _statsHolder;
@@ -36,17 +38,33 @@ public class StatsController : MonoBehaviour
 
 	protected virtual void Awake()
 	{
-		InitStats();
 		InitAttribute();
 	}
-
+	
+	public void ReInit()
+	{
+		foreach (Stat stat in _stats.Values)
+		{
+			stat.ClearAllModifiers();
+		}
+	
+		foreach (AttributeType key in _statsHolder.AttributeItems.Keys)
+		{
+			AttributeItem attributeItem = _statsHolder.GetAttribute(key);
+		
+			_attributes[key].ReInit(attributeItem.StartPercent);
+		}
+	}
+	
 	protected virtual void InitAttribute()
 	{
 		if (!_statsHolder || _attributes != null)
 		{
 			return;
 		}
-
+		
+		InitStats();
+		
 		_attributes = new Dictionary<AttributeType, Attribute>();
 		foreach (AttributeType key in _statsHolder.AttributeItems.Keys)
 		{

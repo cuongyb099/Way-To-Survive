@@ -43,7 +43,14 @@ public class Stat
 	{
 		_baseValue = baseValue;
 	}
-
+	
+	public void ClearAllModifiers()
+	{
+		statModifiers.Clear();
+		_isDirty = true;
+		OnValueChange?.Invoke();
+	}
+	
 	public virtual void AddModifier(StatModifier mod)
 	{
 		_isDirty = true;

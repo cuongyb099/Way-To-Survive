@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class FadeObjectBlockPlayer : MonoBehaviour
 {
-   private Camera _mainCam;
+   [SerializeField] private Transform _rayPos;
    private Transform _target;
    
    [SerializeField] private LayerMask _maskObject;
@@ -23,8 +23,6 @@ public class FadeObjectBlockPlayer : MonoBehaviour
    
    private void Awake()
    {
-      _mainCam = Camera.main;
-
       for (int i = 0; i < _maxMaterialToFade; i++)
       {
          _poolMaterials.Push(Instantiate(_fadeMaterial));
@@ -44,10 +42,9 @@ public class FadeObjectBlockPlayer : MonoBehaviour
    private Vector3 rayDirection;
    private void ChekingObjectFace()
    {
-      var camPos = _mainCam.transform.position;
-      rayDirection = (_target.position + _playerOffset) - camPos;
+      rayDirection = (_target.position + _playerOffset) - _rayPos.position;
 
-      var hitAmount = Physics.RaycastNonAlloc(_mainCam.transform.position, rayDirection.normalized,
+      var hitAmount = Physics.RaycastNonAlloc(_rayPos.position, rayDirection.normalized,
          _hitObjects, rayDirection.magnitude, _maskObject);
       
       _objectsNotRemove.Clear();
@@ -106,7 +103,7 @@ public class FadeObjectBlockPlayer : MonoBehaviour
       if(!Application.isPlaying || !DebugMode) return;
         
       Gizmos.color = Color.red;
-      Gizmos.DrawLine(_mainCam.transform.position, _target.position + _playerOffset);
+      Gizmos.DrawLine(_rayPos.position, _target.position + _playerOffset);
    }
 #endif
 }

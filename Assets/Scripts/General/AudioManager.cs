@@ -1,48 +1,88 @@
-using System.Collections.Generic;
-using Tech.Logger;
 using Tech.Pooling;
 using Tech.Singleton;
 using UnityEngine;
 
-public class AudioManager : SingletonPersistent<AudioManager>
+//Simple Sound Manager 
+public class AudioManager : Singleton<AudioManager>
 {
-    private AudioSource audioSource;
-
-    [SerializeField] private GameObject prefabAudioChild;
-    [SerializeField] private AudioStorageSO audioStorage;
-
-    private List<AudioSource> audioSources = new();
+    [SerializeField] private GameObject audioPrefab;
     
-    private bool isSound;
-    
-    protected override void Awake()
+    public void PlaySound(AudioClip audioClip, bool isLoop)
     {
-        base.Awake();
-        audioSource = GetComponent<AudioSource>();
+        AudioChild audioChild = ObjectPool.Instance.SpawnObject(audioPrefab,
+            default, default, PoolType.Audio).GetComponent<AudioChild>();
+
+        AudioSource source = audioChild.Source;
+        SoundSetting soundSetting = SoundSetting.GetDefault();
+        soundSetting.Loop = isLoop;
+        source.clip = audioClip;
+        soundSetting.Play(source);
+        audioChild.WaitToReturnPool();
     }
 
-    public void PlaySound(string name, bool isLoop)
+    public void PlaySound(AudioClip[] audioClips, bool isLoop)
     {
-        if (!audioStorage.ContainAudio(name))
+        AudioClip targetClip = audioClips[Random.Range(0, audioClips.Length)];
+        PlaySound(targetClip, isLoop);
+    }
+    
+    public void PlaySound(AudioClip audioClip, SoundSetting setting, Transform parent = null)
+    {
+        AudioChild audioChild = ObjectPool.Instance.SpawnObject(audioPrefab,
+            default, default, PoolType.Audio).GetComponent<AudioChild>();
+        audioChild.transform.localPosition = Vector3.zero;
+
+        if (parent == null)
         {
-            LogCommon.LogError("Sound Not Found");
-            return;
+            audioChild.transform.SetParent(parent, false);
         }
         
-        AudioSource source = ObjectPool.Instance.SpawnObject(prefabAudioChild,
-            Vector3.zero, Quaternion.identity).GetComponent<AudioSource>();
-        source.gameObject.SetActive(false);
-        source.clip = audioStorage.GetAudio(name);
-        source.loop = isLoop;
-        
-        if(!audioSources.Contains(source)) audioSources.Add(source);
-        
-        source.gameObject.SetActive(true);
+        AudioSource source = audioChild.Source;
+        source.clip = audioClip;
+        setting.Play(source);
+        audioChild.WaitToReturnPool();
     }
 
-    public void SetSound(bool value)
+    public void PlaySound(AudioClip[] audioClips, SoundSetting setting, Transform parent = null)
     {
-        isSound = value;
-        if (!isSound) audioSources.ForEach(x => x.Stop());
+        AudioClip targetClip = audioClips[Random.Range(0, audioClips.Length)];
+        PlaySound(targetClip, setting, parent);
+    }
+}
+
+public struct SoundSetting
+{
+    public float Volume;
+    public float Pitch;
+    public float StereoPan;
+    public float SpatialBlend;
+    public float MinDistance;
+    public float MaxDistance;
+    public bool Loop;
+    public AudioRolloffMode RolloffMode;
+    
+    public void Play(AudioSource source)
+    {
+        source.volume = Volume;
+        source.pitch = Pitch;
+        source.panStereo = StereoPan;
+        source.spatialBlend = SpatialBlend;
+        source.loop = Loop;
+        source.minDistance = MinDistance;
+        source.maxDistance = MaxDistance;
+        source.rolloffMode = RolloffMode;
+        source.Play();
+    }
+
+    public static SoundSetting GetDefault()
+    {
+        return new SoundSetting()
+        {
+            Volume = 1,
+            Pitch = 1,
+            StereoPan = 0,
+            SpatialBlend = 0,
+            Loop = false
+        };
     }
 }

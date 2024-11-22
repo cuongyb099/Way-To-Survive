@@ -1,11 +1,6 @@
 using DG.Tweening;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using Tech.Pooling;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class Bullet : MonoBehaviour
 {
@@ -32,10 +27,8 @@ public class Bullet : MonoBehaviour
 	
 	private void OnCollisionEnter(Collision other)
 	{
-		
 		ObjectPool.Instance.SpawnObject(HitEffectWall, other.contacts[0].point, Quaternion.identity, PoolType.ParticleSystem);
 		seq.Kill();
-		
 		Collider otherCollider = other.collider;
 		if (!otherCollider.CompareTag(DamageInfo.Dealer.tag))
 		{

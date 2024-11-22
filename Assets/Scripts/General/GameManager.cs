@@ -1,10 +1,5 @@
-using System;
-using BehaviorDesigner.Runtime;
-using System.Collections;
-using System.Collections.Generic;
 using Tech.Singleton;
 using UnityEngine;
-using UnityEngine.Audio;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -17,9 +12,5 @@ public class GameManager : Singleton<GameManager>
         Player = FindAnyObjectByType<PlayerController>();
         GMAudioSource = GetComponent<AudioSource>();
         Application.targetFrameRate= FPSLimitValue;
-    }
-
-    private void Start()
-    {
     }
 }

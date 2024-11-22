@@ -7,11 +7,10 @@ using UnityEngine;
 public class RotateToTarget : Action
 {
     public SharedTransform Target;
-    public SharedFloat AngularSpeed;
     private Tween _rotateTween;
     private TweenCallback _callback;
     private Quaternion rotation;
-    
+
     public override void OnAwake()
     {
         _callback = () =>
@@ -27,7 +26,7 @@ public class RotateToTarget : Action
         rotation = Quaternion.LookRotation(direction, Vector3.up);
         if(_rotateTween.IsActive()) _rotateTween.Kill();
         _rotateTween = transform.DORotateQuaternion(rotation, 0.25f).OnKill(_callback);
-        
+    
         return TaskStatus.Success;
     }
 }

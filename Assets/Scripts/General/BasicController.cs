@@ -6,7 +6,7 @@ public class BasicController : MonoBehaviour, IDamagable
     public StatsController Stats { get; private set; }
     
     public bool IsDead => isDead;
-    private bool isDead;
+    protected bool isDead;
 
     public Action OnDamaged { get; set; }
     public Action OnDeath { get; set; }
