@@ -54,7 +54,7 @@ public class DamagePopUpGenerator : Singleton<DamagePopUpGenerator>
 
 		var tmp = popup.GetComponentInChildren<TMP_Text>();
 		popup.transform.position = position;
-		tmp.text = damageInfo.Damage.ToString();
+		tmp.text = ((int)damageInfo.Damage).ToString();
 		popup.ResetPopUp();
 	}
 }

@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6410e6fc845cb21468863360930066bd, type: 3}
+  m_Name: SpeedBuff
+  m_EditorClassIdentifier: 
+  <Name>k__BackingField: Haste II
+  <Description>k__BackingField: Increase <color=#FFB600>Movement Speed</color> by
+    <color=#3ECDFF>{value}</color>
+  <Icon>k__BackingField: {fileID: 21300000, guid: af8fa43421416af4b8b21d9a01673299, type: 3}
+  <HasDuration>k__BackingField: 0
+  <Duration>k__BackingField: 0
+  <Stackable>k__BackingField: 1
+  <MaxStack>k__BackingField: 64
+  <EffectType>k__BackingField: 0
+  <UseAdvanceUpdate>k__BackingField: 1
+  RareType: 4
+  StatType: 3
+  ModifierType: 2
+  Value: 10
