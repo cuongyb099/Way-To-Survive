@@ -56,6 +56,7 @@ public class PlayerController : BasicController
 		//InputEvent.OnInputSwitchGuns += SwitchGun;
         InputEvent.OnInputReloadGun += ReloadGun;
 		PlayerEvent.OnShoot += SetShootAnim;
+		PlayerEvent.RecieveCash += AddCash;
         Stats.GetStat(StatType.MagCapacity).OnValueChange += CalculateMaxCap;
 		Stats.GetStat(StatType.ShootSpeed).OnValueChange += SetShootingSpeedAnim;
 		Stats.GetStat(StatType.Speed).OnValueChange += SetMovementSpeedAnim;
@@ -67,6 +68,7 @@ public class PlayerController : BasicController
 		//InputEvent.OnInputSwitchGuns -= SwitchGun;
 		InputEvent.OnInputReloadGun -= ReloadGun;
 		PlayerEvent.OnShoot -= SetShootAnim;
+		PlayerEvent.RecieveCash -= AddCash;
 		Stats.GetStat(StatType.MagCapacity).OnValueChange -= CalculateMaxCap;
 		Stats.GetStat(StatType.ShootSpeed).OnValueChange -= SetShootingSpeedAnim;
 		Stats.GetStat(StatType.Speed).OnValueChange -= SetMovementSpeedAnim;
@@ -136,7 +138,7 @@ public class PlayerController : BasicController
         CurrentGunIndex = index;
         Animator.SetFloat("WeaponType", (float)currentSlot.GunData.WeaponType);
         Stats.GetStat(StatType.Speed).AddModifier(new StatModifier(-currentSlot.GunData.Weight,StatModType.Flat));
-        PlayerEvent.OnSwitchGuns?.Invoke(currentSlot);
+        PlayerEvent.OnEquipWeapon?.Invoke(currentSlot);
         return true;
     }
 
@@ -332,5 +334,10 @@ public class PlayerController : BasicController
 	    }
 
 	    PlayerEvent.OnChangeCap?.Invoke();
+    }
+    //Cash
+    public void AddCash(int amount)
+    {
+	    Cash += amount;
     }
 }

@@ -17,7 +17,7 @@ MonoBehaviour:
   GunName: XM1014
   GunDescription: asd
   Icon: {fileID: 1247450681, guid: 92a4fe653152e9244b4849b9dba1c92b, type: 3}
-  GunPrice: 50
+  GunPrice: 2000
   ShootingSpeed: 1
   Damage: 3
   Aim: 5

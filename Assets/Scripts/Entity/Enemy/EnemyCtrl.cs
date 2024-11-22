@@ -13,6 +13,8 @@ public class EnemyCtrl : BasicController
     public BehaviorTree BTree { get; protected set; }
     
     [HideInInspector] public bool IsTakingDamage;
+    //Money drop test
+    [SerializeField] private int cashGiveAmount;
     
     protected override void Awake()
     {
@@ -34,6 +36,11 @@ public class EnemyCtrl : BasicController
     public override void Death(GameObject dealer)
     {
         base.Death(dealer);
+
+        if (dealer.tag == "Player")
+        {
+            PlayerEvent.RecieveCash.Invoke(cashGiveAmount);
+        }
         
         if(!EnemyManager.Instance) return;
         EnemyManager.Instance.ReturnEnemyToPool();

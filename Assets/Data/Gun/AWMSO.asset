@@ -22,9 +22,9 @@ MonoBehaviour:
     cold conditions (which gave the rifle its name) without impairing operation in
     less extreme conditions.
   Icon: {fileID: 1041082314, guid: 92a4fe653152e9244b4849b9dba1c92b, type: 3}
-  GunPrice: 30
+  GunPrice: 5000
   ShootingSpeed: 1
-  Damage: 8
+  Damage: 15
   Aim: 20
   SpreadMax: 10
   Recoil: 0.5

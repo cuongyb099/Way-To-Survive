@@ -19,7 +19,7 @@ MonoBehaviour:
     assault rifle chambered in 5.45\xD739mm designed and manufactured by the Kalashnikov
     Concern, making it the fifth generation of Kalashnikov rifles."
   Icon: {fileID: 870321632, guid: 92a4fe653152e9244b4849b9dba1c92b, type: 3}
-  GunPrice: 12
+  GunPrice: 2700
   ShootingSpeed: 0.15
   Damage: 3
   Aim: 8

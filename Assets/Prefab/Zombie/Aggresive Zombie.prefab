@@ -4056,6 +4056,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsTakingDamage: 0
+  cashGiveAmount: 70
 --- !u!114 &1582999923806502089
 MonoBehaviour:
   m_ObjectHideFlags: 0

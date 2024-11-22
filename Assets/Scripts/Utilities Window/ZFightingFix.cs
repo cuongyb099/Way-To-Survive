@@ -2,6 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 
+#if UNITY_EDITOR
 public class ZFightingFix : EditorWindow
 {
     [MenuItem("Tools/ZFightingFix")]
@@ -34,3 +35,4 @@ public class ZFightingFix : EditorWindow
         EditorGUILayout.LabelField("Selection count: " + Selection.objects.Length);
     }
 }
+#endif
