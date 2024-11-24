@@ -1538,16 +1538,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GunSwitchCooldown: 2
-  StartGun:
-  - {fileID: -3266218082765736061, guid: 2e468aa121b751a478a7f85d5ead8f76, type: 3}
-  - {fileID: -3266218082765736061, guid: 7143da844342c4246b9739697957abb4, type: 3}
-  - {fileID: 0}
   GroundLayer:
     serializedVersion: 2
     m_Bits: 1
+  StartingGun: {fileID: 0}
+  StartingCash: 0
   GunHoldPoint: {fileID: 3021632353072803385}
   LineRendererL: {fileID: 7597113610529456308}
   LineRendererR: {fileID: 6508118689465011059}
+  Guns: []
 --- !u!114 &2863445448530772482
 MonoBehaviour:
   m_ObjectHideFlags: 0
