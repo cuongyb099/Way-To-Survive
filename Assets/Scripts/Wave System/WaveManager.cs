@@ -11,7 +11,6 @@ public class WaveManager : MonoBehaviour
     private bool _gameDone;
     
     [SerializeField] private int _maxWaveCount = 20;
-    [SerializeField] private float _shoppingTime = 30f;
     [SerializeField] private Wave[] _waves;
     //Dotween
     private Tween _shoppingTimeTween;
@@ -43,10 +42,10 @@ public class WaveManager : MonoBehaviour
         if(!_shoppingTimeTween.IsActive()) return;
         _shoppingTimeTween.Kill();
     }
-    
+
     private void Start()
     {
-        LoadGame();
+        _currentWave = 0;
     }
 
     private void LoadGame()
@@ -214,10 +213,6 @@ public class WaveManager : MonoBehaviour
         if (currentEnemyAmount <= 0 && _activeSpawner <= 0 && _currentWave < _maxWaveCount )
         {
             GameEvent.WaveDoneEvent?.Invoke(_currentWave);
-            //Sample 29 -> 0 30 Number In 30 Seconds
-            _shoppingTimeTween = DOVirtual.Float(_shoppingTime - 1, 0, _shoppingTime, _timerCallback)
-                .SetEase(Ease.Linear)
-                .OnKill(_tweenCallbackNextWave);
             
             return;
         }

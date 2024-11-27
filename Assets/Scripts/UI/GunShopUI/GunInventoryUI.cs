@@ -59,7 +59,7 @@ public class GunInventoryUI : CanvasUIHandler
             Destroy(g.gameObject);
         }
         //instantiate gun panel
-        foreach (var x in player.OwnedGuns)
+        foreach (var x in player.OwnedWeapons)
         {
             GunMiniUI temp = Instantiate(GunMiniPrefab, GunsPanel.transform);
             temp.Initialize(x);
@@ -67,9 +67,9 @@ public class GunInventoryUI : CanvasUIHandler
             GunsMiniUI.Add(temp);
         }
 
-        for (int i = 0; i < player.Guns.Length; i++)
+        for (int i = 0; i < player.Weapons.Length; i++)
         {
-            GunEquipedSlots[i].Initialize(player.Guns[i]);
+            GunEquipedSlots[i].Initialize(player.Weapons[i]);
         }
         ChangeGun(GunsMiniUI[0]);
     }
@@ -82,7 +82,7 @@ public class GunInventoryUI : CanvasUIHandler
     }
     private void InitEquippedSlots(int index)
     {
-        if (!player.ContainsGun(Selected.GunHolder))
+        if (!player.ContainsWeapon(Selected.GunHolder))
         {
             player.InstantiateGun(Selected.GunHolder,index);
             GunEquipedSlots[index].Initialize(Selected.GunHolder);

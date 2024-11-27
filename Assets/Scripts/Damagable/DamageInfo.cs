@@ -14,4 +14,16 @@ public struct DamageInfo
         Damage = damage;
         IsCrit = isCrit;
     }
-}
+
+    public static DamageInfo GetDamageInfo(float multiplier, StatsController statsController, GameObject dealer = null)
+    {
+        if (!statsController.Stats.TryGetValue(StatType.ATK, out Stat atkStat)) 
+            return new DamageInfo();
+        if (!statsController.Stats.TryGetValue(StatType.CritRate, out Stat critRate) ||
+            !statsController.Stats.TryGetValue(StatType.CritDamage, out Stat critDmg)) 
+            return new DamageInfo(dealer, atkStat.Value * multiplier);
+        
+        bool doesCrit = UnityEngine.Random.value < critRate.Value;
+        float finalDamage = atkStat.Value * multiplier * (1f + (doesCrit ? critDmg.Value : 0f));
+        return new DamageInfo(dealer, finalDamage, doesCrit);
+    }}

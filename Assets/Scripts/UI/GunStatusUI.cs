@@ -31,14 +31,22 @@ public class GunStatusUI : MonoBehaviour
 	}
 	public void UpdateGunAmmo()
     {
-        if (gunAmmo == null) return;
-        TextAmmo.text = $"{gunAmmo.Value} <size=70%><voffset=4.86135><color=#FFFFFF4C>/{gunAmmo.MaxValue}</color></voffset></size>";
+	    if (gunAmmo == null)
+		    TextAmmo.text = string.Empty;
+        else 
+		    TextAmmo.text = $"{gunAmmo.Value} <size=70%><voffset=4.86135><color=#FFFFFF4C>/{gunAmmo.MaxValue}</color></voffset></size>";
     }
-	public void ChangeGun(GunBase gun)
+	public void ChangeGun(WeaponBase weapon)
 	{
-		gunAmmo = gun.Stats.GetAttribute(AttributeType.Bullets);
-        GunIcon.sprite = gun.GunData.Icon;
-		TextGunName.text = gun.GunData.GunName;
+		if (weapon.GunData.WeaponType != WeaponType.Knife)
+		{
+			GunBase gun = (GunBase)weapon;
+			gunAmmo = gun.Stats.GetAttribute(AttributeType.Bullets);
+		}
+		else
+			gunAmmo = null;
+        GunIcon.sprite = weapon.GunData.Icon;
+		TextGunName.text = weapon.GunData.GunName;
         UpdateGunAmmo();
     }
 }
