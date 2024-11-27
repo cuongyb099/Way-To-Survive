@@ -4,8 +4,9 @@ using System.Linq;
 using Tech.Logger;
 using UnityEditor;
 using UnityEngine;
-
+#if UNITY_EDITOR
 [CanEditMultipleObjects]
+#endif
 public class StatsController : MonoBehaviour
 {
 	[SerializeField] private StatsHolderSO _statsHolder;

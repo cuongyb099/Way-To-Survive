@@ -7,6 +7,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.HID;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class GunShopUI : CanvasUIHandler
@@ -18,8 +19,8 @@ public class GunShopUI : CanvasUIHandler
     public Button BuyButton;
     public TextMeshProUGUI BuyButtonText;
     public TextMeshProUGUI CashText;
-    [Header("Data")] 
-    public GunListSO GunListSO;
+    [FormerlySerializedAs("GunListSO")] [Header("Data")] 
+    public WeaponListSO WeaponListSo;
     public GunMiniUI GunMiniPrefab;
 
     public GunMiniUI Selected { get; private set; }
@@ -45,7 +46,7 @@ public class GunShopUI : CanvasUIHandler
     private void Initialize()
     {
         GunsMiniUI = new List<GunMiniUI>();
-        foreach (var x in GunListSO.Guns)
+        foreach (var x in WeaponListSo.Weapons)
         {
             GunMiniUI temp = Instantiate(GunMiniPrefab, GunsPanel.transform);
             temp.Initialize(x);
@@ -62,7 +63,7 @@ public class GunShopUI : CanvasUIHandler
         GunDataUI.ChangeGun(gunUI.GunHolder.GunData);
         
         PlayerController player = GameManager.Instance.Player;
-        if (player.OwnedGuns.Contains(Selected.GunHolder))
+        if (player.OwnedWeapons.Contains(Selected.GunHolder))
         {
             BuyButton.interactable = false;
             BuyButtonText.text = "Owned";
@@ -80,11 +81,11 @@ public class GunShopUI : CanvasUIHandler
         if (player.Cash < Selected.GunHolder.GunData.GunPrice) return;
 
         player.Cash -= Selected.GunHolder.GunData.GunPrice;
-        player.OwnedGuns.Add(Selected.GunHolder);
+        player.OwnedWeapons.Add(Selected.GunHolder);
 
-        for(int i = 0; i< player.Guns.Length; i++)
+        for(int i = 0; i< player.Weapons.Length; i++)
         {
-            if (player.Guns[i] != null) continue;
+            if (player.Weapons[i] != null) continue;
             player.InstantiateGun(Selected.GunHolder,i);
             break;
         }

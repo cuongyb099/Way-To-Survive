@@ -47,10 +47,10 @@ MonoBehaviour:
         Para Attack State","IsShared":true,"IsGlobal":true,"StringmValue":"Attack
         State"},"SharedFloatfloatValue":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":"Attack
         State","IsShared":true,"SinglemValue":0},"BooleansetOnce":false}]}]},{"Type":"RotateToTarget","NodeData":{"Offset":"(200,123.043518)"},"ID":15,"Name":"Rotate
-        To Target","Instant":true,"SharedTransformTarget":{"Type":"BehaviorDesigner.Runtime.SharedTransform","Name":"Player","IsShared":true,"IsGlobal":true}},{"Type":"PlaySound","NodeData":{"Offset":"(322.21167,123.473633)"},"ID":16,"Name":"Play
+        To Target","Instant":true,"SharedTransformTarget":{"Type":"BehaviorDesigner.Runtime.SharedTransform","Name":"Player","IsShared":true,"IsGlobal":true,"TransformmValue":0}},{"Type":"PlaySound","NodeData":{"Offset":"(322.21167,123.473633)"},"ID":16,"Name":"Play
         Sound","Instant":true,"SharedAudioClipArrayAudioClips":{"Type":"SharedAudioClipArray","Name":"Small
-        Attack Sound","IsShared":true,"AudioClip[]mValue":[0,1,2,3,4]},"SharedSoundSettingSetting":{"Type":"SharedSoundSetting","Name":"Sound
-        Setting","IsShared":true,"IsGlobal":true,"SoundSettingmValue":{"SingleVolume":1,"SinglePitch":1,"SingleStereoPan":0,"SingleSpatialBlend":1,"SingleMinDistance":3,"SingleMaxDistance":50,"BooleanLoop":false}}},{"Type":"NormalAttack","NodeData":{"Offset":"(431.1943,115)"},"ID":17,"Name":"Normal
+        Attack Sound","IsShared":true,"AudioClip[]mValue":[null,null,null,null,null]},"SharedSoundSettingSetting":{"Type":"SharedSoundSetting","Name":"Sound
+        Setting","IsShared":true,"IsGlobal":true,"SoundSettingmValue":{"SingleVolume":1,"SinglePitch":1,"SingleStereoPan":0,"SingleSpatialBlend":1,"SingleMinDistance":1,"SingleMaxDistance":30,"BooleanLoop":false,"AudioRolloffModeRolloffMode":"Linear"}},"SharedBoolUseDelayTime":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":false},"SharedFloatDelayTime":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":0.25}},{"Type":"NormalAttack","NodeData":{"Offset":"(431.1943,115)","WatchedFields":["Damage"]},"ID":17,"Name":"Normal
         Attack","Instant":true,"SharedFloatDamage":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":10},"SharedStringDetectionParam":{"Type":"BehaviorDesigner.Runtime.SharedString","Name":"Small
         Attack Hitbox","IsShared":true,"IsGlobal":true,"StringmValue":"Small Attack
         Hitbox"},"SharedStringTargetTag":{"Type":"BehaviorDesigner.Runtime.SharedString","Name":"Player
@@ -64,23 +64,14 @@ MonoBehaviour:
         Random Small Attack  Feature","IsShared":true,"BooleanmValue":true},{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":"Attack
         State Count","IsShared":true,"SinglemValue":0},{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":"Angular
         Speed","IsShared":true,"SinglemValue":360},{"Type":"SharedAudioClipArray","Name":"Small
-        Attack Sound","IsShared":true,"AudioClip[]mValue":[5,6,7,8,9]}]}'
+        Attack Sound","IsShared":true,"AudioClip[]mValue":[null,null,null,null,null]}]}'
       fieldSerializationData:
         typeName: []
         fieldNameHash: 
         startIndex: 
         dataPosition: 
         unityObjects:
-        - {fileID: 8300000, guid: 826d542a98ac94c4b9735eadbbf8c71a, type: 3}
-        - {fileID: 8300000, guid: 753deaad9cdeb2d43bf8375e4923e050, type: 3}
-        - {fileID: 8300000, guid: 9ad523042117d6c48a665d5220d69694, type: 3}
-        - {fileID: 8300000, guid: 27cd967bec253f6418d1c2ba9f9e2b64, type: 3}
-        - {fileID: 8300000, guid: 52acf580c9de6a84b90a835c199e6dcc, type: 3}
-        - {fileID: 8300000, guid: 826d542a98ac94c4b9735eadbbf8c71a, type: 3}
-        - {fileID: 8300000, guid: 753deaad9cdeb2d43bf8375e4923e050, type: 3}
-        - {fileID: 8300000, guid: 9ad523042117d6c48a665d5220d69694, type: 3}
-        - {fileID: 8300000, guid: 27cd967bec253f6418d1c2ba9f9e2b64, type: 3}
-        - {fileID: 8300000, guid: 52acf580c9de6a84b90a835c199e6dcc, type: 3}
+        - {fileID: 0}
         byteData: 
         byteDataArray: 
       Version: 1.7.8

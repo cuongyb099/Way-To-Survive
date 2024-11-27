@@ -40,11 +40,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5704549460169601475}
-  - component: {fileID: -3266218082765736061}
   - component: {fileID: 9212072447739369604}
   - component: {fileID: 752525304665740718}
   - component: {fileID: 5957378339055339132}
   - component: {fileID: 2202280881248929589}
+  - component: {fileID: -7086552029489029334}
   m_Layer: 0
   m_Name: AK12
   m_TagString: Untagged
@@ -69,20 +69,6 @@ Transform:
   - {fileID: 314904007054090758}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-3266218082765736061
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4180766260500403244}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3e57c30aa734a9429ced2ffe60bd113, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GunData: {fileID: 11400000, guid: 07f07cdf9f67d7443981a8e24f086779, type: 2}
-  ShootPoint: {fileID: 314904007054090758}
 --- !u!114 &9212072447739369604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -225,6 +211,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-7086552029489029334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4180766260500403244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53a90e7307ba40afa6a0fa846ce221e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GunData: {fileID: 11400000, guid: 07f07cdf9f67d7443981a8e24f086779, type: 2}
+  ShootPoint: {fileID: 314904007054090758}
 --- !u!1 &8187001025946142984
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,14 +10,14 @@ public class GunMiniUI : MonoBehaviour
     public TextMeshProUGUI GunName;
     public Image GunImage;
     public Button GunButton { get; private set; }
-    public GunBase GunHolder { get;private set; }
+    public WeaponBase GunHolder { get;private set; }
 
     private void Awake()
     {
         GunButton = GetComponent<Button>();
     }
 
-    public void Initialize(GunBase gun)
+    public void Initialize(WeaponBase gun)
     {
         if (gun == null)
         {

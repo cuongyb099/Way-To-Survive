@@ -57,6 +57,7 @@ public class NormalAttack : BaseEnemyBehavior
     
     private void DealDamage(Collider target)
     {
+
         if(!target.CompareTag(TargetTag.Value)) return;
         
         if (!target.TryGetComponent(out IDamagable damageable)) return;

@@ -22,7 +22,7 @@ public class WheelHandlerUI : MonoBehaviour
 
     public void InitalizeItems()
     {
-        GunBase[] guns = GameManager.Instance.Player.Guns;
+        WeaponBase[] guns = GameManager.Instance.Player.Weapons;
         //0->2 is for guns
         for (int i = 0; i < 3; i++)
         {
@@ -38,13 +38,13 @@ public class WheelHandlerUI : MonoBehaviour
         switch (wheelIndex)
         {
             case 0:
-                GameManager.Instance.Player.SwitchGun(0);
+                GameManager.Instance.Player.SwitchWeapon(0);
                 break;
             case 1:
-                GameManager.Instance.Player.SwitchGun(1);
+                GameManager.Instance.Player.SwitchWeapon(1);
                 break;
             case 2:
-                GameManager.Instance.Player.SwitchGun(2);
+                GameManager.Instance.Player.SwitchWeapon(2);
                 break;
         }
     }

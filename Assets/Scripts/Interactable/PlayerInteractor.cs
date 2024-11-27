@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class PlayerInteractor : MonoBehaviour
 {
-    public bool EnableInteraction { get; set; }
+	public bool EnableInteraction { get; set; } = true;
 	public List<IInteractable> Interactables { get; private set; }
     public IInteractable Target { get; private set; } = null;
 	public PlayerController Controller { get; private set; }
@@ -20,6 +20,12 @@ public class PlayerInteractor : MonoBehaviour
 
 		InputEvent.OnInputInteract += InteractWithTarget;
 	}
+
+	private void Start()
+	{
+		EnableInteraction = true;
+	}
+
 	private void OnDestroy()
 	{
 		InputEvent.OnInputInteract -= InteractWithTarget;

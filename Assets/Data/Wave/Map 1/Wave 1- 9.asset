@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7852836c0c2d412d869116496805ab45, type: 3}
   m_Name: Wave 1- 9
   m_EditorClassIdentifier: 
-  <ChooseSpawnPointStrategy>k__BackingField: 0
+  <ChooseSpawnPointStrategy>k__BackingField: 2
   <TimeStrategy>k__BackingField: 1
   <EnemiesPrefabs>k__BackingField:
   - SpawnRate: 0.2
