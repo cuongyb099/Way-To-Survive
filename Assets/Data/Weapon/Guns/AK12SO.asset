@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b59205e98b25a304aac3cf684f1d5aa3, type: 3}
+  m_Name: AK12SO
+  m_EditorClassIdentifier: 
+  BulletPrefab: {fileID: 984755602444092648, guid: bff9cb15c026277498f4541bb37853a4, type: 3}
+  WeaponType: 1
+  GunName: AK-12
+  GunDescription: "The AK-12, \"Avtomat Kalashnikova, 2012\" is a Russian gas-operated
+    assault rifle chambered in 5.45\xD739mm designed and manufactured by the Kalashnikov
+    Concern, making it the fifth generation of Kalashnikov rifles."
+  Icon: {fileID: 870321632, guid: 92a4fe653152e9244b4849b9dba1c92b, type: 3}
+  GunPrice: 2700
+  ShootingSpeed: 0.15
+  Damage: 3
+  Aim: 8
+  SpreadMax: 7
+  Recoil: 0.06
+  RecoilResetTime: 2
+  Weight: 1
+  MaxCapacity: 30
+  ReleaseToShoot: 0
+  ShootingSounds:
+  - {fileID: 8300000, guid: d81bebac9cee217409b15b76e7011fc6, type: 3}
+  - {fileID: 8300000, guid: 7833cce12c063c545abdb01ac6003730, type: 3}
+  - {fileID: 8300000, guid: 7833cce12c063c545abdb01ac6003730, type: 3}
+  - {fileID: 8300000, guid: 7833cce12c063c545abdb01ac6003730, type: 3}
+  TailSound: {fileID: 8300000, guid: 73e01a3d24896ab46bab8ca52b69fa7e, type: 3}
+  CockingSound: {fileID: 8300000, guid: 586d58f81555a854996339b8111bd791, type: 3}
+  MagSoundIn: {fileID: 8300000, guid: 587a3f37adbb9a942883c3fc572878b6, type: 3}
+  MagSoundOut: {fileID: 8300000, guid: 7a59dde985bdfcf458a8dcae0e299541, type: 3}

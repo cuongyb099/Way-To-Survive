@@ -18,6 +18,7 @@ public class NormalAttack : BaseEnemyBehavior
     {
         _canActive = true;
         enemyCtrl.Anim.SetTrigger(_hashAnimation);
+        enemyCtrl.Anim.SetBool(GlobalAnimation.IsAttackAnimationEnd, false);
     }
 
     public override void OnAwake()
@@ -37,9 +38,21 @@ public class NormalAttack : BaseEnemyBehavior
         _colliderDetection.CallbackTriggerEnter += DealDamage;
     }
 
+    public override void OnPause(bool paused)
+    {
+        var _animationEventHelper = enemyCtrl.GetComponentInChildren<AnimationEventHelper>();
+        _animationEventHelper.OnAnimationTrigger.RemoveListener(SetActive);
+    }
+
     public override TaskStatus OnUpdate()
     {
         return enemyCtrl.Anim.GetBool(GlobalAnimation.IsAttackAnimationEnd) ? TaskStatus.Success : TaskStatus.Running;
+    }
+
+    public override void OnEnd()
+    {
+        base.OnEnd();
+        _colliderDetection.SetActiveDetect(false);
     }
 
     private void SetActive(string eventName)
@@ -53,7 +66,8 @@ public class NormalAttack : BaseEnemyBehavior
         if(!target.CompareTag(TargetTag.Value)) return;
         
         if (!target.TryGetComponent(out IDamagable damageable)) return;
-
+        
+        
         damageable.Damage(new DamageInfo()
         {
             Damage = Damage.Value,

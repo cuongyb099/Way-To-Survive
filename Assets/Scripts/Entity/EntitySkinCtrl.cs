@@ -6,6 +6,14 @@ public class EntitySkinCtrl : MonoBehaviour
 {
     [field: SerializeField] public Skin[] BodySkinParts { get; private set; }
     
+    private void Awake()
+    {
+        Transform model = transform.GetChild(0);
+        for (int i = 1; i < model.childCount; i++)
+        {
+            model.GetChild(i).gameObject.SetActive(false);       
+        }
+    }
 #if UNITY_EDITOR
     [Range(1, 30)]public int BodyPartCount;
     public string[] BodyPartsName;

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class FadeObjectBlockPlayer : MonoBehaviour
 {
-   private Camera _mainCam;
+   [SerializeField] private Transform _rayPos;
    private Transform _target;
    
    [SerializeField] private LayerMask _maskObject;
@@ -16,15 +16,13 @@ public class FadeObjectBlockPlayer : MonoBehaviour
    [SerializeField] private float _alphaValue = 0.1f;
    private readonly Stack<Material> _poolMaterials = new ();
    
-   private readonly List<FadeObject> _objectsNotRemove = new();
-   private readonly List<FadeObject> _blockingViewObjects = new ();
-   private readonly Dictionary<FadeObject, Tween> _cullingObjects = new ();
-   private readonly RaycastHit[] _hitObjects = new RaycastHit[3];
+   private readonly List<FadingObject> _objectsNotRemove = new();
+   private readonly List<FadingObject> _blockingViewObjects = new ();
+   private readonly Dictionary<FadingObject, Tween> _cullingObjects = new ();
+   private readonly RaycastHit[] _hitObjects = new RaycastHit[10];
    
    private void Awake()
    {
-      _mainCam = Camera.main;
-
       for (int i = 0; i < _maxMaterialToFade; i++)
       {
          _poolMaterials.Push(Instantiate(_fadeMaterial));
@@ -44,10 +42,9 @@ public class FadeObjectBlockPlayer : MonoBehaviour
    private Vector3 rayDirection;
    private void ChekingObjectFace()
    {
-      var camPos = _mainCam.transform.position;
-      rayDirection = (_target.position + _playerOffset) - camPos;
+      rayDirection = (_target.position + _playerOffset) - _rayPos.position;
 
-      var hitAmount = Physics.RaycastNonAlloc(_mainCam.transform.position, rayDirection.normalized,
+      var hitAmount = Physics.RaycastNonAlloc(_rayPos.position, rayDirection.normalized,
          _hitObjects, rayDirection.magnitude, _maskObject);
       
       _objectsNotRemove.Clear();
@@ -57,7 +54,7 @@ public class FadeObjectBlockPlayer : MonoBehaviour
          foreach (var hit in _hitObjects)
          {
             if(!hit.collider) continue;
-            if(!hit.collider.TryGetComponent(out FadeObject fadeObject)) continue;
+            if(!hit.collider.TryGetComponent(out FadingObject fadeObject)) continue;
             
             if (!_blockingViewObjects.Contains(fadeObject))
             {
@@ -97,7 +94,8 @@ public class FadeObjectBlockPlayer : MonoBehaviour
          }
       }*/
    }
-   
+
+#if UNITY_EDITOR
    [Header("Debug")]
    public bool DebugMode;
    private void OnDrawGizmos()
@@ -105,6 +103,7 @@ public class FadeObjectBlockPlayer : MonoBehaviour
       if(!Application.isPlaying || !DebugMode) return;
         
       Gizmos.color = Color.red;
-      Gizmos.DrawLine(_mainCam.transform.position, _target.position + _playerOffset);
+      Gizmos.DrawLine(_rayPos.position, _target.position + _playerOffset);
    }
+#endif
 }

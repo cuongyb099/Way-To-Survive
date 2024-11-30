@@ -12,12 +12,12 @@ public class AnimationEvents : MonoBehaviour
 	public void EnableShooting()
 	{
 		PlayerController.Animator.SetBool("SwitchWeapon", false);
-		PlayerController.EnableAfterSwitching();
+		PlayerController.AfterSwitching();
 	}
 	public void DisableShooting()
 	{
 		PlayerController.Animator.SetBool("SwitchWeapon", true);
-		PlayerController?.DisableBeforeSwitching();
+		PlayerController?.BeforeSwitching();
 	}
 	public void AfterReload()
 	{
@@ -27,6 +27,19 @@ public class AnimationEvents : MonoBehaviour
 	public void BeforeReload()
 	{
 		PlayerController.Animator.SetBool("ReloadGun", true);
-		PlayerController?.DisableBeforeSwitching();
+		PlayerController?.BeforeSwitching();
+	}
+	//Sounds
+	public void CockingSound()
+	{
+		AudioManager.Instance.PlaySound(PlayerController.CurrentWeapon.GunData.CockingSound,volumeType: SoundVolumeType.SOUNDFX_VOLUME);
+	}
+	public void MagSoundIn()
+	{
+		AudioManager.Instance.PlaySound(PlayerController.CurrentWeapon.GunData.MagSoundIn,volumeType: SoundVolumeType.SOUNDFX_VOLUME);
+	}
+	public void MagSoundOut()
+	{
+		AudioManager.Instance.PlaySound(PlayerController.CurrentWeapon.GunData.MagSoundOut,volumeType: SoundVolumeType.SOUNDFX_VOLUME);
 	}
 }

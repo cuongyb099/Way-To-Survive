@@ -1,5 +1,71 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &220582393028581243
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6182212533973790497}
+  - component: {fileID: 242193278485899743}
+  - component: {fileID: 7164253706687095074}
+  m_Layer: 3
+  m_Name: Collider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6182212533973790497
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 220582393028581243}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.82, z: 0.831}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2241394324971261592}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &242193278485899743
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 220582393028581243}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 256
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 254
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.44, y: 0.74, z: 1.56}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7164253706687095074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 220582393028581243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96e942a253c004f46befd960a637e31b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &435826248801376798
 GameObject:
   m_ObjectHideFlags: 0
@@ -552,7 +618,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <TargetPoint>k__BackingField: {fileID: 7889206237244533305}
-  <SwitchBlendValue>k__BackingField: 1
+  <SwitchBlendValue>k__BackingField: 4
 --- !u!1 &3028113284830461835
 GameObject:
   m_ObjectHideFlags: 0
@@ -1402,6 +1468,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7889206237244533305}
+  - {fileID: 6182212533973790497}
   - {fileID: 9188077083589174982}
   - {fileID: 549258949215625523}
   - {fileID: 9163685436839001451}
@@ -1471,16 +1538,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GunSwitchCooldown: 2
-  StartGun:
-  - {fileID: -3266218082765736061, guid: 2e468aa121b751a478a7f85d5ead8f76, type: 3}
-  - {fileID: -3266218082765736061, guid: 7143da844342c4246b9739697957abb4, type: 3}
-  - {fileID: 0}
   GroundLayer:
     serializedVersion: 2
     m_Bits: 1
+  StartingGun: {fileID: 0}
+  StartingCash: 0
   GunHoldPoint: {fileID: 3021632353072803385}
   LineRendererL: {fileID: 7597113610529456308}
   LineRendererR: {fileID: 6508118689465011059}
+  Guns: []
 --- !u!114 &2863445448530772482
 MonoBehaviour:
   m_ObjectHideFlags: 0

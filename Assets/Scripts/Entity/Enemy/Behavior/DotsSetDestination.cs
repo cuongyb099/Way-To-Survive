@@ -6,11 +6,6 @@ public class DotsSetDestination : BaseEnemyBehavior
 {
     public SharedTransform Target;
 
-    public override void OnStart()
-    {
-        enemyCtrl.AvoidAuthoring.enabled = true;
-    }
-
     public override TaskStatus OnUpdate()
     {
         if (Target.Value == null)
@@ -19,6 +14,6 @@ public class DotsSetDestination : BaseEnemyBehavior
         }
         
         enemyCtrl.SetDestination(Target.Value.position);
-        return TaskStatus.Running;
+        return TaskStatus.Success;
     }
 }

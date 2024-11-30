@@ -1,10 +1,8 @@
 using DG.Tweening;
 using ResilientCore;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering.UI;
-using UnityEngine.UIElements;
+using UnityEngine.Serialization;
 
 public class PlayerController : BasicController
 {
@@ -12,19 +10,36 @@ public class PlayerController : BasicController
     public FloatingCapsule FloatingCapsule { get; private set; }
     public CapsuleCollider Collider { get; private set; }
     public Animator Animator { get; private set; }
-
+    public PlayerInteractor PlayerInteractor { get; private set; }
 	//Player Data
 	public float GunSwitchCooldown = .1f;
-    public GunBase[] StartGun;
     public LayerMask GroundLayer;
-    //GunSystem
-    public Transform GunHoldPoint;
+    public WeaponBase StartingWeapon;
+    public int StartingCash = 0;
+    public List<WeaponBase> OwnedWeapons { get; private set; }
+    public int Cash
+    {
+	    get => cash;
+	    set
+	    {
+		    cash = value;
+		    if (cash < 0)
+		    {
+			    cash = 0;
+		    }
+		    PlayerEvent.OnCashChange?.Invoke(cash);
+	    }
+    }
+    private int cash;
+    //WeaponSystem
+    public Transform WeaponHoldPoint;
     public LineRendererHelper LineRendererL;
     public LineRendererHelper LineRendererR;
-    public List<GunBase> Guns { get; private set; }
-    public int CurrentGunIndex { get; private set; }
+    public WeaponBase[] Weapons;
+    public WeaponBase CurrentWeapon => Weapons[CurrentWeaponIndex];
+    public int CurrentWeaponIndex { get; private set; }
 
-    private bool gunSwitchable = true;
+    private bool weaponSwitchable = true;
 
     protected override void Awake()
     {
@@ -33,33 +48,38 @@ public class PlayerController : BasicController
         Collider = GetComponent<CapsuleCollider>();
         FloatingCapsule = GetComponent<FloatingCapsule>();
         Animator = GetComponentInChildren<Animator>();
-        Guns = new List<GunBase>();
-		for (int i = 0; i < StartGun.Length; i++)
-		{
-			Guns.Add(Instantiate(StartGun[i], GunHoldPoint.transform));
-			Guns[i].gameObject.layer = this.gameObject.layer;
-            Guns[i].Initialize();
-			Guns[i].gameObject.SetActive(false);
-			Guns[i].OnShoot += AnimShoot;
-		}
+        PlayerInteractor = GetComponentInChildren<PlayerInteractor>();
+        
+        BuffList = new List<int>();
+        OwnedWeapons = new List<WeaponBase> { StartingWeapon };
 
-		InputEvent.OnSwitchGuns += SwitchGun;
-        InputEvent.OnReloadGun += ReloadGun;
-    }
+        Weapons = new WeaponBase[3];
+		InstantiateGun(StartingWeapon, 0);
+			
+		PlayerEvent.OnShoot += SetShootAnim;
+		PlayerEvent.RecieveCash += AddCash;
+        Stats.GetStat(StatType.MagCapacity).OnValueChange += CalculateMaxCap;
+		Stats.GetStat(StatType.ShootSpeed).OnValueChange += SetShootingSpeedAnim;
+		Stats.GetStat(StatType.Speed).OnValueChange += SetMovementSpeedAnim;
+	}
     private void OnDestroy()
     {
-        if (Stats != null)
-        {
-            _hp.OnValueChange -= HandleHealthChange;
-            _maxHp.OnValueChange -= HandleMaxHpChange;
-        }
+        _hp.OnValueChange -= HandleHealthChange;
+        _maxHp.OnValueChange -= HandleMaxHpChange;
+		//InputEvent.OnInputSwitchGuns -= SwitchGun;
 
-		InputEvent.OnSwitchGuns -= SwitchGun;
+		PlayerEvent.OnShoot -= SetShootAnim;
+		PlayerEvent.RecieveCash -= AddCash;
+		Stats.GetStat(StatType.MagCapacity).OnValueChange -= CalculateMaxCap;
+		Stats.GetStat(StatType.ShootSpeed).OnValueChange -= SetShootingSpeedAnim;
+		Stats.GetStat(StatType.Speed).OnValueChange -= SetMovementSpeedAnim;
 	}
-    private void Start()
+	private void Start()
     {
+        CalculateMaxCap();
 		EquipGun(0);
         InitHealthBar();
+        Cash = StartingCash;
     }
 
     void FixedUpdate()
@@ -73,68 +93,137 @@ public class PlayerController : BasicController
 		SetLineRenderers();
     }
 
-    public override void Death()
+    public override void Death(GameObject dealer)
     {
-        base.Death();
-        Guns[CurrentGunIndex].gameObject.SetActive(false);
+        base.Death(dealer);
+        Weapons[CurrentWeaponIndex].gameObject.SetActive(false);
     }
 
-    // Gun handle
-    public void EquipGun(int index)
+    // Weapon handle
+    public void InstantiateGun(WeaponBase gun, int index)
     {
-        Guns[CurrentGunIndex].gameObject.SetActive(false);
-        Guns[index].gameObject.SetActive(true);
-        CurrentGunIndex = index;
-        Animator.SetFloat("WeaponType", (float)Guns[index].GunData.WeaponType);
+	    if (Weapons[index] != null)
+	    {
+		    Stats.GetStat(StatType.Speed).RemoveModifier(new StatModifier(-Weapons[index].GunData.Weight,StatModType.Flat));
+		    Destroy(Weapons[index].gameObject);
+	    }
+	    Weapons[index] = (Instantiate(gun, WeaponHoldPoint.transform));
+	    Weapons[index].gameObject.layer = gameObject.layer;
+	    CalculateMaxCap();
+	    Weapons[index].Initialize();
+	    Weapons[index].gameObject.SetActive(false);
+	    EquipGun(CurrentWeaponIndex);
     }
-    [ContextMenu("sw")]
-    public void SwitchGun()
+    
+    public void SwapGuns(int x, int y)
     {
-        if(!gunSwitchable) return;
-        gunSwitchable = false;
-        DOVirtual.DelayedCall(GunSwitchCooldown, () => { gunSwitchable = true; });
+	    (Weapons[x], Weapons[y]) = (Weapons[y], Weapons[x]);
+	    EquipGun(CurrentWeaponIndex);
+    }
+
+    public void SetPlayerGuns(WeaponBase[] guns)
+    {
+	    for (int i = 0; i < Weapons.Length; i++)
+	    {
+		    InstantiateGun(guns[i],i);
+	    }
+    }
+    public bool EquipGun(int index)
+    {
+	    WeaponBase currentSlot = Weapons[index];
+
+	    if (currentSlot == null) return false;
+        Stats.GetStat(StatType.Speed).RemoveModifier(new StatModifier(-Weapons[CurrentWeaponIndex].GunData.Weight,StatModType.Flat));
+        Weapons[CurrentWeaponIndex].gameObject.SetActive(false);
+        currentSlot.gameObject.SetActive(true);
+        CurrentWeaponIndex = index;
+        Animator.SetFloat("WeaponType", (float)currentSlot.GunData.WeaponType);
+        Stats.GetStat(StatType.Speed).AddModifier(new StatModifier(-currentSlot.GunData.Weight,StatModType.Flat));
+        PlayerEvent.OnEquipWeapon?.Invoke(currentSlot);
+        return true;
+    }
+
+    public void SwitchWeapon(int index)
+    {
+	    if(!weaponSwitchable ||
+	       CurrentWeaponIndex == index ||
+	       Weapons[index]== null) return;
+	    weaponSwitchable = false;
+	    DOVirtual.DelayedCall(GunSwitchCooldown, () => { weaponSwitchable = true; });
+	    //Switch
+	    BeforeSwitching();
+	    Animator.SetBool("SwitchWeapon", true);
+	    Animator.SetBool("ReloadGun", false);
+	    Weapons[CurrentWeaponIndex].OnSwitchOut();
+	    EquipGun(index);
+    }
+    public void SwitchWeapon()
+    {
+        if(!weaponSwitchable ) return;
+        weaponSwitchable = false;
+        DOVirtual.DelayedCall(GunSwitchCooldown, () => { weaponSwitchable = true; });
         //Switch
-		DisableBeforeSwitching();
+		BeforeSwitching();
 		Animator.SetBool("SwitchWeapon", true);
         Animator.SetBool("ReloadGun", false);
-        Guns[CurrentGunIndex].ResetRecoil();
-        EquipGun((CurrentGunIndex+1)%(Guns.Count));
+        
+        Stats.GetStat(StatType.Speed).RemoveModifier(new StatModifier(-Weapons[CurrentWeaponIndex].GunData.Weight,StatModType.Flat));
+        int n = 1;
+        while (n < Weapons.Length)
+        {
+	        if(EquipGun((CurrentWeaponIndex+1)%Weapons.Length)) break;
+	        n++;
+        }
     }
-    bool gunReloadable = true;
-    public void ReloadGun()
+
+    public bool ContainsWeapon(WeaponBase weapon)
     {
-		if (!gunReloadable || Guns[CurrentGunIndex].IsFullCap) return;
-		DisableBeforeSwitching();
-		Animator.SetBool("ReloadGun", true);
-		Guns[CurrentGunIndex].ResetRecoil();
-	}
-	public void AnimShoot()
+	    foreach (var x in Weapons)
+	    {
+		    if (x.Equals(weapon)) return true;
+	    }
+
+	    return false;
+    }
+
+
+	public void BeforeSwitching()
 	{
-		Animator.SetTrigger("Shoot");
-	}
-	public void DisableBeforeSwitching()
-	{
-		foreach (var gun in Guns)
+		foreach (var weapon in Weapons)
 		{
-			gun.ShootAble = false;
+			if(!weapon) continue;
+			weapon.ShootAble = false;
 		}
-        gunReloadable = false;
-        DisableLineRenderer();
+		Weapons[CurrentWeaponIndex].OnSwitchOut();
+
 	}
-	public void EnableAfterSwitching()
+	public void AfterSwitching()
 	{
-		EnableLineRenderer();
-        gunReloadable = true;
-		foreach (var gun in Guns)
+		Weapons[CurrentWeaponIndex].OnSwitchIn();
+		foreach (var weapon in Weapons)
 		{
-			gun.ShootAble = true;
+			if(!weapon) continue;
+			weapon.ShootAble = true;
 		}
 	}
     public void AfterReload()
     {
-        Guns[CurrentGunIndex].Stats.GetAttribute(AttributeType.Bullets).SetValueToMax();
-        Animator.SetBool("ReloadGun", false);
-        EnableAfterSwitching();
+        ((GunBase)Weapons[CurrentWeaponIndex]).Stats.GetAttribute(AttributeType.Bullets).SetValueToMax();
+		PlayerEvent.OnReload?.Invoke();
+		Animator.SetBool("ReloadGun", false);
+        AfterSwitching();
+	}
+    public void SetShootingSpeedAnim()
+    {
+		Animator.SetFloat("ShootingSpeed",Stats.GetStat(StatType.ShootSpeed).Value);
+	}
+	public void SetMovementSpeedAnim()
+	{
+		Animator.SetFloat("MovementSpeed", Stats.GetStat(StatType.Speed).Value/5f);
+	}
+	public void SetShootAnim()
+	{
+		Animator.SetTrigger("Shoot");
 	}
 	public void EnableLineRenderer()
 	{
@@ -148,7 +237,8 @@ public class PlayerController : BasicController
 	}
 	public void SetLineRenderers()
 	{
-        GunBase gun = Guns[CurrentGunIndex];
+        if(Weapons[CurrentWeaponIndex].GunData.WeaponType == WeaponType.Knife) return;
+        GunBase gun = (GunBase)Weapons[CurrentWeaponIndex];
         float accuracy = gun.GunData.SpreadMax * gun.GunRecoil;
 		LineRendererL.SetLineRenderer(gun.ShootPoint, gun.GunData.Aim, Quaternion.Euler(0, Mathf.Clamp(-accuracy, -15,0), 0) * transform.forward);
 		LineRendererR.SetLineRenderer(gun.ShootPoint, gun.GunData.Aim, Quaternion.Euler(0, Mathf.Clamp(accuracy, 0, 15), 0) * transform.forward);
@@ -160,7 +250,7 @@ public class PlayerController : BasicController
     {
         Vector3 MovementInput = PlayerInput.Instance.MovementInput;
         Rigidbody.velocity = new Vector3(0f, Rigidbody.velocity.y, 0f);
-        Rigidbody.AddForce(MovementInput * Stats.GetStat(StatType.Speed).Value, ForceMode.VelocityChange);
+        Rigidbody.AddForce(MovementInput * (Stats.GetStat(StatType.Speed).Value), ForceMode.VelocityChange);
         //Animation
         var x =Vector3.Dot(MovementInput, transform.right);
         var y =Vector3.Dot(MovementInput, transform.forward);
@@ -219,5 +309,32 @@ public class PlayerController : BasicController
     {
         if (_hp == null) return;
         PlayerEvent.OnHeathChange?.Invoke(_hp.Value, _hp.MaxValue);
+    }
+    //Buffs
+    public List<int> BuffList { get; private set; }
+    public void AddBuffToPlayer(BasicBuffSO buff)
+    {
+		BuffStatusEffect buffEffect = buff.AddStatusEffect(Stats);
+        BuffList.Add(buff.ID);
+        buffEffect.OnEnd += () => BuffList.Remove(buff.ID);
+    }
+
+    public void CalculateMaxCap()
+    {
+	    for (int i = 0; i < Weapons.Length; i++)
+	    {
+		    if(!Weapons[i]) continue;
+		    if(Weapons[i].GunData.WeaponType == WeaponType.Knife) continue;
+		    GunBase gun = (GunBase)Weapons[i];
+		    gun.SetBulletCap(Stats.GetStat(StatType.MagCapacity).Value);
+	    }
+
+	    PlayerEvent.OnChangeCap?.Invoke();
+    }
+    //Cash
+    public void AddCash(int amount)
+    {
+	    DamagePopUpGenerator.Instance.CreateCashPopUp(transform.position, $"+{amount} $");
+	    Cash += amount;
     }
 }

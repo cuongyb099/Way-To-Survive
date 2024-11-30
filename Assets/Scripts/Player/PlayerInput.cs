@@ -61,6 +61,7 @@ public class PlayerInput : Singleton<PlayerInput>
         InputActions.BasicAction.Shoot.canceled += ShootInput;
         InputActions.BasicAction.ShootStick.canceled += ShootStick_canceled;
 		InputActions.BasicAction.Reload.performed += HandleReloading;
+		InputActions.BasicAction.Interact.started += InteractInput;
     }
 
     private void RemoveListeners()
@@ -73,11 +74,12 @@ public class PlayerInput : Singleton<PlayerInput>
         InputActions.BasicAction.Shoot.canceled -= ShootInput;
         InputActions.BasicAction.ShootStick.canceled -= ShootStick_canceled;
         InputActions.BasicAction.Reload.performed -= HandleReloading;
+        InputActions.BasicAction.Interact.started -= InteractInput;
     }
 
     private void HandleReloading(InputAction.CallbackContext obj)
     {
-        InputEvent.OnReloadGun?.Invoke();
+        InputEvent.OnInputReloadGun?.Invoke();
     }
     private void ShootStick_canceled(InputAction.CallbackContext obj)
     {
@@ -101,7 +103,7 @@ public class PlayerInput : Singleton<PlayerInput>
 
 	private void HandleSwitchGuns(InputAction.CallbackContext ctx)
 	{
-		InputEvent.OnSwitchGuns?.Invoke();
+		InputEvent.OnInputSwitchGuns?.Invoke();
 	}
     private void ShootInput(InputAction.CallbackContext obj)
     {
@@ -112,9 +114,13 @@ public class PlayerInput : Singleton<PlayerInput>
 		}
 		attaking = true;
     }
+    private void InteractInput(InputAction.CallbackContext obj)
+    {
+        InputEvent.OnInputInteract?.Invoke();
+    }
 
-	//Methods
-	private Vector3 GetMovementInput()
+    //Methods
+    private Vector3 GetMovementInput()
 	{
 		Vector2 v = PlayerControlActions.Movement.ReadValue<Vector2>();
 

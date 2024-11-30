@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b59205e98b25a304aac3cf684f1d5aa3, type: 3}
+  m_Name: AWPSO
+  m_EditorClassIdentifier: 
+  BulletPrefab: {fileID: 984755602444092648, guid: bff9cb15c026277498f4541bb37853a4, type: 3}
+  WeaponType: 3
+  GunName: AWP
+  GunDescription: 
+  Icon: {fileID: 21300000, guid: 394be1873f0dc744f9dbf1025cf39502, type: 3}
+  GunPrice: 0
+  ShootingSpeed: 1
+  Damage: 5
+  Aim: 20
+  SpreadMax: 10
+  Recoil: 0.5
+  RecoilResetTime: 1
+  Weight: 0
+  MaxCapacity: 5
+  ReleaseToShoot: 1
+  ShootingSounds:
+  - {fileID: 8300000, guid: 21face996a7148e48937e87c2e4fd5a0, type: 3}
+  TailSound: {fileID: 8300000, guid: 8a378edaa1cb59748a73526bed07f973, type: 3}
+  CockingSound: {fileID: 8300000, guid: 48e0ad872319cbd458c5373053cbd50b, type: 3}
+  MagSoundIn: {fileID: 8300000, guid: 2ff4772d347d646478466fe952e0d8dd, type: 3}
+  MagSoundOut: {fileID: 8300000, guid: 645a78324c4493f4f8e27bccaf5aa9f6, type: 3}
