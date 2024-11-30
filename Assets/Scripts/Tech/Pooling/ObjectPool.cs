@@ -53,7 +53,7 @@ namespace Tech.Pooling
 			GameObject spawnableObj = pool.InactiveObjects.FirstOrDefault();
 			if (spawnableObj == null)
 			{
-				GameObject parentObject = SetParentObject(poolType);
+				GameObject parentObject = GetParentObject(poolType);
 				spawnableObj = Instantiate(objectToSpawn, position, rotation);
 
 				if (parentObject != null)
@@ -88,7 +88,7 @@ namespace Tech.Pooling
 			}
 		}
 
-		private GameObject SetParentObject(PoolType poolType)
+		public GameObject GetParentObject(PoolType poolType)
 		{
 			if (poolType == PoolType.None) return null;
 			return poolsHolder[poolType];

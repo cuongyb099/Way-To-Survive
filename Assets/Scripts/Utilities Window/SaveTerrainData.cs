@@ -1,6 +1,6 @@
 using UnityEditor;
 using UnityEngine;
-
+#if UNITY_EDITOR
 public class SaveTerrainData : EditorWindow
 {
     [MenuItem("Tools/Delete Animator")]
@@ -24,3 +24,4 @@ public class SaveTerrainData : EditorWindow
         }
     }
 }
+#endif

@@ -24,9 +24,11 @@ public class GameManager : StateMachine<EGameState>
     [field:SerializeField] public int FPSLimitValue{ get; private set; } = 30;
     [field:SerializeField] public int WaveWonTime{ get; private set; } = 30;
     [field:SerializeField] public float ShoppingTime{ get; private set; } = 30f;
-    
+
+    public bool SkipShopping { get; set; } = false;
     //Singleton
     public static GameManager Instance { get; private set; } = null;
+    
     [Header("UI Elements")]
     public GameObject LoseCanvas;
     public GameObject BuffCanvas;
@@ -49,6 +51,8 @@ public class GameManager : StateMachine<EGameState>
         States.Add(EGameState.Combat, new CombatState(this));
         States.Add(EGameState.WaveWon, new WaveWonState(this));
         States.Add(EGameState.Died, new DiedState(this));
+
+        Player.OnDeath += () => { LoseCanvas.SetActive(true); };
     }
 
     private void Start()

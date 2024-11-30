@@ -85,9 +85,9 @@ public abstract class WeaponBase : MonoBehaviour, IEquatable<WeaponBase>
 
 	protected void WeaponSoundPlay()
 	{
-		SoundFXManager.Instance.PlayRandomSound(GunData.ShootingSounds,SoundType.Game);
+		AudioManager.Instance.PlaySound(GunData.ShootingSounds.ToArray(),volumeType: SoundVolumeType.SOUNDFX_VOLUME);
 		if(GunData.TailSound)
-			SoundFXManager.Instance.PlaySound(GunData.TailSound,SoundType.Game);
+			AudioManager.Instance.PlaySound(GunData.TailSound,volumeType: SoundVolumeType.SOUNDFX_VOLUME);
 	}
 	
 

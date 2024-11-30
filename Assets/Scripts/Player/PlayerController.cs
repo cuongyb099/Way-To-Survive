@@ -334,6 +334,7 @@ public class PlayerController : BasicController
     //Cash
     public void AddCash(int amount)
     {
+	    DamagePopUpGenerator.Instance.CreateCashPopUp(transform.position, $"+{amount} $");
 	    Cash += amount;
     }
 }

@@ -20,6 +20,7 @@ public class ShoppingState : BaseState<EGameState>
     public override void Exit()
     {
         gameManager.CountDownSlider.FadeOut();
+        gameManager.SkipShopping = false;
     }
 
     public override void FixedUpdate()
@@ -29,7 +30,7 @@ public class ShoppingState : BaseState<EGameState>
 
     public override EGameState GetNextState()
     {
-        if(Timer <= 0)
+        if(Timer <= 0 || gameManager.SkipShopping)
         {
             return EGameState.Combat;
         }
