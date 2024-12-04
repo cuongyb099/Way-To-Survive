@@ -20,7 +20,7 @@ public class AdManager : Singleton<AdManager>
 
     public void CreateBannerView()
     {
-        _bannerView = new BannerView(_bannerID, AdSize.Banner, AdPosition.Top);
+        _bannerView = new BannerView(_bannerID, AdSize.Banner, AdPosition.Bottom);
     }
     
     public void LoadAd()
