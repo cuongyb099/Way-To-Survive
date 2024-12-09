@@ -22,6 +22,5 @@ public class ColliderDetection : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         CallbackTriggerEnter?.Invoke(other);
-        Debug.Log(other.gameObject.name);
     }
 }

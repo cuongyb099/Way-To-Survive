@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Tech.Pooling;
 using UnityEngine;
@@ -13,12 +14,28 @@ public class AudioChild : MonoBehaviour
         Source = GetComponent<AudioSource>();
     }
 
-    public void WaitToReturnPool()
+    /*public void WaitToReturnPool()
     {
         _coroutine = StartCoroutine(ReturnPool());
+    }*/
+
+    private void Update()
+    {
+        CheckingPlaying();
     }
 
-    private IEnumerator ReturnPool()
+    private void CheckingPlaying()
+    {
+        if(Source.isPlaying) return;
+        Transform parentRoot = ObjectPool.Instance.GetParentObject(PoolType.Audio).transform;
+        if (parentRoot != transform.parent)
+        {
+            transform.SetParent(parentRoot);
+        }
+        ObjectPool.Instance.ReturnObjectToPool(gameObject);        
+    }
+
+    /*private IEnumerator ReturnPool()
     {
         yield return new WaitUntil (() => !Source.isPlaying);
         Transform parentRoot = ObjectPool.Instance.GetParentObject(PoolType.Audio).transform;
@@ -27,5 +44,5 @@ public class AudioChild : MonoBehaviour
             transform.SetParent(parentRoot);
         }
         ObjectPool.Instance.ReturnObjectToPool(gameObject);
-    }
+    }*/
 }

@@ -58,7 +58,7 @@ public class AudioManager : Singleton<AudioManager>
         source.volume = volume;
         source.outputAudioMixerGroup = GetMixerGroup(volumeType);
         soundSetting.Play(source);
-        audioChild.WaitToReturnPool();
+        //audioChild.WaitToReturnPool();
     }
 
     public void PlaySound(AudioClip[] audioClips,  bool isLoop = false, float volume = 1f, SoundVolumeType volumeType = SoundVolumeType.SOUNDFX_VOLUME)
@@ -82,7 +82,7 @@ public class AudioManager : Singleton<AudioManager>
         source.clip = audioClip;
         source.outputAudioMixerGroup = GetMixerGroup(setting.VolumeType);
         setting.Play(source);
-        audioChild.WaitToReturnPool();
+        //audioChild.WaitToReturnPool();
     }
 
     public void PlaySound(AudioClip[] audioClips, SoundSetting setting, Transform parent = null)

@@ -13,7 +13,7 @@ public class AnimEventHelper : MonoBehaviour
         CallbackAnimEnd?.Invoke();
     }
 
-    public void OnAnimatorTrigger()
+    public void AnimationTrigger()
     {
         CallbackAnimEvent?.Invoke();
     }
