@@ -111,9 +111,9 @@ public class GunBase : WeaponBase
 
 	private void GunSoundPlay()
 	{
-		SoundFXManager.Instance.PlayRandomSound(GunData.ShootingSounds,SoundType.Game);
+		AudioManager.Instance.PlaySound(GunData.ShootingSounds.ToArray(),volumeType: SoundVolumeType.SOUNDFX_VOLUME);
 		if(GunData.TailSound)
-			SoundFXManager.Instance.PlaySound(GunData.TailSound,SoundType.Game);
+			AudioManager.Instance.PlaySound(GunData.TailSound,volumeType: SoundVolumeType.SOUNDFX_VOLUME);
 	}
 
 	public virtual void GunRecoilUpdate()

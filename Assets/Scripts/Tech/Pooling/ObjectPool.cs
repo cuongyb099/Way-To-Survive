@@ -18,10 +18,9 @@ namespace Tech.Pooling
 
 	public class ObjectPool : Singleton<ObjectPool>
 	{
-		private List<PooledObject> objectPools = new ();
+		private readonly Dictionary<GameObject, PooledObject> _objectPools = new ();
+		private readonly Dictionary<PoolType, Transform> _poolsHolder = new(); 
 
-		private Dictionary<PoolType, GameObject> poolsHolder = new(); 
-		
 		protected override void Awake()
 		{
 			base.Awake();
@@ -30,74 +29,92 @@ namespace Tech.Pooling
 
 		private void SetupHolder()
 		{
+			var child = new Transform[transform.childCount];
+	
+			for (int i = 0; i < transform.childCount; i++)
+			{
+				child[i] = transform.GetChild(i);
+			}
+
 			foreach (PoolType pool in Enum.GetValues(typeof(PoolType)))
 			{
 				if (pool == PoolType.None) continue;
-				
-				GameObject empty = new (pool.ToString());
+		
+				var name = pool.ToString();
+		
+				Transform existTransform = child.FirstOrDefault(x => x.name == name);
+		
+				if (existTransform)
+				{
+					_poolsHolder.Add(pool, existTransform);
+					continue;
+				}
+		
+				GameObject empty = new (name);
 				empty.transform.SetParent(transform);
-				poolsHolder.Add(pool, empty);
+				_poolsHolder.Add(pool, empty.transform);
 			}
 		}
 
 		public GameObject SpawnObject(GameObject objectToSpawn, Vector3 position, Quaternion rotation, PoolType poolType = PoolType.None)
 		{
-			PooledObject pool = objectPools.Find(p => p.LookupString == objectToSpawn.name);
-
-			if (pool == null)
+			if (!_objectPools.ContainsKey(objectToSpawn))
 			{
-				pool = new PooledObject() { LookupString = objectToSpawn.name };
-				objectPools.Add(pool);
+				_objectPools.Add(objectToSpawn, new PooledObject(objectToSpawn));
 			}
 
-			GameObject spawnableObj = pool.InactiveObjects.FirstOrDefault();
-			if (spawnableObj == null)
-			{
-				GameObject parentObject = SetParentObject(poolType);
-				spawnableObj = Instantiate(objectToSpawn, position, rotation);
+			GameObject spawnableObj = _objectPools[objectToSpawn].GetPool(position, rotation);
 
-				if (parentObject != null)
-				{
-					spawnableObj.transform.SetParent(parentObject.transform);
-				}
-			}
-			else
+			if (poolType != PoolType.None)
 			{
-				spawnableObj.transform.position = position;
-				spawnableObj.transform.rotation = rotation;
-				pool.InactiveObjects.Remove(spawnableObj);
+				spawnableObj.transform.SetParent(GetParentObject(poolType).transform);
 			}
-			spawnableObj.SetActive(true);
 
 			return spawnableObj;
 		}
 
 		public void ReturnObjectToPool(GameObject obj)
 		{
-			string goName = obj.name.Substring(0, obj.name.Length - 7);
-			PooledObject pool = objectPools.Find(p => p.LookupString == goName);
-
-			if (pool == null)
-			{
-				Debug.LogWarning("Trying to release an object that is not pooled" + obj.name);
-			}
-			else
-			{
-				obj.SetActive(false);
-				pool.InactiveObjects.Add(obj);
-			}
+			obj.gameObject.SetActive(false);
 		}
 
-		private GameObject SetParentObject(PoolType poolType)
+		public Transform GetParentObject(PoolType poolType)
 		{
 			if (poolType == PoolType.None) return null;
-			return poolsHolder[poolType];
+			return _poolsHolder[poolType];
 		}
 	}
 
 	public class PooledObject
 	{
-		public string LookupString;
-		public List<GameObject> InactiveObjects = new List<GameObject>();
+		private Stack<GameObject> _inActiveObjects = new ();
+		private GameObject _baseObject;
+
+		public PooledObject(GameObject obj)
+		{
+			_baseObject = obj;
+		}
+
+		public GameObject GetPool(Vector3 position, Quaternion rotation)
+		{
+			GameObject tmp;
+	
+			if (_inActiveObjects.Count > 0)
+			{
+				tmp = _inActiveObjects.Pop();
+				tmp.transform.position = position;
+				tmp.transform.rotation = rotation;
+				tmp.SetActive(true);
+				return tmp;
+			}
+
+			tmp = GameObject.Instantiate(_baseObject, position, rotation);
+			return tmp;
+		}
+
+		public void AddToPool(GameObject obj)
+		{
+			_inActiveObjects.Push(obj);
+		}
 	}
 }

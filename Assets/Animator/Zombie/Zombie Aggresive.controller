@@ -198,7 +198,7 @@ BlendTree:
   m_Name: Blend Tree
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 8eccf5bd03269b54a8251162366097d2, type: 3}
+    m_Motion: {fileID: 7400000, guid: 3984eccd0a6b6804c9610d8287513a95, type: 3}
     m_Threshold: 0
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -206,7 +206,7 @@ BlendTree:
     m_DirectBlendParameter: Zombie State
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: f3209d32fcc4313458b8d58fd8acd171, type: 3}
+    m_Motion: {fileID: 7400000, guid: d0f3d6025c7822f4ca7c4732bc2b0bd0, type: 3}
     m_Threshold: 1
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -214,7 +214,7 @@ BlendTree:
     m_DirectBlendParameter: Zombie State
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: aaf00e0db971d6d4894eea40ac911c30, type: 3}
+    m_Motion: {fileID: 7400000, guid: 4c388875a9851a44a85d24769d5082cc, type: 3}
     m_Threshold: 2
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1

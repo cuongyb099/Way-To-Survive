@@ -18,7 +18,7 @@ MonoBehaviour:
   GunDescription: 
   Icon: {fileID: 21300000, guid: f9aba650c2561674e9a38b6fdfee1b26, type: 3}
   GunPrice: 1000
-  ShootingSpeed: 1
+  ShootingSpeed: 0.7
   Damage: 1
   Aim: 0
   SpreadMax: 0
@@ -28,7 +28,7 @@ MonoBehaviour:
   MaxCapacity: 0
   ReleaseToShoot: 0
   ShootingSounds:
-  - {fileID: 8300000, guid: a1d2b73e149cb934b9b57e60a0226e66, type: 3}
+  - {fileID: 8300000, guid: fb77b099f8a554d4a9b5199bbb0046ce, type: 3}
   TailSound: {fileID: 0}
   CockingSound: {fileID: 0}
   MagSoundIn: {fileID: 0}

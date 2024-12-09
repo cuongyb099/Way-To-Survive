@@ -16,9 +16,9 @@ public class FadeObjectBlockPlayer : MonoBehaviour
    [SerializeField] private float _alphaValue = 0.1f;
    private readonly Stack<Material> _poolMaterials = new ();
    
-   private readonly List<FadeObject> _objectsNotRemove = new();
-   private readonly List<FadeObject> _blockingViewObjects = new ();
-   private readonly Dictionary<FadeObject, Tween> _cullingObjects = new ();
+   private readonly List<FadingObject> _objectsNotRemove = new();
+   private readonly List<FadingObject> _blockingViewObjects = new ();
+   private readonly Dictionary<FadingObject, Tween> _cullingObjects = new ();
    private readonly RaycastHit[] _hitObjects = new RaycastHit[10];
    
    private void Awake()
@@ -54,7 +54,7 @@ public class FadeObjectBlockPlayer : MonoBehaviour
          foreach (var hit in _hitObjects)
          {
             if(!hit.collider) continue;
-            if(!hit.collider.TryGetComponent(out FadeObject fadeObject)) continue;
+            if(!hit.collider.TryGetComponent(out FadingObject fadeObject)) continue;
             
             if (!_blockingViewObjects.Contains(fadeObject))
             {
