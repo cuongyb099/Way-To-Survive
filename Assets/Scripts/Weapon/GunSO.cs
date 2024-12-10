@@ -8,6 +8,8 @@ public class GunSO : ScriptableObject
 {
 	public int ID => GetInstanceID();
 	public GameObject BulletPrefab;
+	public GameObject ShellPrefab;
+	public GameObject MagPrefab;
 	public WeaponType WeaponType;
 	public string GunName;
 	[TextArea]

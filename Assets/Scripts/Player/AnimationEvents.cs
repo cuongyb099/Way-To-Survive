@@ -9,6 +9,7 @@ public class AnimationEvents : MonoBehaviour
 	{
 		PlayerController = GetComponentInParent<PlayerController>();
 	}
+	//Weapons
 	public void EnableShooting()
 	{
 		PlayerController.Animator.SetBool("SwitchWeapon", false);
@@ -19,6 +20,7 @@ public class AnimationEvents : MonoBehaviour
 		PlayerController.Animator.SetBool("SwitchWeapon", true);
 		PlayerController?.BeforeSwitching();
 	}
+	//Gun
 	public void AfterReload()
 	{
 		PlayerController.Animator.SetBool("ReloadGun", false);
@@ -28,6 +30,29 @@ public class AnimationEvents : MonoBehaviour
 	{
 		PlayerController.Animator.SetBool("ReloadGun", true);
 		PlayerController?.BeforeSwitching();
+	}
+	public void DropMagazine()
+	{
+		GunBase gun = (GunBase)PlayerController.CurrentWeapon;
+		gun.DropMagazine();
+	}
+
+	public void DropShell()
+	{
+		GunBase gun = (GunBase)PlayerController.CurrentWeapon;
+		gun.DropShell();
+	}
+
+	public void TakeMagazine()
+	{
+		GunBase gun = (GunBase)PlayerController.CurrentWeapon;
+		gun.TakeMagazine();
+	}
+
+	public void PutInMagazine()
+	{
+		GunBase gun = (GunBase)PlayerController.CurrentWeapon;
+		gun.PutInMagazine();
 	}
 	//Sounds
 	public void CockingSound()

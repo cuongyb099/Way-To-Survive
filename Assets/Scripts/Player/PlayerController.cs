@@ -32,7 +32,8 @@ public class PlayerController : BasicController
     }
     private int cash;
     //WeaponSystem
-    public Transform WeaponHoldPoint;
+    public Transform RightHandHoldPoint;
+    public Transform LeftHandHoldPoint;
     public LineRendererHelper LineRendererL;
     public LineRendererHelper LineRendererR;
     public WeaponBase[] Weapons;
@@ -40,6 +41,7 @@ public class PlayerController : BasicController
     public int CurrentWeaponIndex { get; private set; }
 
     private bool weaponSwitchable = true;
+    private Camera mainCamera;
 
     protected override void Awake()
     {
@@ -49,6 +51,7 @@ public class PlayerController : BasicController
         FloatingCapsule = GetComponent<FloatingCapsule>();
         Animator = GetComponentInChildren<Animator>();
         PlayerInteractor = GetComponentInChildren<PlayerInteractor>();
+        mainCamera = Camera.main;
         
         BuffList = new List<int>();
         OwnedWeapons = new List<WeaponBase> { StartingWeapon };
@@ -76,7 +79,6 @@ public class PlayerController : BasicController
 	}
 	private void Start()
     {
-        CalculateMaxCap();
 		EquipGun(0);
         InitHealthBar();
         Cash = StartingCash;
@@ -107,9 +109,8 @@ public class PlayerController : BasicController
 		    Stats.GetStat(StatType.Speed).RemoveModifier(new StatModifier(-Weapons[index].GunData.Weight,StatModType.Flat));
 		    Destroy(Weapons[index].gameObject);
 	    }
-	    Weapons[index] = (Instantiate(gun, WeaponHoldPoint.transform));
+	    Weapons[index] = (Instantiate(gun, RightHandHoldPoint.transform));
 	    Weapons[index].gameObject.layer = gameObject.layer;
-	    CalculateMaxCap();
 	    Weapons[index].Initialize();
 	    Weapons[index].gameObject.SetActive(false);
 	    EquipGun(CurrentWeaponIndex);
@@ -137,6 +138,7 @@ public class PlayerController : BasicController
         Weapons[CurrentWeaponIndex].gameObject.SetActive(false);
         currentSlot.gameObject.SetActive(true);
         CurrentWeaponIndex = index;
+        CalculateMaxCapacity(Weapons[index]);
         Animator.SetFloat("WeaponType", (float)currentSlot.GunData.WeaponType);
         Stats.GetStat(StatType.Speed).AddModifier(new StatModifier(-currentSlot.GunData.Weight,StatModType.Flat));
         PlayerEvent.OnEquipWeapon?.Invoke(currentSlot);
@@ -250,10 +252,10 @@ public class PlayerController : BasicController
     {
         Vector3 MovementInput = PlayerInput.Instance.MovementInput;
         Rigidbody.velocity = new Vector3(0f, Rigidbody.velocity.y, 0f);
-        Rigidbody.AddForce(MovementInput * (Stats.GetStat(StatType.Speed).Value), ForceMode.VelocityChange);
+        Rigidbody.AddForce(Quaternion.Euler(0,mainCamera.transform.eulerAngles.y,0) * MovementInput *  (Stats.GetStat(StatType.Speed).Value), ForceMode.VelocityChange);
         //Animation
-        var x =Vector3.Dot(MovementInput, transform.right);
-        var y =Vector3.Dot(MovementInput, transform.forward);
+        var x =Vector3.Dot(MovementInput, Quaternion.Euler(0,-mainCamera.transform.eulerAngles.y,0)* transform.right);
+        var y =Vector3.Dot(MovementInput, Quaternion.Euler(0,-mainCamera.transform.eulerAngles.y,0)* transform.forward);
         CurrentBlend = Vector2.Lerp(CurrentBlend, new Vector2(x,y) , 0.1f);
         Animator.SetFloat("PosX",CurrentBlend.x);
         Animator.SetFloat("PosY",CurrentBlend.y);
@@ -264,7 +266,7 @@ public class PlayerController : BasicController
         Vector2 rotateInput = PlayerInput.Instance.RotationInput;
         if (rotateInput == Vector2.zero) return;
         float atan = Mathf.Atan2(rotateInput.x,rotateInput.y)*Mathf.Rad2Deg;
-        Rigidbody.rotation = Quaternion.Euler(0,atan,0);
+        Rigidbody.rotation = Quaternion.Euler(0,atan+mainCamera.transform.eulerAngles.y,0);
     }
     public void Float()
     {
@@ -330,6 +332,14 @@ public class PlayerController : BasicController
 	    }
 
 	    PlayerEvent.OnChangeCap?.Invoke();
+    }
+
+    public void CalculateMaxCapacity(WeaponBase weaponBase)
+    {
+	    if(!weaponBase) return;
+	    if(weaponBase.GunData.WeaponType == WeaponType.Knife) return;
+	    GunBase gun = (GunBase)weaponBase;
+	    gun.SetBulletCap(Stats.GetStat(StatType.MagCapacity).Value);
     }
     //Cash
     public void AddCash(int amount)

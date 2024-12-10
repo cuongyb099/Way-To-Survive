@@ -14,12 +14,14 @@ public class CombatState : BaseState<EGameState>
 
     public override void Enter()
     {
+        GameEvent.OnStartCombatState?.Invoke();
         exitState = false;
         gameManager.WaveManager.NextWave();
     }
 
     public override void Exit()
     {
+        GameEvent.OnStopCombatState?.Invoke();
     }
 
     public override EGameState GetNextState()

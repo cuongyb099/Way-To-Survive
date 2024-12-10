@@ -11,8 +11,14 @@ public static class GameEvent
     public static Action<int> WaveDoneEvent;
     //Trả về wave hiện tại
     public static Action<int> NextWaveEvent;
-    //?.Invoke hàm này để skipshopping Time
-    public static Action SkipShoppingEvent;
     //Trả về thời gian đếm ngoại của shoppingTimer
     public static Action<float> ShoppingTimeChangeEvent;
+    
+    public static Action OnStartGame;
+    public static Action OnStartShoppingState;
+    public static Action OnStopShoppingState;
+    public static Action OnStartWinState;
+    public static Action OnStopWaveWinState;	
+    public static Action OnStartCombatState;
+    public static Action OnStopCombatState;
 }

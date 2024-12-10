@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: XM1014SO
   m_EditorClassIdentifier: 
   BulletPrefab: {fileID: 984755602444092648, guid: bff9cb15c026277498f4541bb37853a4, type: 3}
+  ShellPrefab: {fileID: 6182647827399181740, guid: b90d077f25e2ca04c9360f25f237a5fb, type: 3}
+  MagPrefab: {fileID: 6182647827399181740, guid: b90d077f25e2ca04c9360f25f237a5fb, type: 3}
   WeaponType: 2
   GunName: XM1014
   GunDescription: asd

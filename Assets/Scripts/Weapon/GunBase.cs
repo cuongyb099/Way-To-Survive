@@ -8,7 +8,10 @@ using UnityEngine;
 
 public class GunBase : WeaponBase
 {
-	public Transform ShootPoint;
+	[field: SerializeField] public Transform ShootPoint { get; private set; }
+	[field: SerializeField] public Transform ShellDropPoint { get; private set; }
+	[field: SerializeField] public GameObject MagObject { get; private set; }
+
 	public bool IsFullCap { get { return Stats.GetAttribute(AttributeType.Bullets).Value == Stats.GetStat(StatType.MaxBulletCap).Value; } }
 	public bool IsEmpty { get { return Stats.GetAttribute(AttributeType.Bullets).Value == 0; } }
 	public float GunRecoil { get; protected set; } = 0f;
@@ -31,6 +34,7 @@ public class GunBase : WeaponBase
 	{
 		base.OnEnable();
 		InputEvent.OnInputReloadGun += ReloadGun;
+		MagObject.SetActive(true);
 	}
 
 	protected override void OnDisable()
@@ -115,7 +119,7 @@ public class GunBase : WeaponBase
 		if(GunData.TailSound)
 			AudioManager.Instance.PlaySound(GunData.TailSound,volumeType: SoundVolumeType.SOUNDFX_VOLUME);
 	}
-
+	
 	public virtual void GunRecoilUpdate()
 	{
 		GunRecoil += GunData.Recoil;
@@ -136,5 +140,31 @@ public class GunBase : WeaponBase
 	public override int GetHashCode()
 	{
 		return HashCode.Combine(base.GetHashCode(), GunData);
+	}
+	//Animation Methods
+	public void DropMagazine()
+	{
+		GameObject mag = ObjectPool.Instance.SpawnObject(GunData.MagPrefab,MagObject.transform.position,MagObject.transform.rotation, PoolType.GameObject);
+		Rigidbody rb = mag.GetComponentInChildren<Rigidbody>();
+		rb.velocity = playerController.Rigidbody.velocity;
+		MagObject.SetActive(false);
+	}
+
+	public void DropShell()
+	{
+		GameObject shell = ObjectPool.Instance.SpawnObject(GunData.ShellPrefab,ShellDropPoint.transform.position,transform.rotation* Quaternion.Euler(UnityEngine.Random.Range(0,60),10,0), PoolType.GameObject);
+		Rigidbody rb = shell.GetComponent<Rigidbody>();
+		rb.velocity = playerController.Rigidbody.velocity;
+		rb.AddForce(Quaternion.Euler(0,-90,0)*shell.transform.forward*2f, ForceMode.VelocityChange);
+	}
+
+	public void TakeMagazine()
+	{
+		
+	}
+
+	public void PutInMagazine()
+	{
+		MagObject.SetActive(true);
 	}
 }

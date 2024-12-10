@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: MP5SO
   m_EditorClassIdentifier: 
   BulletPrefab: {fileID: 984755602444092648, guid: bff9cb15c026277498f4541bb37853a4, type: 3}
+  ShellPrefab: {fileID: 6182647827399181740, guid: a1e78c6635fd42541975b5cdc3cfdfab, type: 3}
+  MagPrefab: {fileID: 6182647827399181740, guid: 438049bf7b07a9f46b64683f6f5f6e9c, type: 3}
   WeaponType: 4
   GunName: MP5
   GunDescription: af

@@ -10,7 +10,7 @@ namespace Tech.Pooling
 	{
 		ParticleSystem,
 		GameObject,
-		DamagePopUp,
+		UIPopUp,
 		ENEMY,
 		Audio,
 		None
@@ -75,6 +75,10 @@ namespace Tech.Pooling
 
 		public void ReturnObjectToPool(GameObject obj)
 		{
+			if (obj.TryGetComponent<IPoolObject>(out IPoolObject itf))
+			{
+				itf.OnReturnToPool();
+			}
 			obj.gameObject.SetActive(false);
 		}
 
@@ -84,7 +88,7 @@ namespace Tech.Pooling
 			return _poolsHolder[poolType];
 		}
 	}
-
+	
 	public class PooledObject
 	{
 		private Stack<GameObject> _inActiveObjects = new ();
@@ -98,17 +102,26 @@ namespace Tech.Pooling
 		public GameObject GetPool(Vector3 position, Quaternion rotation)
 		{
 			GameObject tmp;
-	
+			
 			if (_inActiveObjects.Count > 0)
 			{
 				tmp = _inActiveObjects.Pop();
 				tmp.transform.position = position;
 				tmp.transform.rotation = rotation;
 				tmp.SetActive(true);
+				if (tmp.TryGetComponent<IPoolObject>(out IPoolObject itf))
+				{
+					itf.Initialize();
+				}
 				return tmp;
 			}
 
 			tmp = GameObject.Instantiate(_baseObject, position, rotation);
+			tmp.AddComponent<ReturnToPool>().PoolsObjects = this;
+			if (tmp.TryGetComponent<IPoolObject>(out IPoolObject itf2))
+			{
+				itf2.Initialize();
+			}
 			return tmp;
 		}
 

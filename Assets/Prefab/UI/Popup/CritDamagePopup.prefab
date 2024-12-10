@@ -340,6 +340,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  Text: {fileID: 0}
 --- !u!114 &2118673232303438880
 MonoBehaviour:
   m_ObjectHideFlags: 0

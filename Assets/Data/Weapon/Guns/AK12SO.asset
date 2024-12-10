@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: AK12SO
   m_EditorClassIdentifier: 
   BulletPrefab: {fileID: 984755602444092648, guid: bff9cb15c026277498f4541bb37853a4, type: 3}
+  ShellPrefab: {fileID: 6182647827399181740, guid: a1e78c6635fd42541975b5cdc3cfdfab, type: 3}
+  MagPrefab: {fileID: 6182647827399181740, guid: be822d7afbb24b64f825343c49bb66bb, type: 3}
   WeaponType: 1
   GunName: AK-12
   GunDescription: "The AK-12, \"Avtomat Kalashnikova, 2012\" is a Russian gas-operated
