@@ -27,10 +27,10 @@ public class EnemyCtrl : BasicController
         NavMeshAuthoring = GetComponent<AgentNavMeshAuthoring>();
     }
 
-    public override void Damage(DamageInfo info)
+    public override float Damage(DamageInfo info)
     {
         IsTakingDamage = true;
-        base.Damage(info);
+        return base.Damage(info);
     }
 
     public override void Death(GameObject dealer)

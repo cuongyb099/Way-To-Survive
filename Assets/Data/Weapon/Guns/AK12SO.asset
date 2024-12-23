@@ -17,15 +17,21 @@ MonoBehaviour:
   MagPrefab: {fileID: 6182647827399181740, guid: be822d7afbb24b64f825343c49bb66bb, type: 3}
   WeaponType: 1
   GunName: AK-12
-  GunDescription: "The AK-12, \"Avtomat Kalashnikova, 2012\" is a Russian gas-operated
-    assault rifle chambered in 5.45\xD739mm designed and manufactured by the Kalashnikov
-    Concern, making it the fifth generation of Kalashnikov rifles."
+  GunDescription:
+    m_TableReference:
+      m_TableCollectionName: GUID:fd6713aa530e7a244b6d797fbc2425fb
+    m_TableEntryReference:
+      m_KeyId: 1139121577984
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   Icon: {fileID: 870321632, guid: 92a4fe653152e9244b4849b9dba1c92b, type: 3}
   GunPrice: 2700
   ShootingSpeed: 0.15
   Damage: 3
   Aim: 8
-  SpreadMax: 7
+  SpreadMax: 12
   Recoil: 0.06
   RecoilResetTime: 2
   Weight: 1
@@ -40,3 +46,6 @@ MonoBehaviour:
   CockingSound: {fileID: 8300000, guid: 586d58f81555a854996339b8111bd791, type: 3}
   MagSoundIn: {fileID: 8300000, guid: 587a3f37adbb9a942883c3fc572878b6, type: 3}
   MagSoundOut: {fileID: 8300000, guid: 7a59dde985bdfcf458a8dcae0e299541, type: 3}
+  references:
+    version: 2
+    RefIds: []

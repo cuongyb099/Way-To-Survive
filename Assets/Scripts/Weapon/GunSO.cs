@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization;
 using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "GunSO",menuName ="Item/Gun/new GunSO")]
@@ -12,8 +13,7 @@ public class GunSO : ScriptableObject
 	public GameObject MagPrefab;
 	public WeaponType WeaponType;
 	public string GunName;
-	[TextArea]
-	public string GunDescription;
+	public LocalizedString GunDescription;
 	public Sprite Icon;
 	public int GunPrice;
 	public float ShootingSpeed;

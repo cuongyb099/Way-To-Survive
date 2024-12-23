@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class PlayerInteractor : MonoBehaviour
 {
+	[field:SerializeField] public GameObject InteractButton { get; private set; }
 	public bool EnableInteraction { get; set; } = true;
 	public List<IInteractable> Interactables { get; private set; }
     public IInteractable Target { get; private set; } = null;
@@ -57,6 +58,7 @@ public class PlayerInteractor : MonoBehaviour
 	            if(interactable == Target) Target = null;
 	            Interactables.Remove(interactable);
             };
+            InteractButton.SetActive(true);
         }
     }
     private void OnTriggerExit(Collider other)
@@ -74,6 +76,8 @@ public class PlayerInteractor : MonoBehaviour
 		        Interactables.Remove(interactable);
 	        };
             Interactables.Remove(interactable);
+            if(Interactables.Count == 0)
+				InteractButton.SetActive(false);
         }
     }
     public void InteractWithTarget()

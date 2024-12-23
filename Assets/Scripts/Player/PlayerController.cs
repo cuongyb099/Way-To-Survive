@@ -6,7 +6,18 @@ using UnityEngine.Serialization;
 
 public class PlayerController : BasicController
 {
-    public Rigidbody Rigidbody { get; private set; }
+	#region AnimationID
+	private static readonly int PlayerHit = Animator.StringToHash("PlayerHit");
+	private static readonly int Type = Animator.StringToHash("WeaponType");
+	private static readonly int Weapon = Animator.StringToHash("SwitchWeapon");
+	private static readonly int ReloadGun = Animator.StringToHash("ReloadGun");
+	private static readonly int ShootingSpeed = Animator.StringToHash("ShootingSpeed");
+	private static readonly int MovementSpeed = Animator.StringToHash("MovementSpeed");
+	private static readonly int Shoot = Animator.StringToHash("Shoot");
+	private static readonly int PosX = Animator.StringToHash("PosX");
+	private static readonly int PosY = Animator.StringToHash("PosY");
+	#endregion
+	public Rigidbody Rigidbody { get; private set; }
     public FloatingCapsule FloatingCapsule { get; private set; }
     public CapsuleCollider Collider { get; private set; }
     public Animator Animator { get; private set; }
@@ -42,7 +53,7 @@ public class PlayerController : BasicController
 
     private bool weaponSwitchable = true;
     private Camera mainCamera;
-
+	//Unity and override methods
     protected override void Awake()
     {
         base.Awake();
@@ -67,8 +78,8 @@ public class PlayerController : BasicController
 	}
     private void OnDestroy()
     {
-        _hp.OnValueChange -= HandleHealthChange;
-        _maxHp.OnValueChange -= HandleMaxHpChange;
+        hp.OnValueChange -= HandleHealthChange;
+        maxHp.OnValueChange -= HandleMaxHpChange;
 		//InputEvent.OnInputSwitchGuns -= SwitchGun;
 
 		PlayerEvent.OnShoot -= SetShootAnim;
@@ -99,6 +110,12 @@ public class PlayerController : BasicController
     {
         base.Death(dealer);
         Weapons[CurrentWeaponIndex].gameObject.SetActive(false);
+    }
+
+    public override float Damage(DamageInfo info)
+    {
+	    Animator.SetTrigger(PlayerHit);
+	    return base.Damage(info);
     }
 
     // Weapon handle
@@ -139,7 +156,7 @@ public class PlayerController : BasicController
         currentSlot.gameObject.SetActive(true);
         CurrentWeaponIndex = index;
         CalculateMaxCapacity(Weapons[index]);
-        Animator.SetFloat("WeaponType", (float)currentSlot.GunData.WeaponType);
+        Animator.SetFloat(Type, (float)currentSlot.GunData.WeaponType);
         Stats.GetStat(StatType.Speed).AddModifier(new StatModifier(-currentSlot.GunData.Weight,StatModType.Flat));
         PlayerEvent.OnEquipWeapon?.Invoke(currentSlot);
         return true;
@@ -154,28 +171,10 @@ public class PlayerController : BasicController
 	    DOVirtual.DelayedCall(GunSwitchCooldown, () => { weaponSwitchable = true; });
 	    //Switch
 	    BeforeSwitching();
-	    Animator.SetBool("SwitchWeapon", true);
-	    Animator.SetBool("ReloadGun", false);
+	    Animator.SetBool(Weapon, true);
+	    Animator.SetBool(ReloadGun, false);
 	    Weapons[CurrentWeaponIndex].OnSwitchOut();
 	    EquipGun(index);
-    }
-    public void SwitchWeapon()
-    {
-        if(!weaponSwitchable ) return;
-        weaponSwitchable = false;
-        DOVirtual.DelayedCall(GunSwitchCooldown, () => { weaponSwitchable = true; });
-        //Switch
-		BeforeSwitching();
-		Animator.SetBool("SwitchWeapon", true);
-        Animator.SetBool("ReloadGun", false);
-        
-        Stats.GetStat(StatType.Speed).RemoveModifier(new StatModifier(-Weapons[CurrentWeaponIndex].GunData.Weight,StatModType.Flat));
-        int n = 1;
-        while (n < Weapons.Length)
-        {
-	        if(EquipGun((CurrentWeaponIndex+1)%Weapons.Length)) break;
-	        n++;
-        }
     }
 
     public bool ContainsWeapon(WeaponBase weapon)
@@ -212,20 +211,22 @@ public class PlayerController : BasicController
     {
         ((GunBase)Weapons[CurrentWeaponIndex]).Stats.GetAttribute(AttributeType.Bullets).SetValueToMax();
 		PlayerEvent.OnReload?.Invoke();
-		Animator.SetBool("ReloadGun", false);
+		Animator.SetBool(ReloadGun, false);
         AfterSwitching();
 	}
     public void SetShootingSpeedAnim()
     {
-		Animator.SetFloat("ShootingSpeed",Stats.GetStat(StatType.ShootSpeed).Value);
+		Animator.SetFloat(ShootingSpeed,Stats.GetStat(StatType.ShootSpeed).Value);
 	}
 	public void SetMovementSpeedAnim()
 	{
-		Animator.SetFloat("MovementSpeed", Stats.GetStat(StatType.Speed).Value/5f);
+		float value = Stats.GetStat(StatType.Speed).Value;
+		float baseValue = Stats.GetStat(StatType.Speed).BaseValue;
+		Animator.SetFloat(MovementSpeed, value>baseValue?(value/baseValue):1f);
 	}
 	public void SetShootAnim()
 	{
-		Animator.SetTrigger("Shoot");
+		Animator.SetTrigger(Shoot);
 	}
 	public void EnableLineRenderer()
 	{
@@ -241,9 +242,9 @@ public class PlayerController : BasicController
 	{
         if(Weapons[CurrentWeaponIndex].GunData.WeaponType == WeaponType.Knife) return;
         GunBase gun = (GunBase)Weapons[CurrentWeaponIndex];
-        float accuracy = gun.GunData.SpreadMax * gun.GunRecoil;
-		LineRendererL.SetLineRenderer(gun.ShootPoint, gun.GunData.Aim, Quaternion.Euler(0, Mathf.Clamp(-accuracy, -15,0), 0) * transform.forward);
-		LineRendererR.SetLineRenderer(gun.ShootPoint, gun.GunData.Aim, Quaternion.Euler(0, Mathf.Clamp(accuracy, 0, 15), 0) * transform.forward);
+        float accuracy = gun.GunAccuracy;
+		LineRendererL.SetLineRenderer(gun.ShootPoint, gun.GunData.Aim, Quaternion.Euler(0, Mathf.Clamp(-accuracy, -GameValues.RecoilMaxValue,0), 0) * transform.forward);
+		LineRendererR.SetLineRenderer(gun.ShootPoint, gun.GunData.Aim, Quaternion.Euler(0, Mathf.Clamp(accuracy, 0, GameValues.RecoilMaxValue), 0) * transform.forward);
 	}
 
 	// Movement
@@ -257,8 +258,8 @@ public class PlayerController : BasicController
         var x =Vector3.Dot(MovementInput, Quaternion.Euler(0,-mainCamera.transform.eulerAngles.y,0)* transform.right);
         var y =Vector3.Dot(MovementInput, Quaternion.Euler(0,-mainCamera.transform.eulerAngles.y,0)* transform.forward);
         CurrentBlend = Vector2.Lerp(CurrentBlend, new Vector2(x,y) , 0.1f);
-        Animator.SetFloat("PosX",CurrentBlend.x);
-        Animator.SetFloat("PosY",CurrentBlend.y);
+        Animator.SetFloat(PosX,CurrentBlend.x*Stats.GetStat(StatType.Speed).Value/Stats.GetStat(StatType.Speed).BaseValue);
+        Animator.SetFloat(PosY,CurrentBlend.y*Stats.GetStat(StatType.Speed).Value/Stats.GetStat(StatType.Speed).BaseValue);
     }
 
     public void RotatePlayer()
@@ -286,37 +287,37 @@ public class PlayerController : BasicController
     }
 
     //Health Bar
-    private Attribute _hp;
-    private Stat _maxHp;
+    private Attribute hp;
+    private Stat maxHp;
     private void InitHealthBar()
     {
-        if (Stats.TryGetAttribute(AttributeType.Hp, out _hp))
+        if (Stats.TryGetAttribute(AttributeType.Hp, out hp))
         {
-            _hp.OnValueChange += HandleHealthChange;
-            PlayerEvent.OnInitStatusBar?.Invoke(AttributeType.Hp, _hp.Value, _hp.MaxValue);
+            hp.OnValueChange += HandleHealthChange;
+            PlayerEvent.OnInitStatusBar?.Invoke(AttributeType.Hp, hp.Value, hp.MaxValue);
         }
 
-        if (Stats.TryGetStat(StatType.MaxHP, out _maxHp))
+        if (Stats.TryGetStat(StatType.MaxHP, out maxHp))
         {
-            _maxHp.OnValueChange += HandleMaxHpChange;
+            maxHp.OnValueChange += HandleMaxHpChange;
         }
     }
 
     private void HandleMaxHpChange()
     {
-        PlayerEvent.OnMaxHeathChange?.Invoke(_hp.Value, _maxHp.Value);
+        PlayerEvent.OnMaxHeathChange?.Invoke(hp.Value, maxHp.Value);
     }
 
     private void HandleHealthChange()
     {
-        if (_hp == null) return;
-        PlayerEvent.OnHeathChange?.Invoke(_hp.Value, _hp.MaxValue);
+        if (hp == null) return;
+        PlayerEvent.OnHeathChange?.Invoke(hp.Value, hp.MaxValue);
     }
     //Buffs
     public List<int> BuffList { get; private set; }
-    public void AddBuffToPlayer(BasicBuffSO buff)
+    public void AddBuffToPlayer(BaseBuffSO buff)
     {
-		BuffStatusEffect buffEffect = buff.AddStatusEffect(Stats);
+		BaseStatusEffect buffEffect = buff.AddStatusEffect(Stats);
         BuffList.Add(buff.ID);
         buffEffect.OnEnd += () => BuffList.Remove(buff.ID);
     }

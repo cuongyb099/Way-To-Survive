@@ -17,12 +17,15 @@ MonoBehaviour:
   MagPrefab: {fileID: 6182647827399181740, guid: de3742eb92fbf5e4cb904b25721c5f44, type: 3}
   WeaponType: 3
   GunName: AWM
-  GunDescription: The Accuracy International Arctic Warfare rifle is a bolt-action
-    sniper rifle designed and manufactured by the British company Accuracy International.
-    It has proved popular as a civilian, police, and military rifle since its introduction
-    in the 1980s. The rifles have features that improve performance in extremely
-    cold conditions (which gave the rifle its name) without impairing operation in
-    less extreme conditions.
+  GunDescription:
+    m_TableReference:
+      m_TableCollectionName: GUID:fd6713aa530e7a244b6d797fbc2425fb
+    m_TableEntryReference:
+      m_KeyId: 1441891606528
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   Icon: {fileID: 1041082314, guid: 92a4fe653152e9244b4849b9dba1c92b, type: 3}
   GunPrice: 5000
   ShootingSpeed: 1.5
@@ -44,3 +47,6 @@ MonoBehaviour:
   CockingSound: {fileID: 8300000, guid: 48e0ad872319cbd458c5373053cbd50b, type: 3}
   MagSoundIn: {fileID: 8300000, guid: 587a3f37adbb9a942883c3fc572878b6, type: 3}
   MagSoundOut: {fileID: 8300000, guid: 7a59dde985bdfcf458a8dcae0e299541, type: 3}
+  references:
+    version: 2
+    RefIds: []

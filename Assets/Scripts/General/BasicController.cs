@@ -4,7 +4,6 @@ using UnityEngine;
 public class BasicController : MonoBehaviour, IDamagable
 {
     public StatsController Stats { get; private set; }
-    
     public bool IsDead => isDead;
     protected bool isDead;
 
@@ -16,9 +15,9 @@ public class BasicController : MonoBehaviour, IDamagable
         Stats = GetComponentInChildren<StatsController>();
         isDead = false;
     }
-    public virtual void Damage(DamageInfo info)
+    public virtual float Damage(DamageInfo info)
     {
-        if(isDead) return;
+        if(isDead) return 0;
         float finalDamage = Mathf.Clamp(info.Damage - Stats.GetStat(StatType.DEF).Value, 0, 999999);
         Stats.GetAttribute(AttributeType.Hp).Value -= finalDamage;
         OnDamaged?.Invoke();
@@ -27,6 +26,8 @@ public class BasicController : MonoBehaviour, IDamagable
             Stats.GetAttribute(AttributeType.Hp).Value = 0;
             Death(info.Dealer);
         }
+
+        return finalDamage;
     }
 
     public virtual void Death(GameObject dealer)
@@ -35,6 +36,8 @@ public class BasicController : MonoBehaviour, IDamagable
         isDead = true;
         OnDeath?.Invoke();
     }
+
+    public GameObject GetGameObject() => gameObject;
 
     [ContextMenu("Deal 10 DMG")]
     public void Damage10Dmg()

@@ -14,6 +14,7 @@ public class ShoppingState : BaseState<EGameState>
     public override void Enter()
     {
         GameEvent.OnStartShoppingState?.Invoke();
+        gameManager.SkipShopping = false;
         Timer = gameManager.ShoppingTime;
     }
 

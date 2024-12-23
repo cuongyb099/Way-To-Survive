@@ -14,6 +14,10 @@ public class GunBase : WeaponBase
 
 	public bool IsFullCap { get { return Stats.GetAttribute(AttributeType.Bullets).Value == Stats.GetStat(StatType.MaxBulletCap).Value; } }
 	public bool IsEmpty { get { return Stats.GetAttribute(AttributeType.Bullets).Value == 0; } }
+	public float GunAccuracy
+	{
+		get { return GunRecoil * GunData.SpreadMax * playerController.Stats.GetStat(StatType.MaxSpreadReduce).Value; }
+	}
 	public float GunRecoil { get; protected set; } = 0f;
 	public StatsController Stats { get; protected set; }
 	public TriggerHandler GunOverlap { get; protected set; }
@@ -122,15 +126,16 @@ public class GunBase : WeaponBase
 	
 	public virtual void GunRecoilUpdate()
 	{
-		GunRecoil += GunData.Recoil;
-		if (GunRecoil >= 1) { GunRecoil = 1f; }
+		GunRecoil += GunData.Recoil* playerController.Stats.GetStat(StatType.RecoilReduce).Value;
+		if (GunRecoil >= 1) { GunRecoil = 1f; return;}
+		if (GunRecoil < 0) { GunRecoil = 0f; return;}
 	}
 	public virtual void BulletInstantiate()
 	{
 		GameObject a = ObjectPool.Instance.SpawnObject(GunData.BulletPrefab, ShootPoint.position, transform.rotation, PoolType.GameObject);
 		Bullet bullet = a.GetComponent<Bullet>();
 
-		bullet.InitBullet(ShootPoint.position, GunData.SpreadMax * GunRecoil, DamageInfo.GetDamageInfo(GunData.Damage,playerController.Stats,playerController.gameObject));
+		bullet.InitBullet(ShootPoint.position, GunAccuracy, DamageInfo.GetDamageInfo(GunData.Damage,playerController.Stats, DamageType.Bullet));
 	}
 	public void SetBulletCap(float mul=1)
 	{

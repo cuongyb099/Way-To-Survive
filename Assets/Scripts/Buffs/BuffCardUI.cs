@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,22 +12,16 @@ public class BuffCardUI : MonoBehaviour
 	public TextMeshProUGUI Description;
 	public Image Icon;
 	public Button Button;
-	private BasicBuffSO buffData;
-	public void Initialize(BasicBuffSO buff)
+	private BaseBuffSO buffData;
+	public void Initialize(BaseBuffSO buff)
     {
         buffData = buff;
-        Name.text = buff.Name;
-		Description.text = GetDescription(buff);
+        Name.text = buff.Name.GetLocalizedString();
+		Description.text = buff.Description.GetLocalizedString(buff.GetValues());
 		Icon.sprite = buff.Icon;
 	}
 	public void BuffUpPlayer()
     {
         GameManager.Instance.Player.AddBuffToPlayer(buffData);
     }
-	private string GetDescription(BasicBuffSO buff)
-	{
-		string temp = buff.Description.Replace("{value}", buff.Value.ToString() + ((buff.ModifierType is StatModType.Percentage)?"%":""));
-		temp = temp.Replace("{pvalue}", (buff.Value*100f).ToString()+"%");
-		return temp;
-	}
 }

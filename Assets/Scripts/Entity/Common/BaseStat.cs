@@ -11,9 +11,9 @@ public abstract class BaseStat : MonoBehaviour, IDamagable
 	public bool IsDead => isDead;
 	private bool isDead;
 
-    public virtual void Damage(DamageInfo info)
+    public virtual float Damage(DamageInfo info)
     {
-            
+	    return 0;
     }
 
     public virtual void Damage(float Damage)
@@ -27,4 +27,6 @@ public abstract class BaseStat : MonoBehaviour, IDamagable
 	{
 		throw new NotImplementedException();
 	}
+
+	public GameObject GetGameObject() => gameObject;
 }

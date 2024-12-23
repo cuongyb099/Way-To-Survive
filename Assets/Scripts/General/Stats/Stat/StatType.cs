@@ -12,5 +12,7 @@ public enum StatType
 	MagCapacity,
 	//Guns
 	MaxBulletCap,
+	RecoilReduce,
+	MaxSpreadReduce,
 }
 

@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 public static class PlayerEvent
 {
@@ -14,4 +15,9 @@ public static class PlayerEvent
 	public static Action OnChangeCap;
     public static Action<int> OnCashChange;
     public static Action<int> RecieveCash;
+    // Damage
+    public static Action<float, IDamagable> OnDamageDealt;
+    public static Action<float, IDamagable> OnBulletDamageDealt;
+    public static Action<float, IDamagable> OnFollowUpDamageDealt;
+    public static Action<float, IDamagable> OnMeleeDamageDealt;
 }

@@ -15,7 +15,7 @@ public class BuffListSO : ScriptableObject
 	[SerializeField] public SerializedDictionary<BuffRarity, BuffCardUI> BuffRarityCard = new();
 	[SerializedDictionary("Rarity", "Rate")]
 	[SerializeField] public SerializedDictionary<BuffRarity, float> BuffRarityRate = new();
-	public BasicBuffSO ChoseRandomRarityBuff()
+	public BaseBuffSO ChoseRandomRarityBuff()
     {
         float curSum = 0;
         float rdnNum = UnityEngine.Random.value* calSumNumber();
@@ -36,14 +36,14 @@ public class BuffListSO : ScriptableObject
         }
         return sum;
     }
-	public List<BasicBuffSO> ChoseRandomBuffAmmount(int n)
+	public List<BaseBuffSO> ChoseRandomBuffAmmount(int n)
 	{
-        List<BasicBuffSO> l = new List<BasicBuffSO>();
+        List<BaseBuffSO> l = new List<BaseBuffSO>();
         int count = 0;
         while (l.Count < n && count <999)
         {
             count++;
-            BasicBuffSO t = ChoseRandomRarityBuff();
+            BaseBuffSO t = ChoseRandomRarityBuff();
             if (!l.Contains(t))
             {
                 if (!t.Stackable && GameManager.Instance.Player.BuffList.Contains(t.ID)) continue;

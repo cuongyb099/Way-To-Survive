@@ -34,8 +34,7 @@ public class Bullet : MonoBehaviour
 		{
 			if (otherCollider.TryGetComponent(out IDamagable damagable))
 			{
-				DamagePopUpGenerator.Instance.CreateDamagePopUp(other.contacts[0].point,DamageInfo);
-				damagable.Damage(DamageInfo);
+				DamageHandler.Damage(damagable, DamageInfo);
 				countDMG--;
 				DamageInfo = new DamageInfo(DamageInfo.Dealer,DamageInfo.Damage*DamageReduction,DamageInfo.IsCrit);
 				if(countDMG<=0)
@@ -53,11 +52,10 @@ public class Bullet : MonoBehaviour
 		RB.position = point;
 		Vector3 angle = info.Dealer.gameObject.transform.rotation.eulerAngles;
 
-		Quaternion temp = Quaternion.Euler(angle.x, angle.y + Mathf.Clamp(UnityEngine.Random.Range(-accuracy, accuracy), -15, 15), angle.z);
+		Quaternion temp = Quaternion.Euler(angle.x, angle.y + Mathf.Clamp(UnityEngine.Random.Range(-accuracy, accuracy), -GameValues.RecoilMaxValue, GameValues.RecoilMaxValue), angle.z);
 		TrailRenderer.Clear();
 
 		RB.AddForce(temp * Vector3.forward * Force, ForceMode.VelocityChange);
-
 	}
 	public void Deactivate()
 	{

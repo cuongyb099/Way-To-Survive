@@ -17,7 +17,15 @@ MonoBehaviour:
   MagPrefab: {fileID: 0}
   WeaponType: 2
   GunName: MAG-7
-  GunDescription: 
+  GunDescription:
+    m_TableReference:
+      m_TableCollectionName: GUID:fd6713aa530e7a244b6d797fbc2425fb
+    m_TableEntryReference:
+      m_KeyId: 1445427404800
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   Icon: {fileID: 1247450681, guid: 92a4fe653152e9244b4849b9dba1c92b, type: 3}
   GunPrice: 0
   ShootingSpeed: 1
@@ -34,3 +42,6 @@ MonoBehaviour:
   CockingSound: {fileID: 0}
   MagSoundIn: {fileID: 0}
   MagSoundOut: {fileID: 0}
+  references:
+    version: 2
+    RefIds: []
