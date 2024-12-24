@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <DamageTime>k__BackingField: 1
-  <DamageReduction>k__BackingField: 0.5
+  <DamageReduction>k__BackingField: 1
   LiveTime: 3
   Force: 80
   HitEffectWall: {fileID: 381577045362741523, guid: 46d5ff5f9098d414890a45404c2adda3, type: 3}

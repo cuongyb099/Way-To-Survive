@@ -1,7 +1,9 @@
+using System;
 using DG.Tweening;
 using ResilientCore;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.Serialization;
 
 public class PlayerController : BasicController
@@ -21,6 +23,7 @@ public class PlayerController : BasicController
     public FloatingCapsule FloatingCapsule { get; private set; }
     public CapsuleCollider Collider { get; private set; }
     public Animator Animator { get; private set; }
+    [field:SerializeField] public CameraZoom CameraZoom { get; private set; }
     public PlayerInteractor PlayerInteractor { get; private set; }
 	//Player Data
 	public float GunSwitchCooldown = .1f;
@@ -68,7 +71,7 @@ public class PlayerController : BasicController
         OwnedWeapons = new List<WeaponBase> { StartingWeapon };
 
         Weapons = new WeaponBase[3];
-		InstantiateGun(StartingWeapon, 0);
+		InstantiateWeapon(StartingWeapon, 0);
 			
 		PlayerEvent.OnShoot += SetShootAnim;
 		PlayerEvent.RecieveCash += AddCash;
@@ -119,17 +122,28 @@ public class PlayerController : BasicController
     }
 
     // Weapon handle
-    public void InstantiateGun(WeaponBase gun, int index)
+    public void InstantiateWeapon(WeaponBase weapon, int index)
     {
 	    if (Weapons[index] != null)
 	    {
 		    Stats.GetStat(StatType.Speed).RemoveModifier(new StatModifier(-Weapons[index].GunData.Weight,StatModType.Flat));
 		    Destroy(Weapons[index].gameObject);
 	    }
-	    Weapons[index] = (Instantiate(gun, RightHandHoldPoint.transform));
+	    Weapons[index] = (Instantiate(weapon, RightHandHoldPoint.transform));
 	    Weapons[index].gameObject.layer = gameObject.layer;
 	    Weapons[index].Initialize();
 	    Weapons[index].gameObject.SetActive(false);
+	    
+	    CurrentWeapon.ShootAble = true;
+	    Animator.SetBool(ReloadGun, false);
+	    Animator.SetBool(Weapon, false);
+	    
+	    //if weapon is a gun
+	    if (Weapons[index] is GunBase gun)
+	    {
+		    CalculateMaxCapacity(Weapons[index]);
+		    gun.SetBulletToMax();
+	    }
 	    EquipGun(CurrentWeaponIndex);
     }
     
@@ -143,7 +157,7 @@ public class PlayerController : BasicController
     {
 	    for (int i = 0; i < Weapons.Length; i++)
 	    {
-		    InstantiateGun(guns[i],i);
+		    InstantiateWeapon(guns[i],i);
 	    }
     }
     public bool EquipGun(int index)
@@ -158,6 +172,7 @@ public class PlayerController : BasicController
         CalculateMaxCapacity(Weapons[index]);
         Animator.SetFloat(Type, (float)currentSlot.GunData.WeaponType);
         Stats.GetStat(StatType.Speed).AddModifier(new StatModifier(-currentSlot.GunData.Weight,StatModType.Flat));
+        CameraZoom.SetZoom(CurrentWeapon.GunData.Aim/Mathf.Cos(45f*Mathf.Deg2Rad)+5f);
         PlayerEvent.OnEquipWeapon?.Invoke(currentSlot);
         return true;
     }
@@ -209,7 +224,7 @@ public class PlayerController : BasicController
 	}
     public void AfterReload()
     {
-        ((GunBase)Weapons[CurrentWeaponIndex]).Stats.GetAttribute(AttributeType.Bullets).SetValueToMax();
+        ((GunBase)Weapons[CurrentWeaponIndex]).SetBulletToMax();
 		PlayerEvent.OnReload?.Invoke();
 		Animator.SetBool(ReloadGun, false);
         AfterSwitching();
@@ -238,6 +253,9 @@ public class PlayerController : BasicController
         LineRendererL.LR.enabled = false;
 		LineRendererR.LR.enabled = false;
 	}
+
+	public Gradient LineDefaultColor;
+	public Gradient LineTargetColor;
 	public void SetLineRenderers()
 	{
         if(Weapons[CurrentWeaponIndex].GunData.WeaponType == WeaponType.Knife) return;
@@ -245,6 +263,22 @@ public class PlayerController : BasicController
         float accuracy = gun.GunAccuracy;
 		LineRendererL.SetLineRenderer(gun.ShootPoint, gun.GunData.Aim, Quaternion.Euler(0, Mathf.Clamp(-accuracy, -GameValues.RecoilMaxValue,0), 0) * transform.forward);
 		LineRendererR.SetLineRenderer(gun.ShootPoint, gun.GunData.Aim, Quaternion.Euler(0, Mathf.Clamp(accuracy, 0, GameValues.RecoilMaxValue), 0) * transform.forward);
+		
+        if(Physics.Raycast(gun.ShootPoint.position,transform.forward, out RaycastHit hit, gun.GunData.Aim) &&
+           accuracy <= 1f)
+        {
+	        if (hit.collider.CompareTag("Enemy"))
+	        {
+		        LineRendererL.LR.colorGradient = LineTargetColor;
+		        LineRendererR.LR.colorGradient = LineTargetColor;
+	        }
+	        
+	        return;
+        }
+        
+        LineRendererL.LR.colorGradient = LineDefaultColor;
+        LineRendererR.LR.colorGradient = LineDefaultColor;
+
 	}
 
 	// Movement
@@ -327,9 +361,8 @@ public class PlayerController : BasicController
 	    for (int i = 0; i < Weapons.Length; i++)
 	    {
 		    if(!Weapons[i]) continue;
-		    if(Weapons[i].GunData.WeaponType == WeaponType.Knife) continue;
-		    GunBase gun = (GunBase)Weapons[i];
-		    gun.SetBulletCap(Stats.GetStat(StatType.MagCapacity).Value);
+		    if(Weapons[i] is GunBase gun)
+				gun.SetBulletCap(Stats.GetStat(StatType.MagCapacity).Value);
 	    }
 
 	    PlayerEvent.OnChangeCap?.Invoke();
@@ -338,9 +371,8 @@ public class PlayerController : BasicController
     public void CalculateMaxCapacity(WeaponBase weaponBase)
     {
 	    if(!weaponBase) return;
-	    if(weaponBase.GunData.WeaponType == WeaponType.Knife) return;
-	    GunBase gun = (GunBase)weaponBase;
-	    gun.SetBulletCap(Stats.GetStat(StatType.MagCapacity).Value);
+	    if(weaponBase is GunBase gun)
+			gun.SetBulletCap(Stats.GetStat(StatType.MagCapacity).Value);
     }
     //Cash
     public void AddCash(int amount)

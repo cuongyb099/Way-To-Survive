@@ -86,7 +86,7 @@ public class GunShopUI : CanvasUIHandler
         for(int i = 0; i< player.Weapons.Length; i++)
         {
             if (player.Weapons[i] != null) continue;
-            player.InstantiateGun(Selected.GunHolder,i);
+            player.InstantiateWeapon(Selected.GunHolder,i);
             break;
         }
         

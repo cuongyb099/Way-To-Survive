@@ -3,7 +3,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEngine;
+using Update = UnityEngine.PlayerLoop.Update;
 
 public class CameraZoom : MonoBehaviour
 {
@@ -24,20 +26,29 @@ public class CameraZoom : MonoBehaviour
     {
         transposer = GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTransposer>();
         inputProvider = GetComponent<CinemachineInputProvider>();
-        currentTargetDistance = defaultDistance;
     }
 
     // Update is called once per frame
-    void Update()
-    { 
-		Zoom();
-    }
-
-    private void Zoom()
+    private void Update()
     {
-        float zoomValue = -inputProvider.GetAxisValue(2) * zoomSensitivity;
-        currentTargetDistance = Mathf.Clamp(currentTargetDistance + zoomValue, minDistance, maxDistance);
-
+        Zoom();
+    }
+  //   private void Zoom()
+  //   {
+  //       float zoomValue = -inputProvider.GetAxisValue(2) * zoomSensitivity;
+  //       currentTargetDistance = Mathf.Clamp(currentTargetDistance + zoomValue, minDistance, maxDistance);
+  //
+  //       float currentDistance = transposer.m_FollowOffset.magnitude;
+  //       if (currentTargetDistance == currentDistance)
+  //       {
+  //           return;
+  //       }
+  //       float learpedZoomValue = Mathf.Lerp(currentDistance, currentTargetDistance, smoothing * Time.deltaTime);
+  //
+		// transposer.m_FollowOffset = transposer.m_FollowOffset.normalized * learpedZoomValue;
+  //   }
+    public void Zoom()
+    {
         float currentDistance = transposer.m_FollowOffset.magnitude;
         if (currentTargetDistance == currentDistance)
         {
@@ -45,7 +56,11 @@ public class CameraZoom : MonoBehaviour
         }
         float learpedZoomValue = Mathf.Lerp(currentDistance, currentTargetDistance, smoothing * Time.deltaTime);
 
-		transposer.m_FollowOffset = transposer.m_FollowOffset.normalized * learpedZoomValue;
+        transposer.m_FollowOffset = transposer.m_FollowOffset.normalized * learpedZoomValue;
     }
 
+    public void SetZoom(float zoom)
+    {
+        currentTargetDistance = Mathf.Clamp(zoom, minDistance, maxDistance);
+    }
 }

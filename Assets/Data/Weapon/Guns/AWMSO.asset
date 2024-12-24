@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b59205e98b25a304aac3cf684f1d5aa3, type: 3}
   m_Name: AWMSO
   m_EditorClassIdentifier: 
-  BulletPrefab: {fileID: 984755602444092648, guid: bff9cb15c026277498f4541bb37853a4, type: 3}
+  BulletPrefab: {fileID: 984755602444092648, guid: fe9330689c899644ab4a429fdcded209, type: 3}
   ShellPrefab: {fileID: 6182647827399181740, guid: a1e78c6635fd42541975b5cdc3cfdfab, type: 3}
   MagPrefab: {fileID: 6182647827399181740, guid: de3742eb92fbf5e4cb904b25721c5f44, type: 3}
   WeaponType: 3
@@ -29,12 +29,12 @@ MonoBehaviour:
   Icon: {fileID: 1041082314, guid: 92a4fe653152e9244b4849b9dba1c92b, type: 3}
   GunPrice: 5000
   ShootingSpeed: 1.5
-  Damage: 15
-  Aim: 20
-  SpreadMax: 10
+  Damage: 10
+  Aim: 15
+  SpreadMax: 20
   Recoil: 0.75
   RecoilResetTime: 1
-  Weight: 2
+  Weight: 2.3
   MaxCapacity: 5
   ReleaseToShoot: 1
   ShootingSounds:

@@ -27,7 +27,7 @@ public struct DamageInfo
     {
         if (statsController == null) return new DamageInfo();
         if (!statsController.Stats.TryGetValue(statType, out Stat mainStat)) 
-            return new DamageInfo();
+            return new DamageInfo(statsController.gameObject);
         
         float finalDamage = mainStat.Value * multiplier;
         if (!statsController.Stats.TryGetValue(StatType.CritRate, out Stat critRate) ||

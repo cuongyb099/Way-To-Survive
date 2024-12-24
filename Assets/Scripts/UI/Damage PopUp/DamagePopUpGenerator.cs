@@ -6,15 +6,32 @@ using UnityEngine;
 using UnityEngine.Pool;
 using UnityEngine.UIElements;
 using Tech.Singleton;
+using UnityEditor;
 using Random = UnityEngine.Random;
 
 public class DamagePopUpGenerator : Singleton<DamagePopUpGenerator>
 {
-    public GameObject PopUpPrefab;
-	public GameObject CritPopUpPrefab;
-	public GameObject CashPopUpPrefab;
+    private GameObject PopUpPrefab;
+    private GameObject CritPopUpPrefab;
+    private GameObject CashPopUpPrefab;
+    protected override void Awake()
+    {
+	    base.Awake();
+	    AddressablesManager.Instance.CreateAsset<GameObject>("Assets/Prefab/UI/Popup/NonCritPopup.prefab", gameObject =>
+	    {
+		    PopUpPrefab = gameObject;
+	    });
+	    AddressablesManager.Instance.CreateAsset<GameObject>("Assets/Prefab/UI/Popup/CritDamagePopup.prefab", gameObject =>
+	    {
+		    CritPopUpPrefab = gameObject;
+	    });
+	    AddressablesManager.Instance.CreateAsset<GameObject>("Assets/Prefab/UI/Popup/CashPopup.prefab", gameObject =>
+	    {
+		    CashPopUpPrefab = gameObject;
+	    });
+    }
 
-	public void CreateDamagePopUp(Vector3 position,string text, bool crit = false)
+    public void CreateDamagePopUp(Vector3 position,string text, bool crit = false)
     {
 	    GameObject obj = ObjectPool.Instance.SpawnObject(crit?CritPopUpPrefab:PopUpPrefab, position+Random.insideUnitSphere, Quaternion.identity,PoolType.UIPopUp);
 	    DamagePopUpController popup = obj.GetComponent<DamagePopUpController>();

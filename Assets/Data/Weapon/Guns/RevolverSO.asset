@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b59205e98b25a304aac3cf684f1d5aa3, type: 3}
   m_Name: RevolverSO
   m_EditorClassIdentifier: 
-  BulletPrefab: {fileID: 984755602444092648, guid: bff9cb15c026277498f4541bb37853a4, type: 3}
+  BulletPrefab: {fileID: 984755602444092648, guid: 3e0913a4e2aa7b74f8e45ec8780fa00d, type: 3}
   ShellPrefab: {fileID: 6182647827399181740, guid: a1e78c6635fd42541975b5cdc3cfdfab, type: 3}
   MagPrefab: {fileID: 6182647827399181740, guid: f66f9dfcd2d782b4dbb6c221dfb18b48, type: 3}
   WeaponType: 0
@@ -28,7 +28,7 @@ MonoBehaviour:
     m_LocalVariables: []
   Icon: {fileID: 217534693, guid: 92a4fe653152e9244b4849b9dba1c92b, type: 3}
   GunPrice: 100
-  ShootingSpeed: 0.6
+  ShootingSpeed: 0.4
   Damage: 4
   Aim: 5
   SpreadMax: 20
@@ -38,8 +38,10 @@ MonoBehaviour:
   MaxCapacity: 6
   ReleaseToShoot: 1
   ShootingSounds:
-  - {fileID: 8300000, guid: 8b64f261c520a0343913ef6ac03738b2, type: 3}
-  - {fileID: 8300000, guid: 8b64f261c520a0343913ef6ac03738b2, type: 3}
+  - {fileID: 8300000, guid: 032548a30e7412548a7986a2358bcbaa, type: 3}
+  - {fileID: 8300000, guid: 104755200ced6ff4880a25abc0dc37a9, type: 3}
+  - {fileID: 8300000, guid: 0b60a88b41e236345ad7f7fb7da39128, type: 3}
+  - {fileID: 8300000, guid: 24f29742bdeee7f46a18bfc3980987c9, type: 3}
   TailSound: {fileID: 0}
   CockingSound: {fileID: 8300000, guid: 044f55af4e5f8f64ea083730bdf998dc, type: 3}
   MagSoundIn: {fileID: 8300000, guid: d41d7e018a85ded4ba3359b55ef2ecd7, type: 3}

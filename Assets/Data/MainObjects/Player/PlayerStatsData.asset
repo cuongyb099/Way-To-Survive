@@ -16,7 +16,7 @@ MonoBehaviour:
     _serializedList:
     - Key: 0
       Value:
-        _baseValue: 5
+        _baseValue: 1
     - Key: 1
       Value:
         _baseValue: 2
@@ -37,7 +37,7 @@ MonoBehaviour:
         _baseValue: 1
     - Key: 7
       Value:
-        _baseValue: 2
+        _baseValue: 1
     - Key: 8
       Value:
         _baseValue: 1

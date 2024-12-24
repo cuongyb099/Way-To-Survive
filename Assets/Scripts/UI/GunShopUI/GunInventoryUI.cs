@@ -84,7 +84,7 @@ public class GunInventoryUI : CanvasUIHandler
     {
         if (!player.ContainsWeapon(Selected.GunHolder))
         {
-            player.InstantiateGun(Selected.GunHolder,index);
+            player.InstantiateWeapon(Selected.GunHolder,index);
             GunEquipedSlots[index].Initialize(Selected.GunHolder);
         }
 

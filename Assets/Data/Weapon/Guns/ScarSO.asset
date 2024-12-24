@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b59205e98b25a304aac3cf684f1d5aa3, type: 3}
-  m_Name: AK12SO
+  m_Name: ScarSO
   m_EditorClassIdentifier: 
   BulletPrefab: {fileID: 984755602444092648, guid: bff9cb15c026277498f4541bb37853a4, type: 3}
   ShellPrefab: {fileID: 6182647827399181740, guid: a1e78c6635fd42541975b5cdc3cfdfab, type: 3}
   MagPrefab: {fileID: 6182647827399181740, guid: be822d7afbb24b64f825343c49bb66bb, type: 3}
   WeaponType: 1
-  GunName: AK-12
+  GunName: SCAR
   GunDescription:
     m_TableReference:
       m_TableCollectionName: GUID:fd6713aa530e7a244b6d797fbc2425fb
@@ -26,22 +26,23 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
-  Icon: {fileID: 870321632, guid: 92a4fe653152e9244b4849b9dba1c92b, type: 3}
-  GunPrice: 2700
-  ShootingSpeed: 0.15
-  Damage: 3
-  Aim: 8
-  SpreadMax: 12
-  Recoil: 0.1
-  RecoilResetTime: 2
+  Icon: {fileID: -181262712, guid: 44598c3ae2f46924b99046f2f3300073, type: 3}
+  GunPrice: 3500
+  ShootingSpeed: 0.2
+  Damage: 2.3
+  Aim: 10
+  SpreadMax: 9
+  Recoil: 0.04
+  RecoilResetTime: 3
   Weight: 1
   MaxCapacity: 30
   ReleaseToShoot: 0
   ShootingSounds:
-  - {fileID: 8300000, guid: d81bebac9cee217409b15b76e7011fc6, type: 3}
-  - {fileID: 8300000, guid: 7833cce12c063c545abdb01ac6003730, type: 3}
-  - {fileID: 8300000, guid: 7833cce12c063c545abdb01ac6003730, type: 3}
-  - {fileID: 8300000, guid: 7833cce12c063c545abdb01ac6003730, type: 3}
+  - {fileID: 8300000, guid: 96434fb9d0ba9d14292e6d36365b6105, type: 3}
+  - {fileID: 8300000, guid: 245268b0b2a33fe4e9a4c408cf3847e2, type: 3}
+  - {fileID: 8300000, guid: 281bc55c831bbbf4988c238dddcfa67e, type: 3}
+  - {fileID: 8300000, guid: 7d84283298cdc324a8178122a73cf403, type: 3}
+  - {fileID: 8300000, guid: 8d6e7061cf1eb274e90f0ae132668092, type: 3}
   TailSound: {fileID: 8300000, guid: 73e01a3d24896ab46bab8ca52b69fa7e, type: 3}
   CockingSound: {fileID: 8300000, guid: 586d58f81555a854996339b8111bd791, type: 3}
   MagSoundIn: {fileID: 8300000, guid: 587a3f37adbb9a942883c3fc572878b6, type: 3}

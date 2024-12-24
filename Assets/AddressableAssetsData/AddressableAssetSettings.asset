@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: 7b6457b04081fa04bb2db89e5736b50b
   m_currentHash:
     serializedVersion: 2
-    Hash: 42cdcda728482bd57ea52e81226aa7ff
+    Hash: 0ed6e4012d21cd8049c351133b91cfcf
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 0
   m_BundleLocalCatalog: 0
@@ -100,6 +100,10 @@ MonoBehaviour:
     - Locale-vi-VN
     - Locale-zh-CN
     - Locale-ja-JP
+    - Environment
+    - Manager
+    - GameSO
+    - GamePrefab
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 1401d1b0b4a82494d893949690939cf0, type: 2}

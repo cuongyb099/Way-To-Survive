@@ -17,17 +17,25 @@ MonoBehaviour:
   MagPrefab: {fileID: 6182647827399181740, guid: b90d077f25e2ca04c9360f25f237a5fb, type: 3}
   WeaponType: 2
   GunName: XM1014
-  GunDescription: asd
+  GunDescription:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   Icon: {fileID: 1247450681, guid: 92a4fe653152e9244b4849b9dba1c92b, type: 3}
   GunPrice: 2000
   ShootingSpeed: 1
-  Damage: 3
+  Damage: 2
   Aim: 5
   SpreadMax: 10
   Recoil: 0
   RecoilResetTime: 0
   Weight: 1
-  MaxCapacity: 10
+  MaxCapacity: 4
   ReleaseToShoot: 0
   ShootingSounds:
   - {fileID: 8300000, guid: fe9c6fc296f100044b864f2bd639c3ca, type: 3}
@@ -35,3 +43,6 @@ MonoBehaviour:
   CockingSound: {fileID: 8300000, guid: a02bc36fa5f93cf4a8fd0cf3114a6486, type: 3}
   MagSoundIn: {fileID: 8300000, guid: b6f4cac3255303c4b88398310d196511, type: 3}
   MagSoundOut: {fileID: 0}
+  references:
+    version: 2
+    RefIds: []

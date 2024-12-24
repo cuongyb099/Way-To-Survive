@@ -142,6 +142,11 @@ public class GunBase : WeaponBase
 		Stats.GetStat(StatType.MaxBulletCap).BaseValue = (int)(GunData.MaxCapacity * mul);
 	}
 
+	public void SetBulletToMax()
+	{
+		Stats.GetAttribute(AttributeType.Bullets).SetValueToMax();
+	}
+
 	public override int GetHashCode()
 	{
 		return HashCode.Combine(base.GetHashCode(), GunData);

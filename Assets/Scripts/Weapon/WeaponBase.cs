@@ -25,7 +25,7 @@ public abstract class WeaponBase : MonoBehaviour, IEquatable<WeaponBase>
 	protected bool trigger;
 	protected virtual void Awake()
 	{
-		playerController = GetComponentInParent<PlayerController>();
+		playerController = GameManager.Instance.Player;
 	}
 	public virtual void Initialize()
 	{
