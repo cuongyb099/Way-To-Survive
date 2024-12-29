@@ -78,7 +78,7 @@ public abstract class WeaponBase : MonoBehaviour, IEquatable<WeaponBase>
 		if (!ShootAble ||
 		    !repeatAble ) return;
 		repeatAble = false;
-		PlayerEvent.OnShoot?.Invoke();
+		PlayerEvent.OnAttack?.Invoke();
 		DOVirtual.DelayedCall(GunData.ShootingSpeed/playerController.Stats.GetStat(StatType.ShootSpeed).Value, () => { repeatAble = true;});
 		WeaponSoundPlay();
 	}

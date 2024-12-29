@@ -14,7 +14,7 @@ public class ShootingAddEffect : BaseStatusEffect
     }
 	protected override void HandleStart()
 	{
-		PlayerEvent.OnShoot += AddSpeed;
+		PlayerEvent.OnAttack += AddSpeed;
 	}
     protected override void HandleOnUpdate()
     {
@@ -26,7 +26,7 @@ public class ShootingAddEffect : BaseStatusEffect
 	    {
 		    stats.RemoveEffect(x);
 	    }
-		PlayerEvent.OnShoot -= AddSpeed;
+		PlayerEvent.OnAttack -= AddSpeed;
 	}
 
     public override void HandleStackChange()

@@ -54,6 +54,12 @@ public class AnimationEvents : MonoBehaviour
 		GunBase gun = (GunBase)PlayerController.CurrentWeapon;
 		gun.PutInMagazine();
 	}
+	//Melee
+	public void DamageMelee()
+	{
+		MeleeBase weapon = (MeleeBase)PlayerController.CurrentWeapon;
+		weapon.DealDamage();
+	}
 	//Sounds
 	public void CockingSound()
 	{

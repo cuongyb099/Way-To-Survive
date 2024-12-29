@@ -51,6 +51,7 @@ public class PlayerController : BasicController
     public LineRendererHelper LineRendererL;
     public LineRendererHelper LineRendererR;
     public WeaponBase[] Weapons;
+    [field: SerializeField] public BoxCollider MeleeHitCollider { get; private set; }
     public WeaponBase CurrentWeapon => Weapons[CurrentWeaponIndex];
     public int CurrentWeaponIndex { get; private set; }
 
@@ -73,7 +74,7 @@ public class PlayerController : BasicController
         Weapons = new WeaponBase[3];
 		InstantiateWeapon(StartingWeapon, 0);
 			
-		PlayerEvent.OnShoot += SetShootAnim;
+		PlayerEvent.OnAttack += SetShootAnim;
 		PlayerEvent.RecieveCash += AddCash;
         Stats.GetStat(StatType.MagCapacity).OnValueChange += CalculateMaxCap;
 		Stats.GetStat(StatType.ShootSpeed).OnValueChange += SetShootingSpeedAnim;
@@ -85,7 +86,7 @@ public class PlayerController : BasicController
         maxHp.OnValueChange -= HandleMaxHpChange;
 		//InputEvent.OnInputSwitchGuns -= SwitchGun;
 
-		PlayerEvent.OnShoot -= SetShootAnim;
+		PlayerEvent.OnAttack -= SetShootAnim;
 		PlayerEvent.RecieveCash -= AddCash;
 		Stats.GetStat(StatType.MagCapacity).OnValueChange -= CalculateMaxCap;
 		Stats.GetStat(StatType.ShootSpeed).OnValueChange -= SetShootingSpeedAnim;

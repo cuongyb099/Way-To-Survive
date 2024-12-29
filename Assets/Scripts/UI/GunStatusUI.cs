@@ -17,14 +17,14 @@ public class GunStatusUI : MonoBehaviour
 	private void Awake()
 	{
         PlayerEvent.OnEquipWeapon += ChangeGun;
-        PlayerEvent.OnShoot += UpdateGunAmmo;
+        PlayerEvent.OnAttack += UpdateGunAmmo;
 		PlayerEvent.OnReload += UpdateGunAmmo;
 		PlayerEvent.OnChangeCap += UpdateGunAmmo;
 	}
 	private void OnDestroy()
 	{
 		PlayerEvent.OnEquipWeapon -= ChangeGun;
-		PlayerEvent.OnShoot -= UpdateGunAmmo;
+		PlayerEvent.OnAttack -= UpdateGunAmmo;
 		PlayerEvent.OnReload -= UpdateGunAmmo;
 		PlayerEvent.OnChangeCap -= UpdateGunAmmo;
 
