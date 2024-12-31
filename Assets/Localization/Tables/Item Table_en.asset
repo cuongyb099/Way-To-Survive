@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
-  m_Name: Weapon Table_en
+  m_Name: Item Table_en
   m_EditorClassIdentifier: 
   m_LocaleId:
     m_Code: en
@@ -28,6 +28,42 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 1445427404800
     m_Localized: mag
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2804799958409216
+    m_Localized: AK-12
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2804835744210944
+    m_Localized: AWM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2804863774744576
+    m_Localized: MAG-7
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2804900923695104
+    m_Localized: USP-S
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2804945404289024
+    m_Localized: XM1014
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2804979273293824
+    m_Localized: Bayonet
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2805007387713536
+    m_Localized: MP5
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2805612407676928
+    m_Localized: Revolver
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2805922366742528
+    m_Localized: SCAR
     m_Metadata:
       m_Items: []
   references:

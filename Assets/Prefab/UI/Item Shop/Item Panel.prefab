@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5082070349495913559}
   - component: {fileID: 93680140585655635}
   m_Layer: 5
-  m_Name: Gun image
+  m_Name: Item image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -140,7 +140,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Gun Name
+  m_text: Item Name
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2c4d224912f3ea9499ab940355575838, type: 2}
   m_sharedMaterial: {fileID: 3929106527769597331, guid: 2c4d224912f3ea9499ab940355575838, type: 2}
@@ -223,7 +223,7 @@ GameObject:
   - component: {fileID: 953009721945292828}
   - component: {fileID: 8341158009940530228}
   m_Layer: 5
-  m_Name: Gun Panel
+  m_Name: Item Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -300,8 +300,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f08f5ddd97e1d204dad23fdd03857f23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GunName: {fileID: 8901377964381318483}
-  GunImage: {fileID: 93680140585655635}
+  ItemName: {fileID: 8901377964381318483}
+  ItemImage: {fileID: 93680140585655635}
 --- !u!114 &8341158009940530228
 MonoBehaviour:
   m_ObjectHideFlags: 0

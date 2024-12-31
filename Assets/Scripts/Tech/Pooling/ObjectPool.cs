@@ -18,12 +18,14 @@ namespace Tech.Pooling
 
 	public class ObjectPool : Singleton<ObjectPool>
 	{
-		private readonly Dictionary<GameObject, PooledObject> _objectPools = new ();
-		private readonly Dictionary<PoolType, Transform> _poolsHolder = new(); 
+		private Dictionary<GameObject, PooledObject> _objectPools;
+		private Dictionary<PoolType, Transform> _poolsHolder; 
 
 		protected override void Awake()
 		{
 			base.Awake();
+			_objectPools = new();
+			_poolsHolder = new();
 			SetupHolder();
 		}
 

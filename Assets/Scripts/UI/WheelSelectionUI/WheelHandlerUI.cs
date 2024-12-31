@@ -41,8 +41,8 @@ public class WheelHandlerUI : MonoBehaviour
         //0->2 is for guns
         for (int i = 0; i < 3; i++)
         {
-            Items[i].Initialize(i, guns[i] != null ? guns[i].GunData.GunName : null,
-                guns[i] != null ? guns[i].GunData.Icon : null);
+            Items[i].Initialize(i, guns[i] != null ? guns[i].WeaponData.Name.GetLocalizedString() : null,
+                guns[i] != null ? guns[i].WeaponData.Icon : null);
         }
 
         Items[3].Initialize(3,"Inventory",null);

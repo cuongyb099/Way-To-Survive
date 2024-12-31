@@ -11,7 +11,7 @@ public class PlayerController : BasicController
 	#region AnimationID
 	private static readonly int PlayerHit = Animator.StringToHash("PlayerHit");
 	private static readonly int Type = Animator.StringToHash("WeaponType");
-	private static readonly int Weapon = Animator.StringToHash("SwitchWeapon");
+	private static readonly int SwitchCurWeapon = Animator.StringToHash("SwitchWeapon");
 	private static readonly int ReloadGun = Animator.StringToHash("ReloadGun");
 	private static readonly int ShootingSpeed = Animator.StringToHash("ShootingSpeed");
 	private static readonly int MovementSpeed = Animator.StringToHash("MovementSpeed");
@@ -51,7 +51,7 @@ public class PlayerController : BasicController
     public LineRendererHelper LineRendererL;
     public LineRendererHelper LineRendererR;
     public WeaponBase[] Weapons;
-    [field: SerializeField] public BoxCollider MeleeHitCollider { get; private set; }
+    [field: SerializeField] public BoxCollider MeleeHitCollider { get; private set; }  
     public WeaponBase CurrentWeapon => Weapons[CurrentWeaponIndex];
     public int CurrentWeaponIndex { get; private set; }
 
@@ -127,7 +127,7 @@ public class PlayerController : BasicController
     {
 	    if (Weapons[index] != null)
 	    {
-		    Stats.GetStat(StatType.Speed).RemoveModifier(new StatModifier(-Weapons[index].GunData.Weight,StatModType.Flat));
+		    Stats.GetStat(StatType.Speed).RemoveModifier(new StatModifier(-Weapons[index].WeaponData.Weight,StatModType.Flat));
 		    Destroy(Weapons[index].gameObject);
 	    }
 	    Weapons[index] = (Instantiate(weapon, RightHandHoldPoint.transform));
@@ -137,7 +137,7 @@ public class PlayerController : BasicController
 	    
 	    CurrentWeapon.ShootAble = true;
 	    Animator.SetBool(ReloadGun, false);
-	    Animator.SetBool(Weapon, false);
+	    Animator.SetBool(SwitchCurWeapon, false);
 	    
 	    //if weapon is a gun
 	    if (Weapons[index] is GunBase gun)
@@ -166,14 +166,15 @@ public class PlayerController : BasicController
 	    WeaponBase currentSlot = Weapons[index];
 
 	    if (currentSlot == null) return false;
-        Stats.GetStat(StatType.Speed).RemoveModifier(new StatModifier(-Weapons[CurrentWeaponIndex].GunData.Weight,StatModType.Flat));
+        Stats.GetStat(StatType.Speed).RemoveModifier(new StatModifier(-Weapons[CurrentWeaponIndex].WeaponData.Weight,StatModType.Flat));
         Weapons[CurrentWeaponIndex].gameObject.SetActive(false);
         currentSlot.gameObject.SetActive(true);
         CurrentWeaponIndex = index;
         CalculateMaxCapacity(Weapons[index]);
-        Animator.SetFloat(Type, (float)currentSlot.GunData.WeaponType);
-        Stats.GetStat(StatType.Speed).AddModifier(new StatModifier(-currentSlot.GunData.Weight,StatModType.Flat));
-        CameraZoom.SetZoom(CurrentWeapon.GunData.Aim/Mathf.Cos(45f*Mathf.Deg2Rad)+5f);
+        Animator.SetFloat(Type, (float)currentSlot.WeaponData.WeaponType);
+        Animator.SetBool(ReloadGun, false);
+        Stats.GetStat(StatType.Speed).AddModifier(new StatModifier(-currentSlot.WeaponData.Weight,StatModType.Flat));
+        CameraZoom.SetZoom(CurrentWeapon.WeaponData.Aim/Mathf.Cos(45f*Mathf.Deg2Rad)+5f);
         PlayerEvent.OnEquipWeapon?.Invoke(currentSlot);
         return true;
     }
@@ -187,7 +188,7 @@ public class PlayerController : BasicController
 	    DOVirtual.DelayedCall(GunSwitchCooldown, () => { weaponSwitchable = true; });
 	    //Switch
 	    BeforeSwitching();
-	    Animator.SetBool(Weapon, true);
+	    Animator.SetBool(SwitchCurWeapon, true);
 	    Animator.SetBool(ReloadGun, false);
 	    Weapons[CurrentWeaponIndex].OnSwitchOut();
 	    EquipGun(index);
@@ -259,13 +260,13 @@ public class PlayerController : BasicController
 	public Gradient LineTargetColor;
 	public void SetLineRenderers()
 	{
-        if(Weapons[CurrentWeaponIndex].GunData.WeaponType == WeaponType.Knife) return;
+        if(Weapons[CurrentWeaponIndex].WeaponData.WeaponType == WeaponType.Knife) return;
         GunBase gun = (GunBase)Weapons[CurrentWeaponIndex];
         float accuracy = gun.GunAccuracy;
-		LineRendererL.SetLineRenderer(gun.ShootPoint, gun.GunData.Aim, Quaternion.Euler(0, Mathf.Clamp(-accuracy, -GameValues.RecoilMaxValue,0), 0) * transform.forward);
-		LineRendererR.SetLineRenderer(gun.ShootPoint, gun.GunData.Aim, Quaternion.Euler(0, Mathf.Clamp(accuracy, 0, GameValues.RecoilMaxValue), 0) * transform.forward);
+		LineRendererL.SetLineRenderer(gun.ShootPoint, gun.WeaponData.Aim, Quaternion.Euler(0, Mathf.Clamp(-accuracy, -GameValues.RecoilMaxValue,0), 0) * transform.forward);
+		LineRendererR.SetLineRenderer(gun.ShootPoint, gun.WeaponData.Aim, Quaternion.Euler(0, Mathf.Clamp(accuracy, 0, GameValues.RecoilMaxValue), 0) * transform.forward);
 		
-        if(Physics.Raycast(gun.ShootPoint.position,transform.forward, out RaycastHit hit, gun.GunData.Aim) &&
+        if(Physics.Raycast(gun.ShootPoint.position,transform.forward, out RaycastHit hit, gun.WeaponData.Aim) &&
            accuracy <= 1f)
         {
 	        if (hit.collider.CompareTag("Enemy"))

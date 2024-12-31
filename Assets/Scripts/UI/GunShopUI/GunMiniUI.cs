@@ -3,33 +3,34 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-public class GunMiniUI : MonoBehaviour
+public class ItemMiniUI : MonoBehaviour
 {
-    public TextMeshProUGUI GunName;
-    public Image GunImage;
-    public Button GunButton { get; private set; }
-    public WeaponBase GunHolder { get;private set; }
+    public TextMeshProUGUI ItemName;
+    public Image ItemImage;
+    public Button ItemButton { get; private set; }
+    public Item ItemHolder { get;private set; }
 
     private void Awake()
     {
-        GunButton = GetComponent<Button>();
+        ItemButton = GetComponent<Button>();
     }
 
-    public void Initialize(WeaponBase gun)
+    public void Initialize(Item item)
     {
-        if (gun == null)
+        if (item == null)
         {
-            GunHolder = null;
-            GunName.text = "";
-            GunImage.sprite = null;
-            GunImage.color = new Color(0, 0, 0, 0);
+            ItemHolder = null;
+            ItemName.text = "";
+            ItemImage.sprite = null;
+            ItemImage.color = new Color(0, 0, 0, 0);
             return;
         }
-        GunHolder = gun;
-        GunName.text = gun.GunData.GunName;
-        GunImage.sprite = gun.GunData.Icon;
-        GunImage.color = new Color(1, 1, 1, 1);
+        ItemHolder = item;
+        ItemName.text = item.Name.GetLocalizedString();
+        ItemImage.sprite = item.Icon;
+        ItemImage.color = new Color(1, 1, 1, 1);
     }
 }

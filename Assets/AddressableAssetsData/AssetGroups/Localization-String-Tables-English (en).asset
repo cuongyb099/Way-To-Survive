@@ -18,7 +18,7 @@ MonoBehaviour:
   m_GUID: 93dbcc9bd68141349bc47ab6ed603d4b
   m_SerializeEntries:
   - m_GUID: 5054bad2b1cf38d4ebfc43c7d76d2477
-    m_Address: Weapon Table_en
+    m_Address: Item Table_en
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-en

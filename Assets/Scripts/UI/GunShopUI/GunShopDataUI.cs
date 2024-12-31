@@ -21,8 +21,8 @@ public class GunShopDataUI : MonoBehaviour
     public float AnimTime = 0.25f;
     public void ChangeGun(GunSO gun)
     {
-        GunName.text = gun.GunName;
-        GunPrice.text = $"<color=#1BDF00>{gun.GunPrice}$</color>";
+        GunName.text = gun.Name.GetLocalizedString();
+        GunPrice.text = $"<color=#1BDF00>{gun.BuyPrice}$</color>";
         Capacity.text = gun.MaxCapacity.ToString();
         GunImage.sprite = gun.Icon;
         DOVirtual.Float(DamageSlider.value, gun.Damage / 15f, AnimTime, (x) => { DamageSlider.value = x;}).SetUpdate(true);

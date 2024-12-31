@@ -12,22 +12,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b59205e98b25a304aac3cf684f1d5aa3, type: 3}
   m_Name: RevolverSO
   m_EditorClassIdentifier: 
-  BulletPrefab: {fileID: 984755602444092648, guid: 3e0913a4e2aa7b74f8e45ec8780fa00d, type: 3}
-  ShellPrefab: {fileID: 6182647827399181740, guid: a1e78c6635fd42541975b5cdc3cfdfab, type: 3}
-  MagPrefab: {fileID: 6182647827399181740, guid: f66f9dfcd2d782b4dbb6c221dfb18b48, type: 3}
-  WeaponType: 0
-  GunName: Revolver
-  GunDescription:
+  Name:
     m_TableReference:
-      m_TableCollectionName: 
+      m_TableCollectionName: GUID:fd6713aa530e7a244b6d797fbc2425fb
     m_TableEntryReference:
-      m_KeyId: 0
+      m_KeyId: 2805612407676928
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  Description:
+    m_TableReference:
+      m_TableCollectionName: GUID:fd6713aa530e7a244b6d797fbc2425fb
+    m_TableEntryReference:
+      m_KeyId: 2805614236393472
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
   Icon: {fileID: 217534693, guid: 92a4fe653152e9244b4849b9dba1c92b, type: 3}
-  GunPrice: 100
+  BuyPrice: 500
+  SellPrice: 0
+  WeaponPrefab: {fileID: -2544400597224823434, guid: a484ab6f9ac4d6f4ba5a733d901c9c9b, type: 3}
+  BulletPrefab: {fileID: 984755602444092648, guid: 3e0913a4e2aa7b74f8e45ec8780fa00d, type: 3}
+  ShellPrefab: {fileID: 6182647827399181740, guid: a1e78c6635fd42541975b5cdc3cfdfab, type: 3}
+  MagPrefab: {fileID: 115677900177933877, guid: 43535004aff03f941a0265f46e612143, type: 3}
+  WeaponType: 0
   ShootingSpeed: 0.4
   Damage: 4
   Aim: 5

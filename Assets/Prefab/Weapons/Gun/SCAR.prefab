@@ -158,7 +158,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53a90e7307ba40afa6a0fa846ce221e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GunData: {fileID: 11400000, guid: b8afe054103a8d24198c3d6fbdc6615f, type: 2}
+  WeaponData: {fileID: 11400000, guid: b8afe054103a8d24198c3d6fbdc6615f, type: 2}
   <ShootPoint>k__BackingField: {fileID: 314904007054090758}
   <ShellDropPoint>k__BackingField: {fileID: 8810022998086679427}
   <MagObject>k__BackingField: {fileID: 2714289804723077492}

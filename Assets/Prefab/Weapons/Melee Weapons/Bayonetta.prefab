@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5704549460169601475}
   - component: {fileID: 9212072447739369604}
-  - component: {fileID: 752525304665740718}
   - component: {fileID: 5957378339055339132}
   - component: {fileID: 3734184842925771862}
   m_Layer: 0
@@ -49,27 +48,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _statsHolder: {fileID: 11400000, guid: 5981bca633ed02d49a8f593cab883e59, type: 2}
---- !u!65 &752525304665740718
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4180766260500403244}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 254
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.5, y: 0.5, z: 1.4}
-  m_Center: {x: 0, y: 0, z: 0.45}
 --- !u!114 &5957378339055339132
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -94,7 +72,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a287530671bb94644bd28ecb0957fde3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GunData: {fileID: 11400000, guid: c74faa70357a645489223741c269384f, type: 2}
+  WeaponData: {fileID: 11400000, guid: c74faa70357a645489223741c269384f, type: 2}
 --- !u!1 &8906946015039007227
 GameObject:
   m_ObjectHideFlags: 0

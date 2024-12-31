@@ -114,11 +114,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 433d01cd7745eb04abc06bbd0d50e448, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GunData: {fileID: 11400000, guid: cd9cf74cc99fc92489124b73f565917a, type: 2}
+  WeaponData: {fileID: 11400000, guid: cd9cf74cc99fc92489124b73f565917a, type: 2}
   <ShootPoint>k__BackingField: {fileID: 314904007054090758}
   <ShellDropPoint>k__BackingField: {fileID: 7170699424513475406}
   <MagObject>k__BackingField: {fileID: 8355803752299558051}
-  BulletsPerShot: 5
+  BulletsPerShot: 7
 --- !u!114 &526068766936958343
 MonoBehaviour:
   m_ObjectHideFlags: 0

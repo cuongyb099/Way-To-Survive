@@ -23,20 +23,19 @@ public class MeleeBase : WeaponBase
         repeatAble = false;
         PlayerEvent.OnAttack?.Invoke();
         playerController.Animator.SetFloat("MeleeCombo", ++comboCount%2);
-        DOVirtual.DelayedCall(GunData.ShootingSpeed/playerController.Stats.GetStat(StatType.ShootSpeed).Value, () => { repeatAble = true;});
+        DOVirtual.DelayedCall(WeaponData.ShootingSpeed/playerController.Stats.GetStat(StatType.ShootSpeed).Value, () => { repeatAble = true;});
         WeaponSoundPlay();
     }
 
     public void DealDamage()
     {
-        //Physics.OverlapBoxNonAlloc(hitBox.bounds.center, hitBox.bounds.extents, hitColliders,Quaternion.identity);
-        hitColliders = Physics.OverlapBox(hitBox.bounds.center, hitBox.bounds.extents,Quaternion.identity);
-        Debug.Log(hitColliders.Length);
+        Physics.OverlapBoxNonAlloc(hitBox.bounds.center, hitBox.bounds.extents, hitColliders,Quaternion.identity);
+        //hitColliders = Physics.OverlapBox(hitBox.bounds.center, hitBox.bounds.extents,Quaternion.identity);
         foreach (var x in hitColliders)
         {
             if(!x.TryGetComponent<IDamagable>(out IDamagable damagable)) return;
             if(playerController.CompareTag(x.gameObject.tag))return;
-            DamageHandler.Damage(damagable,DamageInfo.GetDamageInfo(GunData.Damage,playerController.Stats, DamageType.Melee));
+            DamageHandler.Damage(damagable,DamageInfo.GetDamageInfo(WeaponData.Damage,playerController.Stats, DamageType.Melee));
         }
     }
 }

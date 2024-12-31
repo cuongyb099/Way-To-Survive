@@ -18,7 +18,7 @@ MonoBehaviour:
   m_GUID: a2be54e029a69704f9f183511cb4b1e9
   m_SerializeEntries:
   - m_GUID: db38c176f2e493941b4d000a5ef47766
-    m_Address: Weapon Table_vi-VN
+    m_Address: Item Table_vi-VN
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-vi-VN

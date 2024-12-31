@@ -22,20 +22,23 @@ public struct DamageInfo
         IsCrit = isCrit;
         DamageType = dmgType;
     }
-
+    
     public static DamageInfo GetDamageInfo(float multiplier, StatsController statsController, DamageType damageType,StatType statType = StatType.ATK)
     {
-        if (statsController == null) return new DamageInfo();
+        if (!statsController) return new DamageInfo();
+
+        GameObject dealer = statsController.gameObject;
         if (!statsController.Stats.TryGetValue(statType, out Stat mainStat)) 
-            return new DamageInfo(statsController.gameObject);
+            return new DamageInfo(dealer);
         
         float finalDamage = mainStat.Value * multiplier;
         if (!statsController.Stats.TryGetValue(StatType.CritRate, out Stat critRate) ||
             !statsController.Stats.TryGetValue(StatType.CritDamage, out Stat critDmg) ||
             damageType == DamageType.FollowUp)
-            return new DamageInfo(statsController.gameObject, finalDamage,dmgType: damageType);
+            return new DamageInfo(dealer, finalDamage,dmgType: damageType);
         
         bool doesCrit = Random.value < (critRate.Value/100f);
         finalDamage *= (1f + (doesCrit ? (critDmg.Value/100f) : 0f));
-        return new DamageInfo(statsController.gameObject, finalDamage, doesCrit, damageType);
-    }}
+        return new DamageInfo(dealer, finalDamage, doesCrit, damageType);
+    }
+}

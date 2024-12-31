@@ -12,22 +12,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b59205e98b25a304aac3cf684f1d5aa3, type: 3}
   m_Name: ScarSO
   m_EditorClassIdentifier: 
-  BulletPrefab: {fileID: 984755602444092648, guid: bff9cb15c026277498f4541bb37853a4, type: 3}
-  ShellPrefab: {fileID: 6182647827399181740, guid: a1e78c6635fd42541975b5cdc3cfdfab, type: 3}
-  MagPrefab: {fileID: 6182647827399181740, guid: be822d7afbb24b64f825343c49bb66bb, type: 3}
-  WeaponType: 1
-  GunName: SCAR
-  GunDescription:
+  Name:
     m_TableReference:
       m_TableCollectionName: GUID:fd6713aa530e7a244b6d797fbc2425fb
     m_TableEntryReference:
-      m_KeyId: 1139121577984
+      m_KeyId: 2805922366742528
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  Description:
+    m_TableReference:
+      m_TableCollectionName: GUID:fd6713aa530e7a244b6d797fbc2425fb
+    m_TableEntryReference:
+      m_KeyId: 2805886224424960
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
   Icon: {fileID: -181262712, guid: 44598c3ae2f46924b99046f2f3300073, type: 3}
-  GunPrice: 3500
+  BuyPrice: 3500
+  SellPrice: 0
+  WeaponPrefab: {fileID: -7086552029489029334, guid: 14b9068ff59c7a740a80c60276b4a17d, type: 3}
+  BulletPrefab: {fileID: 984755602444092648, guid: bff9cb15c026277498f4541bb37853a4, type: 3}
+  ShellPrefab: {fileID: 6182647827399181740, guid: a1e78c6635fd42541975b5cdc3cfdfab, type: 3}
+  MagPrefab: {fileID: 6182647827399181740, guid: be822d7afbb24b64f825343c49bb66bb, type: 3}
+  WeaponType: 1
   ShootingSpeed: 0.2
   Damage: 2.3
   Aim: 10

@@ -12,7 +12,7 @@ public class BasicController : MonoBehaviour, IDamagable
 
     protected virtual void Awake()
     {
-        Stats = GetComponentInChildren<StatsController>();
+        Stats = GetComponent<StatsController>();
         isDead = false;
     }
     public virtual float Damage(DamageInfo info)
