@@ -38,7 +38,7 @@ public class GunStatusUI : MonoBehaviour
     }
 	public void ChangeGun(WeaponBase weapon)
 	{
-		if (weapon.WeaponData.WeaponType != WeaponType.Knife)
+		if (weapon.WeaponData.WeaponType != WeaponType.Melee)
 		{
 			GunBase gun = (GunBase)weapon;
 			gunAmmo = gun.Stats.GetAttribute(AttributeType.Bullets);

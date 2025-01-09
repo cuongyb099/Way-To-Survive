@@ -14,7 +14,7 @@ public enum WeaponType
 	Shotgun,
 	Sniper,
 	SMG,
-	Knife,
+	Melee,
 }
 public abstract class WeaponBase : MonoBehaviour, IEquatable<WeaponBase>
 {

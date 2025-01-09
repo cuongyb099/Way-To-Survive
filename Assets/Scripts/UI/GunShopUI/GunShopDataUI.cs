@@ -27,7 +27,7 @@ public class GunShopDataUI : MonoBehaviour
         GunImage.sprite = gun.Icon;
         DOVirtual.Float(DamageSlider.value, gun.Damage / 15f, AnimTime, (x) => { DamageSlider.value = x;}).SetUpdate(true);
         //15f is the maximum spread angle
-        DOVirtual.Float(RecoilSlider.value, gun.Recoil, AnimTime, (x) => { RecoilSlider.value = x;}).SetUpdate(true);
+        DOVirtual.Float(RecoilSlider.value, gun.Recoil*(.5f/gun.ShootingSpeed), AnimTime, (x) => { RecoilSlider.value = x;}).SetUpdate(true);
         DOVirtual.Float(AimSlider.value, gun.Aim/30f, AnimTime, (x) => { AimSlider.value = x;}).SetUpdate(true);
         //1min:1000RPM=0.06
         DOVirtual.Float(RPMSlider.value, 0.06f/gun.ShootingSpeed, AnimTime, (x) => { RPMSlider.value = x;}).SetUpdate(true);

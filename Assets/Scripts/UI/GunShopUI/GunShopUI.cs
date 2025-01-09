@@ -100,4 +100,26 @@ public class GunShopUI : CanvasUIHandler
     {
         CashText.text = value+"$";
     }
+    //Sort by Type
+    public void SortWeaponType(int type)
+    {
+        foreach (var x in ItemsMiniUI)
+        {
+            GunSO weapon = (GunSO)x.ItemHolder;
+            if(weapon.WeaponType == (WeaponType)type)
+            {
+                x.gameObject.SetActive(true);
+                continue;
+            }                                                                           
+            x.gameObject.SetActive(false);
+        }
+    }
+
+    public void ShowAllWeaponType()
+    {
+        foreach (var x in ItemsMiniUI)
+        {
+            x.gameObject.SetActive(true);
+        }
+    }
 }

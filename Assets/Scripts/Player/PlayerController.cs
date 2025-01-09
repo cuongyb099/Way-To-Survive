@@ -260,7 +260,7 @@ public class PlayerController : BasicController
 	public Gradient LineTargetColor;
 	public void SetLineRenderers()
 	{
-        if(Weapons[CurrentWeaponIndex].WeaponData.WeaponType == WeaponType.Knife) return;
+        if(Weapons[CurrentWeaponIndex].WeaponData.WeaponType == WeaponType.Melee) return;
         GunBase gun = (GunBase)Weapons[CurrentWeaponIndex];
         float accuracy = gun.GunAccuracy;
 		LineRendererL.SetLineRenderer(gun.ShootPoint, gun.WeaponData.Aim, Quaternion.Euler(0, Mathf.Clamp(-accuracy, -GameValues.RecoilMaxValue,0), 0) * transform.forward);
