@@ -25,7 +25,6 @@ public class WaveManager : MonoBehaviour
         _timerCallback += HandleShoppingTimeChange;
 
         GameEvent.EnemyDeadEvent += EndWaveCheck;
-        GameEvent.SkipShoppingEvent += SkipToNextWave;
     }
 
     private void OnDestroy()
@@ -34,7 +33,6 @@ public class WaveManager : MonoBehaviour
         _timerCallback -= HandleShoppingTimeChange;
         
         GameEvent.EnemyDeadEvent -= EndWaveCheck;
-        GameEvent.SkipShoppingEvent -= SkipToNextWave;
     }
     
     private void SkipToNextWave()

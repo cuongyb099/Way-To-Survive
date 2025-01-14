@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Barbed Wire
   m_EditorClassIdentifier: 
   IconUI: {fileID: 0}
+  ItemType: 1
   Name: Bared Wire
   Prefab: {fileID: 2326158280570794973, guid: 05349964184ec1e4bb75ba849196a960, type: 3}
   MaxHP: 30

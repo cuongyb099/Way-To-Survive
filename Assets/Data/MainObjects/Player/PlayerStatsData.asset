@@ -16,7 +16,7 @@ MonoBehaviour:
     _serializedList:
     - Key: 0
       Value:
-        _baseValue: 5
+        _baseValue: 1
     - Key: 1
       Value:
         _baseValue: 2
@@ -25,20 +25,26 @@ MonoBehaviour:
         _baseValue: 30
     - Key: 3
       Value:
-        _baseValue: 5
+        _baseValue: 4
     - Key: 4
       Value:
-        _baseValue: 0.1
+        _baseValue: 10
     - Key: 5
       Value:
-        _baseValue: 0.5
+        _baseValue: 50
     - Key: 6
       Value:
-        _baseValue: 0
+        _baseValue: 1
     - Key: 7
       Value:
         _baseValue: 1
     - Key: 8
+      Value:
+        _baseValue: 1
+    - Key: 10
+      Value:
+        _baseValue: 1
+    - Key: 11
       Value:
         _baseValue: 1
   _attributeItems:

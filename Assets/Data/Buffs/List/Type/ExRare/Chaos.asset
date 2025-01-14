@@ -12,10 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06b419b984bc36a40a3d01e0ff523985, type: 3}
   m_Name: Chaos
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Chaos
-  <Description>k__BackingField: For every <color=#3ECDFF>5 bullets</color> shot,
-    increase <color=#FFB600>Shooting Speed</color> by <color=#3ECDFF>{value}</color>
-    lasting for <color=#3ECDFF>3</color> seconds, every stack is time independent
+  <Name>k__BackingField:
+    m_TableReference:
+      m_TableCollectionName: GUID:c95b51ae00502aa40bf8f5ebad5217ae
+    m_TableEntryReference:
+      m_KeyId: 1276480839680
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  <Description>k__BackingField:
+    m_TableReference:
+      m_TableCollectionName: GUID:c95b51ae00502aa40bf8f5ebad5217ae
+    m_TableEntryReference:
+      m_KeyId: 5749127241728
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   <Icon>k__BackingField: {fileID: 21300000, guid: b5009f2dd76783e428cca27a3c82b872, type: 3}
   <HasDuration>k__BackingField: 0
   <Duration>k__BackingField: 0
@@ -24,8 +38,8 @@ MonoBehaviour:
   <EffectType>k__BackingField: 0
   <UseAdvanceUpdate>k__BackingField: 1
   RareType: 3
-  StatType: 7
-  ModifierType: 2
-  Value: 5
   BuffSO1: {fileID: 11400000, guid: 506779823d7affb499d7ba14ad071eed, type: 2}
   BuffAfter: 5
+  references:
+    version: 2
+    RefIds: []

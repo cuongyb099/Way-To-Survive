@@ -22,6 +22,29 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4efd46026f3db27439749c4c2250ce5a
+    m_Address: Assets/Prefab/UI/Popup
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ff90a11aec98d764798b7b58dd1a696f
+    m_Address: Assets/Data/Items
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Inventory
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0877c1701c8638940945a71d8591892d
+    m_Address: Assets/Scripts/Structure/New Structure SO.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Inventory
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0c8f845dbe4ac44409a43f402bd4c069
+    m_Address: Assets/Scripts/Inventory System/Sample/Gold.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Inventory
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: f87357868bafec74b8eaa3e2bab0161e, type: 2}
   m_SchemaSet:

@@ -19,12 +19,12 @@ public class GunShopUI : CanvasUIHandler
     public Button BuyButton;
     public TextMeshProUGUI BuyButtonText;
     public TextMeshProUGUI CashText;
-    [FormerlySerializedAs("GunListSO")] [Header("Data")] 
+    [Header("Data")] 
     public WeaponListSO WeaponListSo;
-    public GunMiniUI GunMiniPrefab;
+    public ItemMiniUI ItemMiniPrefab;
 
-    public GunMiniUI Selected { get; private set; }
-    public List<GunMiniUI> GunsMiniUI { get; private set; }
+    public ItemMiniUI Selected { get; private set; }
+    public List<ItemMiniUI> ItemsMiniUI { get; private set; }
     private void Awake()
     {
         PlayerEvent.OnCashChange += ChangeCashText;
@@ -45,25 +45,26 @@ public class GunShopUI : CanvasUIHandler
 
     private void Initialize()
     {
-        GunsMiniUI = new List<GunMiniUI>();
+        ItemsMiniUI = new List<ItemMiniUI>();
         foreach (var x in WeaponListSo.Weapons)
         {
-            GunMiniUI temp = Instantiate(GunMiniPrefab, GunsPanel.transform);
-            temp.Initialize(x);
-            temp.GunButton.onClick.AddListener(new UnityEngine.Events.UnityAction(() => { ChangeGun(temp);}));
-            GunsMiniUI.Add(temp);
+            ItemMiniUI temp = Instantiate(ItemMiniPrefab, GunsPanel.transform);
+            temp.Initialize(x.WeaponData);
+            temp.ItemButton.onClick.AddListener(new UnityEngine.Events.UnityAction(() => { ChangeGun(temp);}));
+            ItemsMiniUI.Add(temp);
         }
-        ChangeGun(GunsMiniUI[0]);
+        ChangeGun(ItemsMiniUI[0]);
     }
     
-    private void ChangeGun(GunMiniUI gunUI)
+    private void ChangeGun(ItemMiniUI itemUI)
     {
-        Selected = gunUI;
-        gunUI.GunButton.Select();
-        GunDataUI.ChangeGun(gunUI.GunHolder.GunData);
+        Selected = itemUI;
+        itemUI.ItemButton.Select();
+        GunBaseSo weapon = (GunBaseSo)itemUI.ItemBaseSoHolder;
+        GunDataUI.ChangeGun(weapon);
         
         PlayerController player = GameManager.Instance.Player;
-        if (player.OwnedWeapons.Contains(Selected.GunHolder))
+        if (player.OwnedWeapons.Contains(weapon.WeaponPrefab))
         {
             BuyButton.interactable = false;
             BuyButtonText.text = "Owned";
@@ -78,15 +79,16 @@ public class GunShopUI : CanvasUIHandler
     public void OnBuyGun()
     {
         PlayerController player = GameManager.Instance.Player;
-        if (player.Cash < Selected.GunHolder.GunData.GunPrice) return;
+        GunBaseSo weapon = (GunBaseSo)Selected.ItemBaseSoHolder;
+        if (player.Cash < weapon.BuyPrice) return;
 
-        player.Cash -= Selected.GunHolder.GunData.GunPrice;
-        player.OwnedWeapons.Add(Selected.GunHolder);
+        player.Cash -= weapon.BuyPrice;
+        player.OwnedWeapons.Add(weapon.WeaponPrefab);
 
         for(int i = 0; i< player.Weapons.Length; i++)
         {
             if (player.Weapons[i] != null) continue;
-            player.InstantiateGun(Selected.GunHolder,i);
+            player.InstantiateWeapon(weapon.WeaponPrefab,i);
             break;
         }
         

@@ -5,6 +5,7 @@ using System.Collections;
 using Tech.Pooling;
 using UnityEditor.Rendering;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public enum WeaponType
 {
@@ -17,7 +18,7 @@ public enum WeaponType
 }
 public abstract class WeaponBase : MonoBehaviour, IEquatable<WeaponBase>
 {
-	public GunSO GunData;
+	public GunBaseSo WeaponData;
 	public bool ShootAble { get; set; } = true;
 	
 	protected PlayerController playerController;
@@ -25,7 +26,7 @@ public abstract class WeaponBase : MonoBehaviour, IEquatable<WeaponBase>
 	protected bool trigger;
 	protected virtual void Awake()
 	{
-		playerController = GetComponentInParent<PlayerController>();
+		playerController = GameManager.Instance.Player;
 	}
 	public virtual void Initialize()
 	{
@@ -61,7 +62,7 @@ public abstract class WeaponBase : MonoBehaviour, IEquatable<WeaponBase>
 		//Mobile
 		if (rotateInput.magnitude > 0.875f)
 		{
-			if (!GunData.ReleaseToShoot) { Shoot(); }
+			if (!WeaponData.ReleaseToShoot) { Shoot(); }
 			trigger = true;
 		}
 		else
@@ -71,33 +72,33 @@ public abstract class WeaponBase : MonoBehaviour, IEquatable<WeaponBase>
 	}
 	private void Rotate_canceled()
 	{
-		if (GunData.ReleaseToShoot && trigger) Shoot();
+		if (WeaponData.ReleaseToShoot && trigger) Shoot();
 	}
 	public virtual void Shoot()
 	{
 		if (!ShootAble ||
 		    !repeatAble ) return;
 		repeatAble = false;
-		PlayerEvent.OnShoot?.Invoke();
-		DOVirtual.DelayedCall(GunData.ShootingSpeed/playerController.Stats.GetStat(StatType.ShootSpeed).Value, () => { repeatAble = true;});
+		PlayerEvent.OnAttack?.Invoke();
+		DOVirtual.DelayedCall(WeaponData.ShootingSpeed/playerController.Stats.GetStat(StatType.ShootSpeed).Value, () => { repeatAble = true;});
 		WeaponSoundPlay();
 	}
 
 	protected void WeaponSoundPlay()
 	{
-		AudioManager.Instance.PlaySound(GunData.ShootingSounds.ToArray(),volumeType: SoundVolumeType.SOUNDFX_VOLUME);
-		if(GunData.TailSound)
-			AudioManager.Instance.PlaySound(GunData.TailSound,volumeType: SoundVolumeType.SOUNDFX_VOLUME);
+		AudioManager.Instance.PlaySound(WeaponData.ShootingSounds.ToArray(),volumeType: SoundVolumeType.SOUNDFX_VOLUME);
+		if(WeaponData.TailSound)
+			AudioManager.Instance.PlaySound(WeaponData.TailSound,volumeType: SoundVolumeType.SOUNDFX_VOLUME);
 	}
 	
 
 	public bool Equals(WeaponBase other)
 	{
-		return GunData == other.GunData;
+		return WeaponData == other.WeaponData;
 	}
 	
 	public override int GetHashCode()
 	{
-		return HashCode.Combine(base.GetHashCode(), GunData);
+		return HashCode.Combine(base.GetHashCode(), WeaponData);
 	}
 }

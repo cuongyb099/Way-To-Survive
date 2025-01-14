@@ -30,10 +30,10 @@ public class AudioManager : Singleton<AudioManager>
 
     private void LoadSave()
     {
-        SetVolume(_masterVolume, ES3.Load(_masterVolume, 1f));
-        SetVolume(_bgVolume, ES3.Load(_bgVolume, 1f));
-        SetVolume(_fxVolume, ES3.Load(_fxVolume, 1f));
-        SetVolume(_uiVolume, ES3.Load(_uiVolume, 1f));
+        SetVolume(_masterVolume, PlayerPrefs.GetFloat(_masterVolume, 1f));
+        SetVolume(_bgVolume, PlayerPrefs.GetFloat(_bgVolume, 1f));
+        SetVolume(_fxVolume, PlayerPrefs.GetFloat(_fxVolume, 1f));
+        SetVolume(_uiVolume, PlayerPrefs.GetFloat(_uiVolume, 1f));
     }
 
     private void PlayStartSound()

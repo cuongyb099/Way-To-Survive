@@ -19,17 +19,17 @@ public class GunInventoryUI : CanvasUIHandler
     public Button BuyButton;
     public TextMeshProUGUI BuyButtonText;
     [Header("Data")]
-    public GunMiniUI GunMiniPrefab;
+    public ItemMiniUI GunMiniPrefab;
 
-    public List<GunMiniUI> GunEquipedSlots;
+    public List<ItemMiniUI> GunEquipedSlots;
 
-    public GunMiniUI Selected { get; private set; }
-    public List<GunMiniUI> GunsMiniUI { get; private set; }
+    public ItemMiniUI Selected { get; private set; }
+    public List<ItemMiniUI> GunsMiniUI { get; private set; }
     private PlayerController player;
 
     private void Awake()
     {
-        GunsMiniUI = new List<GunMiniUI>();
+        GunsMiniUI = new List<ItemMiniUI>();
         player = GameManager.Instance.Player;
     }
 
@@ -38,7 +38,7 @@ public class GunInventoryUI : CanvasUIHandler
         for (int i = 0; i < GunEquipedSlots.Count; i++)
         {
             var x = i;
-            GunEquipedSlots[i].GunButton.onClick.AddListener(()=>InitEquippedSlots(x));
+            GunEquipedSlots[i].ItemButton.onClick.AddListener(()=>InitEquippedSlots(x));
         }
     }
 
@@ -53,39 +53,41 @@ public class GunInventoryUI : CanvasUIHandler
         //delete gun panel
         for(int i = GunsMiniUI.Count - 1; i >= 0; i--)
         {
-            GunMiniUI g = GunsMiniUI[i];
-            g.GunButton.onClick.RemoveAllListeners();
+            ItemMiniUI g = GunsMiniUI[i];
+            g.ItemButton.onClick.RemoveAllListeners();
             GunsMiniUI.RemoveAt(i);
             Destroy(g.gameObject);
         }
         //instantiate gun panel
         foreach (var x in player.OwnedWeapons)
         {
-            GunMiniUI temp = Instantiate(GunMiniPrefab, GunsPanel.transform);
-            temp.Initialize(x);
-            temp.GunButton.onClick.AddListener(new UnityEngine.Events.UnityAction(() => { ChangeGun(temp);}));
+            ItemMiniUI temp = Instantiate(GunMiniPrefab, GunsPanel.transform);
+            temp.Initialize(x.WeaponData);
+            temp.ItemButton.onClick.AddListener(new UnityEngine.Events.UnityAction(() => { ChangeGun(temp);}));
             GunsMiniUI.Add(temp);
         }
 
         for (int i = 0; i < player.Weapons.Length; i++)
         {
-            GunEquipedSlots[i].Initialize(player.Weapons[i]);
+            GunEquipedSlots[i].Initialize(player.Weapons[i] != null?player.Weapons[i].WeaponData:null);
         }
         ChangeGun(GunsMiniUI[0]);
     }
     
-    private void ChangeGun(GunMiniUI gunUI)
+    private void ChangeGun(ItemMiniUI gunUI)
     {
         Selected = gunUI;
-        gunUI.GunButton.Select();
-        GunDataUI.ChangeGun(gunUI.GunHolder.GunData);
+        GunBaseSo weapon = (GunBaseSo)gunUI.ItemBaseSoHolder;
+        gunUI.ItemButton.Select();
+        GunDataUI.ChangeGun(weapon);
     }
     private void InitEquippedSlots(int index)
     {
-        if (!player.ContainsWeapon(Selected.GunHolder))
+        WeaponBase weapon = ((GunBaseSo)Selected.ItemBaseSoHolder).WeaponPrefab ;
+        if (!player.ContainsWeapon(weapon))
         {
-            player.InstantiateGun(Selected.GunHolder,index);
-            GunEquipedSlots[index].Initialize(Selected.GunHolder);
+            player.InstantiateWeapon(weapon,index);
+            GunEquipedSlots[index].Initialize(Selected.ItemBaseSoHolder);
         }
 
     }

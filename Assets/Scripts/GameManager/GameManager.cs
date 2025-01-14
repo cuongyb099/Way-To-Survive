@@ -19,7 +19,6 @@ public class GameManager : StateMachine<EGameState>
     public PlayerController Player { get; private set; }
     public WaveManager WaveManager { get; private set; }
     public EnemyManager EnemyManager { get; private set; }
-    public AudioSource GMAudioSource { get; private set; }
     [field: Header("Game Variables")]
     [field:SerializeField] public int FPSLimitValue{ get; private set; } = 30;
     [field:SerializeField] public int WaveWonTime{ get; private set; } = 30;
@@ -44,7 +43,6 @@ public class GameManager : StateMachine<EGameState>
         Player = FindAnyObjectByType<PlayerController>();
         WaveManager = FindAnyObjectByType<WaveManager>();
         EnemyManager = FindAnyObjectByType<EnemyManager>();
-        GMAudioSource = GetComponent<AudioSource>();
         Application.targetFrameRate= FPSLimitValue;
         
         States.Add(EGameState.Shopping, new ShoppingState(this));

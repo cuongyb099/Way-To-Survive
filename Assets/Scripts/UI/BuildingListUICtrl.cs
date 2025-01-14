@@ -1,3 +1,4 @@
+/*
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -76,3 +77,4 @@ public class BuildingListUICtrl : MonoBehaviour
         scrollView.gameObject.SetActive(!scrollView.gameObject.activeSelf);
     }
 }
+*/

@@ -13,14 +13,14 @@ public class WaveWonState : BaseState<EGameState>
 
     public override void Enter()
     {
+        GameEvent.OnStartWinState?.Invoke();
         Timer = gameManager.WaveWonTime;
         gameManager.BuffCanvas.SetActive(true);
-        gameManager.CountDownSlider.FadeIn();
     }
 
     public override void Exit()
     {
-        gameManager.CountDownSlider.FadeOut();
+        GameEvent.OnStopWaveWinState?.Invoke();
     }
 
     public override void FixedUpdate()

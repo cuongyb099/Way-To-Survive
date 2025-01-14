@@ -1,0 +1,11 @@
+[
+  {
+    "ID": "Gold",
+    "Quantity": 101
+  },
+  {
+    "ID": "Structure",
+    "Quantity": 1,
+    "Heath": 0.0
+  }
+]
