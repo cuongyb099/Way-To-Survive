@@ -18,7 +18,6 @@ namespace KatInventory
             var data = CreateItemData(quantity, item.gameObject);
             Prefab.SetData(data);
             item.gameObject.SetActive(false);
-            Debug.Log("xxx");
             return data;
         }
 

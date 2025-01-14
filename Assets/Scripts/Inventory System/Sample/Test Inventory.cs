@@ -42,4 +42,10 @@ public class TestInventory : MonoBehaviour
     {
         Inventory.Instance.Load();
     }
+
+    [ContextMenu("Encrypt")]
+    public void test()
+    {
+        
+    }
 }

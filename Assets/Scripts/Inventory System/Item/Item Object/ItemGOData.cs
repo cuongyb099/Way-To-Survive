@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using UnityEngine;
 
 namespace KatInventory
@@ -9,6 +10,7 @@ namespace KatInventory
             GoReference = go;
         }
 
+        [JsonIgnore]
         public GameObject GoReference { get; private set; }
     }
 }

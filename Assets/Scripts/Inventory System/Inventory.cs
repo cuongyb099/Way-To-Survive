@@ -47,13 +47,11 @@ namespace KatInventory
             
             var existItemData = FindFirstItemNotFullStack(itemBase);
             
-            //Nếu Item Là độc nhất và tồn tại ko add
             if (itemBase.Unique && existItemData != null)
             {
                 return null;
             }
 
-            //Nếu Item độc nhất hoặc không tồn tại trong kho và đủ sức chứa thì add
             if ((itemBase.Unique || existItemData == null) && _inventory.Count < Capacity)
             {
                 return AddNewItem(itemBase, quantity);
@@ -189,32 +187,24 @@ namespace KatInventory
 
         public void Load()
         {
-            Json.LoadJson(SavePath, out List<IDLoad> listItemId);
-            
-            if(listItemId == null) return;
-            
-            List<ItemData> listItemData = new();
-            foreach (var idRef in listItemId)
-            {
-                var itemSO = ItemDataBase.Instance.SearchItem(idRef.ID);
-                listItemData.Add(itemSO.CreateItem());
-            }
-            
-            
-            var json = File.ReadAllText(SavePath);
+            var json = Json.ReadAllText(SavePath);
+           
             JArray itemsArray = JArray.Parse(json);
+            
+            if(itemsArray.Count == 0) return;
+            
+            _inventory.Clear();
+            
             for (int i = 0; i < itemsArray.Count; i++)
             {
-                JsonConvert.PopulateObject(itemsArray[i].ToString(), listItemData[i]);
+                var token = itemsArray[i];
+                var itemData = ItemDataBase.Instance.SearchItem(token[ID]?.ToString()).CreateItem();
+                
+                JsonConvert.PopulateObject(itemsArray[i].ToString(), itemData);
+                _inventory.Add(itemData);
             }
-
-            _inventory = listItemData;
         }
-    }
-}
 
-public class IDLoad
-{
-    [JsonProperty("ID")]
-    public string ID;
+        private static readonly string ID = "ID";
+    }
 }

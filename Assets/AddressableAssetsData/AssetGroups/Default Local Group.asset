@@ -33,14 +33,14 @@ MonoBehaviour:
     m_SerializedLabels:
     - Inventory
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 0877c1701c8638940945a71d8591892d
-    m_Address: Assets/Scripts/Structure/New Structure SO.asset
+  - m_GUID: 0c8f845dbe4ac44409a43f402bd4c069
+    m_Address: Assets/Scripts/Inventory System/Sample/Gold.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Inventory
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 0c8f845dbe4ac44409a43f402bd4c069
-    m_Address: Assets/Scripts/Inventory System/Sample/Gold.asset
+  - m_GUID: 6a94e4271e2732140a4ae87aad7f300e
+    m_Address: Assets/Scripts/Inventory System/Sample/Sword.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Inventory
