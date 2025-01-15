@@ -1,3 +1,4 @@
+using System;
 using BehaviorDesigner.Runtime;
 using ProjectDawn.Navigation.Hybrid;
 using UnityEngine;
@@ -11,6 +12,7 @@ public class EnemyCtrl : BasicController
     public AgentNavMeshAuthoring NavMeshAuthoring { get; protected set; }
     public Animator Anim { get; protected set; }
     public BehaviorTree BTree { get; protected set; }
+    private EnemyBehaviorStatsLinking behaviorStatsLinking;
     
     [HideInInspector] public bool IsTakingDamage;
     //Money drop test
@@ -27,17 +29,22 @@ public class EnemyCtrl : BasicController
         NavMeshAuthoring = GetComponent<AgentNavMeshAuthoring>();
     }
 
-    public override void Damage(DamageInfo info)
+    private void Start()
+    {
+        behaviorStatsLinking = new (this);
+    }
+
+    public override float Damage(DamageInfo info)
     {
         IsTakingDamage = true;
-        base.Damage(info);
+        return base.Damage(info);
     }
 
     public override void Death(GameObject dealer)
     {
         base.Death(dealer);
 
-        if (dealer.tag == "Player")
+        if (dealer.CompareTag("Player"))
         {
             PlayerEvent.RecieveCash.Invoke(cashGiveAmount);
         }

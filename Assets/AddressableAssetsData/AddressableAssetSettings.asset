@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: 7b6457b04081fa04bb2db89e5736b50b
   m_currentHash:
     serializedVersion: 2
-    Hash: 13d124d97bf7f55568457a9d728c9bff
+    Hash: 05579f295b079d9fe00ad7cbc4ea3fa4
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 0
   m_BundleLocalCatalog: 0
@@ -46,6 +46,14 @@ MonoBehaviour:
   m_GroupAssets:
   - {fileID: 11400000, guid: ab1effa64713e0042b62dbc8e7a3fc15, type: 2}
   - {fileID: 11400000, guid: 34eda0a85df6ccf4483069486dbf6b2a, type: 2}
+  - {fileID: 11400000, guid: d38c3694577fce047b8d47317d216564, type: 2}
+  - {fileID: 11400000, guid: bff7a70df8f2eab41839827361513351, type: 2}
+  - {fileID: 11400000, guid: 9666395503bfab94fa342d1a99f98ea6, type: 2}
+  - {fileID: 11400000, guid: bb3ff41d26b313b4b9a7163e72ac78db, type: 2}
+  - {fileID: 11400000, guid: 8e65068ab5cd9344cb10676fe1236f38, type: 2}
+  - {fileID: 11400000, guid: 810fa82178a9869449c68f124e1543d9, type: 2}
+  - {fileID: 11400000, guid: 45962e0dab92f2449ab50264cca99e02, type: 2}
+  - {fileID: 11400000, guid: 9d9b3f3a6ba46354f8bbe2ef1c6cd695, type: 2}
   m_BuildSettings:
     m_CompileScriptsInVirtualMode: 0
     m_CleanupStreamingAssetsAfterBuilds: 1
@@ -87,6 +95,16 @@ MonoBehaviour:
   m_LabelTable:
     m_LabelNames:
     - default
+    - Locale
+    - Locale-en
+    - Locale-vi-VN
+    - Locale-zh-CN
+    - Locale-ja-JP
+    - Environment
+    - Manager
+    - GameSO
+    - GamePrefab
+    - Inventory
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 1401d1b0b4a82494d893949690939cf0, type: 2}

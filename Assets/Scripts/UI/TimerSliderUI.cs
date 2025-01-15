@@ -17,6 +17,18 @@ public class TimerSliderUI : MonoBehaviour
         Slider = GetComponent<Slider>();
         fillColor = Fill.color;
         backGroundColor = BackGround.color;
+        GameEvent.OnStartShoppingState += FadeIn;
+        GameEvent.OnStartWinState += FadeIn;
+        GameEvent.OnStopShoppingState += FadeOut;
+        GameEvent.OnStopWaveWinState += FadeOut;
+    }
+
+    private void OnDestroy()
+    {
+        GameEvent.OnStartShoppingState -= FadeIn;
+        GameEvent.OnStartWinState -= FadeIn;
+        GameEvent.OnStopShoppingState -= FadeOut;
+        GameEvent.OnStopWaveWinState -= FadeOut;
     }
 
     private Tweener a, b;

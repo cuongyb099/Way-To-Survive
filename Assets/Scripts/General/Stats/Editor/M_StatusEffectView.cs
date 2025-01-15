@@ -48,7 +48,7 @@ public class M_StatusEffectView : M_ItemView
 
 			SetBorderColor(root, Color.black, 1);
 	
-			var tmp = m_effect.Data.Name.Equals("") ? m_effect.Data.name : m_effect.Data.Name;
+			var tmp = m_effect.Data.Name.GetLocalizedString().Equals("") ? m_effect.Data.name : m_effect.Data.Name.GetLocalizedString();
 			
 			Label label = new Label($"{tmp}")
 			{

@@ -4,7 +4,20 @@ using UnityEngine;
 
 public class WheelHandlerUI : MonoBehaviour
 {
+    public ItemWheelUI Inventory;
     public List<ItemWheelUI> Items;
+
+    private void Awake()
+    {
+
+    }
+
+    private void OnDestroy()
+    {
+        GameEvent.OnStartCombatState -= DeactivateInventory;
+        GameEvent.OnStopCombatState -= ActivateInventory;
+    }
+
     private void Start()
     {
        InitalizeItems();
@@ -18,6 +31,8 @@ public class WheelHandlerUI : MonoBehaviour
                gameObject.SetActive(false);
            });
        }
+       GameEvent.OnStartCombatState += DeactivateInventory;
+       GameEvent.OnStopCombatState += ActivateInventory;
     }
 
     public void InitalizeItems()
@@ -26,8 +41,8 @@ public class WheelHandlerUI : MonoBehaviour
         //0->2 is for guns
         for (int i = 0; i < 3; i++)
         {
-            Items[i].Initialize(i, guns[i] != null ? guns[i].GunData.GunName : null,
-                guns[i] != null ? guns[i].GunData.Icon : null);
+            Items[i].Initialize(i, guns[i] != null ? guns[i].WeaponData.Name.GetLocalizedString() : null,
+                guns[i] != null ? guns[i].WeaponData.Icon : null);
         }
 
         Items[3].Initialize(3,"Inventory",null);
@@ -47,5 +62,13 @@ public class WheelHandlerUI : MonoBehaviour
                 GameManager.Instance.Player.SwitchWeapon(2);
                 break;
         }
+    }
+    private void ActivateInventory()
+    {
+        Inventory.ItemButton.interactable = true;
+    }
+    private void DeactivateInventory()
+    {
+        Inventory.ItemButton.interactable = false;
     }
 }

@@ -1,51 +1,99 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using Tech.Logger;
 using Tech.Singleton;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
-public class AddressablesManager : Singleton<AddressablesManager>
+[DefaultExecutionOrder(-1000)]
+public class AddressablesManager : SingletonPersistent<AddressablesManager>
 {
-	private readonly Dictionary<string, AsyncOperationHandle> dicAsset = new();
+	private readonly Dictionary<object, AsyncOperationHandle> _dicAsset = new ();
 
-	public void CreateAsset<T>(string key, Action<T> onComplete, Action onFailed = null)
+	protected override void Awake()
 	{
-		if (dicAsset.ContainsKey(key))
-		{
-			onComplete?.Invoke((T)(dicAsset[key].Result));
-		}
-		else
-		{
-			StartCoroutine(LoadAsset(key, onComplete, onFailed));
-		}
+		base.Awake();
+		Addressables.InitializeAsync();
 	}
-
-	private IEnumerator LoadAsset<T>(string key, Action<T> onComplete, Action onFailed = null)
+	public async Task<T> LoadAssetAsync<T>(object key, Action onFailed = null) where T : class
 	{
-		var opHandle = Addressables.LoadAssetAsync<T>(key);
-		yield return opHandle;
-
-		if (opHandle.Status == AsyncOperationStatus.Succeeded)
+		if (_dicAsset.TryGetValue(key, out var value))
 		{
-			onComplete?.Invoke(opHandle.Result);
-			if (dicAsset.ContainsKey(key))
+			return value.Result as T;
+		}
+		try
+		{
+			if (key is IEnumerable enumerable)
 			{
-				RemoveAsset(key);
+				Addressables.LoadAssetAsync<T>(enumerable);
 			}
-			dicAsset[key] = opHandle;
+			var opHandle =  Addressables.LoadAssetAsync<T>(key);
+			await opHandle.Task;
+			if (opHandle.Status == AsyncOperationStatus.Succeeded)
+			{
+				_dicAsset.Add(key, opHandle);
+				return (T)opHandle.Result;
+			}
 		}
-		else if (opHandle.Status == AsyncOperationStatus.Failed)
+		catch (Exception e)
 		{
-			Debug.LogError($"Load Asset Failed: {key}");
-			onFailed?.Invoke();
+			// ignored
 		}
+
+		LogCommon.LogWarning($"Load Asset Failed: {key}");
+		onFailed?.Invoke();
+		return default;
+	}
+	public async Task<List<T>> LoadAssetsAsync<T>(object key, Action onFailed = null)
+	{
+		if (_dicAsset.TryGetValue(key, out var value))
+		{
+			return value.Result as List<T>;
+		}
+		try
+		{
+			var opHandle = Addressables.LoadAssetsAsync<T>(key, null);
+			await opHandle.Task;
+			if (opHandle.Status == AsyncOperationStatus.Succeeded)
+			{
+				_dicAsset.Add(key, opHandle);
+				return (List<T>)opHandle.Result;
+			}
+		}
+		catch (Exception e)
+		{
+			// ignored
+		}
+
+		LogCommon.LogWarning($"Load Asset Failed: {key}");
+		onFailed?.Invoke();
+		return default;
+	}
+	public void RemoveAsset(object key)
+	{
+		if(!_dicAsset.TryGetValue(key, out var value)) return;
+		Addressables.ReleaseInstance(value);
+		_dicAsset.Remove(key);
+	}
+	public bool TryGetAssetInCache<T>(string key, out T result) where T : class
+	{
+		if (_dicAsset.TryGetValue(key, out var opHandle))
+		{
+			result = opHandle.Result as T;
+			return true;
+		}
+		result = default;
+		return false;
 	}
 
-	public void RemoveAsset(string key)
+	public async Task<GameObject> InstantiateAsync(object key, Transform parent = null)
 	{
-		Addressables.Release(dicAsset[key]);
-		dicAsset.Remove(key);
+		var opHandle = Addressables.InstantiateAsync(key, parent);
+		await opHandle.Task;
+		_dicAsset.Add(key, opHandle);
+		return opHandle.Result;
 	}
 }

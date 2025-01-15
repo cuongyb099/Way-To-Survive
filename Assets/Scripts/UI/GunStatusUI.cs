@@ -17,14 +17,14 @@ public class GunStatusUI : MonoBehaviour
 	private void Awake()
 	{
         PlayerEvent.OnEquipWeapon += ChangeGun;
-        PlayerEvent.OnShoot += UpdateGunAmmo;
+        PlayerEvent.OnAttack += UpdateGunAmmo;
 		PlayerEvent.OnReload += UpdateGunAmmo;
 		PlayerEvent.OnChangeCap += UpdateGunAmmo;
 	}
 	private void OnDestroy()
 	{
 		PlayerEvent.OnEquipWeapon -= ChangeGun;
-		PlayerEvent.OnShoot -= UpdateGunAmmo;
+		PlayerEvent.OnAttack -= UpdateGunAmmo;
 		PlayerEvent.OnReload -= UpdateGunAmmo;
 		PlayerEvent.OnChangeCap -= UpdateGunAmmo;
 
@@ -38,15 +38,15 @@ public class GunStatusUI : MonoBehaviour
     }
 	public void ChangeGun(WeaponBase weapon)
 	{
-		if (weapon.GunData.WeaponType != WeaponType.Knife)
+		if (weapon.WeaponData.WeaponType != WeaponType.Knife)
 		{
 			GunBase gun = (GunBase)weapon;
 			gunAmmo = gun.Stats.GetAttribute(AttributeType.Bullets);
 		}
 		else
 			gunAmmo = null;
-        GunIcon.sprite = weapon.GunData.Icon;
-		TextGunName.text = weapon.GunData.GunName;
+        GunIcon.sprite = weapon.WeaponData.Icon;
+		TextGunName.text = weapon.WeaponData.Name.GetLocalizedString();
         UpdateGunAmmo();
     }
 }

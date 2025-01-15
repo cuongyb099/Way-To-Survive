@@ -9,20 +9,19 @@ public class Bullet : MonoBehaviour
 	public float LiveTime = 3f;
 	public float Force = 10f;
 	public GameObject HitEffectWall;
-	public DamageInfo DamageInfo;
-	public Rigidbody RB { get; private set; }
-	public TrailRenderer TrailRenderer { get; private set; }
+	private DamageInfo damageInfo;
+	private Rigidbody rb;
+	private TrailRenderer trailRenderer;
 	private Tween seq;
 	private int countDMG = 0;
 	private void Awake()
 	{
-		RB = GetComponent<Rigidbody>();
-		TrailRenderer = GetComponent<TrailRenderer>();
+		rb = GetComponent<Rigidbody>();
+		trailRenderer = GetComponent<TrailRenderer>();
 	}
 	public void OnEnable()
 	{
 		seq = DOVirtual.DelayedCall(LiveTime, Deactivate).SetUpdate(false);
-		countDMG = DamageTime;
 	}
 	
 	private void OnCollisionEnter(Collision other)
@@ -30,39 +29,71 @@ public class Bullet : MonoBehaviour
 		ObjectPool.Instance.SpawnObject(HitEffectWall, other.contacts[0].point, Quaternion.identity, PoolType.ParticleSystem);
 		seq.Kill();
 		Collider otherCollider = other.collider;
-		if (!otherCollider.CompareTag(DamageInfo.Dealer.tag))
+		if (!otherCollider.CompareTag(damageInfo.Dealer.tag))
 		{
 			if (otherCollider.TryGetComponent(out IDamagable damagable))
 			{
-				DamagePopUpGenerator.Instance.CreateDamagePopUp(other.contacts[0].point,DamageInfo);
-				damagable.Damage(DamageInfo);
+				DamageHandler.Damage(damagable, damageInfo);
+				
 				countDMG--;
-				DamageInfo = new DamageInfo(DamageInfo.Dealer,DamageInfo.Damage*DamageReduction,DamageInfo.IsCrit);
-				if(countDMG<=0)
-					Deactivate();
+				damageInfo = new DamageInfo(damageInfo.Dealer,damageInfo.Damage*DamageReduction,damageInfo.IsCrit);
+				HandleBulletPenetration(other,countDMG);
 				return;
 			}
 		}
 		Deactivate();
 	}
-	
 
+	private void HandleBulletPenetration(Collision collision, int countPenetrate)
+	{
+		if (collision != null &&
+		    countPenetrate > 0)
+		{
+			Vector3 direction = spawnVelocity.normalized;
+			ContactPoint contact = collision.GetContact(0);
+			Vector3 backCastOrigin = contact.point + direction * 1f;
+
+			if (Physics.Raycast(
+				    backCastOrigin,
+				    -direction,
+				    out RaycastHit hit,
+				    1f,
+				    rb.includeLayers
+			    ))
+			{
+				rb.position = hit.point + direction * 0.01f;
+
+				rb.velocity = spawnVelocity - direction;
+
+			}
+			else
+			{
+				Deactivate();
+			}
+		}
+		else
+		{
+			Deactivate();
+		}
+	}
+	private Vector3 spawnVelocity ;
 	public void InitBullet(Vector3 point, float accuracy, DamageInfo info)
 	{
-		DamageInfo = info;
-		RB.position = point;
+		damageInfo = info;
+		rb.position = point;
+		countDMG = DamageTime;
 		Vector3 angle = info.Dealer.gameObject.transform.rotation.eulerAngles;
 
-		Quaternion temp = Quaternion.Euler(angle.x, angle.y + Mathf.Clamp(UnityEngine.Random.Range(-accuracy, accuracy), -15, 15), angle.z);
-		TrailRenderer.Clear();
-
-		RB.AddForce(temp * Vector3.forward * Force, ForceMode.VelocityChange);
-
+		Quaternion temp = Quaternion.Euler(angle.x, angle.y + Mathf.Clamp(Random.Range(-accuracy, accuracy), -GameValues.RecoilMaxValue, GameValues.RecoilMaxValue), angle.z);
+		trailRenderer.Clear();
+		spawnVelocity = temp * Vector3.forward * Force;
+		rb.AddForce(spawnVelocity, ForceMode.VelocityChange);
 	}
 	public void Deactivate()
 	{
-		RB.velocity = Vector3.zero;
-		TrailRenderer.Clear();
+		rb.velocity = Vector3.zero;
+		
+		trailRenderer.Clear();
 		ObjectPool.Instance.ReturnObjectToPool(gameObject);
 	}
 }

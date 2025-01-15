@@ -13,13 +13,14 @@ public class ShoppingState : BaseState<EGameState>
 
     public override void Enter()
     {
-        gameManager.CountDownSlider.FadeIn();
+        GameEvent.OnStartShoppingState?.Invoke();
+        gameManager.SkipShopping = false;
         Timer = gameManager.ShoppingTime;
     }
 
     public override void Exit()
     {
-        gameManager.CountDownSlider.FadeOut();
+        GameEvent.OnStopShoppingState?.Invoke();
         gameManager.SkipShopping = false;
     }
 

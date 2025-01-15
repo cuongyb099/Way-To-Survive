@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Wall Concrete
   m_EditorClassIdentifier: 
   IconUI: {fileID: 0}
+  ItemType: 1
   Name: Wall Concrete
   Prefab: {fileID: 2087167707479739720, guid: 602ee13d2dd602945b0b67a9eaed2482, type: 3}
   MaxHP: 100

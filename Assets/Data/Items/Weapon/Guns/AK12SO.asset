@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b59205e98b25a304aac3cf684f1d5aa3, type: 3}
+  m_Name: AK12SO
+  m_EditorClassIdentifier: 
+  Name:
+    m_TableReference:
+      m_TableCollectionName: GUID:fd6713aa530e7a244b6d797fbc2425fb
+    m_TableEntryReference:
+      m_KeyId: 2804799958409216
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  Description:
+    m_TableReference:
+      m_TableCollectionName: GUID:fd6713aa530e7a244b6d797fbc2425fb
+    m_TableEntryReference:
+      m_KeyId: 1139121577984
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  Icon: {fileID: 870321632, guid: 92a4fe653152e9244b4849b9dba1c92b, type: 3}
+  BuyPrice: 2500
+  SellPrice: 0
+  WeaponPrefab: {fileID: -7086552029489029334, guid: 7143da844342c4246b9739697957abb4, type: 3}
+  BulletPrefab: {fileID: 984755602444092648, guid: bff9cb15c026277498f4541bb37853a4, type: 3}
+  ShellPrefab: {fileID: 6182647827399181740, guid: a1e78c6635fd42541975b5cdc3cfdfab, type: 3}
+  MagPrefab: {fileID: 6182647827399181740, guid: be822d7afbb24b64f825343c49bb66bb, type: 3}
+  WeaponType: 1
+  ShootingSpeed: 0.15
+  Damage: 3
+  Aim: 8
+  SpreadMax: 12
+  Recoil: 0.1
+  RecoilResetTime: 2
+  Weight: 1
+  MaxCapacity: 30
+  ReleaseToShoot: 0
+  ShootingSounds:
+  - {fileID: 8300000, guid: d81bebac9cee217409b15b76e7011fc6, type: 3}
+  - {fileID: 8300000, guid: 7833cce12c063c545abdb01ac6003730, type: 3}
+  - {fileID: 8300000, guid: 7833cce12c063c545abdb01ac6003730, type: 3}
+  - {fileID: 8300000, guid: 7833cce12c063c545abdb01ac6003730, type: 3}
+  TailSound: {fileID: 8300000, guid: 73e01a3d24896ab46bab8ca52b69fa7e, type: 3}
+  CockingSound: {fileID: 8300000, guid: 586d58f81555a854996339b8111bd791, type: 3}
+  MagSoundIn: {fileID: 8300000, guid: 587a3f37adbb9a942883c3fc572878b6, type: 3}
+  MagSoundOut: {fileID: 8300000, guid: 7a59dde985bdfcf458a8dcae0e299541, type: 3}
+  references:
+    version: 2
+    RefIds: []

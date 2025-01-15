@@ -22,6 +22,39 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4efd46026f3db27439749c4c2250ce5a
+    m_Address: Assets/Prefab/UI/Popup
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ff90a11aec98d764798b7b58dd1a696f
+    m_Address: Assets/Data/Items
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Inventory
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0c8f845dbe4ac44409a43f402bd4c069
+    m_Address: Assets/Scripts/Inventory System/Sample/Gold.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Inventory
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6a94e4271e2732140a4ae87aad7f300e
+    m_Address: Assets/Scripts/Inventory System/Sample/Sword.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Inventory
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 708a1f61c8c130e46ab176451db3b722
+    m_Address: Main Panel
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 96e7e50941b77f94bb9f6283e70c6181
+    m_Address: Sub Panel
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: f87357868bafec74b8eaa3e2bab0161e, type: 2}
   m_SchemaSet:
