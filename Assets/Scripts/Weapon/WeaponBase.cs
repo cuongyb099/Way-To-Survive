@@ -18,7 +18,7 @@ public enum WeaponType
 }
 public abstract class WeaponBase : MonoBehaviour, IEquatable<WeaponBase>
 {
-	public GunBaseSo WeaponData;
+	public GunBaseSO WeaponData;
 	public bool ShootAble { get; set; } = true;
 	
 	protected PlayerController playerController;
@@ -80,7 +80,7 @@ public abstract class WeaponBase : MonoBehaviour, IEquatable<WeaponBase>
 		    !repeatAble ) return;
 		repeatAble = false;
 		PlayerEvent.OnAttack?.Invoke();
-		DOVirtual.DelayedCall(WeaponData.ShootingSpeed/playerController.Stats.GetStat(StatType.ShootSpeed).Value, () => { repeatAble = true;});
+		DOVirtual.DelayedCall(WeaponData.ShootingSpeed/playerController.Stats.GetStat(StatType.ATKSpeed).Value, () => { repeatAble = true;});
 		WeaponSoundPlay();
 	}
 

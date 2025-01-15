@@ -46,13 +46,13 @@ public class BaseStructure : MonoBehaviour
     {
         if (!other.CompareTag("Structure")) return;
         Debug.Log(other.gameObject.name + "Enter");
-        BuildingSystem.Instance.ObstaclesOccupy++;
+        //BuildingSystem.Instance.ObstaclesOccupy++;
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (!other.CompareTag("Structure")) return;
         Debug.Log(other.gameObject.name + "Exit");
-        BuildingSystem.Instance.ObstaclesOccupy--;
+        //BuildingSystem.Instance.ObstaclesOccupy--;
     }
 }

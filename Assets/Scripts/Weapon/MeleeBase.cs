@@ -23,7 +23,7 @@ public class MeleeBase : WeaponBase
         repeatAble = false;
         PlayerEvent.OnAttack?.Invoke();
         playerController.Animator.SetFloat("MeleeCombo", ++comboCount%2);
-        DOVirtual.DelayedCall(WeaponData.ShootingSpeed/playerController.Stats.GetStat(StatType.ShootSpeed).Value, () => { repeatAble = true;});
+        DOVirtual.DelayedCall(WeaponData.ShootingSpeed/playerController.Stats.GetStat(StatType.ATKSpeed).Value, () => { repeatAble = true;});
         WeaponSoundPlay();
     }
 

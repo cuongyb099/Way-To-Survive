@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b59205e98b25a304aac3cf684f1d5aa3, type: 3}
   m_Name: RevolverSO
   m_EditorClassIdentifier: 
-  Name:
+  <Name>k__BackingField:
     m_TableReference:
       m_TableCollectionName: GUID:fd6713aa530e7a244b6d797fbc2425fb
     m_TableEntryReference:
@@ -21,7 +21,7 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
-  Description:
+  <Description>k__BackingField:
     m_TableReference:
       m_TableCollectionName: GUID:fd6713aa530e7a244b6d797fbc2425fb
     m_TableEntryReference:
@@ -30,9 +30,12 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
-  Icon: {fileID: 217534693, guid: 92a4fe653152e9244b4849b9dba1c92b, type: 3}
-  BuyPrice: 500
-  SellPrice: 0
+  <Icon>k__BackingField: {fileID: -602701893, guid: 7d14fe165a6225e499757a3668bbe881, type: 3}
+  <Unique>k__BackingField: 0
+  <BuyPrice>k__BackingField: 500
+  <SellPrice>k__BackingField: 0
+  <MaxStack>k__BackingField: 1
+  <Modifiers>k__BackingField: 
   WeaponPrefab: {fileID: -2544400597224823434, guid: a484ab6f9ac4d6f4ba5a733d901c9c9b, type: 3}
   BulletPrefab: {fileID: 984755602444092648, guid: 3e0913a4e2aa7b74f8e45ec8780fa00d, type: 3}
   ShellPrefab: {fileID: 6182647827399181740, guid: a1e78c6635fd42541975b5cdc3cfdfab, type: 3}

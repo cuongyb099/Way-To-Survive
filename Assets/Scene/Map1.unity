@@ -2131,6 +2131,7 @@ GameObject:
   - component: {fileID: 118900221}
   - component: {fileID: 118900220}
   - component: {fileID: 118900219}
+  - component: {fileID: 118900222}
   m_Layer: 5
   m_Name: PlayerCanvas
   m_TagString: Untagged
@@ -2232,6 +2233,19 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &118900222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 118900217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc35b4668a7e4a87bdbbfc37184e2e32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LastPanelInteract: 
 --- !u!1 &123221776
 GameObject:
   m_ObjectHideFlags: 0
@@ -19688,8 +19702,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a555e543cb815b4292eb7809a2e7c1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildBtn: {fileID: 1319160594}
-  rotateBtn: {fileID: 2125190805}
 --- !u!1 &744644493
 GameObject:
   m_ObjectHideFlags: 0
@@ -33782,10 +33794,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a76fcd9c8c29d8a48b9a4dc7f19af9bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  indicatorPlacementMat: {fileID: 2100000, guid: 4fc70c93c4f95294ea63608c1b333060, type: 2}
-  rangeIndicatorPlace: 3
-  Inventory: {fileID: 11400000, guid: 428e680dabbec3e4b85cd2218a18a67a, type: 2}
-  ObstaclesOccupy: 0
+  _indicatorPlacementMat: {fileID: 0}
+  _rangeIndicatorPlace: 3
 --- !u!4 &1604585479
 Transform:
   m_ObjectHideFlags: 0

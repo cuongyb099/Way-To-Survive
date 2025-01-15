@@ -60,7 +60,7 @@ public class GunShopUI : CanvasUIHandler
     {
         Selected = itemUI;
         itemUI.ItemButton.Select();
-        GunBaseSo weapon = (GunBaseSo)itemUI.ItemBaseSoHolder;
+        GunBaseSO weapon = (GunBaseSO)itemUI.ItemBaseSoHolder;
         GunDataUI.ChangeGun(weapon);
         
         PlayerController player = GameManager.Instance.Player;
@@ -79,7 +79,7 @@ public class GunShopUI : CanvasUIHandler
     public void OnBuyGun()
     {
         PlayerController player = GameManager.Instance.Player;
-        GunBaseSo weapon = (GunBaseSo)Selected.ItemBaseSoHolder;
+        GunBaseSO weapon = (GunBaseSO)Selected.ItemBaseSoHolder;
         if (player.Cash < weapon.BuyPrice) return;
 
         player.Cash -= weapon.BuyPrice;

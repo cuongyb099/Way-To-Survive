@@ -103,7 +103,7 @@ public class GunBase : WeaponBase
 		temp.Kill();
 		Stats.GetAttribute(AttributeType.Bullets).Value--;
 		PlayerEvent.OnAttack?.Invoke();
-		DOVirtual.DelayedCall(WeaponData.ShootingSpeed/playerController.Stats.GetStat(StatType.ShootSpeed).Value, () => { repeatAble = true; ResetRecoil(); });
+		DOVirtual.DelayedCall(WeaponData.ShootingSpeed/playerController.Stats.GetStat(StatType.ATKSpeed).Value, () => { repeatAble = true; ResetRecoil(); });
 		GunSoundPlay();
 		BulletInstantiate();
 		GunRecoilUpdate();

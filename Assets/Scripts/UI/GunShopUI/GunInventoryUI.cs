@@ -77,13 +77,13 @@ public class GunInventoryUI : CanvasUIHandler
     private void ChangeGun(ItemMiniUI gunUI)
     {
         Selected = gunUI;
-        GunBaseSo weapon = (GunBaseSo)gunUI.ItemBaseSoHolder;
+        GunBaseSO weapon = (GunBaseSO)gunUI.ItemBaseSoHolder;
         gunUI.ItemButton.Select();
         GunDataUI.ChangeGun(weapon);
     }
     private void InitEquippedSlots(int index)
     {
-        WeaponBase weapon = ((GunBaseSo)Selected.ItemBaseSoHolder).WeaponPrefab ;
+        WeaponBase weapon = ((GunBaseSO)Selected.ItemBaseSoHolder).WeaponPrefab ;
         if (!player.ContainsWeapon(weapon))
         {
             player.InstantiateWeapon(weapon,index);

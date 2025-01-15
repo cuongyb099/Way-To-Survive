@@ -77,7 +77,7 @@ public class PlayerController : BasicController
 		PlayerEvent.OnAttack += SetShootAnim;
 		PlayerEvent.RecieveCash += AddCash;
         Stats.GetStat(StatType.MagCapacity).OnValueChange += CalculateMaxCap;
-		Stats.GetStat(StatType.ShootSpeed).OnValueChange += SetShootingSpeedAnim;
+		Stats.GetStat(StatType.ATKSpeed).OnValueChange += SetShootingSpeedAnim;
 		Stats.GetStat(StatType.Speed).OnValueChange += SetMovementSpeedAnim;
 	}
     private void OnDestroy()
@@ -89,7 +89,7 @@ public class PlayerController : BasicController
 		PlayerEvent.OnAttack -= SetShootAnim;
 		PlayerEvent.RecieveCash -= AddCash;
 		Stats.GetStat(StatType.MagCapacity).OnValueChange -= CalculateMaxCap;
-		Stats.GetStat(StatType.ShootSpeed).OnValueChange -= SetShootingSpeedAnim;
+		Stats.GetStat(StatType.ATKSpeed).OnValueChange -= SetShootingSpeedAnim;
 		Stats.GetStat(StatType.Speed).OnValueChange -= SetMovementSpeedAnim;
 	}
 	private void Start()
@@ -233,7 +233,7 @@ public class PlayerController : BasicController
 	}
     public void SetShootingSpeedAnim()
     {
-		Animator.SetFloat(ShootingSpeed,Stats.GetStat(StatType.ShootSpeed).Value);
+		Animator.SetFloat(ShootingSpeed,Stats.GetStat(StatType.ATKSpeed).Value);
 	}
 	public void SetMovementSpeedAnim()
 	{
@@ -260,7 +260,7 @@ public class PlayerController : BasicController
 	public Gradient LineTargetColor;
 	public void SetLineRenderers()
 	{
-        if(Weapons[CurrentWeaponIndex].WeaponData.WeaponType == WeaponType.Melee) return;
+        if(Weapons[CurrentWeaponIndex].WeaponData.WeaponType == WeaponType.Knife) return;
         GunBase gun = (GunBase)Weapons[CurrentWeaponIndex];
         float accuracy = gun.GunAccuracy;
 		LineRendererL.SetLineRenderer(gun.ShootPoint, gun.WeaponData.Aim, Quaternion.Euler(0, Mathf.Clamp(-accuracy, -GameValues.RecoilMaxValue,0), 0) * transform.forward);
