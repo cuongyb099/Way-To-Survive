@@ -167,6 +167,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Capacity>k__BackingField: 99
+  _inventory: []
 --- !u!114 &112094755
 MonoBehaviour:
   m_ObjectHideFlags: 0

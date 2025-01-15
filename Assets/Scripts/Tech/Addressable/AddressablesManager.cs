@@ -4,9 +4,11 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Tech.Logger;
 using Tech.Singleton;
+using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
+[DefaultExecutionOrder(-1000)]
 public class AddressablesManager : SingletonPersistent<AddressablesManager>
 {
 	private readonly Dictionary<object, AsyncOperationHandle> _dicAsset = new ();
@@ -16,7 +18,6 @@ public class AddressablesManager : SingletonPersistent<AddressablesManager>
 		base.Awake();
 		Addressables.InitializeAsync();
 	}
-
 	public async Task<T> LoadAssetAsync<T>(object key, Action onFailed = null) where T : class
 	{
 		if (_dicAsset.TryGetValue(key, out var value))
@@ -77,10 +78,8 @@ public class AddressablesManager : SingletonPersistent<AddressablesManager>
 		Addressables.ReleaseInstance(value);
 		_dicAsset.Remove(key);
 	}
-
 	public bool TryGetAssetInCache<T>(string key, out T result) where T : class
 	{
-
 		if (_dicAsset.TryGetValue(key, out var opHandle))
 		{
 			result = opHandle.Result as T;
@@ -88,5 +87,13 @@ public class AddressablesManager : SingletonPersistent<AddressablesManager>
 		}
 		result = default;
 		return false;
+	}
+
+	public async Task<GameObject> InstantiateAsync(object key, Transform parent = null)
+	{
+		var opHandle = Addressables.InstantiateAsync(key, parent);
+		await opHandle.Task;
+		_dicAsset.Add(key, opHandle);
+		return opHandle.Result;
 	}
 }
