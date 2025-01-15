@@ -14,6 +14,5 @@ public enum StatType
 	MaxBulletCap,
 	RecoilReduce,
 	MaxSpreadReduce,
-	ATKSpeed,
 }
 

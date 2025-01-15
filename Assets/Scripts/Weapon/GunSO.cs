@@ -1,19 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization;
 using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "GunSO",menuName ="Item/Gun/new GunSO")]
-public class GunSO : ScriptableObject
+public class GunSO : Item
 {
-	public int ID => GetInstanceID();
+	[Header("GunData")]
+	public WeaponBase WeaponPrefab;
 	public GameObject BulletPrefab;
+	public GameObject ShellPrefab;
+	public GameObject MagPrefab;
 	public WeaponType WeaponType;
-	public string GunName;
-	[TextArea]
-	public string GunDescription;
-	public Sprite Icon;
-	public int GunPrice;
 	public float ShootingSpeed;
 	public float Damage;
 	public float Aim;
@@ -30,4 +29,8 @@ public class GunSO : ScriptableObject
     public AudioClip CockingSound;
     public AudioClip MagSoundIn;
     public AudioClip MagSoundOut;
+    public override void Use(PlayerController player)
+    {
+	    throw new System.NotImplementedException();
+    }
 }

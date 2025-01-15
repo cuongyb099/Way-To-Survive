@@ -12,16 +12,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b59205e98b25a304aac3cf684f1d5aa3, type: 3}
   m_Name: MP5SO
   m_EditorClassIdentifier: 
-  BulletPrefab: {fileID: 984755602444092648, guid: bff9cb15c026277498f4541bb37853a4, type: 3}
-  WeaponType: 4
-  GunName: MP5
-  GunDescription: af
+  Name:
+    m_TableReference:
+      m_TableCollectionName: GUID:fd6713aa530e7a244b6d797fbc2425fb
+    m_TableEntryReference:
+      m_KeyId: 2805007387713536
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  Description:
+    m_TableReference:
+      m_TableCollectionName: GUID:fd6713aa530e7a244b6d797fbc2425fb
+    m_TableEntryReference:
+      m_KeyId: 2952562466816
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   Icon: {fileID: 21300000, guid: ba5d55742a1120d4f86753510da786bb, type: 3}
-  GunPrice: 1300
+  BuyPrice: 1299
+  SellPrice: 0
+  WeaponPrefab: {fileID: 3710622584200289305, guid: 7009c477ea90f0a4cb32b7c2a9714fa9, type: 3}
+  BulletPrefab: {fileID: 984755602444092648, guid: bff9cb15c026277498f4541bb37853a4, type: 3}
+  ShellPrefab: {fileID: 6182647827399181740, guid: a1e78c6635fd42541975b5cdc3cfdfab, type: 3}
+  MagPrefab: {fileID: 6182647827399181740, guid: 438049bf7b07a9f46b64683f6f5f6e9c, type: 3}
+  WeaponType: 4
   ShootingSpeed: 0.075
   Damage: 1
   Aim: 1
-  SpreadMax: 10
+  SpreadMax: 15
   Recoil: 0.1
   RecoilResetTime: 2
   Weight: 0.6
@@ -37,3 +57,6 @@ MonoBehaviour:
   CockingSound: {fileID: 8300000, guid: 487d9cf01e17e0448a56cd385cb81f3f, type: 3}
   MagSoundIn: {fileID: 8300000, guid: 7a59dde985bdfcf458a8dcae0e299541, type: 3}
   MagSoundOut: {fileID: 8300000, guid: dca74159a61f24e458cce8b48812159f, type: 3}
+  references:
+    version: 2
+    RefIds: []

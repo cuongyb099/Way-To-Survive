@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b59205e98b25a304aac3cf684f1d5aa3, type: 3}
+  m_Name: ScarSO
+  m_EditorClassIdentifier: 
+  Name:
+    m_TableReference:
+      m_TableCollectionName: GUID:fd6713aa530e7a244b6d797fbc2425fb
+    m_TableEntryReference:
+      m_KeyId: 2805922366742528
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  Description:
+    m_TableReference:
+      m_TableCollectionName: GUID:fd6713aa530e7a244b6d797fbc2425fb
+    m_TableEntryReference:
+      m_KeyId: 2805886224424960
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  Icon: {fileID: -181262712, guid: 44598c3ae2f46924b99046f2f3300073, type: 3}
+  BuyPrice: 3500
+  SellPrice: 0
+  WeaponPrefab: {fileID: -7086552029489029334, guid: 14b9068ff59c7a740a80c60276b4a17d, type: 3}
+  BulletPrefab: {fileID: 984755602444092648, guid: bff9cb15c026277498f4541bb37853a4, type: 3}
+  ShellPrefab: {fileID: 6182647827399181740, guid: a1e78c6635fd42541975b5cdc3cfdfab, type: 3}
+  MagPrefab: {fileID: 6182647827399181740, guid: be822d7afbb24b64f825343c49bb66bb, type: 3}
+  WeaponType: 1
+  ShootingSpeed: 0.2
+  Damage: 2.3
+  Aim: 10
+  SpreadMax: 9
+  Recoil: 0.04
+  RecoilResetTime: 3
+  Weight: 1
+  MaxCapacity: 30
+  ReleaseToShoot: 0
+  ShootingSounds:
+  - {fileID: 8300000, guid: 96434fb9d0ba9d14292e6d36365b6105, type: 3}
+  - {fileID: 8300000, guid: 245268b0b2a33fe4e9a4c408cf3847e2, type: 3}
+  - {fileID: 8300000, guid: 281bc55c831bbbf4988c238dddcfa67e, type: 3}
+  - {fileID: 8300000, guid: 7d84283298cdc324a8178122a73cf403, type: 3}
+  - {fileID: 8300000, guid: 8d6e7061cf1eb274e90f0ae132668092, type: 3}
+  TailSound: {fileID: 8300000, guid: 73e01a3d24896ab46bab8ca52b69fa7e, type: 3}
+  CockingSound: {fileID: 8300000, guid: 586d58f81555a854996339b8111bd791, type: 3}
+  MagSoundIn: {fileID: 8300000, guid: 587a3f37adbb9a942883c3fc572878b6, type: 3}
+  MagSoundOut: {fileID: 8300000, guid: 7a59dde985bdfcf458a8dcae0e299541, type: 3}
+  references:
+    version: 2
+    RefIds: []

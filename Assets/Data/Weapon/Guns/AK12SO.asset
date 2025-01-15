@@ -12,19 +12,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b59205e98b25a304aac3cf684f1d5aa3, type: 3}
   m_Name: AK12SO
   m_EditorClassIdentifier: 
-  BulletPrefab: {fileID: 984755602444092648, guid: bff9cb15c026277498f4541bb37853a4, type: 3}
-  WeaponType: 1
-  GunName: AK-12
-  GunDescription: "The AK-12, \"Avtomat Kalashnikova, 2012\" is a Russian gas-operated
-    assault rifle chambered in 5.45\xD739mm designed and manufactured by the Kalashnikov
-    Concern, making it the fifth generation of Kalashnikov rifles."
+  Name:
+    m_TableReference:
+      m_TableCollectionName: GUID:fd6713aa530e7a244b6d797fbc2425fb
+    m_TableEntryReference:
+      m_KeyId: 2804799958409216
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  Description:
+    m_TableReference:
+      m_TableCollectionName: GUID:fd6713aa530e7a244b6d797fbc2425fb
+    m_TableEntryReference:
+      m_KeyId: 1139121577984
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   Icon: {fileID: 870321632, guid: 92a4fe653152e9244b4849b9dba1c92b, type: 3}
-  GunPrice: 2700
+  BuyPrice: 2500
+  SellPrice: 0
+  WeaponPrefab: {fileID: -7086552029489029334, guid: 7143da844342c4246b9739697957abb4, type: 3}
+  BulletPrefab: {fileID: 984755602444092648, guid: bff9cb15c026277498f4541bb37853a4, type: 3}
+  ShellPrefab: {fileID: 6182647827399181740, guid: a1e78c6635fd42541975b5cdc3cfdfab, type: 3}
+  MagPrefab: {fileID: 6182647827399181740, guid: be822d7afbb24b64f825343c49bb66bb, type: 3}
+  WeaponType: 1
   ShootingSpeed: 0.15
   Damage: 3
   Aim: 8
-  SpreadMax: 7
-  Recoil: 0.06
+  SpreadMax: 12
+  Recoil: 0.1
   RecoilResetTime: 2
   Weight: 1
   MaxCapacity: 30
@@ -38,3 +56,6 @@ MonoBehaviour:
   CockingSound: {fileID: 8300000, guid: 586d58f81555a854996339b8111bd791, type: 3}
   MagSoundIn: {fileID: 8300000, guid: 587a3f37adbb9a942883c3fc572878b6, type: 3}
   MagSoundOut: {fileID: 8300000, guid: 7a59dde985bdfcf458a8dcae0e299541, type: 3}
+  references:
+    version: 2
+    RefIds: []
