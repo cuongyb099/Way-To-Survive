@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4512483, g: 0.50095206, b: 0.57348174, a: 1}
+  m_IndirectSpecularColor: {r: 0.45124817, g: 0.5009516, b: 0.573481, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -7586,7 +7586,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1984057231}
-  - component: {fileID: 1984057232}
   m_Layer: 0
   m_Name: SoundFXManager
   m_TagString: Untagged
@@ -7612,18 +7611,6 @@ Transform:
   - {fileID: 1835292538}
   m_Father: {fileID: 1854230434}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1984057232
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1984057230}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d9a5aff5508e2b41a38be64010815ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1986034174
 MonoBehaviour:
   m_ObjectHideFlags: 0

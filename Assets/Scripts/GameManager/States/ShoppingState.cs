@@ -1,14 +1,35 @@
-
-using ResilientCore;
+using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ShoppingState : BaseState<EGameState>
 {
     public float Timer { get; private set; }
     GameManager gameManager;
+    Slider _countDownSlider;
     public ShoppingState(GameManager manager) : base(EGameState.Shopping)
     {
         gameManager = manager;
+        LoadSlider();
+    }
+
+    private async void LoadSlider()
+    {
+        while (!UIManager.Instance)
+        {
+            await Task.Delay(100);
+        }
+
+        while (!_countDownSlider)
+        {
+            var panel = UIManager.Instance.GetPanel<GameplayMainPanel>(UIConstant.MainGameplayPanel);
+            
+            if (panel)
+            {
+                _countDownSlider = panel.CountDownSlider;
+            }
+            await Task.Delay(100);
+        }
     }
 
     public override void Enter()
@@ -40,7 +61,10 @@ public class ShoppingState : BaseState<EGameState>
 
     public override void Update()
     {
-        gameManager.CountDownSlider.Slider.value = Timer/gameManager.ShoppingTime;
+        if (_countDownSlider)
+        {
+            _countDownSlider.value = Timer/gameManager.ShoppingTime;
+        }
         Timer -= Time.deltaTime;
     }
 }

@@ -4,13 +4,16 @@ using System.Threading.Tasks;
 using Tech.Logger;
 using Tech.Singleton;
 using UnityEngine;
+using UnityEngine.UI;
 
 [DefaultExecutionOrder(-900)]
+[RequireComponent(typeof(CanvasScaler))]
+[RequireComponent(typeof(GraphicRaycaster))]
 public class UIManager : Singleton<UIManager>
 {
     private Dictionary<string, PanelBase> _panelDictionary = new ();
 
-    public string LastPanelInteract;
+    public string LastPanelInteract {get; private set;}
     //In Complex UI System Should Use Stack System This System Is Simple Work With Small Game
     public async Task<PanelBase> CreatePanelAsync(string panelName, Action<PanelBase> onComplete = null)
     {

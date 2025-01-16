@@ -1,9 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using KatInventory;
 using UnityEngine;
-using UnityEngine.Localization;
-using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "GunSO",menuName ="Item/Gun/new GunSO")]
 public class GunBaseSO : ItemBaseSO
