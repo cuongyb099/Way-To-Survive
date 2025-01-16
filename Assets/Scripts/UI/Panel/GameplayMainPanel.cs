@@ -1,15 +1,19 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class GameplayMainPanel : PanelBase
 {
+    [Header("Button")]
     [SerializeField] private Button _skipShoppingBtn;
     [SerializeField] private Button _openInventoryBtn;
     [SerializeField] private Button _switchBuildingModeBtn;
     [SerializeField] private Button _rotateBuildingBtn;
     [SerializeField] private Button _buildBtn;
     [SerializeField] private Button _pauseBtn;
+    [SerializeField] private Button _interactBtn;
     
+    [field: Header("Slider")]
     [field: SerializeField] public Slider CountDownSlider { get; private set; }
     
     private void Awake()
@@ -38,7 +42,28 @@ public class GameplayMainPanel : PanelBase
             UIManager.Instance.ShowPanel(UIConstant.PausePanel);
             Hide();
         });
+        
+        PlayerEvent.OnInteractEnter += ShowInteractBtn;
+        PlayerEvent.OnInteractExit += HideInteractBtn;
     }
+
+    private void OnDestroy()
+    {
+        PlayerEvent.OnInteractEnter -= ShowInteractBtn;
+        PlayerEvent.OnInteractExit -= HideInteractBtn;
+    }
+
+    private void ShowInteractBtn()
+    {
+        _interactBtn.gameObject.SetActive(true);
+    }
+
+    private void HideInteractBtn()
+    {
+        _interactBtn.gameObject.SetActive(false);
+    }
+    
+
     private void ResetSlider()
     {
         var top = transform.Find(UIConstant.Top);
@@ -85,6 +110,11 @@ public class GameplayMainPanel : PanelBase
         if (!_pauseBtn)
         {
             _pauseBtn = topLeft.Find("Pause BTN").GetComponentInChildren<Button>(true);
+        }
+
+        if (!_interactBtn)
+        {
+            _interactBtn = topRight.Find("Interact BTN").GetComponentInChildren<Button>(true);
         }
     }
 }

@@ -1165,6 +1165,7 @@ MonoBehaviour:
   _rotateBuildingBtn: {fileID: 3022820458763338766}
   _buildBtn: {fileID: 4610935582590318886}
   _pauseBtn: {fileID: 5933743030820723760}
+  _interactBtn: {fileID: 4750504714289326764}
   <CountDownSlider>k__BackingField: {fileID: 179064820265298886}
 --- !u!1 &2374132794645113089
 GameObject:

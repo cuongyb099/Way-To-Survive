@@ -9,6 +9,7 @@ public static class UIConstant
 
     //Panel
     public static readonly string InventoryPanel = "Inventory";
+    public static readonly string SettingsPanel = "Settings";
     public static readonly string PausePanel = "Pause";
     public static readonly string MainGameplayPanel = "Main Gameplay";
     
