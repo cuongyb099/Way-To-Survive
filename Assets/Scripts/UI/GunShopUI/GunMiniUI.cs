@@ -14,13 +14,10 @@ public class ItemMiniUI : MonoBehaviour
     public Button ItemButton { get; private set; }
     public ItemBaseSO ItemBaseSoHolder { get;private set; }
 
-    private void Awake()
-    {
-        ItemButton = GetComponent<Button>();
-    }
-
     public void Initialize(ItemBaseSO itemBaseSo)
     {
+        if(ItemButton == null)
+            ItemButton = GetComponent<Button>();
         if (itemBaseSo == null)
         {
             ItemBaseSoHolder = null;

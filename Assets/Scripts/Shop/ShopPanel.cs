@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class ShopUIHandler : CanvasUIHandler
+public class ShopPanel : FadeBlurPanel
 {
     public TextMeshProUGUI CashText;
     public GameObject BuffPanel;
@@ -14,16 +14,16 @@ public class ShopUIHandler : CanvasUIHandler
         player = GameManager.Instance.Player;
     }
 
-    protected override void OnEnable()
+    public override void Show()
     {
-        base.OnEnable();
+        base.Show();
         PlayerEvent.OnCashChange += UpdateCashText;
         UpdateCashText(player.Cash);
     }
 
-    protected override void OnDisable()
+    public override void Hide()
     {
-        base.OnDisable();  
+        base.Hide();
         PlayerEvent.OnCashChange -= UpdateCashText;
     }
 

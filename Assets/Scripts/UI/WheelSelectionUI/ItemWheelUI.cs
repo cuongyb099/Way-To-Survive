@@ -12,15 +12,11 @@ public class ItemWheelUI : MonoBehaviour
     public Image Image;
     public Button ItemButton { get; private set; }
     public int ID { get;private set; }
-
-    private void Awake()
-    {
-        ItemButton = GetComponent<Button>();
-        ID = -1;
-    }
-
+    
     public void Initialize(int id, string name, Sprite image)
     {
+        if(ItemButton == null)
+            ItemButton = GetComponent<Button>();
         ID = id;
         Name.text = name;
         if (image != null)

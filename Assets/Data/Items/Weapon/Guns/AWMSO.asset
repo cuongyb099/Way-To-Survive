@@ -40,7 +40,7 @@ MonoBehaviour:
   BulletPrefab: {fileID: 984755602444092648, guid: fe9330689c899644ab4a429fdcded209, type: 3}
   ShellPrefab: {fileID: 6182647827399181740, guid: a1e78c6635fd42541975b5cdc3cfdfab, type: 3}
   MagPrefab: {fileID: 6182647827399181740, guid: de3742eb92fbf5e4cb904b25721c5f44, type: 3}
-  WeaponType: 1
+  WeaponType: 3
   ShootingSpeed: 1.5
   Damage: 10
   Aim: 15

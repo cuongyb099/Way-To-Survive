@@ -1,39 +1,66 @@
+using System;
+using DG.Tweening;
+using Tech.Singleton;
+using UnityEditor.Localization.Plugins.XLIFF.V12;
 using UnityEngine;
 
-[ExecuteAlways]
-public class LightingManager : MonoBehaviour
+public enum TimeOfTheDay
+{
+    MidNight,
+    EarlyMorning,
+    Morning,
+    Noon,
+    Afternoon,
+    Evening,
+}
+
+public class TimeManager : Singleton<TimeManager>
 {
     //Scene References
     [SerializeField] private Light DirectionalLight;
     [SerializeField] private LightingPreset Preset;
     //Variables
-    [SerializeField, Range(0, 24)] private float TimeOfDay;
+    [field: SerializeField] public TimeOfTheDay CurrentTOD { get; private set; }
+    [field: SerializeField, Range(0, 24)] public float TimeOfDay { get; private set; }
+    private float LastTimeOfDay;
 
-
-    private void Update()
+    private void Start()
     {
-        if (Preset == null)
-            return;
+        ChangeTimeOfDayName();
+    }
+    
+    [field:SerializeField] public float TransitionDuration { get; private set; }
+    private Tween tween;
 
-        if (Application.isPlaying)
+    [ContextMenu("Change Time of Day")]
+    public void AdvanceTimeOfDay()
+    {
+        if (!Preset)
+            return;
+        
+        tween.Complete();
+        tween = DOVirtual.Float(TimeOfDay, TimeOfDay + 4, TransitionDuration, v =>
         {
-            //(Replace with a reference to the game time)
-            TimeOfDay += Time.deltaTime;
-            TimeOfDay %= 24; //Modulus to ensure always between 0-24
+            TimeOfDay = v % 24;
             UpdateLighting(TimeOfDay / 24f);
-        }
-        else
-        {
-            UpdateLighting(TimeOfDay / 24f);
-        }
+        }).SetEase(Ease.Linear);
+        tween.onComplete = () => ChangeTimeOfDayName();
     }
 
-
+    private void ChangeTimeOfDayName()
+    {
+        CurrentTOD = (TimeOfTheDay)((int)(TimeOfDay/4) %6);
+        GameEvent.OnChangeTimeOfDay(CurrentTOD);
+    }
+    
+    
+    
     private void UpdateLighting(float timePercent)
     {
         //Set ambient and fog
         RenderSettings.ambientLight = Preset.AmbientColor.Evaluate(timePercent);
         RenderSettings.fogColor = Preset.FogColor.Evaluate(timePercent);
+        RenderSettings.ambientIntensity = Preset.LightingIntensity.Evaluate(timePercent);
 
         //If the directional light is set then rotate and set it's color, I actually rarely use the rotation because it casts tall shadows unless you clamp the value
         if (DirectionalLight != null)

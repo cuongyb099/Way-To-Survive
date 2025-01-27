@@ -1,9 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using BehaviorDesigner.Runtime.Tasks.Unity.UnityAudioSource;
 using UnityEngine;
-using UnityEngine.Audio;
 using UnityEngine.UI;
 
 public class AudioButtonHelper : MonoBehaviour

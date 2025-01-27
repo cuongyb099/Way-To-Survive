@@ -29,13 +29,13 @@ MonoBehaviour:
     - Key: 0
       Value: {fileID: 2938606218471527010, guid: d1cb382dfcb17f74ab7e112daec4e357, type: 3}
     - Key: 1
-      Value: {fileID: 2938606218471527010, guid: c173ea36edd91af4ebcd385e391f1c29, type: 3}
+      Value: {fileID: 2938606218471527010, guid: 25023e3a20c9196499871e611f75bc1b, type: 3}
     - Key: 2
-      Value: {fileID: 2938606218471527010, guid: eab296b49aec96c4f90bad85af7979f4, type: 3}
+      Value: {fileID: 2938606218471527010, guid: 17a9c6d25f4a02843967d21fa524923f, type: 3}
     - Key: 3
-      Value: {fileID: 2938606218471527010, guid: 119f9aced418fb54fa92e4c7a4804e43, type: 3}
+      Value: {fileID: 2938606218471527010, guid: fe4150b567778ed41bdca45d0ea1b515, type: 3}
     - Key: 4
-      Value: {fileID: 2938606218471527010, guid: 3bba2ecc51ab1134f9c0a2e050feb199, type: 3}
+      Value: {fileID: 2938606218471527010, guid: 0ba5a95691b2dc34c942f4f82f80d582, type: 3}
   BuffRarityRate:
     _serializedList:
     - Key: 0

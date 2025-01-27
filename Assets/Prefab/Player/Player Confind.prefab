@@ -459,7 +459,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9edec5c5e5096ce47925385e07f0a056, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <InteractButton>k__BackingField: {fileID: 0}
 --- !u!1 &1221154790618183357
 GameObject:
   m_ObjectHideFlags: 0
@@ -1864,7 +1863,6 @@ GameObject:
   - component: {fileID: 1344002956957756566}
   - component: {fileID: 2863445448530772482}
   - component: {fileID: 4454159923514909359}
-  - component: {fileID: 2003736063758947647}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -1957,17 +1955,79 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d17028c2f12904b499fa77d3c272f99f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <CameraZoom>k__BackingField: {fileID: 5719197429368057255}
   GunSwitchCooldown: 1
   GroundLayer:
     serializedVersion: 2
     m_Bits: 257
-  StartingWeapon: {fileID: -7086552029489029334, guid: 7143da844342c4246b9739697957abb4, type: 3}
+  StartingWeapon: {fileID: 3734184842925771862, guid: 911d97dd77c98f54d8b16a191419f15f, type: 3}
   StartingCash: 100000
   RightHandHoldPoint: {fileID: 3021632353072803385}
   LeftHandHoldPoint: {fileID: 8426045652007711867}
   LineRendererL: {fileID: 7597113610529456308}
   LineRendererR: {fileID: 6508118689465011059}
   Weapons: []
+  <MeleeHitCollider>k__BackingField: {fileID: 0}
+  LineDefaultColor:
+    serializedVersion: 2
+    key0: {r: 0.028445482, g: 1, b: 0, a: 0.39215687}
+    key1: {r: 0, g: 1, b: 0.021879673, a: 0.39215687}
+    key2: {r: 0, g: 0, b: 0, a: 0}
+    key3: {r: 0, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 65535
+    ctime2: 0
+    ctime3: 0
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 64687
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 2
+    m_NumAlphaKeys: 2
+  LineTargetColor:
+    serializedVersion: 2
+    key0: {r: 1, g: 0, b: 0, a: 1}
+    key1: {r: 1, g: 0, b: 0, a: 1}
+    key2: {r: 0, g: 0, b: 0, a: 0}
+    key3: {r: 0, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 65458
+    ctime2: 0
+    ctime3: 0
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 2
+    m_NumAlphaKeys: 2
 --- !u!114 &2863445448530772482
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2004,19 +2064,6 @@ MonoBehaviour:
     <FloatRayLength>k__BackingField: 5
     <StepHeightMultiplier>k__BackingField: 10
     <CheckWallFWDRayLength>k__BackingField: 0.4
---- !u!114 &2003736063758947647
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6863344380182567666}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b771461d2a916144a8d23e1bcac1f2d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WheelSelectionCanvas: {fileID: 0}
 --- !u!1 &7094026302077752721
 GameObject:
   m_ObjectHideFlags: 0

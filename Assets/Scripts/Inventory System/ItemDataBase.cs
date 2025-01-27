@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Tech.Singleton;
+using UnityEngine;
+
 namespace KatInventory
 {
     public class ItemDataBase : Singleton<ItemDataBase>
@@ -25,6 +28,11 @@ namespace KatInventory
 
         private async void LoadInventoryAsync()
         {
+            while (!AddressablesManager.Instance)
+            {
+                await Task.Delay(100);
+            }
+            
             var items = await AddressablesManager.Instance.LoadAssetsAsync<ItemBaseSO>(_itemAddressKey);
             _itemDictionary = items.ToDictionary(item => item.ID);
             OnLoadDone?.Invoke();

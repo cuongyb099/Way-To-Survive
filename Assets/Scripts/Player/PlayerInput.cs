@@ -103,7 +103,7 @@ public class PlayerInput : Singleton<PlayerInput>
 
 	private void HandleSwitchGuns(InputAction.CallbackContext ctx)
 	{
-		InputEvent.OnInputSwitchGuns?.Invoke();
+		InputEvent.OnInputWeaponWheel?.Invoke();
 	}
     private void ShootInput(InputAction.CallbackContext obj)
     {

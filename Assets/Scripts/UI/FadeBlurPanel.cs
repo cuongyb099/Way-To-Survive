@@ -1,21 +1,19 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class CanvasUIHandler : MonoBehaviour
+public class FadeBlurPanel : PanelBase
 {
     public bool StopTime = false;
     public bool BlurBackground = false;
     [Range(0.01f,2f)]public float TransitionDuration = 0.2f;
-    public UnityEvent OnEnableDo;
-    public UnityEvent OnDisableDo;
+    public UnityEvent OnShowDo;
+    public UnityEvent OnHideDo;
     private static Tweener tween;
-    protected virtual void OnEnable()
+    public override void Show()
     {
-        OnEnableDo?.Invoke();
+        base.Show();
+        OnShowDo?.Invoke();
         PlayerInput.Instance.InputActions.BasicAction.Disable();
         if (StopTime)
         {
@@ -26,9 +24,10 @@ public class CanvasUIHandler : MonoBehaviour
         if(BlurBackground)
             GameBlurUI.Instance.Blur(TransitionDuration);
     }
-    protected virtual void OnDisable()
+    public override void Hide()
     {
-        OnDisableDo?.Invoke();
+        base.Hide();
+        OnHideDo?.Invoke();
         PlayerInput.Instance.InputActions.BasicAction.Enable();
         if (StopTime)
         {
@@ -39,5 +38,5 @@ public class CanvasUIHandler : MonoBehaviour
         if(BlurBackground)
             GameBlurUI.Instance.UnBlur(TransitionDuration);
     }
-
+    
 }
