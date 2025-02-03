@@ -268,16 +268,16 @@ public class EnemyManager : Tech.Singleton.Singleton<EnemyManager>
                 spawner.CallbackSpawn?.Invoke(count);
                 if(!disiredPrefab) continue; 
                 _currentEnemyAmount++;
-                ObjectPool.Instance.SpawnObject(disiredPrefab, finalPosition, Quaternion.identity, PoolType.ENEMY);
-                GameEvent.EnemySpawnEvent?.Invoke(_currentEnemyAmount);
+                GameEvent.EnemySpawnEvent?.Invoke(
+                    ObjectPool.Instance.SpawnObject(disiredPrefab, finalPosition, Quaternion.identity, PoolType.ENEMY));
             }
             
             //Spawn At Least 1 Enemy If Spawn Rate Random All In To Null Value Prefab
             if (_currentEnemyAmount == 0)
             {
                 _currentEnemyAmount++;
-                ObjectPool.Instance.SpawnObject(spawner.EnemyPrefabs[0].Prefab, finalPosition, Quaternion.identity, PoolType.ENEMY);
-                GameEvent.EnemySpawnEvent?.Invoke(_currentEnemyAmount);
+                GameEvent.EnemySpawnEvent?.Invoke(
+                    ObjectPool.Instance.SpawnObject(spawner.EnemyPrefabs[0].Prefab, finalPosition, Quaternion.identity, PoolType.ENEMY));
             }
             _waveManager.DisposeSpawner();
             spawner.CallbackSpawnerDone?.Invoke();

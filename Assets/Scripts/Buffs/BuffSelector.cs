@@ -8,18 +8,14 @@ using UnityEngine.Rendering;
 
 public class BuffSelector : MonoBehaviour
 {
-    public BuffListSO BuffsData;
-	public int CardCount = 3;
+	[SerializeField] private BuffListSO BuffsData;
+	[SerializeField] private int CardCount = 3;
 	private List<BuffCardUI> Cards;
 	private void Awake()
 	{
 		Cards = new List<BuffCardUI>();
 	}
-	public void OnEnable()
-	{
-		InitializeAll();
-	}
-	public void OnDisable()
+	public void DestroyAll()
 	{
 		for(int i = Cards.Count - 1; i >= 0; i--)
 		{
@@ -40,8 +36,9 @@ public class BuffSelector : MonoBehaviour
 			card.Button.onClick.AddListener(DeactivateParent);
 		}
 	}
-	public void DeactivateParent()
+	private void DeactivateParent()
 	{
-		transform.parent.parent.gameObject.SetActive(false);
+		UIManager.Instance.HidePanel(UIConstant.BuffPanel);
+		UIManager.Instance.ShowPanel(UIConstant.MainGameplayPanel);
 	}
 }

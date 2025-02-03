@@ -1,10 +1,11 @@
 using System;
+using UnityEngine;
 
 public static class GameEvent
 {
     public static Action GameCompleteEvent;
     //Trả Về số kẻ dịch hiện tại
-    public static Action<int> EnemySpawnEvent;
+    public static Action<GameObject> EnemySpawnEvent;
     //Trả Về số kẻ dịch hiện tại
     public static Action<int> EnemyDeadEvent;
     //Trả về wave hiện tại

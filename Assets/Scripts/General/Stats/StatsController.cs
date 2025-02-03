@@ -213,6 +213,32 @@ public class StatsController : MonoBehaviour
 			OnChange?.Invoke();
 		}
 	}
+	public void RemoveEffect(BaseBuffSO buff)
+	{
+		if (!buff.Stackable)
+		{
+			if (_statusEffects.Any(x=>x.Data.ID == buff.ID))
+			{
+				BaseStatusEffect sf = _statusEffects.Find(x=>x.Data.ID == buff.ID);
+				sf.Stop();
+				_statusEffects.Remove(sf);
+				OnChange?.Invoke();
+			}
+			return;
+		}
+		
+		if (_statusEffects.Any(x=>x.Data.ID == buff.ID))
+		{
+			BaseStatusEffect sf = _statusEffects.Find(x=>x.Data.ID == buff.ID);
+			sf.CurrentStack--;
+			if (sf.CurrentStack == 0)
+			{
+				sf.Stop();
+				_statusEffects.Remove(sf);
+			}
+			OnChange?.Invoke();
+		}
+	}
 
 	public Attribute GetAttribute(AttributeType type)
 	{

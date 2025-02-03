@@ -1,8 +1,9 @@
 using DG.Tweening;
 using Tech.Pooling;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class Bullet : MonoBehaviour,IPoolable
 {
 	[field:SerializeField] public int DamageTime { get; private set; } = 1;
 	[field:SerializeField,Range(0f,1f)] public float DamageReduction { get; private set; }= 1f;
@@ -21,7 +22,7 @@ public class Bullet : MonoBehaviour
 	}
 	public void OnEnable()
 	{
-		seq = DOVirtual.DelayedCall(LiveTime, Deactivate).SetUpdate(false);
+		seq = DOVirtual.DelayedCall(LiveTime, Free).SetUpdate(false);
 	}
 	
 	private void OnCollisionEnter(Collision other)
@@ -41,7 +42,7 @@ public class Bullet : MonoBehaviour
 				return;
 			}
 		}
-		Deactivate();
+		Free();
 	}
 
 	private void HandleBulletPenetration(Collision collision, int countPenetrate)
@@ -68,12 +69,12 @@ public class Bullet : MonoBehaviour
 			}
 			else
 			{
-				Deactivate();
+				Free();
 			}
 		}
 		else
 		{
-			Deactivate();
+			Free();
 		}
 	}
 	private Vector3 spawnVelocity ;
@@ -89,11 +90,17 @@ public class Bullet : MonoBehaviour
 		spawnVelocity = temp * Vector3.forward * Force;
 		rb.AddForce(spawnVelocity, ForceMode.VelocityChange);
 	}
-	public void Deactivate()
+	public void Free()
 	{
 		rb.velocity = Vector3.zero;
 		
 		trailRenderer.Clear();
 		ObjectPool.Instance.ReturnObjectToPool(gameObject);
 	}
+
+	public void New()
+	{
+		
+	}
+	
 }

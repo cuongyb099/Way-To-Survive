@@ -6,6 +6,7 @@ using BehaviorDesigner.Runtime.Tasks.Unity.UnityGameObject;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.HID;
 using UnityEngine.UI;
@@ -18,7 +19,7 @@ public class GunInventoryUI : FadeBlurPanel
     public GunShopDataUI GunDataUI;
     public Button BackButton;
     [Header("Data")]
-    public ItemMiniUI GunMiniPrefab;
+    public AssetReferenceGameObject GunMiniPrefab;
 
     public List<ItemMiniUI> GunEquipedSlots;
 
@@ -31,7 +32,6 @@ public class GunInventoryUI : FadeBlurPanel
         base.OnAwake();
         GunsMiniUI = new List<ItemMiniUI>();
         player = GameManager.Instance.Player;
-        Initialize();
         LoadButton();
     }
     private void LoadButton()
@@ -55,7 +55,7 @@ public class GunInventoryUI : FadeBlurPanel
         Initialize();
     }
 
-    private void Initialize()
+    private async void Initialize()
     {
         //delete gun panel
         for(int i = GunsMiniUI.Count - 1; i >= 0; i--)
@@ -68,7 +68,7 @@ public class GunInventoryUI : FadeBlurPanel
         //instantiate gun panel
         foreach (var x in player.OwnedWeapons)
         {
-            ItemMiniUI temp = Instantiate(GunMiniPrefab, GunsPanel.transform);
+            ItemMiniUI temp = await AddressablesManager.Instance.InstantiateAsyncType<ItemMiniUI>(GunMiniPrefab, GunsPanel.transform);
             temp.Initialize(x.WeaponData);
             temp.ItemButton.onClick.AddListener(new UnityEngine.Events.UnityAction(() => { ChangeGun(temp);}));
             GunsMiniUI.Add(temp);

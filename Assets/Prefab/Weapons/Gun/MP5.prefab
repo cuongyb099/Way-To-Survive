@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 314904007054090758}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Shootpoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1369047193110204036}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: MP5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -75,7 +75,7 @@ GameObject:
   - component: {fileID: 1788345897143840571}
   - component: {fileID: 8279698642393614054}
   - component: {fileID: 775832516840353122}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: MP5_Mag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -156,7 +156,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 573068454701831524}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Shellpoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -191,7 +191,7 @@ GameObject:
   - component: {fileID: 752525304665740718}
   - component: {fileID: 5957378339055339132}
   - component: {fileID: 3710622584200289305}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: MP5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -289,7 +289,7 @@ GameObject:
   - component: {fileID: 7879381905222646612}
   - component: {fileID: 3025931968336581444}
   - component: {fileID: 3280474137400295123}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: MP5_Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}

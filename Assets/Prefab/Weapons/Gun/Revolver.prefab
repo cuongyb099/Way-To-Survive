@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 314904007054090758}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Shootpoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 7085923665981615607}
   - component: {fileID: 8194469719129479438}
   - component: {fileID: -2544400597224823434}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Revolver
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -142,7 +142,7 @@ GameObject:
   - component: {fileID: 7306575831596827186}
   - component: {fileID: 5965571398616714647}
   - component: {fileID: 8443405827369826653}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: pistol_drum_001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -225,7 +225,7 @@ GameObject:
   - component: {fileID: 7240894928190149901}
   - component: {fileID: 6040180353618713256}
   - component: {fileID: 8374442744448052834}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: pistol_001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -307,7 +307,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 518401905128851688}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Shellpoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}

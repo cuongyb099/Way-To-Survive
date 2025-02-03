@@ -12,7 +12,6 @@ public class WeaponWheelPanel : FadeBlurPanel
     protected override void OnAwake()
     {
         base.OnAwake();
-        InitalizeItems();
         LoadButton();
                 
         GameEvent.OnStartCombatState += DeactivateInventory;

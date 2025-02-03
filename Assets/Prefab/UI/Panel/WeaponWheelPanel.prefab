@@ -555,6 +555,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: {fileID: 6749804079759400201}
   Image: {fileID: 282876044022154988}
+  <ItemButton>k__BackingField: {fileID: 1156170718235181911}
 --- !u!1 &4567477739136953490
 GameObject:
   m_ObjectHideFlags: 0
@@ -767,6 +768,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: {fileID: 2061249421842351518}
   Image: {fileID: 8023719513549471626}
+  <ItemButton>k__BackingField: {fileID: 6979430285936035206}
 --- !u!1 &5289508015115851371
 GameObject:
   m_ObjectHideFlags: 0
@@ -904,6 +906,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: {fileID: 7975961712537574377}
   Image: {fileID: 4414866743654904161}
+  <ItemButton>k__BackingField: {fileID: 3750642572758834499}
 --- !u!1 &5460081565515741753
 GameObject:
   m_ObjectHideFlags: 0
@@ -1054,6 +1057,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: {fileID: 7227896705999900016}
   Image: {fileID: 5989146013101371060}
+  <ItemButton>k__BackingField: {fileID: 4207818473289069666}
 --- !u!114 &3409542663509936848
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1571,7 +1575,7 @@ RectTransform:
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
