@@ -21,4 +21,7 @@ public static class PlayerEvent
     public static Action<float, IDamagable> OnFollowUpDamageDealt;
     public static Action<float, IDamagable> OnMeleeDamageDealt;
 
+
+    public static Action OnInteractEnter;
+    public static Action OnInteractExit;
 }

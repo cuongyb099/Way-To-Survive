@@ -19,7 +19,7 @@ public class GunShopDataUI : MonoBehaviour
     public Slider CapacitySlider;
 
     public float AnimTime = 0.25f;
-    public void ChangeGun(GunBaseSo gunBase)
+    public void ChangeGun(GunBaseSO gunBase)
     {
         GunName.text = gunBase.Name.GetLocalizedString();
         GunPrice.text = $"<color=#1BDF00>{gunBase.BuyPrice}$</color>";

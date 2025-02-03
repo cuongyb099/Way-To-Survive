@@ -3,7 +3,7 @@ using KatInventory;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "GunSO",menuName ="Item/Gun/new GunSO")]
-public class GunBaseSo : ItemBaseSO
+public class GunBaseSO : ItemBaseSO
 {
 	[Header("GunData")]
 	public WeaponBase WeaponPrefab;
@@ -27,6 +27,5 @@ public class GunBaseSo : ItemBaseSO
     public AudioClip CockingSound;
     public AudioClip MagSoundIn;
     public AudioClip MagSoundOut;
-
     public override ItemType GetItemType() => ItemType.Weapon;
 }

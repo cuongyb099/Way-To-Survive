@@ -10,14 +10,13 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.HID;
 using UnityEngine.UI;
 
-public class GunInventoryUI : CanvasUIHandler
+public class GunInventoryUI : FadeBlurPanel
 {
 
     [Header("UI Elements")] 
     public GameObject GunsPanel;
     public GunShopDataUI GunDataUI;
-    public Button BuyButton;
-    public TextMeshProUGUI BuyButtonText;
+    public Button BackButton;
     [Header("Data")]
     public ItemMiniUI GunMiniPrefab;
 
@@ -27,14 +26,22 @@ public class GunInventoryUI : CanvasUIHandler
     public List<ItemMiniUI> GunsMiniUI { get; private set; }
     private PlayerController player;
 
-    private void Awake()
+    protected override void OnAwake()
     {
+        base.OnAwake();
         GunsMiniUI = new List<ItemMiniUI>();
         player = GameManager.Instance.Player;
+        Initialize();
+        LoadButton();
     }
-
-    private void Start()
+    private void LoadButton()
     {
+        BackButton.onClick.AddListener(() =>
+        {
+            Hide();
+            UIManager.Instance.ShowPanel(UIConstant.MainGameplayPanel);
+        });
+        
         for (int i = 0; i < GunEquipedSlots.Count; i++)
         {
             var x = i;
@@ -42,9 +49,9 @@ public class GunInventoryUI : CanvasUIHandler
         }
     }
 
-    protected override void OnEnable()
+    public override void Show()
     {
-        base.OnEnable();
+        base.Show();
         Initialize();
     }
 
@@ -77,13 +84,13 @@ public class GunInventoryUI : CanvasUIHandler
     private void ChangeGun(ItemMiniUI gunUI)
     {
         Selected = gunUI;
-        GunBaseSo weapon = (GunBaseSo)gunUI.ItemBaseSoHolder;
+        GunBaseSO weapon = (GunBaseSO)gunUI.ItemBaseSoHolder;
         gunUI.ItemButton.Select();
         GunDataUI.ChangeGun(weapon);
     }
     private void InitEquippedSlots(int index)
     {
-        WeaponBase weapon = ((GunBaseSo)Selected.ItemBaseSoHolder).WeaponPrefab ;
+        WeaponBase weapon = ((GunBaseSO)Selected.ItemBaseSoHolder).WeaponPrefab ;
         if (!player.ContainsWeapon(weapon))
         {
             player.InstantiateWeapon(weapon,index);

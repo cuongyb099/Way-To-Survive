@@ -10,7 +10,7 @@ using UnityEngine.InputSystem.HID;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-public class GunShopUI : CanvasUIHandler
+public class GunShopUI : FadeBlurPanel
 {
 
     [Header("UI Elements")] 
@@ -19,21 +19,19 @@ public class GunShopUI : CanvasUIHandler
     public Button BuyButton;
     public TextMeshProUGUI BuyButtonText;
     public TextMeshProUGUI CashText;
+    public Button BackButton;
     [Header("Data")] 
     public WeaponListSO WeaponListSo;
     public ItemMiniUI ItemMiniPrefab;
 
     public ItemMiniUI Selected { get; private set; }
     public List<ItemMiniUI> ItemsMiniUI { get; private set; }
-    private void Awake()
-    {
-        PlayerEvent.OnCashChange += ChangeCashText;
-        Initialize();
-    }
 
-    protected override void OnEnable()
+    protected override void OnAwake()
     {
-        base.OnEnable();
+        base.OnAwake();
+        Initialize();
+        PlayerEvent.OnCashChange += ChangeCashText;
         PlayerController player = GameManager.Instance.Player;
         ChangeCashText(player.Cash);
     }
@@ -54,13 +52,19 @@ public class GunShopUI : CanvasUIHandler
             ItemsMiniUI.Add(temp);
         }
         ChangeGun(ItemsMiniUI[0]);
+        
+        BackButton.onClick.AddListener(() =>
+        {
+            Hide();
+            UIManager.Instance.ShowPanel(UIConstant.MainGameplayPanel);
+        });
     }
     
     private void ChangeGun(ItemMiniUI itemUI)
     {
         Selected = itemUI;
         itemUI.ItemButton.Select();
-        GunBaseSo weapon = (GunBaseSo)itemUI.ItemBaseSoHolder;
+        GunBaseSO weapon = (GunBaseSO)itemUI.ItemBaseSoHolder;
         GunDataUI.ChangeGun(weapon);
         
         PlayerController player = GameManager.Instance.Player;
@@ -79,7 +83,7 @@ public class GunShopUI : CanvasUIHandler
     public void OnBuyGun()
     {
         PlayerController player = GameManager.Instance.Player;
-        GunBaseSo weapon = (GunBaseSo)Selected.ItemBaseSoHolder;
+        GunBaseSO weapon = (GunBaseSO)Selected.ItemBaseSoHolder;
         if (player.Cash < weapon.BuyPrice) return;
 
         player.Cash -= weapon.BuyPrice;

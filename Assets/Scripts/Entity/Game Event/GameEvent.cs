@@ -21,4 +21,5 @@ public static class GameEvent
     public static Action OnStopWaveWinState;	
     public static Action OnStartCombatState;
     public static Action OnStopCombatState;
+    public static Action<TimeOfTheDay> OnChangeTimeOfDay;
 }

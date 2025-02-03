@@ -2,9 +2,10 @@ using System;
 using System.Linq;
 using DG.Tweening;
 using Tech.Logger;
+using Tech.Singleton;
 using UnityEngine;
 
-public class WaveManager : MonoBehaviour
+public class WaveManager : Singleton<WaveManager>
 {
     private int _currentWave;
     private int _activeSpawner;
@@ -17,8 +18,9 @@ public class WaveManager : MonoBehaviour
     private TweenCallback _tweenCallbackNextWave;
     private TweenCallback<float> _timerCallback;
     
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         NormalizeWaves();
 
         _tweenCallbackNextWave += NextWave;
@@ -57,7 +59,7 @@ public class WaveManager : MonoBehaviour
         GameEvent.ShoppingTimeChangeEvent?.Invoke(currentTime);
     }
     
-    private void StartWave()
+    public void StartWave()
     {
         GameEvent.NextWaveEvent?.Invoke(_currentWave);
         Wave wave = FindWave(_currentWave);

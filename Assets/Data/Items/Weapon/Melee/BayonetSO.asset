@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b59205e98b25a304aac3cf684f1d5aa3, type: 3}
   m_Name: BayonetSO
   m_EditorClassIdentifier: 
-  Name:
+  <Name>k__BackingField:
     m_TableReference:
       m_TableCollectionName: GUID:fd6713aa530e7a244b6d797fbc2425fb
     m_TableEntryReference:
@@ -21,7 +21,7 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
-  Description:
+  <Description>k__BackingField:
     m_TableReference:
       m_TableCollectionName: GUID:fd6713aa530e7a244b6d797fbc2425fb
     m_TableEntryReference:
@@ -30,13 +30,17 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
-  Icon: {fileID: 21300000, guid: f9aba650c2561674e9a38b6fdfee1b26, type: 3}
+  <Icon>k__BackingField: {fileID: 696996150, guid: 560c856990eaab84cbe964790fd68e2e, type: 3}
+  <Unique>k__BackingField: 0
+  <BuyPrice>k__BackingField: 0
+  <SellPrice>k__BackingField: 0
+  <MaxStack>k__BackingField: 1
+  <Modifiers>k__BackingField: 
   WeaponPrefab: {fileID: 3734184842925771862, guid: 911d97dd77c98f54d8b16a191419f15f, type: 3}
   BulletPrefab: {fileID: 0}
   ShellPrefab: {fileID: 0}
   MagPrefab: {fileID: 0}
   WeaponType: 5
-  GunPrice: 1000
   ShootingSpeed: 0.7
   Damage: 5
   Aim: 0

@@ -1,11 +1,6 @@
-using System;
-using BehaviorDesigner.Runtime.Tasks.Unity.UnityGameObject;
-using DG.Tweening;
-using ResilientCore;
-using Tech.Singleton;
-using TMPro;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.UI;
 
 public enum EGameState
 {
@@ -31,7 +26,7 @@ public class GameManager : StateMachine<EGameState>
     [Header("UI Elements")]
     public GameObject LoseCanvas;
     public GameObject BuffCanvas;
-    public TimerSliderUI CountDownSlider;
+    
     protected void Awake()
     {
         if (Instance != null)
@@ -39,7 +34,7 @@ public class GameManager : StateMachine<EGameState>
             Destroy(gameObject);
         }
         Instance = this;
-        
+        InitializeUIAsync();
         Player = FindAnyObjectByType<PlayerController>();
         WaveManager = FindAnyObjectByType<WaveManager>();
         EnemyManager = FindAnyObjectByType<EnemyManager>();
@@ -53,11 +48,36 @@ public class GameManager : StateMachine<EGameState>
         Player.OnDeath += () => { LoseCanvas.SetActive(true); };
     }
 
+    private async void InitializeUIAsync()
+    {
+        while (!UIManager.Instance)
+        {
+            await Task.Delay(100);
+        }
+
+        var tasks = new List<Task<PanelBase>>()
+        {
+            UIManager.Instance.CreatePanelAsync(UIConstant.PausePanel),
+            UIManager.Instance.CreatePanelAsync(UIConstant.MainGameplayPanel),
+            UIManager.Instance.CreatePanelAsync(UIConstant.SettingsPanel), 
+            UIManager.Instance.CreatePanelAsync(UIConstant.InventoryPanel),
+            UIManager.Instance.CreatePanelAsync(UIConstant.BuffPanel),
+            UIManager.Instance.CreatePanelAsync(UIConstant.ShopPanel),
+            // UIManager.Instance.CreatePanelAsync(UIConstant.LostPanel),
+            UIManager.Instance.CreatePanelAsync(UIConstant.WeaponWheelPanel),
+        };
+
+        await Task.WhenAll(tasks);
+        
+        UIManager.Instance.ShowPanel(UIConstant.MainGameplayPanel);
+    }
+    
     private void Start()
     {
         CurrentState = States[EGameState.Shopping];
         TransitionToState(EGameState.Shopping);
     }
+
 
     public void ChangeGameState(EGameState newGameState)
     {

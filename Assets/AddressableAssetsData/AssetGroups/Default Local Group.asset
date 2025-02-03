@@ -39,21 +39,53 @@ MonoBehaviour:
     m_SerializedLabels:
     - Inventory
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 6a94e4271e2732140a4ae87aad7f300e
-    m_Address: Assets/Scripts/Inventory System/Sample/Sword.asset
+  - m_GUID: 2d8a4325b0f16734d9331e7d570a7e0d
+    m_Address: Assets/Prefab/UI/Panel
     m_ReadOnly: 0
     m_SerializedLabels:
-    - Inventory
+    - UI
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 708a1f61c8c130e46ab176451db3b722
-    m_Address: Main Panel
+  - m_GUID: 2e33d08a18c48c14fa34f10a36a7522e
+    m_Address: GameplayPanel
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - UI
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 96e7e50941b77f94bb9f6283e70c6181
-    m_Address: Sub Panel
+  - m_GUID: c08c34c243888a84b8724b71ad0f6972
+    m_Address: PausePanel
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - UI
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ef1f10872adbb9744af98cfbf832e86a
+    m_Address: SettingsPanel
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - UI
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a7e0a5be755325b42a76c23feaa83980
+    m_Address: BuffPanel
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - UI
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d9b3a2c414a87834e8466fcdde6d082a
+    m_Address: ShopPanel
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - UI
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a0b14337f6b876741a284a6e4e18b7e4
+    m_Address: WeaponWheelPanel
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - UI
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8be554c2a61bfc442a696f06ad8407c6
+    m_Address: InventoryPanel
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - UI
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: f87357868bafec74b8eaa3e2bab0161e, type: 2}

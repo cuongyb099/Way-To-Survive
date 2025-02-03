@@ -1,13 +1,8 @@
-using DG.Tweening;
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using Cinemachine;
 using UnityEngine;
 
 public class PlayerInteractor : MonoBehaviour
 {
-	[field:SerializeField] public GameObject InteractButton { get; private set; }
 	public bool EnableInteraction { get; set; } = true;
 	public List<IInteractable> Interactables { get; private set; }
     public IInteractable Target { get; private set; } = null;
@@ -58,7 +53,7 @@ public class PlayerInteractor : MonoBehaviour
 	            if(interactable == Target) Target = null;
 	            Interactables.Remove(interactable);
             };
-            InteractButton.SetActive(true);
+            PlayerEvent.OnInteractEnter?.Invoke();
         }
     }
     private void OnTriggerExit(Collider other)
@@ -77,7 +72,7 @@ public class PlayerInteractor : MonoBehaviour
 	        };
             Interactables.Remove(interactable);
             if(Interactables.Count == 0)
-				InteractButton.SetActive(false);
+	            PlayerEvent.OnInteractExit?.Invoke();
         }
     }
     public void InteractWithTarget()
