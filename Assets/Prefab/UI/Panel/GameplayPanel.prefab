@@ -3278,10 +3278,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 7011368571677819811}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3324a4df8b84ac440930622ff8aa80d4, type: 3}
+  m_Script: {fileID: 11500000, guid: 46cf945c376b95a4dace0ebb0e2ba118, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TransitionDuration: 1
+  TransitionDuration: 0.5
 --- !u!225 &1462219501998769081
 CanvasGroup:
   m_ObjectHideFlags: 0

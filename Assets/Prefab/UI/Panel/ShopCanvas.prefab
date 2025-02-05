@@ -3495,6 +3495,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2735067192372924607}
   - component: {fileID: 3150494363223400262}
+  - component: {fileID: 7295330020840373597}
   m_Layer: 5
   m_Name: ShopCanvas
   m_TagString: Untagged
@@ -3539,27 +3540,27 @@ MonoBehaviour:
   StopTime: 0
   BlurBackground: 1
   TransitionDuration: 0.2
-  OnEnableDo:
+  OnShowDo:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnDisableDo:
+      m_Calls: []
+  OnHideDo:
     m_PersistentCalls:
       m_Calls: []
   CashText: {fileID: 8544019253606280114}
   BuffPanel: {fileID: 0}
   BuffPrice: 3
+--- !u!225 &7295330020840373597
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5482618675652264764}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &5543718849439933246
 GameObject:
   m_ObjectHideFlags: 0

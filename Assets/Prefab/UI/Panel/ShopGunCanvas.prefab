@@ -3941,6 +3941,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6053289780707646474}
   - component: {fileID: 2578279111112150445}
+  - component: {fileID: 3585909418728627467}
   m_Layer: 5
   m_Name: ShopGunCanvas
   m_TagString: Untagged
@@ -3984,43 +3985,38 @@ MonoBehaviour:
   StopTime: 0
   BlurBackground: 1
   TransitionDuration: 0.2
-  OnEnableDo:
+  OnShowDo:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnDisableDo:
+      m_Calls: []
+  OnHideDo:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
+      m_Calls: []
   GunsPanel: {fileID: 7896694056342051787}
   GunDataUI: {fileID: 5633285075176982481}
   BuyButton: {fileID: 7923121930466150801}
   BuyButtonText: {fileID: 5863038228687555905}
   CashText: {fileID: 8061678564746534199}
+  BackButton: {fileID: 0}
   WeaponListSo: {fileID: 11400000, guid: 453de7abd50c5d64facdcafe7d0da4c4, type: 2}
-  ItemMiniPrefab: {fileID: 953009721945292828, guid: f4892d64385379048864b0ceb9ce2705, type: 3}
+  ItemMiniPrefab:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  Selected: {fileID: 0}
+  ItemsMiniUI: []
+--- !u!225 &3585909418728627467
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5955307923836558840}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &6257012783552074530
 GameObject:
   m_ObjectHideFlags: 0
@@ -4792,7 +4788,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.0005831552}
+  m_AnchoredPosition: {x: 0, y: 6134.7456}
   m_SizeDelta: {x: -8.522949, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &4555033299446842376
