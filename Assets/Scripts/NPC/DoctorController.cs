@@ -13,8 +13,12 @@ public class DoctorController : InteractableController
             DamagePopUpGenerator.Instance.CreateDamagePopUp(source.transform.position, $"Không đủ tiền!!!");
             return;
         }
-
+        
+        
         source.Cash -= buyPrice;
+        
+        UIManager.Instance.HidePanel(UIConstant.MainGameplayPanel);
+        UIManager.Instance.ShowPanel(UIConstant.BuffPanel);
         base.Interact(source);
     }
 }

@@ -9,19 +9,14 @@ using UnityEngine.UI;
 
 public class ItemMiniUI : MonoBehaviour
 {
-    public TextMeshProUGUI ItemName;
-    public Image ItemImage;
-    public Button ItemButton { get; private set; }
-    public ItemBaseSO ItemBaseSoHolder { get;private set; }
-
-    private void Awake()
-    {
-        ItemButton = GetComponent<Button>();
-    }
+    [SerializeField] private TextMeshProUGUI ItemName;
+    [SerializeField] private Image ItemImage;
+    [field: SerializeField]public Button ItemButton { get; private set; }
+    public ItemBaseSO ItemBaseSoHolder { get; private set; }
 
     public void Initialize(ItemBaseSO itemBaseSo)
     {
-        if (itemBaseSo == null)
+        if (!itemBaseSo)
         {
             ItemBaseSoHolder = null;
             ItemName.text = "";

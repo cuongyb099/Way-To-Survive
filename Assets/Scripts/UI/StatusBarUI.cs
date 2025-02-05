@@ -28,11 +28,14 @@ public class StatusBarUI : MonoBehaviour
         PlayerEvent.OnHeathChange += ChangeHpBar;
         PlayerEvent.OnMaxHeathChange += ChangeHpWithoutAnimation;
         PlayerEvent.OnInitStatusBar += InitBar;
+        
+        Attribute attribute = GameManager.Instance.Player.Stats.GetAttribute(AttributeType.Hp);
+        ChangeHpWithoutAnimation(attribute.Value,attribute.MaxValue);
     }
 
     private void ChangeHpWithoutAnimation(float arg1, float arg2)
     {
-        TextHeath.text =$"{arg1} <size=70%><voffset={_offsetHeathText}><color=#{_colorHex}>/ {arg2}</color></voffset></size>";
+        TextHeath.text =$"{(int)arg1} <size=80%><voffset={_offsetHeathText}><color=#{_colorHex}>/ {(int)arg2}</color></voffset></size>";
         var ratio = arg1 / arg2;
         HeathBarProgress.fillAmount = ratio;
         HeathFollowBar.fillAmount = ratio;
@@ -73,7 +76,7 @@ public class StatusBarUI : MonoBehaviour
         _tweens[tweenIndex].Kill();
         
         textChange.text =
-            $"{curValue} <size=70%><voffset={offset}><color=#{_colorHex}>/ {maxValue}</color></voffset></size>";
+            $"{(int)curValue} <size=70%><voffset={offset}><color=#{_colorHex}>/ {(int)maxValue}</color></voffset></size>";
         
         var targetFillAmount = curValue / maxValue;
         var curFillAmount = progressBar.fillAmount;

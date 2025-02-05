@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -24,7 +25,6 @@ public class GameManager : StateMachine<EGameState>
     
     [Header("UI Elements")]
     public GameObject LoseCanvas;
-    public GameObject BuffCanvas;
     
     protected void Awake()
     {
@@ -53,6 +53,20 @@ public class GameManager : StateMachine<EGameState>
         {
             await Task.Delay(100);
         }
+
+        var tasks = new List<Task<PanelBase>>()
+        {
+            UIManager.Instance.CreatePanelAsync(UIConstant.PausePanel),
+            UIManager.Instance.CreatePanelAsync(UIConstant.MainGameplayPanel),
+            UIManager.Instance.CreatePanelAsync(UIConstant.SettingsPanel), 
+            UIManager.Instance.CreatePanelAsync(UIConstant.InventoryPanel),
+            UIManager.Instance.CreatePanelAsync(UIConstant.BuffPanel),
+            UIManager.Instance.CreatePanelAsync(UIConstant.ShopPanel),
+            //UIManager.Instance.CreatePanelAsync(UIConstant.LostPanel),
+            UIManager.Instance.CreatePanelAsync(UIConstant.WeaponWheelPanel),
+        };
+
+        await Task.WhenAll(tasks);
         
         UIManager.Instance.ShowPanel(UIConstant.MainGameplayPanel);
     }
@@ -63,8 +77,16 @@ public class GameManager : StateMachine<EGameState>
         TransitionToState(EGameState.Shopping);
     }
 
+
     public void ChangeGameState(EGameState newGameState)
     {
         TransitionToState(newGameState);
+    }
+
+    [ContextMenu("Skip CombatState")]
+    public void SkipCombatState()
+    {
+        if(CurrentState != States[EGameState.Combat]) return;
+        TransitionToState(EGameState.WaveWon);
     }
 }

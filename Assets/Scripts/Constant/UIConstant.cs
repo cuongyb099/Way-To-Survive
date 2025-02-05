@@ -8,9 +8,12 @@ public static class UIConstant
     public static readonly string Right = "Right";
 
     //Panel
-    public static readonly string InventoryPanel = "Inventory";
-    public static readonly string SettingsPanel = "Settings";
-    public static readonly string PausePanel = "Pause";
-    public static readonly string MainGameplayPanel = "Main Gameplay";
-    
+    public static readonly string InventoryPanel = "InventoryPanel";
+    public static readonly string SettingsPanel = "SettingsPanel";
+    public static readonly string PausePanel = "PausePanel";
+    public static readonly string MainGameplayPanel = "GameplayPanel";
+    public static readonly string BuffPanel = "BuffPanel";
+    public static readonly string ShopPanel = "ShopPanel";
+    public static readonly string LostPanel = "LostPanel";
+    public static readonly string WeaponWheelPanel = "WeaponWheelPanel";
 }

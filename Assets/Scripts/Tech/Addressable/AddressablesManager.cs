@@ -93,7 +93,18 @@ public class AddressablesManager : SingletonPersistent<AddressablesManager>
 	{
 		var opHandle = Addressables.InstantiateAsync(key, parent);
 		await opHandle.Task;
-		_dicAsset.Add(key, opHandle);
+		_dicAsset.TryAdd(key, opHandle);
 		return opHandle.Result;
+	}
+	public async Task<T> InstantiateAsyncType<T>(object key, Transform parent)
+	{
+		var opHandle = Addressables.InstantiateAsync(key, parent);
+		await opHandle.Task;
+		_dicAsset.TryAdd(key, opHandle);
+		var temp = opHandle.Result;
+		
+		if (temp.TryGetComponent(out T tempComponent)) return tempComponent;
+		LogCommon.LogError(temp.name + "Has no item Component");
+		return default;
 	}
 }

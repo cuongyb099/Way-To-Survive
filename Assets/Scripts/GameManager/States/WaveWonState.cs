@@ -34,7 +34,8 @@ public class WaveWonState : BaseState<EGameState>
     {
         GameEvent.OnStartWinState?.Invoke();
         Timer = gameManager.WaveWonTime;
-        gameManager.BuffCanvas.SetActive(true);
+        UIManager.Instance.ShowPanel(UIConstant.BuffPanel);
+        TimeManager.Instance.AdvanceTimeOfDay();
     }
 
     public override void Exit()

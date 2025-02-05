@@ -1,41 +1,41 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using BehaviorDesigner.Runtime.Tasks;
 using BehaviorDesigner.Runtime.Tasks.Unity.UnityGameObject;
+using Tech.Logger;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.HID;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-public class GunShopUI : CanvasUIHandler
+public class GunShopUI : FadeBlurPanel
 {
 
-    [Header("UI Elements")] 
-    public GameObject GunsPanel;
-    public GunShopDataUI GunDataUI;
-    public Button BuyButton;
-    public TextMeshProUGUI BuyButtonText;
-    public TextMeshProUGUI CashText;
+    [Header("UI Elements")]
+    [SerializeField] private GameObject GunsPanel ;
+    [SerializeField] private  GunShopDataUI GunDataUI;
+    [SerializeField] private  Button BuyButton;
+    [SerializeField] private  TextMeshProUGUI BuyButtonText;
+    [SerializeField] private  TextMeshProUGUI CashText;
+    [SerializeField] private  Button BackButton;
     [Header("Data")] 
-    public WeaponListSO WeaponListSo;
-    public ItemMiniUI ItemMiniPrefab;
+    [SerializeField] private  WeaponListSO WeaponListSo;
+    [SerializeField] private  AssetReferenceGameObject ItemMiniPrefab;
 
-    public ItemMiniUI Selected { get; private set; }
-    public List<ItemMiniUI> ItemsMiniUI { get; private set; }
-    private void Awake()
+    [SerializeField] private ItemMiniUI Selected;
+    [SerializeField] private List<ItemMiniUI> ItemsMiniUI;
+
+    protected override void OnAwake()
     {
-        PlayerEvent.OnCashChange += ChangeCashText;
+        base.OnAwake();
         Initialize();
-    }
-
-    protected override void OnEnable()
-    {
-        base.OnEnable();
-        PlayerController player = GameManager.Instance.Player;
-        ChangeCashText(player.Cash);
+        PlayerEvent.OnCashChange += ChangeCashText;
+        ChangeCashText(GameManager.Instance.Player.Cash);
     }
 
     private void OnDestroy()
@@ -43,17 +43,25 @@ public class GunShopUI : CanvasUIHandler
         PlayerEvent.OnCashChange -= ChangeCashText;
     }
 
-    private void Initialize()
+    private async void Initialize()
     {
         ItemsMiniUI = new List<ItemMiniUI>();
+        
+        BackButton.onClick.AddListener(() =>
+        {
+            Hide();
+            UIManager.Instance.ShowPanel(UIConstant.MainGameplayPanel);
+        });
+        
         foreach (var x in WeaponListSo.Weapons)
         {
-            ItemMiniUI temp = Instantiate(ItemMiniPrefab, GunsPanel.transform);
+            var temp = await AddressablesManager.Instance.InstantiateAsyncType<ItemMiniUI>(ItemMiniPrefab, GunsPanel.transform);
             temp.Initialize(x.WeaponData);
-            temp.ItemButton.onClick.AddListener(new UnityEngine.Events.UnityAction(() => { ChangeGun(temp);}));
+            temp.ItemButton.onClick.AddListener(() => { ChangeGun(temp);});
             ItemsMiniUI.Add(temp);
         }
         ChangeGun(ItemsMiniUI[0]);
+        
     }
     
     private void ChangeGun(ItemMiniUI itemUI)

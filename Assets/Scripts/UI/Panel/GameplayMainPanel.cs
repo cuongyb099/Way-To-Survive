@@ -15,10 +15,12 @@ public class GameplayMainPanel : PanelBase
     
     [field: Header("Slider")]
     [field: SerializeField] public Slider CountDownSlider { get; private set; }
-    
-    private void Awake()
+
+    protected override void OnAwake()
     {
+        base.OnAwake();
         LoadComponents();
+        Show();
     }
 
     private void Reset()
@@ -36,7 +38,11 @@ public class GameplayMainPanel : PanelBase
     private void LoadButton()
     {
         _skipShoppingBtn.onClick.AddListener(() => GameManager.Instance.SkipShopping = true);
-        _openInventoryBtn.onClick.AddListener(() => UIManager.Instance.ShowPanel(UIConstant.InventoryPanel));
+        _openInventoryBtn.onClick.AddListener(() =>
+        {
+            UIManager.Instance.ShowPanel(UIConstant.WeaponWheelPanel);
+            Hide();
+        });
         _pauseBtn.onClick.AddListener(() =>
         {
             UIManager.Instance.ShowPanel(UIConstant.PausePanel);

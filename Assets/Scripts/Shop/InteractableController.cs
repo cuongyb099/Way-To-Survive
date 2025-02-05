@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class InteractableController : BasicController, IInteractable
 {
-    public GameObject BuffCanvas;
     public GameObject SelectedUI;
     public TextMeshProUGUI SpeakingText;
     public Transform ObjTransform => transform;
@@ -17,7 +16,6 @@ public class InteractableController : BasicController, IInteractable
 
     public virtual void Interact(PlayerController source)
     {
-        BuffCanvas.SetActive(true);
     }
 
     public void OnSelect()

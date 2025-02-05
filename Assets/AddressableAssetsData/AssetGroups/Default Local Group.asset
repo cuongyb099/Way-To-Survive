@@ -33,6 +33,70 @@ MonoBehaviour:
     m_SerializedLabels:
     - Inventory
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0c8f845dbe4ac44409a43f402bd4c069
+    m_Address: Assets/Scripts/Inventory System/Sample/Gold.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Inventory
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2d8a4325b0f16734d9331e7d570a7e0d
+    m_Address: Assets/Prefab/UI/Panel
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - UI
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2e33d08a18c48c14fa34f10a36a7522e
+    m_Address: GameplayPanel
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - UI
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c08c34c243888a84b8724b71ad0f6972
+    m_Address: PausePanel
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - UI
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ef1f10872adbb9744af98cfbf832e86a
+    m_Address: SettingsPanel
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - UI
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a7e0a5be755325b42a76c23feaa83980
+    m_Address: BuffPanel
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - UI
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d9b3a2c414a87834e8466fcdde6d082a
+    m_Address: ShopPanel
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - UI
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a0b14337f6b876741a284a6e4e18b7e4
+    m_Address: WeaponWheelPanel
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - UI
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8be554c2a61bfc442a696f06ad8407c6
+    m_Address: InventoryPanel
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - UI
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b9b8f14ef8de9424e9e4eacb848c43c7
+    m_Address: Assets/Prefab/UI/Item Shop/Gun Item.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f4892d64385379048864b0ceb9ce2705
+    m_Address: Assets/Prefab/UI/Item Shop/Item Panel.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: f87357868bafec74b8eaa3e2bab0161e, type: 2}
   m_SchemaSet:

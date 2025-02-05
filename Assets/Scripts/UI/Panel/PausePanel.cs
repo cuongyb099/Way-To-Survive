@@ -2,22 +2,15 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PausePanel : PanelBase
+public class PausePanel : FadeBlurPanel
 {
     [Header("Button")] 
     [SerializeField] private Button _resumeBtn;
     [SerializeField] private Button _settingBtn;
     [SerializeField] private Button _restartBtn;
     [SerializeField] private Button _quitBtn;
-
-    [Header("Other Settings")]
-    public bool StopTime;
-    public bool BlurBackground; 
-    [Range(0.01f,2f)]
-    public float TransitionDuration = 0.2f;
-    private static Tweener tween;
     
-    private void Awake()
+    protected override void OnAwake()
     {
         LoadButton();
     }
@@ -33,6 +26,15 @@ public class PausePanel : PanelBase
         {
             Hide();
             UIManager.Instance.ShowPanel(UIConstant.SettingsPanel);
+        });
+        _restartBtn.onClick.AddListener(() =>
+        {
+            LevelManager.Instance.SwitchToMap1();
+        });
+        _quitBtn.onClick.AddListener(() =>
+        {
+            LevelManager.Instance.SwitchToMainMenu();
+            
         });
     }
 
@@ -68,29 +70,13 @@ public class PausePanel : PanelBase
     
     public override void Show()
     {
-        gameObject.SetActive(true);
+        base.Show();
         PlayerInput.Instance.InputActions.BasicAction.Disable();
-        if (StopTime)
-        {
-            tween.SetUpdate(false);
-            tween.Kill();
-            tween = DOVirtual.Float(Time.timeScale, 0f, TransitionDuration, v => Time.timeScale = v).SetUpdate(true);
-        }
-        if(BlurBackground)
-            GameBlurUI.Instance.Blur(TransitionDuration);
     }
 
     public override void Hide()
     {
+        base.Hide();
         PlayerInput.Instance.InputActions.BasicAction.Enable();
-        if (StopTime)
-        {
-            tween.SetUpdate(false);
-            tween.Kill();
-            tween = DOVirtual.Float(Time.timeScale, 1f, TransitionDuration, v => Time.timeScale = v).SetUpdate(true)
-                .OnComplete(() => gameObject.SetActive(false));
-        }
-        if(BlurBackground)
-            GameBlurUI.Instance.UnBlur(TransitionDuration);
     }
 }

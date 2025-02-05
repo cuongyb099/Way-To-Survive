@@ -2,6 +2,7 @@ using System;
 using DG.Tweening;
 using ResilientCore;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.Serialization;
@@ -337,6 +338,8 @@ public class PlayerController : BasicController
         {
             maxHp.OnValueChange += HandleMaxHpChange;
         }
+
+        HandleMaxHpChange();
     }
 
     private void HandleMaxHpChange()
