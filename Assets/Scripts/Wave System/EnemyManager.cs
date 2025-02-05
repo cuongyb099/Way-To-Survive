@@ -12,7 +12,6 @@ using Random = UnityEngine.Random;
 [RequireComponent(typeof(WaveManager))]
 public class EnemyManager : Tech.Singleton.Singleton<EnemyManager>
 {
-    public int GetCurrentWave() => _waveManager.CurrentWave;
     [SerializeField] private SpawnPoint[] _spawnPoints;
     [SerializeField] private Transform _spawnPlane;
     [SerializeField] private string _overlapTag;
@@ -269,16 +268,16 @@ public class EnemyManager : Tech.Singleton.Singleton<EnemyManager>
                 spawner.CallbackSpawn?.Invoke(count);
                 if(!disiredPrefab) continue; 
                 _currentEnemyAmount++;
-                GameEvent.EnemySpawnEvent?.Invoke(
-                    ObjectPool.Instance.SpawnObject(disiredPrefab, finalPosition, Quaternion.identity, PoolType.ENEMY));
+                ObjectPool.Instance.SpawnObject(disiredPrefab, finalPosition, Quaternion.identity, PoolType.ENEMY);
+                GameEvent.EnemySpawnEvent?.Invoke(_currentEnemyAmount);
             }
             
             //Spawn At Least 1 Enemy If Spawn Rate Random All In To Null Value Prefab
             if (_currentEnemyAmount == 0)
             {
                 _currentEnemyAmount++;
-                GameEvent.EnemySpawnEvent?.Invoke(
-                    ObjectPool.Instance.SpawnObject(spawner.EnemyPrefabs[0].Prefab, finalPosition, Quaternion.identity, PoolType.ENEMY));
+                ObjectPool.Instance.SpawnObject(spawner.EnemyPrefabs[0].Prefab, finalPosition, Quaternion.identity, PoolType.ENEMY);
+                GameEvent.EnemySpawnEvent?.Invoke(_currentEnemyAmount);
             }
             _waveManager.DisposeSpawner();
             spawner.CallbackSpawnerDone?.Invoke();

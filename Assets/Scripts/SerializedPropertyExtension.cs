@@ -5,7 +5,6 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using UnityEditor;
 
-#if UNITY_EDITOR
 public static class SerializedPropertyExtension
 {
     static readonly Regex rgx = new Regex(@"\[\d+\]", RegexOptions.Compiled);
@@ -142,4 +141,3 @@ public static class SerializedPropertyExtension
 #endif
     }
 }
-#endif
