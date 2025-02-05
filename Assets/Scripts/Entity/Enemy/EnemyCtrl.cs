@@ -64,6 +64,11 @@ public class EnemyCtrl : BasicController
         _spineRb.AddForce(direction * ragDollForce, ForceMode.Impulse);
     }
 
+    private void OnEnable()
+    {
+        RagdollAnimation.DisableRagdoll();
+    }
+
     private void OnDisable()
     {
         BTree.DisableBehavior(false);

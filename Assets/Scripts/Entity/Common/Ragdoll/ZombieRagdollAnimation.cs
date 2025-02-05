@@ -1,29 +1,27 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
 public class ZombieRagdollAnimation : RagdollAnimationBase
 {
-    [SerializeField]
     private Animator _animator;
     private Rigidbody[] _ragdollRigidbodies;
-    private Rigidbody _spineRigidbody;
-    private void Reset()
-    {
-        _animator = GetComponent<Animator>();
-    }
 
     private void Awake()
     {
-        if (!_animator)
-        {
-            _animator = GetComponent<Animator>();
-        }
+        LoadComponent();
+    }
 
-        _spineRigidbody = _animator.GetBoneTransform(HumanBodyBones.Spine).GetComponent<Rigidbody>();
+    private void LoadComponent()
+    {
+        if(_animator) return;
+
+        _animator = GetComponent<Animator>();
         _ragdollRigidbodies = GetComponentsInChildren<Rigidbody>();
     }
 
     public override void DisableRagdoll()
     {
+        LoadComponent();
         foreach (var rb in _ragdollRigidbodies)
         {
             rb.isKinematic = true;
@@ -34,6 +32,7 @@ public class ZombieRagdollAnimation : RagdollAnimationBase
 
     public override void EnableRagdoll()
     {
+        LoadComponent();
         foreach (var rb in _ragdollRigidbodies)
         {
             rb.isKinematic = false;
