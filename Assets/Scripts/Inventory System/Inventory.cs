@@ -15,15 +15,14 @@ namespace KatInventory
     {
         [field: SerializeField, Range(1, 1000)]
         public int Capacity { get; private set;} = 99;
-#if UNITY_EDITOR
         //I Don't Want this variable Can Get When Game Build It Not Compile If Access It Game Build Failure
         //Only Use For Debug
         [SerializeField]private List<ItemData> _inventory = new ();
         public List<ItemData> DataRuntime => _inventory;
         public static readonly string SavePath = "Assets/Save/Inventory.json";
-#else
-        public static readonly string SavePath = Application.persistentDataPath + "/Local1283012364.json";
-#endif   
+// #else
+        //public static readonly string SavePath = Application.persistentDataPath + "/Local1283012364.json";
+
         
 
         public static Action OnInventoryChange;
