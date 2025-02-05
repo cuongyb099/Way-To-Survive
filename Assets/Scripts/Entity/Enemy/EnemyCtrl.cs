@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using BehaviorDesigner.Runtime;
 using ProjectDawn.Navigation.Hybrid;
 using UnityEngine;
@@ -56,14 +58,14 @@ public class EnemyCtrl : BasicController
     }
 
     private Rigidbody _spineRb;
-    private const float ragDollForce = 30f; 
+    private const float ragDollForce = 50f; 
     private void TriggerRagdoll(GameObject dealer)
     {
         RagdollAnimation.EnableRagdoll();
         var direction = Vector3.ProjectOnPlane(_spineRb.position - dealer.transform.position, Vector3.up).normalized;
         _spineRb.AddForce(direction * ragDollForce, ForceMode.Impulse);
     }
-
+    
     private void OnEnable()
     {
         RagdollAnimation.DisableRagdoll();
