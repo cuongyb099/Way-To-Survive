@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Drawing;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Settings;
 using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
 
@@ -13,13 +15,14 @@ public class GunStatusUI : MonoBehaviour
     public Image GunIcon;
 	public TextMeshProUGUI TextAmmo;
 	public TextMeshProUGUI TextGunName;
-
+	private LocalizedString CurrentGunName;
 	private void Awake()
 	{
         PlayerEvent.OnEquipWeapon += ChangeGun;
         PlayerEvent.OnAttack += UpdateGunAmmo;
 		PlayerEvent.OnReload += UpdateGunAmmo;
 		PlayerEvent.OnChangeCap += UpdateGunAmmo;
+		LocalizationSettings.SelectedLocaleChanged += UpdateGunName;
 	}
 
 	private void Start()
@@ -33,7 +36,7 @@ public class GunStatusUI : MonoBehaviour
 		PlayerEvent.OnAttack -= UpdateGunAmmo;
 		PlayerEvent.OnReload -= UpdateGunAmmo;
 		PlayerEvent.OnChangeCap -= UpdateGunAmmo;
-
+		LocalizationSettings.SelectedLocaleChanged -= UpdateGunName;
 	}
 	public void UpdateGunAmmo()
     {
@@ -52,7 +55,13 @@ public class GunStatusUI : MonoBehaviour
 		else
 			gunAmmo = null;
         GunIcon.sprite = weapon.WeaponData.Icon;
-		TextGunName.text = weapon.WeaponData.Name.GetLocalizedString();
+        CurrentGunName = weapon.WeaponData.Name;
+		TextGunName.text = CurrentGunName.GetLocalizedString();
         UpdateGunAmmo();
     }
+
+	private void UpdateGunName(Locale locale)
+	{
+		TextGunName.text = CurrentGunName.GetLocalizedString();
+	}
 }

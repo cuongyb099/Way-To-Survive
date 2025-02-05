@@ -82,4 +82,11 @@ public class GameManager : StateMachine<EGameState>
     {
         TransitionToState(newGameState);
     }
+
+    [ContextMenu("Skip CombatState")]
+    public void SkipCombatState()
+    {
+        if(CurrentState != States[EGameState.Combat]) return;
+        TransitionToState(EGameState.WaveWon);
+    }
 }

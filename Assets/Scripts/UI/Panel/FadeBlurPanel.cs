@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Events;
@@ -38,5 +39,9 @@ public class FadeBlurPanel : PanelBase
         if(BlurBackground)
             GameBlurUI.Instance.UnBlur(TransitionDuration);
     }
-    
+
+    private void OnDestroy()
+    {
+        Hide();
+    }
 }

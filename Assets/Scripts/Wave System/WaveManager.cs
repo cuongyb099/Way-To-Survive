@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class WaveManager : MonoBehaviour
 {
-    private int _currentWave;
+    public int CurrentWave { get; private set; }
     private int _activeSpawner;
     private bool _gameDone;
     
@@ -43,12 +43,12 @@ public class WaveManager : MonoBehaviour
 
     private void Start()
     {
-        _currentWave = 0;
+        CurrentWave = 0;
     }
 
     private void LoadGame()
     {
-        _currentWave = 1;
+        CurrentWave = 1;
         StartWave();
     }
 
@@ -59,8 +59,8 @@ public class WaveManager : MonoBehaviour
     
     private void StartWave()
     {
-        GameEvent.NextWaveEvent?.Invoke(_currentWave);
-        Wave wave = FindWave(_currentWave);
+        GameEvent.NextWaveEvent?.Invoke(CurrentWave);
+        Wave wave = FindWave(CurrentWave);
 
         for (int i = 0; i < wave.MainWave.Length; i++)
         {
@@ -208,14 +208,14 @@ public class WaveManager : MonoBehaviour
     {
         if(_gameDone) return;
         
-        if (currentEnemyAmount <= 0 && _activeSpawner <= 0 && _currentWave < _maxWaveCount )
+        if (currentEnemyAmount <= 0 && _activeSpawner <= 0 && CurrentWave < _maxWaveCount )
         {
-            GameEvent.WaveDoneEvent?.Invoke(_currentWave);
+            GameEvent.WaveDoneEvent?.Invoke(CurrentWave);
             
             return;
         }
 
-        if(_currentWave < _maxWaveCount || currentEnemyAmount > 0) return;
+        if(CurrentWave < _maxWaveCount || currentEnemyAmount > 0) return;
         
         _gameDone = true;
         GameEvent.GameCompleteEvent?.Invoke();
@@ -225,7 +225,7 @@ public class WaveManager : MonoBehaviour
     {
         if(_gameDone) return;
         
-        _currentWave++;
+        CurrentWave++;
         StartWave();
     }
 
@@ -248,7 +248,7 @@ public class WaveManager : MonoBehaviour
     
     private int SteadilyFlatLogic(Wave wave, WaveInfoSO info)
     {
-        var distance = _currentWave - wave.Start;
+        var distance = CurrentWave - wave.Start;
         var factor = 1;
         
         if (info.EnemyChangeStrategy == EnemyAmountChangeStrategy.DECREASE_STEADILY_FLAT)
@@ -261,7 +261,7 @@ public class WaveManager : MonoBehaviour
     
     private int SteadilyPercentLogic(Wave wave, WaveInfoSO info)
     {
-        var distance = _currentWave - wave.Start;
+        var distance = CurrentWave - wave.Start;
         var factor = 1;
         
         if (info.EnemyChangeStrategy == EnemyAmountChangeStrategy.DECREASE_STEADILY_FLAT)
@@ -274,14 +274,14 @@ public class WaveManager : MonoBehaviour
 
     private int ChangeWithCurveLogic(Wave wave, WaveInfoSO info)
     {
-        var distance = _currentWave - wave.Start + 1;
+        var distance = CurrentWave - wave.Start + 1;
         var percent = info.ChangeCurve.Evaluate(distance);
         return (int)(info.Amount * (1 + percent));
     }
 
     private int ChangeWithSpecified(Wave wave, WaveInfoSO info)
     {
-        var distance = _currentWave - wave.Start;
+        var distance = CurrentWave - wave.Start;
         if (distance <= 0 || info.SpecifiedChange.Length < distance) return info.Amount;
         return info.SpecifiedChange[distance - 1];
     }

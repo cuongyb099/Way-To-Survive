@@ -27,6 +27,15 @@ public class PausePanel : FadeBlurPanel
             Hide();
             UIManager.Instance.ShowPanel(UIConstant.SettingsPanel);
         });
+        _restartBtn.onClick.AddListener(() =>
+        {
+            LevelManager.Instance.SwitchToMap1();
+        });
+        _quitBtn.onClick.AddListener(() =>
+        {
+            LevelManager.Instance.SwitchToMainMenu();
+            
+        });
     }
 
     private void Reset()

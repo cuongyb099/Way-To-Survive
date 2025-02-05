@@ -338,7 +338,8 @@ public class PlayerController : BasicController
         {
             maxHp.OnValueChange += HandleMaxHpChange;
         }
-        PlayerEvent.OnMaxHeathChange?.Invoke(hp.Value,hp.MaxValue);
+
+        HandleMaxHpChange();
     }
 
     private void HandleMaxHpChange()

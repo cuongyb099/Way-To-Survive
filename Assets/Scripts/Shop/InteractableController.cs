@@ -16,7 +16,6 @@ public class InteractableController : BasicController, IInteractable
 
     public virtual void Interact(PlayerController source)
     {
-        
     }
 
     public void OnSelect()

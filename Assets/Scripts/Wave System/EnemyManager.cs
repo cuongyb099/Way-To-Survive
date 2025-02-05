@@ -12,6 +12,7 @@ using Random = UnityEngine.Random;
 [RequireComponent(typeof(WaveManager))]
 public class EnemyManager : Tech.Singleton.Singleton<EnemyManager>
 {
+    public int GetCurrentWave() => _waveManager.CurrentWave;
     [SerializeField] private SpawnPoint[] _spawnPoints;
     [SerializeField] private Transform _spawnPlane;
     [SerializeField] private string _overlapTag;
