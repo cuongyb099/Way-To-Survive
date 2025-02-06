@@ -4,7 +4,6 @@ using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using UnityEditor;
-
 #if UNITY_EDITOR
 public static class SerializedPropertyExtension
 {
