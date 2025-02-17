@@ -158,7 +158,7 @@ GameObject:
   - component: {fileID: 5704549460169601475}
   - component: {fileID: 9212072447739369604}
   - component: {fileID: 752525304665740718}
-  - component: {fileID: 5957378339055339132}
+  - component: {fileID: 4611509454680249746}
   - component: {fileID: -7086552029489029334}
   m_Layer: 7
   m_Name: AK12
@@ -219,7 +219,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.5, y: 0.5, z: 1.4}
   m_Center: {x: 0, y: 0, z: 0.45}
---- !u!114 &5957378339055339132
+--- !u!114 &4611509454680249746
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

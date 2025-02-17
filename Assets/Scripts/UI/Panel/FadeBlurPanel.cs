@@ -15,7 +15,6 @@ public class FadeBlurPanel : PanelBase
     {
         base.Show();
         OnShowDo?.Invoke();
-        PlayerInput.Instance.InputActions.BasicAction.Disable();
         if (StopTime)
         {
             tween.SetUpdate(false);
@@ -29,7 +28,6 @@ public class FadeBlurPanel : PanelBase
     {
         base.Hide();
         OnHideDo?.Invoke();
-        PlayerInput.Instance.InputActions.BasicAction.Enable();
         if (StopTime)
         {
             tween.SetUpdate(false);
@@ -38,10 +36,5 @@ public class FadeBlurPanel : PanelBase
         }
         if(BlurBackground)
             GameBlurUI.Instance.UnBlur(TransitionDuration);
-    }
-
-    private void OnDestroy()
-    {
-        Hide();
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using AYellowpaper.SerializedCollections;
 
-[CreateAssetMenu(fileName = "SpecificListSO", menuName = "Item/Buff/new SpecificListSO")]
+[CreateAssetMenu(fileName = "SpecificListSO", menuName = "Item/Buff/new EffectsListSO")]
 public class ListOfBuffTypeSO : ScriptableObject
 {
     public List<BaseBuffSO> Buffs;

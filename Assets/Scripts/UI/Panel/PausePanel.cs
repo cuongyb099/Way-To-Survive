@@ -29,11 +29,11 @@ public class PausePanel : FadeBlurPanel
         });
         _restartBtn.onClick.AddListener(() =>
         {
-            LevelManager.Instance.SwitchToMap1();
+            LevelAsyncManager.Instance.SwitchToMap1();
         });
         _quitBtn.onClick.AddListener(() =>
         {
-            LevelManager.Instance.SwitchToMainMenu();
+            LevelAsyncManager.Instance.SwitchToMainMenu();
             
         });
     }

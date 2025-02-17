@@ -27,10 +27,10 @@ public class PlayerController : BasicController
     [field:SerializeField] public CameraZoom CameraZoom { get; private set; }
     public PlayerInteractor PlayerInteractor { get; private set; }
 	//Player Data
-	public float GunSwitchCooldown = .1f;
-    public LayerMask GroundLayer;
-    public WeaponBase StartingWeapon;
-    public int StartingCash = 0;
+	[field: SerializeField]public float GunSwitchCooldown { get; private set; } = .1f;
+    [field: SerializeField]public LayerMask GroundLayer{ get; private set; }
+    [field: SerializeField] public WeaponBase StartingWeapon{ get; private set; }
+    [field: SerializeField]public int StartingCash { get; private set; } = 0;
     public List<WeaponBase> OwnedWeapons { get; private set; }
     public int Cash
     {
@@ -175,7 +175,7 @@ public class PlayerController : BasicController
         Animator.SetFloat(Type, (float)currentSlot.WeaponData.WeaponType);
         Animator.SetBool(ReloadGun, false);
         Stats.GetStat(StatType.Speed).AddModifier(new StatModifier(-currentSlot.WeaponData.Weight,StatModType.Flat));
-        CameraZoom.SetZoom(CurrentWeapon.WeaponData.Aim/Mathf.Cos(45f*Mathf.Deg2Rad)+5f);
+        CameraZoom.SetZoom(CurrentWeapon.WeaponData.Aim/Mathf.Cos(45f*Mathf.Deg2Rad));
         PlayerEvent.OnEquipWeapon?.Invoke(currentSlot);
         return true;
     }

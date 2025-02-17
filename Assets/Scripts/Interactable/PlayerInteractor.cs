@@ -43,10 +43,11 @@ public class PlayerInteractor : MonoBehaviour
 		}
 		SwitchToTarget(curIndex);
 	}
-	private void OnTriggerEnter(Collider other)
+	private void OnTriggerStay(Collider other)
     {
         if(other.TryGetComponent(out IInteractable interactable))
         {
+	        if(Interactables.Contains(interactable)) return;
             Interactables.Add(interactable);
             interactable.OnKill += () =>
             {
@@ -74,6 +75,14 @@ public class PlayerInteractor : MonoBehaviour
             if(Interactables.Count == 0)
 	            PlayerEvent.OnInteractExit?.Invoke();
         }
+    }
+    private void LateUpdate()
+    {
+	    for (int i = Interactables.Count-1;i >= 0; --i )
+	    {
+		    if(Interactables[i] == null) continue;
+		    Interactables.RemoveAt(i);
+	    }
     }
     public void InteractWithTarget()
     {

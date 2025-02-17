@@ -156,8 +156,8 @@ GameObject:
   - component: {fileID: 5704549460169601475}
   - component: {fileID: 526068766936958343}
   - component: {fileID: 7085923665981615607}
-  - component: {fileID: 8194469719129479438}
   - component: {fileID: -2544400597224823434}
+  - component: {fileID: -6159223707915423775}
   m_Layer: 7
   m_Name: USP
   m_TagString: Untagged
@@ -218,18 +218,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.5, y: 0.5, z: 1.3}
   m_Center: {x: 0, y: 0, z: 0.2}
---- !u!114 &8194469719129479438
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4180766260500403244}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96e942a253c004f46befd960a637e31b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &-2544400597224823434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -246,6 +234,18 @@ MonoBehaviour:
   <ShootPoint>k__BackingField: {fileID: 314904007054090758}
   <ShellDropPoint>k__BackingField: {fileID: 518401905128851688}
   <MagObject>k__BackingField: {fileID: 613241489929398382}
+--- !u!114 &-6159223707915423775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4180766260500403244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96e942a253c004f46befd960a637e31b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8660687092425736277
 GameObject:
   m_ObjectHideFlags: 0

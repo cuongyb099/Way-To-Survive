@@ -83,6 +83,14 @@ MonoBehaviour:
     m_Key: UI_Pause_MainMenu
     m_Metadata:
       m_Items: []
+  - m_Id: 808634789896192
+    m_Key: UI_Settings_FPSLimit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1040503724810240
+    m_Key: UI_Gameplay_SpecialEvent
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

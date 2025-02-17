@@ -6,7 +6,7 @@ using UnityEngine.Audio;
 using Random = UnityEngine.Random;
 
 //Simple Sound Manager 
-public class AudioManager : Singleton<AudioManager>
+public class AudioManager : SingletonPersistent<AudioManager>
 {
     [SerializeField] private GameObject _audioPrefab;
     [SerializeField] private AudioClip[] _startedBGMusic;
@@ -42,7 +42,7 @@ public class AudioManager : Singleton<AudioManager>
         
         foreach (AudioClip music in _startedBGMusic)
         {
-            PlaySound(music, true);
+            PlaySound(music, true,volumeType: SoundVolumeType.BGM_VOLUME);
         }
     }
 
@@ -52,13 +52,13 @@ public class AudioManager : Singleton<AudioManager>
             default, default, PoolType.Audio).GetComponent<AudioChild>();
 
         AudioSource source = audioChild.Source;
+        source.outputAudioMixerGroup = GetMixerGroup(volumeType);
+        source.clip = audioClip;
+        
         SoundSetting soundSetting = SoundSetting.GetDefault();
         soundSetting.Loop = isLoop;
-        source.clip = audioClip;
-        source.volume = volume;
-        source.outputAudioMixerGroup = GetMixerGroup(volumeType);
+        soundSetting.Volume = volume;
         soundSetting.Play(source);
-        //audioChild.WaitToReturnPool();
     }
 
     public void PlaySound(AudioClip[] audioClips,  bool isLoop = false, float volume = 1f, SoundVolumeType volumeType = SoundVolumeType.SOUNDFX_VOLUME)

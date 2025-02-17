@@ -126,7 +126,7 @@ GameObject:
   - component: {fileID: 4119010008928634525}
   - component: {fileID: 3070662729019260882}
   - component: {fileID: 7359717088815079053}
-  - component: {fileID: 1890116786611390827}
+  - component: {fileID: -639942903657236774}
   m_Layer: 7
   m_Name: AWP
   m_TagString: Untagged
@@ -202,7 +202,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.5, y: 0.5, z: 1.8}
   m_Center: {x: 0, y: 0, z: 0.75}
---- !u!114 &1890116786611390827
+--- !u!114 &-639942903657236774
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

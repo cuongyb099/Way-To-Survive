@@ -34,6 +34,7 @@ MonoBehaviour:
     - Assembly-CSharp-firstpass
     - AYellowpaper.SerializedCollections
     - Cinemachine
+    - IngameDebugConsole.Runtime
     - ProjectDawn.LocalAvoidance
     - ProjectDawn.Navigation
     - ProjectDawn.Navigation.Astar

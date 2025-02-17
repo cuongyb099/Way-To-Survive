@@ -8,41 +8,49 @@ using Random = System.Random;
 
 public class BuffEventManager : Singleton<BuffEventManager>
 {
+    [field:SerializeField,Range(0,1)] public float SpecialEventRate { get; set; } = .3f;
+    [field:SerializeField,Range(0,1)] public float PositiveEventRate { get; set; } = .5f;
     [SerializeField] private ListOfBuffTypeSO positiveBuffsSO;
     [SerializeField] private ListOfBuffTypeSO negativeBuffsSO;
-    [SerializeField] private List<BaseBuffSO> positiveBuffListSO;
-    [SerializeField] private List<BaseBuffSO> negativeBuffListSO;
+    public List<BaseBuffSO> PositiveBuffListSO { get; private set; }
+    public List<BaseBuffSO> NegativeBuffListSO{ get; private set; }
     protected override void Awake()
     {
         base.Awake();
+        PositiveBuffListSO = new List<BaseBuffSO>();
+        NegativeBuffListSO = new List<BaseBuffSO>();
         GameEvent.OnChangeTimeOfDay += ChoseTimeOfDayBuff;
+        GameEvent.OnStopCombatState += RemoveAllEffects;
     }
 
     private void OnDestroy()
     {
         GameEvent.OnChangeTimeOfDay -= ChoseTimeOfDayBuff;
+        GameEvent.OnStopCombatState -= RemoveAllEffects;
     }
 
-    private void ChooseBuffWithRate(int positiveRate)
+    private void ChooseBuffWithRate(float eventRate, float positiveRate)
     {
-        if (UnityEngine.Random.value <= positiveRate)
+        if (UnityEngine.Random.value > eventRate) return;
+        
+        if (UnityEngine.Random.value > positiveRate)
         {
-            AddPositiveBuff();
+            AddNegativeEffect();
             return;
         }
-        AddNegativeBuff();
+        AddPositiveEffect();
     }
 
-    private void AddPositiveBuff()
+    private void AddPositiveEffect()
     {
         BaseBuffSO buff = positiveBuffsSO.ChooseRandomBuff();
-        positiveBuffListSO.Add(buff);
+        PositiveBuffListSO.Add(buff);
         buff.AddStatusEffect(GameManager.Instance.Player.GetComponent<StatsController>());
     }
-    private void AddNegativeBuff()
+    private void AddNegativeEffect()
     {
         BaseBuffSO buff = negativeBuffsSO.ChooseRandomBuff();
-        negativeBuffListSO.Add(buff);
+        NegativeBuffListSO.Add(buff);
         
         GameEvent.EnemySpawnEvent += x =>
         {
@@ -50,52 +58,47 @@ public class BuffEventManager : Singleton<BuffEventManager>
         };                                                                                                  
     }
 
-    private void RemoveAllBuff()
+    private void RemoveAllEffects()
     {
-        for (int i = negativeBuffListSO.Count-1; i>=0; --i)
+        for (int i = NegativeBuffListSO.Count-1; i>=0; --i)
         {
             GameEvent.EnemySpawnEvent -= x =>
             {
-                negativeBuffListSO[i].AddStatusEffect(x.GetComponent<StatsController>());
+                NegativeBuffListSO[i].AddStatusEffect(x.GetComponent<StatsController>());
             };
-            negativeBuffListSO.RemoveAt(i);
+            NegativeBuffListSO.RemoveAt(i);
         }
-        for (int i = positiveBuffListSO.Count-1; i>=0; --i)
+        for (int i = PositiveBuffListSO.Count-1; i>=0; --i)
         {
-            GameManager.Instance.Player.GetComponent<StatsController>().RemoveEffect(positiveBuffListSO[i]);
-            positiveBuffListSO.RemoveAt(i);
+            GameManager.Instance.Player.GetComponent<StatsController>().RemoveEffect(PositiveBuffListSO[i]);
+            PositiveBuffListSO.RemoveAt(i);
         }
     }
     private void ChoseTimeOfDayBuff(TimeOfTheDay timeOfTheDay)
     {
-        RemoveAllBuff();
+        RemoveAllEffects();
         switch (timeOfTheDay)
         {
             case TimeOfTheDay.MidNight:
-                AddPositiveBuff();
+                ChooseBuffWithRate(1,PositiveEventRate - .5f);
                 break;
             case TimeOfTheDay.EarlyMorning:
-                AddPositiveBuff();
+                ChooseBuffWithRate(SpecialEventRate,PositiveEventRate-.1f);
                 break;
             case TimeOfTheDay.Morning:
-                AddPositiveBuff();
+                ChooseBuffWithRate(SpecialEventRate,PositiveEventRate);
                 break;
             case TimeOfTheDay.Noon:
-                AddPositiveBuff();
+                ChooseBuffWithRate(1,PositiveEventRate+.2f);
                 break;
             case TimeOfTheDay.Afternoon:
-                AddPositiveBuff();
+                ChooseBuffWithRate(SpecialEventRate,PositiveEventRate+.1f);
                 break;
             case TimeOfTheDay.Evening:
-                AddPositiveBuff();
+                ChooseBuffWithRate(SpecialEventRate,PositiveEventRate);
                 break;
             default:
                 return;
         }
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

@@ -73,8 +73,8 @@ GameObject:
   - component: {fileID: 5704549460169601475}
   - component: {fileID: 9212072447739369604}
   - component: {fileID: 752525304665740718}
-  - component: {fileID: 5957378339055339132}
   - component: {fileID: -7086552029489029334}
+  - component: {fileID: -5874625406502071347}
   m_Layer: 7
   m_Name: SCAR
   m_TagString: Untagged
@@ -134,18 +134,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.5, y: 0.5, z: 1.4}
   m_Center: {x: 0, y: 0, z: 0.45}
---- !u!114 &5957378339055339132
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4180766260500403244}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96e942a253c004f46befd960a637e31b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &-7086552029489029334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -162,6 +150,18 @@ MonoBehaviour:
   <ShootPoint>k__BackingField: {fileID: 314904007054090758}
   <ShellDropPoint>k__BackingField: {fileID: 8810022998086679427}
   <MagObject>k__BackingField: {fileID: 2714289804723077492}
+--- !u!114 &-5874625406502071347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4180766260500403244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96e942a253c004f46befd960a637e31b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7308576944817134579
 GameObject:
   m_ObjectHideFlags: 0
