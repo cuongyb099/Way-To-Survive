@@ -2,6 +2,7 @@ using System;
 using DG.Tweening;
 using ResilientCore;
 using System.Collections.Generic;
+using KatInventory;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -29,9 +30,8 @@ public class PlayerController : BasicController
 	//Player Data
 	[field: SerializeField]public float GunSwitchCooldown { get; private set; } = .1f;
     [field: SerializeField]public LayerMask GroundLayer{ get; private set; }
-    [field: SerializeField] public WeaponBase StartingWeapon{ get; private set; }
+    [field: SerializeField] public WeaponBaseSO StartingWeapon{ get; private set; }
     [field: SerializeField]public int StartingCash { get; private set; } = 0;
-    public List<WeaponBase> OwnedWeapons { get; private set; }
     public int Cash
     {
 	    get => cash;
@@ -51,7 +51,7 @@ public class PlayerController : BasicController
     public Transform LeftHandHoldPoint;
     public LineRendererHelper LineRendererL;
     public LineRendererHelper LineRendererR;
-    public WeaponBase[] Weapons;
+    public WeaponBase[] Weapons ;
     [field: SerializeField] public BoxCollider MeleeHitCollider { get; private set; }  
     public WeaponBase CurrentWeapon => Weapons[CurrentWeaponIndex];
     public int CurrentWeaponIndex { get; private set; }
@@ -70,22 +70,22 @@ public class PlayerController : BasicController
         mainCamera = Camera.main;
         
         BuffList = new List<int>();
-        OwnedWeapons = new List<WeaponBase> { StartingWeapon };
 
         Weapons = new WeaponBase[3];
-		InstantiateWeapon(StartingWeapon, 0);
-			
+        PlayerDataPersistent.Instance.ApplyToPlayer(this);
+		//InstantiateWeapon(StartingWeapon,0);
+		
 		PlayerEvent.OnAttack += SetShootAnim;
 		PlayerEvent.RecieveCash += AddCash;
         Stats.GetStat(StatType.MagCapacity).OnValueChange += CalculateMaxCap;
 		Stats.GetStat(StatType.ATKSpeed).OnValueChange += SetShootingSpeedAnim;
 		Stats.GetStat(StatType.Speed).OnValueChange += SetMovementSpeedAnim;
+		
 	}
     private void OnDestroy()
     {
         hp.OnValueChange -= HandleHealthChange;
         maxHp.OnValueChange -= HandleMaxHpChange;
-		//InputEvent.OnInputSwitchGuns -= SwitchGun;
 
 		PlayerEvent.OnAttack -= SetShootAnim;
 		PlayerEvent.RecieveCash -= AddCash;
@@ -95,20 +95,21 @@ public class PlayerController : BasicController
 	}
 	private void Start()
     {
-		EquipGun(0);
+		EquipWeapon(0);
         InitHealthBar();
         Cash = StartingCash;
     }
 
     void FixedUpdate()
     {
-        MovePlayer();
-        RotatePlayer();
+	    MovePlayer();
         Float();
     }
 	private void Update()
 	{
 		SetLineRenderers();
+		
+		RotatePlayer();
     }
 
     public override void Death(GameObject dealer)
@@ -124,17 +125,18 @@ public class PlayerController : BasicController
     }
 
     // Weapon handle
-    public void InstantiateWeapon(WeaponBase weapon, int index)
+    
+    public void InstantiateWeapon(WeaponBaseSO weapon, int index)
     {
 	    if (Weapons[index] != null)
 	    {
 		    Stats.GetStat(StatType.Speed).RemoveModifier(new StatModifier(-Weapons[index].WeaponData.Weight,StatModType.Flat));
 		    Destroy(Weapons[index].gameObject);
 	    }
-	    Weapons[index] = (Instantiate(weapon, RightHandHoldPoint.transform));
+
+	    Weapons[index] = ((ItemGOData)weapon.CreateItem(parent: RightHandHoldPoint.transform)).GoReference.GetComponent<WeaponBase>();
 	    Weapons[index].gameObject.layer = gameObject.layer;
 	    Weapons[index].Initialize();
-	    Weapons[index].gameObject.SetActive(false);
 	    
 	    CurrentWeapon.ShootAble = true;
 	    Animator.SetBool(ReloadGun, false);
@@ -146,23 +148,16 @@ public class PlayerController : BasicController
 		    CalculateMaxCapacity(Weapons[index]);
 		    gun.SetBulletToMax();
 	    }
-	    EquipGun(CurrentWeaponIndex);
+	    EquipWeapon(CurrentWeaponIndex);
     }
     
     public void SwapGuns(int x, int y)
     {
 	    (Weapons[x], Weapons[y]) = (Weapons[y], Weapons[x]);
-	    EquipGun(CurrentWeaponIndex);
+	    EquipWeapon(CurrentWeaponIndex);
     }
-
-    public void SetPlayerGuns(WeaponBase[] guns)
-    {
-	    for (int i = 0; i < Weapons.Length; i++)
-	    {
-		    InstantiateWeapon(guns[i],i);
-	    }
-    }
-    public bool EquipGun(int index)
+    
+    public bool EquipWeapon(int index)
     {
 	    WeaponBase currentSlot = Weapons[index];
 
@@ -175,7 +170,14 @@ public class PlayerController : BasicController
         Animator.SetFloat(Type, (float)currentSlot.WeaponData.WeaponType);
         Animator.SetBool(ReloadGun, false);
         Stats.GetStat(StatType.Speed).AddModifier(new StatModifier(-currentSlot.WeaponData.Weight,StatModType.Flat));
-        CameraZoom.SetZoom(CurrentWeapon.WeaponData.Aim/Mathf.Cos(45f*Mathf.Deg2Rad));
+        if (CurrentWeapon.WeaponData.WeaponType == WeaponType.Knife)
+        {
+	        CameraZoom.SetZoom(1f/Mathf.Cos(45f*Mathf.Deg2Rad));
+        }
+        else
+        {
+	        CameraZoom.SetZoom(((GunBase)CurrentWeapon).GunData.Aim/Mathf.Cos(45f*Mathf.Deg2Rad));
+        }
         PlayerEvent.OnEquipWeapon?.Invoke(currentSlot);
         return true;
     }
@@ -192,7 +194,7 @@ public class PlayerController : BasicController
 	    Animator.SetBool(SwitchCurWeapon, true);
 	    Animator.SetBool(ReloadGun, false);
 	    Weapons[CurrentWeaponIndex].OnSwitchOut();
-	    EquipGun(index);
+	    EquipWeapon(index);
     }
 
     public bool ContainsWeapon(WeaponBase weapon)
@@ -261,13 +263,13 @@ public class PlayerController : BasicController
 	public Gradient LineTargetColor;
 	public void SetLineRenderers()
 	{
-        if(Weapons[CurrentWeaponIndex].WeaponData.WeaponType == WeaponType.Knife) return;
-        GunBase gun = (GunBase)Weapons[CurrentWeaponIndex];
+        if(CurrentWeapon.WeaponData.WeaponType == WeaponType.Knife) return;
+        GunBase gun = (GunBase)CurrentWeapon;
         float accuracy = gun.GunAccuracy;
-		LineRendererL.SetLineRenderer(gun.ShootPoint, gun.WeaponData.Aim, Quaternion.Euler(0, Mathf.Clamp(-accuracy, -GameValues.RecoilMaxValue,0), 0) * transform.forward);
-		LineRendererR.SetLineRenderer(gun.ShootPoint, gun.WeaponData.Aim, Quaternion.Euler(0, Mathf.Clamp(accuracy, 0, GameValues.RecoilMaxValue), 0) * transform.forward);
+		LineRendererL.SetLineRenderer(gun.ShootPoint, gun.GunData.Aim, Quaternion.Euler(0, Mathf.Clamp(-accuracy, -GameValues.RecoilMaxValue,0), 0) * transform.forward);
+		LineRendererR.SetLineRenderer(gun.ShootPoint, gun.GunData.Aim, Quaternion.Euler(0, Mathf.Clamp(accuracy, 0, GameValues.RecoilMaxValue), 0) * transform.forward);
 		
-        if(Physics.Raycast(gun.ShootPoint.position,transform.forward, out RaycastHit hit, gun.WeaponData.Aim) &&
+        if(Physics.Raycast(gun.ShootPoint.position,transform.forward, out RaycastHit hit, gun.GunData.Aim) &&
            accuracy <= 1f)
         {
 	        if (hit.collider.CompareTag("Enemy"))
@@ -289,8 +291,7 @@ public class PlayerController : BasicController
     private void MovePlayer()
     {
         Vector3 MovementInput = PlayerInput.Instance.MovementInput;
-        Rigidbody.velocity = new Vector3(0f, Rigidbody.velocity.y, 0f);
-        Rigidbody.AddForce(Quaternion.Euler(0,mainCamera.transform.eulerAngles.y,0) * MovementInput *  (Stats.GetStat(StatType.Speed).Value), ForceMode.VelocityChange);
+        Rigidbody.velocity = Quaternion.Euler(0,mainCamera.transform.eulerAngles.y,0) * MovementInput * ((Stats.GetStat(StatType.Speed).Value));
         //Animation
         var x =Vector3.Dot(MovementInput, Quaternion.Euler(0,-mainCamera.transform.eulerAngles.y,0)* transform.right);
         var y =Vector3.Dot(MovementInput, Quaternion.Euler(0,-mainCamera.transform.eulerAngles.y,0)* transform.forward);

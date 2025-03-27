@@ -27,8 +27,8 @@ public class GunShopUI : FadeBlurPanel
     [SerializeField] private  WeaponListSO WeaponListSo;
     [SerializeField] private  AssetReferenceGameObject ItemMiniPrefab;
 
-    [SerializeField] private ItemMiniUI Selected;
-    [SerializeField] private List<ItemMiniUI> ItemsMiniUI;
+    [SerializeField] private WeaponSlotUI Selected;
+    [SerializeField] private List<WeaponSlotUI> ItemsMiniUI;
 
     protected override void OnAwake()
     {
@@ -45,7 +45,7 @@ public class GunShopUI : FadeBlurPanel
 
     private async void Initialize()
     {
-        ItemsMiniUI = new List<ItemMiniUI>();
+        ItemsMiniUI = new List<WeaponSlotUI>();
         
         BackButton.onClick.AddListener(() =>
         {
@@ -55,16 +55,16 @@ public class GunShopUI : FadeBlurPanel
         
         foreach (var x in WeaponListSo.Weapons)
         {
-            var temp = await AddressablesManager.Instance.InstantiateAsyncType<ItemMiniUI>(ItemMiniPrefab, GunsPanel.transform);
-            temp.Initialize(x.WeaponData);
+            var temp = await AddressablesManager.Instance.InstantiateAsyncType<WeaponSlotUI>(ItemMiniPrefab, GunsPanel.transform);
+            temp.Initialize(x);
             temp.ItemButton.onClick.AddListener(() => { ChangeGun(temp);});
             ItemsMiniUI.Add(temp);
         }
-        ChangeGun(ItemsMiniUI[0]);
+        //ChangeGun(ItemsMiniUI[0]);
         
     }
     
-    private void ChangeGun(ItemMiniUI itemUI)
+    private void ChangeGun(WeaponSlotUI itemUI)
     {
         Selected = itemUI;
         itemUI.ItemButton.Select();
@@ -72,37 +72,37 @@ public class GunShopUI : FadeBlurPanel
         GunDataUI.ChangeGun(weapon);
         
         PlayerController player = GameManager.Instance.Player;
-        if (player.OwnedWeapons.Contains(weapon.WeaponPrefab))
-        {
-            BuyButton.interactable = false;
-            BuyButtonText.text = "Owned";
-        }
-        else
-        {
-            BuyButton.interactable = true;
-            BuyButtonText.text = "Buy";
-        }
+        // if (player.OwnedWeapons.Contains(weapon.Prefab.Data.GoReference))
+        // {
+        //     BuyButton.interactable = false;
+        //     BuyButtonText.text = "Owned";
+        // }
+        // else
+        // {
+        //     BuyButton.interactable = true;
+        //     BuyButtonText.text = "Buy";
+        // }
     }
 
-    public void OnBuyGun()
-    {
-        PlayerController player = GameManager.Instance.Player;
-        GunBaseSO weapon = (GunBaseSO)Selected.ItemBaseSoHolder;
-        if (player.Cash < weapon.BuyPrice) return;
-
-        player.Cash -= weapon.BuyPrice;
-        player.OwnedWeapons.Add(weapon.WeaponPrefab);
-
-        for(int i = 0; i< player.Weapons.Length; i++)
-        {
-            if (player.Weapons[i] != null) continue;
-            player.InstantiateWeapon(weapon.WeaponPrefab,i);
-            break;
-        }
-        
-        BuyButton.interactable = false;
-        BuyButtonText.text = "Owned";
-    }
+    // public void OnBuyGun()
+    // {
+    //     PlayerController player = GameManager.Instance.Player;
+    //     GunBaseSO weapon = (GunBaseSO)Selected.ItemBaseSoHolder;
+    //     if (player.Cash < weapon.BuyPrice) return;
+    //
+    //     player.Cash -= weapon.BuyPrice;
+    //     player.OwnedWeapons.Add(weapon.WeaponPrefab);
+    //
+    //     for(int i = 0; i< player.Weapons.Length; i++)
+    //     {
+    //         if (player.Weapons[i] != null) continue;
+    //         player.InstantiateWeapon(weapon.WeaponPrefab,i);
+    //         break;
+    //     }
+    //     
+    //     BuyButton.interactable = false;
+    //     BuyButtonText.text = "Owned";
+    // }
 
     private void ChangeCashText(int value)
     {

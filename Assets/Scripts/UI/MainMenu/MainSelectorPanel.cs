@@ -11,18 +11,30 @@ public class MainSelectorPanel : FadeBlurPanel
     [SerializeField] private Button _tutorialBtn;
     [SerializeField] private Button _settingsBtn;
     [SerializeField] private Button _quitBtn;
-    
     protected override void OnAwake()
     {
+        base.OnAwake();
         LoadButton();
-        Show();
     }
+
+    public override void Hide()
+    {
+        base.Hide();
+        MainMenuManager.Instance.GameTitle.SetActive(false);
+    }
+
+    public override void Show()
+    {
+        base.Show();
+        MainMenuManager.Instance.GameTitle.SetActive(true);
+    }
+
     private void LoadButton()
     {
         _startBtn.onClick.AddListener(() =>
         {
             Hide();
-            LevelAsyncManager.Instance.SwitchToMap1();
+            UIManager.Instance.ShowPanel(UIConstant.SetupBeforePlayPanel);
         });
         _tutorialBtn.onClick.AddListener(() =>
         {

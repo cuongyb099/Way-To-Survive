@@ -5,16 +5,17 @@ using UnityEngine;
 using AYellowpaper.SerializedCollections;
 using System;
 using System.Threading;
+using KatInventory;
 
 [CreateAssetMenu(fileName = "BuffListSO", menuName = "Item/Buff/new BuffListSO")]
 public class BuffListSO : ScriptableObject
 {
 	[SerializedDictionary("Rarity", "Buffs")]
-	[SerializeField] public SerializedDictionary<BuffRarity, ListOfBuffTypeSO> Buffs = new();
+	[SerializeField] public SerializedDictionary<Rarity, ListOfBuffTypeSO> Buffs = new();
 	[SerializedDictionary("Rarity", "Data")]
-	[SerializeField] public SerializedDictionary<BuffRarity, BuffCardUI> BuffRarityCard = new();
+	[SerializeField] public SerializedDictionary<Rarity, BuffCardUI> BuffRarityCard = new();
 	[SerializedDictionary("Rarity", "Rate")]
-	[SerializeField] public SerializedDictionary<BuffRarity, float> BuffRarityRate = new();
+	[SerializeField] public SerializedDictionary<Rarity, float> BuffRarityRate = new();
 	public BaseBuffSO ChoseRandomRarityBuff()
     {
         float curSum = 0;

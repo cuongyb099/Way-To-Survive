@@ -44,6 +44,7 @@ public class GameManager : StateMachine<EGameState>
         States.Add(EGameState.Died, new DiedState(this));
 
         Player.OnDeath += () => { LoseCanvas.SetActive(true); };
+
     }
 
     private async void InitializeUIAsync()

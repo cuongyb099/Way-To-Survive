@@ -7,16 +7,17 @@ namespace KatInventory
     {
         [field: SerializeField]
         public ItemBase Prefab  { get; private set; }
-        public override ItemData CreateItem(int quantity = 1)
+        public override ItemData CreateItem(int quantity = 1,Transform parent = null)
         {
             if (!Prefab)
             {
                 LogCommon.LogError("Prefab Is Null");
                 return null;
             }
-            var item = Instantiate(Prefab, Inventory.Instance.transform);
+            
+            var item = Instantiate(Prefab, parent? parent:Inventory.Instance.transform); 
             var data = CreateItemData(quantity, item.gameObject);
-            Prefab.SetData(data);
+            item.SetData(data);
             item.gameObject.SetActive(false);
             return data;
         }

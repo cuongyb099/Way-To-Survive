@@ -17,9 +17,9 @@ namespace KatInventory
         }
 
         [field: SerializeField]
-        [JsonIgnore]
+        [JsonProperty("ID",Order = 0)]
         public ItemBaseSO StaticData { get; private set; }
-        [JsonProperty("ID", Order = 0)]
+        [JsonIgnore]
         public string ID => StaticData.ID;
 
         [JsonProperty("Quantity", Order = 1)] 

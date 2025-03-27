@@ -34,43 +34,46 @@ public class AnimationEvents : MonoBehaviour
 	public void DropMagazine()
 	{
 		GunBase gun = (GunBase)PlayerController.CurrentWeapon;
-		gun.DropMagazine();
+		gun?.DropMagazine();
 	}
 
 	public void DropShell()
 	{
 		GunBase gun = (GunBase)PlayerController.CurrentWeapon;
-		gun.DropShell();
+		gun?.DropShell();
 	}
 
 	public void TakeMagazine()
 	{
 		GunBase gun = (GunBase)PlayerController.CurrentWeapon;
-		gun.TakeMagazine();
+		gun?.TakeMagazine();
 	}
 
 	public void PutInMagazine()
 	{
 		GunBase gun = (GunBase)PlayerController.CurrentWeapon;
-		gun.PutInMagazine();
+		gun?.PutInMagazine();
 	}
 	//Melee
 	public void DamageMelee()
 	{
 		MeleeBase weapon = (MeleeBase)PlayerController.CurrentWeapon;
-		weapon.DealDamage();
+		weapon?.DealDamage();
 	}
 	//Sounds
 	public void CockingSound()
 	{
-		AudioManager.Instance.PlaySound(PlayerController.CurrentWeapon.WeaponData.CockingSound,volumeType: SoundVolumeType.SOUNDFX_VOLUME);
+		GunBase gun = (GunBase)PlayerController.CurrentWeapon;
+		AudioManager.Instance.PlaySound(gun?.GunData.CockingSound,volumeType: SoundVolumeType.SOUNDFX_VOLUME);
 	}
 	public void MagSoundIn()
 	{
-		AudioManager.Instance.PlaySound(PlayerController.CurrentWeapon.WeaponData.MagSoundIn,volumeType: SoundVolumeType.SOUNDFX_VOLUME);
+		GunBase gun = (GunBase)PlayerController.CurrentWeapon;
+		AudioManager.Instance.PlaySound(gun.GunData.MagSoundIn,volumeType: SoundVolumeType.SOUNDFX_VOLUME);
 	}
 	public void MagSoundOut()
 	{
-		AudioManager.Instance.PlaySound(PlayerController.CurrentWeapon.WeaponData.MagSoundOut,volumeType: SoundVolumeType.SOUNDFX_VOLUME);
+		GunBase gun = (GunBase)PlayerController.CurrentWeapon;
+		AudioManager.Instance.PlaySound(gun.GunData.MagSoundOut,volumeType: SoundVolumeType.SOUNDFX_VOLUME);
 	}
 }
