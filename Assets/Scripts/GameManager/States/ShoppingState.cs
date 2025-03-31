@@ -43,7 +43,6 @@ public class ShoppingState : BaseState<EGameState>
     {
         GameEvent.OnStopShoppingState?.Invoke();
         gameManager.SkipShopping = false;
-        WaveManager.Instance.StartWave();
     }
 
     public override void FixedUpdate()

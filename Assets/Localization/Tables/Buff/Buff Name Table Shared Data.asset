@@ -167,6 +167,30 @@ MonoBehaviour:
     m_Key: Buff_Speed_Description
     m_Metadata:
       m_Items: []
+  - m_Id: 16890390353780736
+    m_Key: Event_Player_ATKBuff
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16890627810107392
+    m_Key: Event_Zombies_ATKBuffDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16891507292741632
+    m_Key: Event_Player_SPDBuff
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16891558987538432
+    m_Key: Event_Player_SPDBuffDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16900209349468160
+    m_Key: Event_Zombies_SPDBuffDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16900971488059392
+    m_Key: Event_Player_ATKBuffDescription
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

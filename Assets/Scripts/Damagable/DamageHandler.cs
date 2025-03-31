@@ -13,7 +13,6 @@ public static class DamageHandler
         }
         float finalDamage = target.Damage(damage);
         DamagePopUpGenerator.Instance.CreateDamagePopUp(target.GetGameObject().transform.position, (int)finalDamage, damage.IsCrit);
-        Debug.Log(damage.Dealer+" "+ target.GetGameObject().name);
         if (damage.Dealer.CompareTag("Player"))
         {
             if (damage.DamageType == DamageType.Bullet)

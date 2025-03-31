@@ -1,9 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using Tech.Json;
 using Tech.Singleton;
 using UnityEngine;
@@ -15,15 +12,14 @@ namespace KatInventory
     {
         [field: SerializeField, Range(1, 1000)]
         public int Capacity { get; private set;} = 99;
-#if UNITY_EDITOR
         //I Don't Want this variable Can Get When Game Build It Not Compile If Access It Game Build Failure
         //Only Use For Debug
         [SerializeField]private List<ItemData> _inventory = new ();
         public List<ItemData> DataRuntime => _inventory;
         public static readonly string SavePath = "Assets/Save/Inventory.json";
-#else
-        public static readonly string SavePath = Application.persistentDataPath + "/Local1283012364.json";
-#endif   
+// #else
+        //public static readonly string SavePath = Application.persistentDataPath + "/Local1283012364.json";
+
         
 
         public static Action OnInventoryChange;
@@ -180,29 +176,15 @@ namespace KatInventory
             OnInventoryChange?.Invoke();
         }
         
+        [ContextMenu("save")]
         public void Save()
         {
             _inventory.SaveJson(SavePath);
         }
-
+        [ContextMenu("load")]
         public void Load()
         {
-            var json = Json.ReadAllText(SavePath);
-           
-            JArray itemsArray = JArray.Parse(json);
-            
-            if(itemsArray.Count == 0) return;
-            
-            _inventory.Clear();
-            
-            for (int i = 0; i < itemsArray.Count; i++)
-            {
-                var token = itemsArray[i];
-                var itemData = ItemDataBase.Instance.SearchItem(token[ID]?.ToString()).CreateItem();
-                
-                JsonConvert.PopulateObject(itemsArray[i].ToString(), itemData);
-                _inventory.Add(itemData);
-            }
+            Json.LoadJson(SavePath, out _inventory);
         }
 
         private static readonly string ID = "ID";

@@ -16,8 +16,6 @@ public class InteractableController : BasicController, IInteractable
 
     public virtual void Interact(PlayerController source)
     {
-        UIManager.Instance.HidePanel(UIConstant.MainGameplayPanel);
-        UIManager.Instance.ShowPanel(UIConstant.ShopPanel);
     }
 
     public void OnSelect()

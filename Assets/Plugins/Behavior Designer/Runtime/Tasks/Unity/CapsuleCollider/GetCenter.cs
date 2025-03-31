@@ -30,7 +30,7 @@ namespace BehaviorDesigner.Runtime.Tasks.Unity.UnityCapsuleCollider
                 Debug.LogWarning("CapsuleCollider is null");
                 return TaskStatus.Failure;
             }
-
+            
             storeValue.Value = capsuleCollider.center;
 
             return TaskStatus.Success;

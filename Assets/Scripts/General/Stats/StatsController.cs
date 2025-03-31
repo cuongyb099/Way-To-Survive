@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Tech.Logger;
 using UnityEditor;
 using UnityEngine;
 #if UNITY_EDITOR
@@ -95,13 +94,9 @@ public class StatsController : MonoBehaviour
 
 	public virtual void AddModifier(StatType type, StatModifier modifier)
 	{
-		if (_stats.TryGetValue(type, out Stat value))
-		{
-			value.AddModifier(modifier);
-			return;
-		}
-
-		LogCommon.LogError($"{type} Not Found In {_statsHolder.name}");
+		if (!_stats.TryGetValue(type, out Stat value)) return;
+	
+		value.AddModifier(modifier);
 	}
 
 	public virtual void RemoveModifier(StatType type, StatModifier modifier)
@@ -109,7 +104,7 @@ public class StatsController : MonoBehaviour
 		_stats[type].RemoveModifier(modifier);
 	}
 
-	public void MinusAttributeValue(AttributeType type, float value)
+	public void SubtractAttributeValue(AttributeType type, float value)
 	{
 		if (TryGetAttribute(type, out Attribute attribute))
 		{
@@ -145,17 +140,18 @@ public class StatsController : MonoBehaviour
 	{
 		for (int i = _statusEffects.Count - 1; i >= 0; --i)
 		{
-			if (_statusEffects[i].ForceStop)
+			var effect = _statusEffects[i];
+			if (effect.ForceStop)
 			{
-				_statusEffects[i].Stop();
+				effect.Stop();
 				_statusEffects.RemoveAt(i);
 				OnChange?.Invoke();
 				continue;
 			}
 			
-			if (!_statusEffects[i].MonoUpdate()) continue;
+			if (!effect.MonoUpdate()) continue;
 
-			_statusEffects[i].Stop();
+			effect.Stop();
 			_statusEffects.RemoveAt(i);
 			OnChange?.Invoke();
 		}
@@ -213,6 +209,32 @@ public class StatsController : MonoBehaviour
 			OnChange?.Invoke();
 		}
 	}
+	public void RemoveEffect(BaseBuffSO buff)
+	{
+		if (!buff.Stackable)
+		{
+			if (_statusEffects.Any(x=>x.Data.ID == buff.ID))
+			{
+				BaseStatusEffect sf = _statusEffects.Find(x=>x.Data.ID == buff.ID);
+				sf.Stop();
+				_statusEffects.Remove(sf);
+				OnChange?.Invoke();
+			}
+			return;
+		}
+		
+		if (_statusEffects.Any(x=>x.Data.ID == buff.ID))
+		{
+			BaseStatusEffect sf = _statusEffects.Find(x=>x.Data.ID == buff.ID);
+			sf.CurrentStack--;
+			if (sf.CurrentStack == 0)
+			{
+				sf.Stop();
+				_statusEffects.Remove(sf);
+			}
+			OnChange?.Invoke();
+		}
+	}
 
 	public Attribute GetAttribute(AttributeType type)
 	{
@@ -227,6 +249,10 @@ public class StatsController : MonoBehaviour
 	private void Update()
 	{
 		UpdateStatusEffect();
+	}
+
+	public bool HasEffect(BaseStatusEffect effect){
+		return _statusEffects.Contains(effect);
 	}
 }
 

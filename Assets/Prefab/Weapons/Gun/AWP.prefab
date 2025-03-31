@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 314904007054090758}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Shootpoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 7251654912121009889}
   - component: {fileID: 1315298359473445202}
   - component: {fileID: 1362935199391667353}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Awp_Mag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -126,8 +126,8 @@ GameObject:
   - component: {fileID: 4119010008928634525}
   - component: {fileID: 3070662729019260882}
   - component: {fileID: 7359717088815079053}
-  - component: {fileID: 1890116786611390827}
-  m_Layer: 0
+  - component: {fileID: -639942903657236774}
+  m_Layer: 7
   m_Name: AWP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -202,7 +202,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.5, y: 0.5, z: 1.8}
   m_Center: {x: 0, y: 0, z: 0.75}
---- !u!114 &1890116786611390827
+--- !u!114 &-639942903657236774
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -223,7 +223,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6157536438429988870}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Shellpoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -254,7 +254,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8992390356159209538}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Awp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -289,7 +289,7 @@ GameObject:
   - component: {fileID: 8291658920505263668}
   - component: {fileID: 226258699490672057}
   - component: {fileID: 5035540309945962874}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Awp_Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}

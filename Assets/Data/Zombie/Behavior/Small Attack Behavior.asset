@@ -46,11 +46,11 @@ MonoBehaviour:
         Para Attack State","IsShared":true,"IsGlobal":true,"StringmValue":"Attack
         State"},"SharedFloatfloatValue":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":"Attack
         State","IsShared":true,"SinglemValue":0},"BooleansetOnce":false}]}]},{"Type":"RotateToTarget","NodeData":{"Offset":"(200,123.043518)"},"ID":15,"Name":"Rotate
-        To Target","Instant":true,"SharedTransformTarget":{"Type":"BehaviorDesigner.Runtime.SharedTransform","Name":"Player","IsShared":true,"IsGlobal":true}},{"Type":"PlaySound","NodeData":{"Offset":"(322.21167,123.473633)"},"ID":16,"Name":"Play
+        To Target","Instant":true,"SharedTransformTarget":{"Type":"BehaviorDesigner.Runtime.SharedTransform","Name":"Player","IsShared":true,"IsGlobal":true,"TransformmValue":1}},{"Type":"PlaySound","NodeData":{"Offset":"(322.21167,123.473633)"},"ID":16,"Name":"Play
         Sound","Instant":true,"SharedAudioClipArrayAudioClips":{"Type":"SharedAudioClipArray","Name":"Small
         Attack Sound","IsShared":true,"AudioClip[]mValue":[null,null,null,null,null]},"SharedSoundSettingSetting":{"Type":"SharedSoundSetting","Name":"Sound
         Setting","IsShared":true,"IsGlobal":true,"SoundSettingmValue":{"SingleVolume":1,"SinglePitch":1,"SingleStereoPan":0,"SingleSpatialBlend":1,"SingleMinDistance":1,"SingleMaxDistance":30,"BooleanLoop":false,"AudioRolloffModeRolloffMode":"Linear","SoundVolumeTypeVolumeType":"MASTER_VOLUME"}},"SharedBoolUseDelayTime":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":false},"SharedFloatDelayTime":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":0.25}},{"Type":"NormalAttack","NodeData":{"Offset":"(431.1943,115)","WatchedFields":["Damage"]},"ID":17,"Name":"Normal
-        Attack","Instant":true,"SharedFloatDamage":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":10},"SharedStringDetectionParam":{"Type":"BehaviorDesigner.Runtime.SharedString","Name":"Small
+        Attack","Instant":true,"SharedFloatDamage":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":"Atk","IsShared":true,"SinglemValue":10},"SharedStringDetectionParam":{"Type":"BehaviorDesigner.Runtime.SharedString","Name":"Small
         Attack Hitbox","IsShared":true,"IsGlobal":true,"StringmValue":"Small Attack
         Hitbox"},"SharedStringTargetTag":{"Type":"BehaviorDesigner.Runtime.SharedString","Name":"Player
         Tag","IsShared":true,"IsGlobal":true,"Tooltip":"Player","StringmValue":"Player"},"SharedStringAnimationName":{"Type":"BehaviorDesigner.Runtime.SharedString","Name":"Anim
@@ -63,7 +63,7 @@ MonoBehaviour:
         Random Small Attack  Feature","IsShared":true,"BooleanmValue":true},{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":"Attack
         State Count","IsShared":true,"SinglemValue":0},{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":"Angular
         Speed","IsShared":true,"SinglemValue":360},{"Type":"SharedAudioClipArray","Name":"Small
-        Attack Sound","IsShared":true,"AudioClip[]mValue":[null,null,null,null,null]},{"Type":"BehaviorDesigner.Runtime.SharedTransform","Name":"Target","IsShared":true}]}'
+        Attack Sound","IsShared":true,"AudioClip[]mValue":[null,null,null,null,null]},{"Type":"BehaviorDesigner.Runtime.SharedTransform","Name":"Target","IsShared":true},{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":"Atk","IsShared":true,"SinglemValue":10}]}'
       fieldSerializationData:
         typeName: []
         fieldNameHash: 
@@ -71,6 +71,7 @@ MonoBehaviour:
         dataPosition: 
         unityObjects:
         - {fileID: 11400000, guid: 4d6007ecbaafbc540a33cd74ac5f336b, type: 2}
+        - {fileID: 0}
         byteData: 
         byteDataArray: 
       Version: 1.7.8

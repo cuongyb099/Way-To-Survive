@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3216876570653430544}
   - component: {fileID: 1423615012983570078}
   - component: {fileID: 4665965202415797818}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Bip001 L UpperArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -143,7 +143,7 @@ GameObject:
   - component: {fileID: 3015251036801932794}
   - component: {fileID: 2788922097955382274}
   - component: {fileID: 4718511702443068028}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Bip001 L Calf
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -272,7 +272,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8604714848246704045}
   - component: {fileID: 3523331783705365762}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_head_09
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -364,7 +364,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1951625486243905365}
   - component: {fileID: 3841635404919619737}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_legs_16
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -460,7 +460,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1178525133454164277}
   - component: {fileID: 544665171363621990}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_legs_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -555,7 +555,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7251027103535186925}
   - component: {fileID: 4829125820774303832}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_head_19
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -648,7 +648,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6802401379796496214}
   - component: {fileID: 3820813286686560079}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_head_06
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -735,7 +735,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7173347691431411011}
   - component: {fileID: 5485961276251804368}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_head_18
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -823,7 +823,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6262223250912977570}
   - component: {fileID: 7468644509758950278}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_legs_15
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -918,7 +918,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3646626496292904021}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Bip001 L Finger0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -953,7 +953,7 @@ GameObject:
   - component: {fileID: 2058814895564181238}
   - component: {fileID: 9174596684404035372}
   - component: {fileID: 4968900802593322978}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Bip001 R Calf
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1081,7 +1081,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 642537792914001090}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Bip001 Ponytail1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1114,7 +1114,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8452222452299379902}
   - component: {fileID: 4081017144656495159}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_body_15
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1215,7 +1215,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2816714874236473625}
   - component: {fileID: 4895792885696168308}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_body_09
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1317,7 +1317,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9059541133404555027}
   - component: {fileID: 6090624153574235170}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_body_16
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1418,7 +1418,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3193276082885128333}
   - component: {fileID: 7732343463172945414}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_body_20
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1521,7 +1521,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4944546545388804123}
   - component: {fileID: 8985569390709407304}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_legs_07
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1616,7 +1616,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5162928020726212216}
   - component: {fileID: 8766906190563990435}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_legs_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1711,7 +1711,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7312179376832697245}
   - component: {fileID: 5275328461092703958}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_body_05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1815,7 +1815,7 @@ GameObject:
   - component: {fileID: 261857531132567116}
   - component: {fileID: 674531666176281397}
   - component: {fileID: 1257453433405434848}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Bip001 L Thigh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1944,7 +1944,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6696728233568268880}
   - component: {fileID: 4639652916414054311}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_body_07
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2046,7 +2046,7 @@ GameObject:
   m_Component:
   - component: {fileID: 742915239518757840}
   - component: {fileID: 6995104936161919597}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_legs_09
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2141,7 +2141,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8192910368107099788}
   - component: {fileID: 2590572076333707652}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_body_06
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2242,7 +2242,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7027758570823900190}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Bip001 L Toe0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2275,7 +2275,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2584108365079210234}
   - component: {fileID: 3277436054166261217}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_legs_12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2369,7 +2369,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1332173859919737859}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Bip001 R Finger0Nub
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2401,7 +2401,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9112926811370488834}
   - component: {fileID: 9056880137980078658}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_body_18
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2504,7 +2504,7 @@ GameObject:
   m_Component:
   - component: {fileID: 233163478550450039}
   - component: {fileID: 578954938337597745}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_legs_14
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2599,7 +2599,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2258634112992262966}
   - component: {fileID: 8218371349744755798}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_head_10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2693,7 +2693,7 @@ GameObject:
   - component: {fileID: 5052568972290746982}
   - component: {fileID: 3080282411143740915}
   - component: {fileID: 6346828862965442951}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Bip001 L Forearm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2821,7 +2821,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5303933143575293472}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Bip001 R Toe0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2853,7 +2853,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5985755962396415144}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Bip001 L Hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2886,7 +2886,7 @@ GameObject:
   m_Component:
   - component: {fileID: 619947293408061294}
   - component: {fileID: 3518232844002567106}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_legs_04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2980,7 +2980,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6345800292367876765}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Bip001 L Finger0Nub
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3014,7 +3014,7 @@ GameObject:
   - component: {fileID: 237323519120799044}
   - component: {fileID: 5610483496138061166}
   - component: {fileID: 5166387818455850942}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Bip001 Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3142,7 +3142,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1400330824465829846}
   - component: {fileID: 8350407164659135290}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_head_05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3234,7 +3234,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8574016870197581860}
   - component: {fileID: 1429480160560955851}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_legs_17
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3330,7 +3330,7 @@ GameObject:
   m_Component:
   - component: {fileID: 398167786611751470}
   - component: {fileID: 6907251807794567639}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_head_21
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3416,7 +3416,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7324221094689031505}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Bip001 R Clavicle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3448,7 +3448,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 63397513089179008}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Bip001 R Finger0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3483,7 +3483,7 @@ GameObject:
   - component: {fileID: 8411229909365676253}
   - component: {fileID: 6584025579842388367}
   - component: {fileID: 4000490238045231536}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Bip001 Spine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3614,7 +3614,7 @@ GameObject:
   - component: {fileID: 904491845482580272}
   - component: {fileID: 4776138960505863244}
   - component: {fileID: 4396771814155978162}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Bip001 R UpperArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3743,7 +3743,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4033583021910506020}
   - component: {fileID: 2720835333909592886}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_head_07
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3834,7 +3834,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5329083640600838372}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Bip001 R Foot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3866,7 +3866,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4662517446950008882}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Bip001 R Toe0Nub
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3898,7 +3898,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4322479477049679260}
   - component: {fileID: 2513222190068747121}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_head_12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3989,7 +3989,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7359748560770947885}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4088,7 +4088,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8867415671774380140}
   - component: {fileID: 2662180048838011960}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_head_16
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4176,7 +4176,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5432650479080157245}
   - component: {fileID: 2489703720293408144}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_body_12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4278,7 +4278,7 @@ GameObject:
   m_Component:
   - component: {fileID: 222783572082580936}
   - component: {fileID: 6360244681771592876}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_head_20
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4370,7 +4370,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6520154984032208628}
   - component: {fileID: 6928797152924393730}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_legs_18
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4465,7 +4465,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1184254506720811674}
   - component: {fileID: 4381297044019529183}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_legs_13
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4560,7 +4560,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3224389162527259220}
   - component: {fileID: 3065019882904080531}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_head_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4652,7 +4652,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1132561032487946541}
   - component: {fileID: 2984548497935087304}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_body_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4754,7 +4754,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3838028805297915442}
   - component: {fileID: 7241600880065229819}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_legs_10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4849,7 +4849,7 @@ GameObject:
   m_Component:
   - component: {fileID: 555573866211895402}
   - component: {fileID: 1082011247460459145}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_legs_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4944,7 +4944,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5301316231757638028}
   - component: {fileID: 735425148844909256}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_body_19
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5045,7 +5045,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3201389761623700684}
   - component: {fileID: 6293081000883797781}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_body_11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5153,7 +5153,6 @@ GameObject:
   - component: {fileID: 3377488121021181519}
   - component: {fileID: 3981747546684324033}
   - component: {fileID: 9120503066135274364}
-  - component: {fileID: 8263432318137648525}
   - component: {fileID: 477981934767808738}
   - component: {fileID: 1769651889240182837}
   - component: {fileID: 9072295973381218032}
@@ -5218,6 +5217,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsTakingDamage: 0
   cashGiveAmount: 20
+  <MaxMoveAnimationSpeed>k__BackingField: 2.5
 --- !u!114 &6539951806390241995
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5230,8 +5230,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 825ee44755f2e4846a6229365ed8d44c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MotionType: 1
-  Speed: 3.5
+  MotionType: 3
+  Speed: 1.2
   Acceleration: 8
   AngularSpeed: 120
   StoppingDistance: 0.1
@@ -5338,23 +5338,6 @@ MonoBehaviour:
       Version: 1.7.8
   gizmoViewMode: 2
   showBehaviorDesignerGizmo: 1
---- !u!114 &8263432318137648525
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5349494515432750026}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3d166ad4e6642f9a60155910b487b97, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 1.5
-  acceleration: 8
-  angularSpeed: 120
-  stoppingDistance: 0
-  autoBreaking: 1
 --- !u!114 &477981934767808738
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5509,7 +5492,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6687548ef7674369ad8e2a8141419613, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animator: {fileID: 1227562132627004929}
 --- !u!1 &5407914109430691671
 GameObject:
   m_ObjectHideFlags: 0
@@ -5520,7 +5502,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5161099583372358302}
   - component: {fileID: 6366783772339094152}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_head_17
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5608,7 +5590,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6204571231084430619}
   - component: {fileID: 3750834708127524949}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_legs_05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5702,7 +5684,7 @@ GameObject:
   m_Component:
   - component: {fileID: 954110109059355213}
   - component: {fileID: 2820329460168774976}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_body_22
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5804,7 +5786,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7831521206229773481}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Bip001 Neck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5904,7 +5886,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4439506319364026315}
   - component: {fileID: 738261157572212332}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_body_25
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6006,7 +5988,7 @@ GameObject:
   m_Component:
   - component: {fileID: 104775472170579474}
   - component: {fileID: 1607761420727193017}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_body_21
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6109,7 +6091,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3039842231448055986}
   - component: {fileID: 6386458889699193623}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_legs_11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6204,7 +6186,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5823004524322687247}
   - component: {fileID: 2439537135269781974}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_body_10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6305,7 +6287,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1781736891019899860}
   - component: {fileID: 5594058008770344307}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_body_14
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6405,7 +6387,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6307021711377073605}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Bip001 HeadNub
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6438,7 +6420,7 @@ GameObject:
   - component: {fileID: 3511584611822261869}
   - component: {fileID: 8558253708598591486}
   - component: {fileID: 1748169839140838897}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Bip001 Pelvis
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6521,7 +6503,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3899524279594589669}
   - component: {fileID: 4287156198110106073}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_body_13
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6624,7 +6606,7 @@ GameObject:
   - component: {fileID: 4897961403192500155}
   - component: {fileID: 401147342252061893}
   - component: {fileID: 7934114500889057381}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Bip001 R Thigh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6753,7 +6735,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8966782270382739500}
   - component: {fileID: 8361761488261855627}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_legs_06
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6848,7 +6830,7 @@ GameObject:
   m_Component:
   - component: {fileID: 545617861185332625}
   - component: {fileID: 4617738180097504295}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_body_17
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6948,7 +6930,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 316444942247936737}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Bip001 L Clavicle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6981,7 +6963,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3407007565162160327}
   - component: {fileID: 3668801793757721724}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_body_26
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7081,7 +7063,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3525230143918069057}
   - component: {fileID: 5960054609774736911}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_body_24
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7183,7 +7165,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2241381666557027517}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Bip001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7217,7 +7199,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4359775643945995480}
   - component: {fileID: 6494979292350642782}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_body_04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7318,7 +7300,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3013350203881480579}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Bip001 L Toe0Nub
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7350,7 +7332,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8906200442166195736}
   - component: {fileID: 60179892348629570}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_legs_08
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7446,7 +7428,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3186608610123091127}
   - component: {fileID: 2738433274987374225}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_body_23
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7594,7 +7576,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7139600700899401803}
   - component: {fileID: 4826584773774681123}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_head_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7686,7 +7668,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5519993463501189875}
   - component: {fileID: 3772547374306518300}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_body_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7787,7 +7769,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6937850826598814845}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Bip001 L Foot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7820,7 +7802,7 @@ GameObject:
   m_Component:
   - component: {fileID: 710696119182899000}
   - component: {fileID: 7182235144644084715}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_head_14
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7908,7 +7890,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7780789482379373185}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Bip001 Footsteps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7940,7 +7922,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8830153937457172658}
   - component: {fileID: 5882524012220125557}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_head_04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8032,7 +8014,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6319447044299842769}
   - component: {fileID: 5597473924992851895}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_head_08
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8124,7 +8106,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3738885076643419108}
   - component: {fileID: 9100232125806989222}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_head_13
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8216,7 +8198,7 @@ GameObject:
   m_Component:
   - component: {fileID: 141339351418466730}
   - component: {fileID: 7585195599028447032}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_head_15
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8307,7 +8289,7 @@ GameObject:
   - component: {fileID: 9076771821239570575}
   - component: {fileID: 7970666607972613496}
   - component: {fileID: 7758263251825643584}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Bip001 R Forearm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8436,7 +8418,7 @@ GameObject:
   m_Component:
   - component: {fileID: 868970968564207498}
   - component: {fileID: 6829834363621060517}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_head_22
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8523,7 +8505,7 @@ GameObject:
   m_Component:
   - component: {fileID: 381690166066876856}
   - component: {fileID: 947502762384213551}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_body_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8625,7 +8607,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8464536455156524002}
   - component: {fileID: 8173708310817292780}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_head_11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8717,7 +8699,7 @@ GameObject:
   m_Component:
   - component: {fileID: 954615214699488445}
   - component: {fileID: 7137966346937828145}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_body_08
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8819,7 +8801,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3877652997742587721}
   - component: {fileID: 3670827284382888999}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TZ_M_head_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8905,7 +8887,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4558477607450274349}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Bip001 R Hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8937,7 +8919,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7030291073579388311}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Bip001 Ponytail1Nub
   m_TagString: Untagged
   m_Icon: {fileID: 0}

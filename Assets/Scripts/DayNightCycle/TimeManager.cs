@@ -1,7 +1,6 @@
 using System;
 using DG.Tweening;
 using Tech.Singleton;
-using UnityEditor.Localization.Plugins.XLIFF.V12;
 using UnityEngine;
 
 public enum TimeOfTheDay
@@ -50,10 +49,8 @@ public class TimeManager : Singleton<TimeManager>
     private void ChangeTimeOfDayName()
     {
         CurrentTOD = (TimeOfTheDay)((int)(TimeOfDay/4) %6);
-        GameEvent.OnChangeTimeOfDay(CurrentTOD);
+        GameEvent.OnChangeTimeOfDay?.Invoke(CurrentTOD);
     }
-    
-    
     
     private void UpdateLighting(float timePercent)
     {
@@ -73,28 +70,28 @@ public class TimeManager : Singleton<TimeManager>
     }
 
     //Try to find a directional light to use if we haven't set one
-    private void OnValidate()
-    {
-        if (DirectionalLight != null)
-            return;
-
-        //Search for lighting tab sun
-        if (RenderSettings.sun != null)
-        {
-            DirectionalLight = RenderSettings.sun;
-        }
-        //Search scene for light that fits criteria (directional)
-        else
-        {
-            Light[] lights = GameObject.FindObjectsOfType<Light>();
-            foreach (Light light in lights)
-            {
-                if (light.type == LightType.Directional)
-                {
-                    DirectionalLight = light;
-                    return;
-                }
-            }
-        }
-    }
+    // private void OnValidate()
+    // {
+    //     if (DirectionalLight != null)
+    //         return;
+    //
+    //     //Search for lighting tab sun
+    //     if (RenderSettings.sun != null)
+    //     {
+    //         DirectionalLight = RenderSettings.sun;
+    //     }
+    //     //Search scene for light that fits criteria (directional)
+    //     else
+    //     {
+    //         Light[] lights = GameObject.FindObjectsOfType<Light>();
+    //         foreach (Light light in lights)
+    //         {
+    //             if (light.type == LightType.Directional)
+    //             {
+    //                 DirectionalLight = light;
+    //                 return;
+    //             }
+    //         }
+    //     }
+    // }
 }

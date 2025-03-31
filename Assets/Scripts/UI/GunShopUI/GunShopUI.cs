@@ -1,10 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using BehaviorDesigner.Runtime.Tasks;
 using BehaviorDesigner.Runtime.Tasks.Unity.UnityGameObject;
+using Tech.Logger;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.HID;
 using UnityEngine.Serialization;
@@ -13,27 +16,26 @@ using UnityEngine.UI;
 public class GunShopUI : FadeBlurPanel
 {
 
-    [Header("UI Elements")] 
-    public GameObject GunsPanel;
-    public GunShopDataUI GunDataUI;
-    public Button BuyButton;
-    public TextMeshProUGUI BuyButtonText;
-    public TextMeshProUGUI CashText;
-    public Button BackButton;
+    [Header("UI Elements")]
+    [SerializeField] private GameObject GunsPanel ;
+    [SerializeField] private  GunShopDataUI GunDataUI;
+    [SerializeField] private  Button BuyButton;
+    [SerializeField] private  TextMeshProUGUI BuyButtonText;
+    [SerializeField] private  TextMeshProUGUI CashText;
+    [SerializeField] private  Button BackButton;
     [Header("Data")] 
-    public WeaponListSO WeaponListSo;
-    public ItemMiniUI ItemMiniPrefab;
+    [SerializeField] private  WeaponListSO WeaponListSo;
+    [SerializeField] private  AssetReferenceGameObject ItemMiniPrefab;
 
-    public ItemMiniUI Selected { get; private set; }
-    public List<ItemMiniUI> ItemsMiniUI { get; private set; }
+    [SerializeField] private ItemMiniUI Selected;
+    [SerializeField] private List<ItemMiniUI> ItemsMiniUI;
 
     protected override void OnAwake()
     {
         base.OnAwake();
         Initialize();
         PlayerEvent.OnCashChange += ChangeCashText;
-        PlayerController player = GameManager.Instance.Player;
-        ChangeCashText(player.Cash);
+        ChangeCashText(GameManager.Instance.Player.Cash);
     }
 
     private void OnDestroy()
@@ -41,23 +43,25 @@ public class GunShopUI : FadeBlurPanel
         PlayerEvent.OnCashChange -= ChangeCashText;
     }
 
-    private void Initialize()
+    private async void Initialize()
     {
         ItemsMiniUI = new List<ItemMiniUI>();
-        foreach (var x in WeaponListSo.Weapons)
-        {
-            ItemMiniUI temp = Instantiate(ItemMiniPrefab, GunsPanel.transform);
-            temp.Initialize(x.WeaponData);
-            temp.ItemButton.onClick.AddListener(new UnityEngine.Events.UnityAction(() => { ChangeGun(temp);}));
-            ItemsMiniUI.Add(temp);
-        }
-        ChangeGun(ItemsMiniUI[0]);
         
         BackButton.onClick.AddListener(() =>
         {
             Hide();
             UIManager.Instance.ShowPanel(UIConstant.MainGameplayPanel);
         });
+        
+        foreach (var x in WeaponListSo.Weapons)
+        {
+            var temp = await AddressablesManager.Instance.InstantiateAsyncType<ItemMiniUI>(ItemMiniPrefab, GunsPanel.transform);
+            temp.Initialize(x.WeaponData);
+            temp.ItemButton.onClick.AddListener(() => { ChangeGun(temp);});
+            ItemsMiniUI.Add(temp);
+        }
+        ChangeGun(ItemsMiniUI[0]);
+        
     }
     
     private void ChangeGun(ItemMiniUI itemUI)

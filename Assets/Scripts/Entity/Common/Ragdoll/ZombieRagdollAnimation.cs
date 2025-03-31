@@ -1,42 +1,58 @@
+using System;
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
 public class ZombieRagdollAnimation : RagdollAnimationBase
 {
-    [SerializeField]
     private Animator _animator;
     private Rigidbody[] _ragdollRigidbodies;
-    private Rigidbody _spineRigidbody;
-    private void Reset()
-    {
-        _animator = GetComponent<Animator>();
-    }
-
+    private Collider[] _collider;
+    private const string Player = "Player";
+    private const string ZombieBody = "Zombie Body";
     private void Awake()
     {
-        if (!_animator)
-        {
-            _animator = GetComponent<Animator>();
-        }
+        LoadComponent();
+    }
 
-        _spineRigidbody = _animator.GetBoneTransform(HumanBodyBones.Spine).GetComponent<Rigidbody>();
+    private void LoadComponent()
+    {
+        if(_animator) return;
+
+        _animator = GetComponent<Animator>();
         _ragdollRigidbodies = GetComponentsInChildren<Rigidbody>();
+        foreach (var joint in GetComponentsInChildren<CharacterJoint>())
+        {
+            joint.enableProjection = true;
+        }
+        _collider = new Collider[_ragdollRigidbodies.Length];
+     
+        var layer = LayerMask.GetMask(Player, ZombieBody);
+        for (var i = 0; i < _ragdollRigidbodies.Length; i++)
+        {
+            _ragdollRigidbodies[i].excludeLayers = LayerMask.NameToLayer(Player);
+            _collider[i] = _ragdollRigidbodies[i].GetComponent<Collider>();
+        }
     }
 
     public override void DisableRagdoll()
     {
-        foreach (var rb in _ragdollRigidbodies)
+        LoadComponent();
+        for (var i = 0; i < _ragdollRigidbodies.Length; i++)
         {
-            rb.isKinematic = true;
+            _collider[i].enabled = false;
+            _ragdollRigidbodies[i].isKinematic = true;
         }
-        
+
         _animator.enabled = true;
     }
 
     public override void EnableRagdoll()
     {
-        foreach (var rb in _ragdollRigidbodies)
+        LoadComponent();
+        for (var i = 0; i < _ragdollRigidbodies.Length; i++)
         {
-            rb.isKinematic = false;
+            _collider[i].enabled = true;
+            _ragdollRigidbodies[i].isKinematic = false;
         }
         
         _animator.enabled = false;

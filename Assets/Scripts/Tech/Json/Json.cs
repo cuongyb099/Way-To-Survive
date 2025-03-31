@@ -1,10 +1,10 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using System.Threading.Tasks;
+using KatInventory;
 using Newtonsoft.Json;
 using UnityEditor;
-using UnityEngine.Rendering;
 
 namespace Tech.Json
 {
@@ -14,8 +14,8 @@ namespace Tech.Json
         private static readonly string _iv = "47l5QsSe1POo31adQ/u7nQ==";
         
         //Kat Note : If You Want To See Raw File Just Command = new AES(_key, _iv)
-        private static IEncryption _encryption = new AES(_key, _iv);
-        
+        private static IEncryption _encryption /* = new AES(_key, _iv);*/;
+
         public static void SaveJson<T>(this T data, string path)
         {
             string json = JsonConvert.SerializeObject(data, Formatting.Indented);
@@ -56,7 +56,7 @@ namespace Tech.Json
         {
             if (_encryption != null)
             {
-                File.WriteAllText(path, JsonConvert.SerializeObject(_encryption.Encrypt(text)));
+                File.WriteAllText(path, JsonConvert.SerializeObject(_encryption.Encrypt(text), Formatting.Indented));
                 return;
             }
 

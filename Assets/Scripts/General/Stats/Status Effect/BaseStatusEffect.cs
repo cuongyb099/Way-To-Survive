@@ -1,6 +1,8 @@
 ///Package Create By Kat
 using System;
+using System.Threading;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 /// <summary>
@@ -13,7 +15,6 @@ public abstract class BaseStatusEffect :IEquatable<BaseStatusEffect>
     protected float timer;
     protected StatsController stats;
     public bool ForceStop { get; protected set; }
-
     public StatusEffectSO Data;
     public int CurrentStack
     {
@@ -37,17 +38,17 @@ public abstract class BaseStatusEffect :IEquatable<BaseStatusEffect>
     
     protected BaseStatusEffect(){}
 
-    
-
     /// <summary>
     /// This Function To Active Effect
     /// </summary>
     public void Begin()
     {
+        timer = 0f;
         ForceStop = false;
         currentStack = 0;
         HandleStart();
         OnStart?.Invoke();
+        _= Test();
         if (Data.UseAdvanceUpdate)
         {
             _ = UpdateAsync();
@@ -77,8 +78,12 @@ public abstract class BaseStatusEffect :IEquatable<BaseStatusEffect>
         timer += Time.deltaTime;
         return timer > Data.Duration;
     }
-
-    private async Task UpdateAsync()
+    private async Task Test(){
+        await Task.Run(() => {
+            Debug.Log(Thread.CurrentThread.ManagedThreadId);
+        });
+    }
+    private async UniTaskVoid UpdateAsync()
     {
         while (!ForceStop)
         {
@@ -87,7 +92,7 @@ public abstract class BaseStatusEffect :IEquatable<BaseStatusEffect>
 #endif
             HandleOnUpdate();
             OnActive?.Invoke();
-            await Task.Yield();
+            await UniTask.Yield(PlayerLoopTiming.Update);
         }
     }
 
@@ -119,5 +124,10 @@ public abstract class BaseStatusEffect :IEquatable<BaseStatusEffect>
     {
         return (Data.ID == other.Data.ID) && timer.Equals(other.timer);
     }
+
+	public virtual void ChangeTarget(StatsController target)
+	{
+		stats = target;
+	}
 }
 

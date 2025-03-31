@@ -2777,15 +2777,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 10
+    m_Left: 0
     m_Right: 0
-    m_Top: 10
+    m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 0
+  m_ChildAlignment: 1
   m_StartCorner: 0
   m_StartAxis: 0
   m_CellSize: {x: 280, y: 190}
-  m_Spacing: {x: 10, y: 10}
+  m_Spacing: {x: 10, y: 0}
   m_Constraint: 0
   m_ConstraintCount: 3
 --- !u!114 &5753133288889212078
@@ -2800,8 +2800,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_HorizontalFit: 2
-  m_VerticalFit: 2
+  m_HorizontalFit: 0
+  m_VerticalFit: 1
 --- !u!1 &3594914291090597560
 GameObject:
   m_ObjectHideFlags: 0
@@ -5327,7 +5327,7 @@ RectTransform:
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -5371,7 +5371,13 @@ MonoBehaviour:
   CashText: {fileID: 8364855982964535543}
   BackButton: {fileID: 7749349147301857474}
   WeaponListSo: {fileID: 11400000, guid: 453de7abd50c5d64facdcafe7d0da4c4, type: 2}
-  ItemMiniPrefab: {fileID: 8389227797896660266, guid: b9b8f14ef8de9424e9e4eacb848c43c7, type: 3}
+  ItemMiniPrefab:
+    m_AssetGUID: b9b8f14ef8de9424e9e4eacb848c43c7
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  Selected: {fileID: 0}
+  ItemsMiniUI: []
 --- !u!114 &7546955487487588234
 MonoBehaviour:
   m_ObjectHideFlags: 0

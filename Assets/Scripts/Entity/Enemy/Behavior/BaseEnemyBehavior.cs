@@ -1,5 +1,4 @@
 using BehaviorDesigner.Runtime.Tasks;
-using UnityEngine;
 
 public class BaseEnemyBehavior : Action
 {
@@ -8,6 +7,7 @@ public class BaseEnemyBehavior : Action
     public override void OnAwake()
     {
         base.OnAwake();
+        
         enemyCtrl = GetComponent<EnemyCtrl>();
     }
 }

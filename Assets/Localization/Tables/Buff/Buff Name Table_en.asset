@@ -200,10 +200,37 @@ MonoBehaviour:
     m_Metadata:
       m_Items:
       - rid: 6179708859773091850
+  - m_Id: 16890390353780736
+    m_Localized: Event_Player_ATKBuff
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16890627810107392
+    m_Localized: Increase <color=#D70000>Zombies ATK</color> by 30% for this wave
+    m_Metadata:
+      m_Items:
+      - rid: 6179708859773091850
+  - m_Id: 16891507292741632
+    m_Localized: Event_Player_SPDBuff
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16891558987538432
+    m_Localized: Increase <color=#FFB600>Player Movement Speed</color> by 30% for
+      this wave
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16900209349468160
+    m_Localized: Increase <color=#D70000>Zombies Movement Speed</color> by 30% for
+      this wave
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16900971488059392
+    m_Localized: Increase <color=#FFB600>Player ATK</color> by 30% for this wave
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:
     - rid: 6179708859773091850
       type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
-        m_Entries: 00e06f1bd204000000e0efa2c205000000e0af923a05000000e06fa8e304000000e0ef0a2205000000e0ef1e8e05000000e02f2f3905000000e0af123a05000000e0eff33a05000000e0af066f05000000e06f498905000000e02f808e05000000e0af6bb605000000e02f03ca05000000e0ef3dcf05000000e0af60d405000000e0af34f805000000e0effa0a06000000e0ef2c0d060000
+        m_Entries: 00e06f1bd204000000e0efa2c205000000e0af923a05000000e06fa8e304000000e0ef0a2205000000e0ef1e8e05000000e02f2f3905000000e0af123a05000000e0eff33a05000000e0af066f05000000e06f498905000000e02f808e05000000e0af6bb605000000e02f03ca05000000e0ef3dcf05000000e0af60d405000000e0af34f805000000e0effa0a06000000e0ef2c0d06000000a0a7beef013c00

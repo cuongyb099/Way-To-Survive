@@ -14,12 +14,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _statItems:
     _serializedList:
+    - Key: 0
+      Value:
+        _baseValue: 6
+    - Key: 3
+      Value:
+        _baseValue: 1
+    - Key: 7
+      Value:
+        _baseValue: 1
     - Key: 1
       Value:
         _baseValue: 1
     - Key: 2
       Value:
-        _baseValue: 20
+        _baseValue: 30
   _attributeItems:
     _serializedList:
     - Key: 0
