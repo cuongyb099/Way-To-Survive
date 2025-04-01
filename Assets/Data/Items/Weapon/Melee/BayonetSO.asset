@@ -36,27 +36,27 @@ MonoBehaviour:
   <SellPrice>k__BackingField: 0
   <MaxStack>k__BackingField: 1
   <Modifiers>k__BackingField: 
-  WeaponPrefab: {fileID: 3734184842925771862, guid: 911d97dd77c98f54d8b16a191419f15f, type: 3}
-  BulletPrefab: {fileID: 0}
-  ShellPrefab: {fileID: 0}
-  MagPrefab: {fileID: 0}
-  WeaponType: 5
-  ShootingSpeed: 0.7
-  Damage: 5
-  Aim: 0
-  SpreadMax: 0
-  Recoil: 0
-  RecoilResetTime: 0
-  Weight: 0
-  MaxCapacity: 0
-  ReleaseToShoot: 0
-  ShootingSounds:
-  - {fileID: 8300000, guid: 577cb100552dc7044853df3840905615, type: 3}
-  - {fileID: 8300000, guid: 577cb100552dc7044853df3840905615, type: 3}
-  TailSound: {fileID: 0}
-  CockingSound: {fileID: 0}
-  MagSoundIn: {fileID: 0}
-  MagSoundOut: {fileID: 0}
+  <Prefab>k__BackingField: {fileID: 3734184842925771862, guid: 911d97dd77c98f54d8b16a191419f15f, type: 3}
+  <WeaponType>k__BackingField: 5
+  <ShootingSpeed>k__BackingField: 0.5
+  <Damage>k__BackingField: 0
+  <Weight>k__BackingField: 0
+  <ReleaseToShoot>k__BackingField: 0
+  <AttackSounds>k__BackingField:
+  - {fileID: 8300000, guid: fa95e5f1becc1c64ea35f3f1db115917, type: 3}
+  - {fileID: 8300000, guid: fa95e5f1becc1c64ea35f3f1db115917, type: 3}
+  <BulletPrefab>k__BackingField: {fileID: 0}
+  <ShellPrefab>k__BackingField: {fileID: 0}
+  <MagPrefab>k__BackingField: {fileID: 0}
+  <Aim>k__BackingField: 0
+  <SpreadMax>k__BackingField: 0
+  <Recoil>k__BackingField: 0
+  <RecoilResetTime>k__BackingField: 0
+  <MaxCapacity>k__BackingField: 0
+  <TailSound>k__BackingField: {fileID: 0}
+  <CockingSound>k__BackingField: {fileID: 0}
+  <MagSoundIn>k__BackingField: {fileID: 0}
+  <MagSoundOut>k__BackingField: {fileID: 0}
   references:
     version: 2
     RefIds: []

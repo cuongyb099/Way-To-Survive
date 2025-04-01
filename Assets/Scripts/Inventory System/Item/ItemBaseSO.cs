@@ -9,6 +9,7 @@ namespace KatInventory
     public abstract class ItemBaseSO : ScriptableObject, IEquatable<ItemBaseSO>
     {
         public string ID => name;
+        [field:Header("Item Data")]
         [field: SerializeField] public LocalizedString Name { get; private set; }
         [field: SerializeField] public LocalizedString Description { get; private set; }
         [field: SerializeField] public Sprite Icon { get; private set; }
@@ -19,7 +20,8 @@ namespace KatInventory
         [field: SerializeField, Range(1, 1000000)] 
         public virtual int MaxStack { get; protected  set; } = 1;
         [field: SerializeField] public virtual Manipulator[] Modifiers { get; private set; }
-        public virtual ItemData CreateItem(int quantity = 1)
+        [field: SerializeField] public Rarity Rarity { get; protected set; }
+        public virtual ItemData CreateItem(int quantity = 1,Transform parent = null)
         {
             return new ItemData(this, Mathf.Clamp(quantity,0, MaxStack));
         }
@@ -35,9 +37,17 @@ namespace KatInventory
     public enum ItemType
     {
         Weapon,
-        Building
+        Building,
+        Buffs,
     }
-
+    public enum Rarity
+    {
+        Common,
+        Uncommon,
+        Rare,
+        ExtremelyRare,
+        Myth,
+    }
     public enum Manipulator
     {
         Sell,

@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Tech.Json;
 using Tech.Singleton;
 using UnityEngine;
@@ -175,16 +178,31 @@ namespace KatInventory
             _inventory.Clear();
             OnInventoryChange?.Invoke();
         }
-        
-        [ContextMenu("save")]
+        [ContextMenu("Save")]
         public void Save()
         {
             _inventory.SaveJson(SavePath);
         }
-        [ContextMenu("load")]
+        [ContextMenu("Load")]
         public void Load()
         {
             Json.LoadJson(SavePath, out _inventory);
+           //  var json = Json.ReadAllText(SavePath);
+           // Debug.Log(json);
+           //  JArray itemsArray = JArray.Parse(json);
+           //  
+           //  if(itemsArray.Count == 0) return;
+           //  
+           //  _inventory.Clear();
+           //  
+           //  for (int i = 0; i < itemsArray.Count; i++)
+           //  {
+           //      var token = itemsArray[i];
+           //      var itemData = ItemDataBase.Instance.SearchItem(token[ID]?.ToString()).CreateItem();
+           //      
+           //      JsonConvert.PopulateObject(itemsArray[i].ToString(), itemData);
+           //      _inventory.Add(itemData);
+           //  }
         }
 
         private static readonly string ID = "ID";

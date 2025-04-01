@@ -81,7 +81,7 @@ MonoBehaviour:
     m_SerializedLabels:
     - UI
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 37c533b045668d84f806c85523ddc093
+  - m_GUID: 8be554c2a61bfc442a696f06ad8407c6
     m_Address: InventoryPanel
     m_ReadOnly: 0
     m_SerializedLabels:
@@ -96,6 +96,24 @@ MonoBehaviour:
     m_Address: Assets/Prefab/UI/Item Shop/Item Panel.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b23ac7488d4b1534491a50bdd2173f1e
+    m_Address: StartMenuPanel
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - UI
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fe0079a99b8c2234797e0832ac49e601
+    m_Address: SetupBeforePlayPanel
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - UI
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 605c1cb6103872d468858320f211da18
+    m_Address: MainMenuPanel
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - UI
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: f87357868bafec74b8eaa3e2bab0161e, type: 2}

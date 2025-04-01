@@ -21,16 +21,16 @@ public class GunInventoryUI : FadeBlurPanel
     [Header("Data")]
     public AssetReferenceGameObject GunMiniPrefab;
 
-    public List<ItemMiniUI> GunEquipedSlots;
+    public List<WeaponSlotUI> GunEquipedSlots;
 
-    public ItemMiniUI Selected { get; private set; }
-    public List<ItemMiniUI> GunsMiniUI { get; private set; }
+    public WeaponSlotUI Selected { get; private set; }
+    public List<WeaponSlotUI> GunsMiniUI { get; private set; }
     private PlayerController player;
 
     protected override void OnAwake()
     {
         base.OnAwake();
-        GunsMiniUI = new List<ItemMiniUI>();
+        GunsMiniUI = new List<WeaponSlotUI>();
         player = GameManager.Instance.Player;
         LoadButton();
     }
@@ -60,19 +60,19 @@ public class GunInventoryUI : FadeBlurPanel
         //delete gun panel
         for(int i = GunsMiniUI.Count - 1; i >= 0; i--)
         {
-            ItemMiniUI g = GunsMiniUI[i];
+            WeaponSlotUI g = GunsMiniUI[i];
             g.ItemButton.onClick.RemoveAllListeners();
             GunsMiniUI.RemoveAt(i);
             Destroy(g.gameObject);
         }
         //instantiate gun panel
-        foreach (var x in player.OwnedWeapons)
-        {
-            ItemMiniUI temp = await AddressablesManager.Instance.InstantiateAsyncType<ItemMiniUI>(GunMiniPrefab, GunsPanel.transform);
-            temp.Initialize(x.WeaponData);
-            temp.ItemButton.onClick.AddListener(new UnityEngine.Events.UnityAction(() => { ChangeGun(temp);}));
-            GunsMiniUI.Add(temp);
-        }
+        // foreach (var x in player.OwnedWeapons)
+        // {
+        //     WeaponSlotUI temp = await AddressablesManager.Instance.InstantiateAsyncType<WeaponSlotUI>(GunMiniPrefab, GunsPanel.transform);
+        //     temp.Initialize(x.WeaponData);
+        //     temp.ItemButton.onClick.AddListener(new UnityEngine.Events.UnityAction(() => { ChangeGun(temp);}));
+        //     GunsMiniUI.Add(temp);
+        // }
 
         for (int i = 0; i < player.Weapons.Length; i++)
         {
@@ -81,7 +81,7 @@ public class GunInventoryUI : FadeBlurPanel
         ChangeGun(GunsMiniUI[0]);
     }
     
-    private void ChangeGun(ItemMiniUI gunUI)
+    private void ChangeGun(WeaponSlotUI gunUI)
     {
         Selected = gunUI;
         GunBaseSO weapon = (GunBaseSO)gunUI.ItemBaseSoHolder;
@@ -90,10 +90,10 @@ public class GunInventoryUI : FadeBlurPanel
     }
     private void InitEquippedSlots(int index)
     {
-        WeaponBase weapon = ((GunBaseSO)Selected.ItemBaseSoHolder).WeaponPrefab ;
+        WeaponBase weapon = (WeaponBase)Selected.ItemBaseSoHolder.Prefab ;
         if (!player.ContainsWeapon(weapon))
         {
-            player.InstantiateWeapon(weapon,index);
+            player.InstantiateWeapon(Selected.ItemBaseSoHolder,index);
             GunEquipedSlots[index].Initialize(Selected.ItemBaseSoHolder);
         }
 
