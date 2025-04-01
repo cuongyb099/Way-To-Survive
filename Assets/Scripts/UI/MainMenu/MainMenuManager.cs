@@ -29,10 +29,11 @@ public class MainMenuManager : MonoBehaviour
         {
             UIManager.Instance.CreatePanelAsync(UIConstant.SetupBeforePlayPanel),
             UIManager.Instance.CreatePanelAsync(UIConstant.MainMenuPanel),
+            UIManager.Instance.CreatePanelAsync(UIConstant.StartMenuPanel),
         };
 
         await Task.WhenAll(tasks);
         
-        UIManager.Instance.ShowPanel(UIConstant.MainMenuPanel);
+        UIManager.Instance.ShowPanel(UIConstant.StartMenuPanel);
     }
 }

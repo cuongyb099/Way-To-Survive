@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class PlayerDataPersistent : SingletonPersistent<PlayerDataPersistent>
 {
+    [field:SerializeField] public string Username { get;private set; }
+    
     //
     [field:SerializeField] public WeaponBaseSO[] StartingWeapons { get;private set; }
     [field:SerializeField] public BaseBuffSO[] StartingBuffs{ get;private set; }

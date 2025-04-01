@@ -17,6 +17,10 @@ public static class UIConstant
     public static readonly string LostPanel = "LostPanel";
     public static readonly string WeaponWheelPanel = "WeaponWheelPanel";
     // Menu Panel
+    public static readonly string StartMenuPanel = "StartMenuPanel";
     public static readonly string MainMenuPanel = "MainMenuPanel";
     public static readonly string SetupBeforePlayPanel = "SetupBeforePlayPanel";
+    public static readonly string SettingsMenuPanel = "SettingsMenuPanel";
+    public static readonly string InventoryMenuPanel = "InventoryMenuPanel";
+    public static readonly string ShopMenuPanel = "ShopMenuPanel";
 }

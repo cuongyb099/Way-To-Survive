@@ -8,8 +8,6 @@ public class MainSelectorPanel : FadeBlurPanel
 {
     [Header("Button")] 
     [SerializeField] private Button _startBtn;
-    [SerializeField] private Button _tutorialBtn;
-    [SerializeField] private Button _settingsBtn;
     [SerializeField] private Button _quitBtn;
     protected override void OnAwake()
     {
@@ -34,16 +32,7 @@ public class MainSelectorPanel : FadeBlurPanel
         _startBtn.onClick.AddListener(() =>
         {
             Hide();
-            UIManager.Instance.ShowPanel(UIConstant.SetupBeforePlayPanel);
-        });
-        _tutorialBtn.onClick.AddListener(() =>
-        {
-            Hide();
-        });
-        _settingsBtn.onClick.AddListener(() =>
-        {
-            Hide();
-            //UIManager.Instance.ShowPanel(UIConstant.SettingsPanel);
+            UIManager.Instance.ShowPanel(UIConstant.MainMenuPanel);
         });
         _quitBtn.onClick.AddListener(() =>
         {

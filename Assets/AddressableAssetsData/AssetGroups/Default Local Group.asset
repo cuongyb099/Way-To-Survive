@@ -98,13 +98,19 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b23ac7488d4b1534491a50bdd2173f1e
-    m_Address: MainMenuPanel
+    m_Address: StartMenuPanel
     m_ReadOnly: 0
     m_SerializedLabels:
     - UI
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fe0079a99b8c2234797e0832ac49e601
     m_Address: SetupBeforePlayPanel
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - UI
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 605c1cb6103872d468858320f211da18
+    m_Address: MainMenuPanel
     m_ReadOnly: 0
     m_SerializedLabels:
     - UI
