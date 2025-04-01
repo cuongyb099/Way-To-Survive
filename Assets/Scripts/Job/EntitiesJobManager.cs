@@ -8,6 +8,7 @@ public class EntitiesJobManager : Singleton<EntitiesJobManager>
 {
     [SerializeField] private int _overlapCheckPerSecond = 10;
     [SerializeField] private JobRuntime[] _jobRuntime;
+    private WaitForSeconds _waitForSeconds;
     
     public void Add(JobData jobData)
     {
@@ -20,6 +21,12 @@ public class EntitiesJobManager : Singleton<EntitiesJobManager>
         }
     }
 
+    protected override void Awake()
+    {
+        base.Awake();
+        _waitForSeconds = new WaitForSeconds((float)1 / _overlapCheckPerSecond);
+    }
+    
     private void Start()
     {
         StartCoroutine(JobCorotine());
@@ -29,7 +36,7 @@ public class EntitiesJobManager : Singleton<EntitiesJobManager>
     {
         while (true)
         {
-            yield return new WaitForSeconds(1 / _overlapCheckPerSecond);
+            yield return _waitForSeconds;
             foreach (JobRuntime job in _jobRuntime)
             {
                 job.JobLogic.DoJob(job.Datas);

@@ -2,12 +2,13 @@ using System;
 using DG.Tweening;
 using ResilientCore;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.Serialization;
 
-public class PlayerController : BasicController
+public class PlayerController : BasicController, IKnockbackable
 {
 	#region AnimationID
 	private static readonly int PlayerHit = Animator.StringToHash("PlayerHit");
@@ -27,10 +28,10 @@ public class PlayerController : BasicController
     [field:SerializeField] public CameraZoom CameraZoom { get; private set; }
     public PlayerInteractor PlayerInteractor { get; private set; }
 	//Player Data
-	public float GunSwitchCooldown = .1f;
-    public LayerMask GroundLayer;
-    public WeaponBase StartingWeapon;
-    public int StartingCash = 0;
+	[field: SerializeField]public float GunSwitchCooldown { get; private set; } = .1f;
+    [field: SerializeField]public LayerMask GroundLayer{ get; private set; }
+    [field: SerializeField] public WeaponBase StartingWeapon{ get; private set; }
+    [field: SerializeField]public int StartingCash { get; private set; } = 0;
     public List<WeaponBase> OwnedWeapons { get; private set; }
     public int Cash
     {
@@ -175,7 +176,7 @@ public class PlayerController : BasicController
         Animator.SetFloat(Type, (float)currentSlot.WeaponData.WeaponType);
         Animator.SetBool(ReloadGun, false);
         Stats.GetStat(StatType.Speed).AddModifier(new StatModifier(-currentSlot.WeaponData.Weight,StatModType.Flat));
-        CameraZoom.SetZoom(CurrentWeapon.WeaponData.Aim/Mathf.Cos(45f*Mathf.Deg2Rad)+5f);
+        CameraZoom.SetZoom(CurrentWeapon.WeaponData.Aim/Mathf.Cos(45f*Mathf.Deg2Rad));
         PlayerEvent.OnEquipWeapon?.Invoke(currentSlot);
         return true;
     }
@@ -288,6 +289,8 @@ public class PlayerController : BasicController
 	Vector2 CurrentBlend;
     private void MovePlayer()
     {
+	    if(_forceIgnoreMovementCalculator) return;
+	    
         Vector3 MovementInput = PlayerInput.Instance.MovementInput;
         Rigidbody.velocity = new Vector3(0f, Rigidbody.velocity.y, 0f);
         Rigidbody.AddForce(Quaternion.Euler(0,mainCamera.transform.eulerAngles.y,0) * MovementInput *  (Stats.GetStat(StatType.Speed).Value), ForceMode.VelocityChange);
@@ -308,7 +311,7 @@ public class PlayerController : BasicController
     }
     public void Float()
     {
-        Ray ray = new Ray(FloatingCapsule.CapsuleColliderData.Collider.bounds.center, Vector3.down);
+	    Ray ray = new Ray(FloatingCapsule.CapsuleColliderData.Collider.bounds.center, Vector3.down);
         if (Physics.Raycast(ray, out RaycastHit hit, FloatingCapsule.FloatingData.FloatRayLength, GroundLayer, QueryTriggerInteraction.Ignore))
         {
             float distanceFromGround = FloatingCapsule.CapsuleColliderData.ColliderCenterLocalSpace.y * transform.localScale.y - hit.distance;
@@ -384,5 +387,25 @@ public class PlayerController : BasicController
     {
 	    DamagePopUpGenerator.Instance.CreateCashPopUp(transform.position, $"+{amount} $");
 	    Cash += amount;
+    }
+
+
+    private bool _forceIgnoreMovementCalculator;
+    public void ApplyKnockback(Vector3 direction, float force)
+    {
+	    Rigidbody.velocity = Vector3.zero;
+	    _forceIgnoreMovementCalculator = true;
+	    Rigidbody.AddForce(direction * force, ForceMode.Impulse);
+	    _ = WaitResetMovement();
+    }
+
+    private async UniTaskVoid WaitResetMovement()
+    {
+	    if (!_forceIgnoreMovementCalculator)
+		    return;
+
+		await UniTask.Delay(300);
+	    
+        _forceIgnoreMovementCalculator = false;
     }
 }

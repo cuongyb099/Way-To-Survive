@@ -19,7 +19,7 @@ MonoBehaviour:
         _baseValue: 6
     - Key: 3
       Value:
-        _baseValue: 1
+        _baseValue: 3
     - Key: 7
       Value:
         _baseValue: 1

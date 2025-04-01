@@ -59,6 +59,18 @@ public class GameplayMainPanel : PanelBase
         PlayerEvent.OnInteractExit -= HideInteractBtn;
     }
 
+    public override void Hide()
+    {
+        base.Hide();
+        PlayerInput.Instance.InputActions.BasicAction.Disable();
+    }
+
+    public override void Show()
+    {
+        base.Show();
+        PlayerInput.Instance.InputActions.BasicAction.Enable();
+    }
+
     private void ShowInteractBtn()
     {
         _interactBtn.gameObject.SetActive(true);

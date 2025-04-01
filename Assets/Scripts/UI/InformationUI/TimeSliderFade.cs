@@ -12,13 +12,11 @@ public class TimeSliderFade : MonoBehaviour
     private void Awake()
     {
         canvasGroup = GetComponent<CanvasGroup>();
-        GameEvent.OnStartShoppingState += FadeIn;
         GameEvent.OnStopShoppingState += FadeOut;
     }
 
     private void OnDestroy()
     {
-        GameEvent.OnStartShoppingState -= FadeIn;
         GameEvent.OnStopShoppingState -= FadeOut;
     }
 

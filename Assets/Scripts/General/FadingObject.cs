@@ -79,7 +79,7 @@ public class FadingObject : MonoBehaviour
         {
             for (int j = 0; j < Renderers[i].materials.Length; j++)
             {
-                _doFadeTweens[index] = Renderers[i].materials[j].DOFade(fadeValue, duration);
+                _doFadeTweens[index] = Renderers[i].materials[j].DOFade(fadeValue, duration).SetUpdate(true);
                 index++;
             }
         }

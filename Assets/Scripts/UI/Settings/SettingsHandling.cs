@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Tech.Singleton;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Localization;
@@ -8,10 +9,29 @@ using UnityEngine.Localization.Settings;
 using UnityEngine.UI;
 using static UnityEngine.Rendering.DebugUI;
 
-public class SettingsHandling : MonoBehaviour
+public enum TargetFPS
 {
+	FPS_30,
+	FPS_45,
+	FPS_60,
+	FPS_120,
+	FPS_Unlimited,
+}
+
+public class SettingsHandling : Singleton<SettingsHandling>
+{
+	Dictionary<int, int> TargetFPSToInt = new Dictionary<int, int>()
+	{
+		{ 0, 30 },
+		{ 1, 45 },
+		{ 2, 60 },
+		{ 3, 120 },
+		{ 4, 999 }
+	};
+	
 	[field: SerializeField] public Toggle FullScreen { get; private set; }
 	[field: SerializeField] public TMP_Dropdown QualityDropdown { get; private set; }
+	[field: SerializeField] public TMP_Dropdown FPSLimitDropdown { get; private set; }
 	[field: SerializeField] public TMP_Dropdown ResolutionDropdown { get; private set; }
 	[field: SerializeField] public TMP_Dropdown LanguageDropdown { get; private set; }
 	public List<Resolution> InMenuResolutions { get; private set; }
@@ -19,8 +39,9 @@ public class SettingsHandling : MonoBehaviour
 	Resolution[] resolutions;
 	private List<Locale> locales;
 	private List<QualitySettings> qualitySettings;
-	private void Awake()
+	protected override void Awake()
 	{
+		base.Awake();
 		//InMenuResolutions = new List<Resolution>();
 		//resolutions = Screen.resolutions;
 		//GetMaxRefresh();
@@ -29,6 +50,10 @@ public class SettingsHandling : MonoBehaviour
 
 		QualityDropdown.value = QualitySettings.GetQualityLevel();
 		QualityDropdown.onValueChanged.AddListener(ChangeGraphicsQuality);
+		//Set FPS Limit
+		ChangeFPSLimit(4);
+		FPSLimitDropdown.value = 4;
+		FPSLimitDropdown.onValueChanged.AddListener(ChangeFPSLimit);
 	}
 
 	private void OnDestroy()
@@ -90,6 +115,12 @@ public class SettingsHandling : MonoBehaviour
 	{
 		if (QualitySettings.GetQualityLevel() == value) return;
 		QualitySettings.SetQualityLevel(value);
+	}
+	public void ChangeFPSLimit(int value)
+	{
+		if (Application.targetFrameRate == TargetFPSToInt[value]) return;
+		QualitySettings.vSyncCount = 0;
+		Application.targetFrameRate = TargetFPSToInt[value];
 	}
 	public void ChangeFullScreen(bool value)
 	{

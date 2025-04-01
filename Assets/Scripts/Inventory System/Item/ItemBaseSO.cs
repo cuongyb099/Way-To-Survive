@@ -1,9 +1,11 @@
 using System;
+using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.Localization;
 
 namespace KatInventory
 {
+    [JsonConverter(typeof(ItemSoConverter))]
     public abstract class ItemBaseSO : ScriptableObject, IEquatable<ItemBaseSO>
     {
         public string ID => name;

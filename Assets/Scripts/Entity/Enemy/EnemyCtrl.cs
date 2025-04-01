@@ -8,7 +8,6 @@ using ObjectPool = Tech.Pooling.ObjectPool;
 public class EnemyCtrl : BasicController
 {
     public AgentAuthoring Authoring { get; protected set; }
-    public AgentForRootmotion AgentRootmotion { get; protected set; }
     public AgentAvoidAuthoring AvoidAuthoring { get; protected set; }
     public AgentNavMeshAuthoring NavMeshAuthoring { get; protected set; }
     public Animator Anim { get; protected set; }
@@ -18,22 +17,20 @@ public class EnemyCtrl : BasicController
     [HideInInspector] public bool IsTakingDamage;
     //Money drop test
     [SerializeField] private int cashGiveAmount;
+
+    [field: Range(0f, 100f), SerializeField]
+    public float MaxMoveAnimationSpeed { get; private set; } = 1f;
     
     protected override void Awake()
     {
         base.Awake();
         Anim = GetComponent<Animator>();
         BTree = GetComponent<BehaviorTree>();
-        AgentRootmotion = GetComponent<AgentForRootmotion>();
         Authoring = GetComponent<AgentAuthoring>();
         AvoidAuthoring = GetComponent<AgentAvoidAuthoring>();
         NavMeshAuthoring = GetComponent<AgentNavMeshAuthoring>();
         RagdollAnimation = GetComponent<RagdollAnimationBase>();
         _spineRb = Anim.GetBoneTransform(HumanBodyBones.Spine).GetComponent<Rigidbody>();
-    }
-
-    private void Start()
-    {
         behaviorStatsLinking = new (this);
     }
 
@@ -61,6 +58,7 @@ public class EnemyCtrl : BasicController
     private const float ragDollForce = 50f; 
     private void TriggerRagdoll(GameObject dealer)
     {
+        if(!RagdollAnimation) return;
         RagdollAnimation.EnableRagdoll();
         var direction = Vector3.ProjectOnPlane(_spineRb.position - dealer.transform.position, Vector3.up).normalized;
         _spineRb.AddForce(direction * ragDollForce, ForceMode.Impulse);
@@ -68,6 +66,7 @@ public class EnemyCtrl : BasicController
     
     private void OnEnable()
     {
+        if(!RagdollAnimation) return;
         RagdollAnimation.DisableRagdoll();
     }
 
@@ -87,5 +86,10 @@ public class EnemyCtrl : BasicController
     public void StopDestination()
     {
         Authoring.Stop();
+    }
+
+    public bool ReachEndOfPath()
+    {
+        return Authoring.EntityBody.RemainingDistance < 0.12f;
     }
 }

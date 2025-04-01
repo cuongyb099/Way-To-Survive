@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Tech.Logger;
 using UnityEditor;
 using UnityEngine;
 #if UNITY_EDITOR
@@ -95,13 +94,9 @@ public class StatsController : MonoBehaviour
 
 	public virtual void AddModifier(StatType type, StatModifier modifier)
 	{
-		if (_stats.TryGetValue(type, out Stat value))
-		{
-			value.AddModifier(modifier);
-			return;
-		}
-
-		LogCommon.LogError($"{type} Not Found In {_statsHolder.name}");
+		if (!_stats.TryGetValue(type, out Stat value)) return;
+	
+		value.AddModifier(modifier);
 	}
 
 	public virtual void RemoveModifier(StatType type, StatModifier modifier)
@@ -109,7 +104,7 @@ public class StatsController : MonoBehaviour
 		_stats[type].RemoveModifier(modifier);
 	}
 
-	public void MinusAttributeValue(AttributeType type, float value)
+	public void SubtractAttributeValue(AttributeType type, float value)
 	{
 		if (TryGetAttribute(type, out Attribute attribute))
 		{
@@ -145,17 +140,18 @@ public class StatsController : MonoBehaviour
 	{
 		for (int i = _statusEffects.Count - 1; i >= 0; --i)
 		{
-			if (_statusEffects[i].ForceStop)
+			var effect = _statusEffects[i];
+			if (effect.ForceStop)
 			{
-				_statusEffects[i].Stop();
+				effect.Stop();
 				_statusEffects.RemoveAt(i);
 				OnChange?.Invoke();
 				continue;
 			}
 			
-			if (!_statusEffects[i].MonoUpdate()) continue;
+			if (!effect.MonoUpdate()) continue;
 
-			_statusEffects[i].Stop();
+			effect.Stop();
 			_statusEffects.RemoveAt(i);
 			OnChange?.Invoke();
 		}
@@ -253,6 +249,10 @@ public class StatsController : MonoBehaviour
 	private void Update()
 	{
 		UpdateStatusEffect();
+	}
+
+	public bool HasEffect(BaseStatusEffect effect){
+		return _statusEffects.Contains(effect);
 	}
 }
 

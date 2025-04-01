@@ -4682,7 +4682,6 @@ GameObject:
   - component: {fileID: 2420463811548644684}
   - component: {fileID: 460703755180738601}
   - component: {fileID: 4759059345899605930}
-  - component: {fileID: 1360797757125765612}
   - component: {fileID: 3651907721188414297}
   - component: {fileID: 5739701868472056353}
   - component: {fileID: 2987023602200526735}
@@ -4747,6 +4746,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsTakingDamage: 0
   cashGiveAmount: 70
+  <MaxMoveAnimationSpeed>k__BackingField: 2.5
 --- !u!114 &1582999923806502089
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4759,8 +4759,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 825ee44755f2e4846a6229365ed8d44c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MotionType: 1
-  Speed: 3.5
+  MotionType: 3
+  Speed: 1.5
   Acceleration: 8
   AngularSpeed: 120
   StoppingDistance: 0.1
@@ -4867,23 +4867,6 @@ MonoBehaviour:
       Version: 1.7.8
   gizmoViewMode: 2
   showBehaviorDesignerGizmo: 1
---- !u!114 &1360797757125765612
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4701767259370979263}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3d166ad4e6642f9a60155910b487b97, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 1.5
-  acceleration: 8
-  angularSpeed: 120
-  stoppingDistance: 0
-  autoBreaking: 1
 --- !u!114 &3651907721188414297
 MonoBehaviour:
   m_ObjectHideFlags: 0

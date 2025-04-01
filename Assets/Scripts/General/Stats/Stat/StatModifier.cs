@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 public enum StatModType
 {
@@ -7,7 +8,7 @@ public enum StatModType
 	Percentage
 }
 
-public class StatModifier: IEquatable<StatModifier>
+public struct StatModifier: IEquatable<StatModifier>
 {
 	public float Value;
 	public StatModType Type;
@@ -27,7 +28,7 @@ public class StatModifier: IEquatable<StatModifier>
 
     public bool Equals(StatModifier other)
     {
-        return (other.Value == Value && other.Type == Type && other.Source == Source);
+        return (Mathf.Approximately(other.Value, Value) && other.Type == Type && other.Source == Source);
     }
 }
 

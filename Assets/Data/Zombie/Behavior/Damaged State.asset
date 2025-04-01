@@ -31,10 +31,10 @@ MonoBehaviour:
         State","IsShared":true,"SinglemValue":0}},{"Type":"BehaviorDesigner.Runtime.Tasks.Unity.UnityAnimator.SetFloatParameter","NodeData":{"Offset":"(180.978683,110)"},"ID":7,"Name":"Set
         Animation Damaged State","Instant":true,"SharedGameObjecttargetGameObject":{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":null},"SharedStringparamaterName":{"Type":"BehaviorDesigner.Runtime.SharedString","Name":null,"StringmValue":"Damaged
         State"},"SharedFloatfloatValue":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":"Hit
-        State","IsShared":true,"SinglemValue":0},"BooleansetOnce":false}]}]},{"Type":"PlaySound","NodeData":{"Offset":"(110,172.564133)"},"ID":8,"Name":"Play
+        State","IsShared":true,"SinglemValue":0},"BooleansetOnce":false}]}]},{"Type":"PlaySound","NodeData":{"Offset":"(110,157.412628)"},"ID":8,"Name":"Play
         Sound","Instant":true,"SharedAudioClipArrayAudioClips":{"Type":"SharedAudioClipArray","Name":"Damage
         Sound","IsShared":true,"AudioClip[]mValue":[0,1,2,3,4]},"SharedSoundSettingSetting":{"Type":"SharedSoundSetting","Name":"Sound
-        Setting","IsShared":true,"IsGlobal":true,"SoundSettingmValue":{"SingleVolume":1,"SinglePitch":1,"SingleStereoPan":0,"SingleSpatialBlend":1,"SingleMinDistance":3,"SingleMaxDistance":50,"BooleanLoop":false}}},{"Type":"AnimationSetTrigger","NodeData":{"Offset":"(237.160019,157.277908)"},"ID":9,"Name":"Set
+        Setting","IsShared":true,"IsGlobal":true,"SoundSettingmValue":{"SingleVolume":1,"SinglePitch":1,"SingleStereoPan":0,"SingleSpatialBlend":1,"SingleMinDistance":1,"SingleMaxDistance":30,"BooleanLoop":false,"AudioRolloffModeRolloffMode":"Linear","SoundVolumeTypeVolumeType":"MASTER_VOLUME"}},"SharedBoolUseDelayTime":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":false},"SharedFloatDelayTime":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":0.25}},{"Type":"AnimationSetTrigger","NodeData":{"Offset":"(237.160019,157.277908)"},"ID":9,"Name":"Set
         Animation Hit","Instant":true,"SharedGameObjecttargetGameObject":{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":null},"SharedStringparamaterName":{"Type":"BehaviorDesigner.Runtime.SharedString","Name":"Get
         Hit","IsShared":true,"IsGlobal":true,"StringmValue":"Hit"}},{"Type":"ResetDamageTaken","NodeData":{"Offset":"(387.159943,157.277908)"},"ID":10,"Name":"Reset
         Damage Taken","Instant":true}]},"Variables":[{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":"Range

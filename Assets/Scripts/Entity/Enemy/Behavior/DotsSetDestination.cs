@@ -5,7 +5,6 @@ using BehaviorDesigner.Runtime.Tasks;
 public class DotsSetDestination : BaseEnemyBehavior
 {
     public SharedTransform Target;
-
     public override TaskStatus OnUpdate()
     {
         if (Target.Value == null)

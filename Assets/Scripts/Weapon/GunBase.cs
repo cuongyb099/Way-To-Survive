@@ -11,7 +11,6 @@ public class GunBase : WeaponBase
 	[field: SerializeField] public Transform ShootPoint { get; private set; }
 	[field: SerializeField] public Transform ShellDropPoint { get; private set; }
 	[field: SerializeField] public GameObject MagObject { get; private set; }
-
 	public bool IsFullCap { get { return Stats.GetAttribute(AttributeType.Bullets).Value == Stats.GetStat(StatType.MaxBulletCap).Value; } }
 	public bool IsEmpty { get { return Stats.GetAttribute(AttributeType.Bullets).Value == 0; } }
 	public float GunAccuracy
@@ -20,14 +19,14 @@ public class GunBase : WeaponBase
 	}
 	public float GunRecoil { get; protected set; } = 0f;
 	public StatsController Stats { get; protected set; }
-	public TriggerHandler GunOverlap { get; protected set; }
 	
+	private TriggerHandler triggerHandler;
 	protected bool gunReloadable = true;
 	protected override void Awake()
 	{
 		base.Awake();
 		Stats = GetComponent<StatsController>();
-		GunOverlap = GetComponent<TriggerHandler>();
+		triggerHandler = GetComponent<TriggerHandler>();
 	}
 	public override void Initialize()
 	{
@@ -98,7 +97,7 @@ public class GunBase : WeaponBase
 		if (!ShootAble ||
 			Stats.GetAttribute(AttributeType.Bullets).Value <= 0 ||
 			!repeatAble ||
-			GunOverlap.IsTriggered) return;
+			triggerHandler.IsTriggered) return;
 		repeatAble = false;
 		temp.Kill();
 		Stats.GetAttribute(AttributeType.Bullets).Value--;
@@ -116,7 +115,7 @@ public class GunBase : WeaponBase
 		playerController.Animator.SetBool("ReloadGun", true);
 		ResetRecoil();
 	}
-
+	
 	private void GunSoundPlay()
 	{
 		AudioManager.Instance.PlaySound(WeaponData.ShootingSounds.ToArray(),volumeType: SoundVolumeType.SOUNDFX_VOLUME);
@@ -177,4 +176,5 @@ public class GunBase : WeaponBase
 	{
 		MagObject.SetActive(true);
 	}
+	
 }

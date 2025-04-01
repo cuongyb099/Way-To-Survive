@@ -8,7 +8,6 @@ public class BaseStructure : MonoBehaviour
     private new MeshRenderer renderer;
     private new Collider collider;
     public Material DefaultMat { get; private set; }
-    
     protected virtual void Awake()
     {
         renderer = GetComponentInChildren<MeshRenderer>();

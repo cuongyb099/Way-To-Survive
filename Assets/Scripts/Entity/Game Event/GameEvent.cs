@@ -15,7 +15,8 @@ public static class GameEvent
     //Trả về thời gian đếm ngoại của shoppingTimer
     public static Action<float> ShoppingTimeChangeEvent;
     
-    public static Action OnStartGame;
+    public static Action OnStartGameEvent;
+    public static Action OnInitializedUI;
     public static Action OnStartShoppingState;
     public static Action OnStopShoppingState;
     public static Action OnStartWinState;
