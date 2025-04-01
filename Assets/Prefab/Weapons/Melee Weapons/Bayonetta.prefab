@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5704549460169601475}
   - component: {fileID: 9212072447739369604}
   - component: {fileID: 5957378339055339132}
-  - component: {fileID: 3734184842925771862}
+  - component: {fileID: 2890150364593079106}
   m_Layer: 0
   m_Name: Bayonetta
   m_TagString: Untagged
@@ -60,7 +60,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96e942a253c004f46befd960a637e31b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3734184842925771862
+--- !u!114 &2890150364593079106
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -72,7 +72,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a287530671bb94644bd28ecb0957fde3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WeaponData: {fileID: 11400000, guid: c74faa70357a645489223741c269384f, type: 2}
 --- !u!1 &8906946015039007227
 GameObject:
   m_ObjectHideFlags: 0

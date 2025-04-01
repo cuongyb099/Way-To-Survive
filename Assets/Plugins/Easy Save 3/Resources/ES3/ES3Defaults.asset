@@ -41,6 +41,11 @@ MonoBehaviour:
     - ProjectDawn.Navigation.Hybrid
     - ProjectDawn.ReciprocalAvoidance
     - Purchasing.Common
+    - UniTask
+    - UniTask.Addressables
+    - UniTask.DOTween
+    - UniTask.Linq
+    - UniTask.TextMeshPro
     showAdvancedSettings: 1
   addMgrToSceneAutomatically: 0
   autoUpdateReferences: 1

@@ -61,7 +61,6 @@ public class GameManager : StateMachine<EGameState>
             UIManager.Instance.CreatePanelAsync(UIConstant.SettingsPanel), 
             UIManager.Instance.CreatePanelAsync(UIConstant.InventoryPanel),
             UIManager.Instance.CreatePanelAsync(UIConstant.BuffPanel),
-            UIManager.Instance.CreatePanelAsync(UIConstant.ShopPanel),
             //UIManager.Instance.CreatePanelAsync(UIConstant.LostPanel),
             UIManager.Instance.CreatePanelAsync(UIConstant.WeaponWheelPanel),
         };
