@@ -69,7 +69,7 @@ public class WaveInfoUI : MonoBehaviour
     private void ShowWaveInfo()
     {
         textTime.text = GetTimeString();
-        textWave.text = $"Wave {EnemyManager.Instance.GetCurrentWave()+1}";
+        textWave.text = $"Wave {EnemyManager.Instance.GetCurrentWave()}";
         PlaySoundSupense();
         
         waveCanvasGroup.blocksRaycasts = true;

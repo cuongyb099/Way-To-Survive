@@ -34,6 +34,7 @@ public class LevelAsyncManager : SingletonPersistent<LevelAsyncManager>
 
     IEnumerator LoadLevelASync(string sceneName)
     {
+        //Load
         AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneName);
         while (!asyncOperation.isDone)
         {
@@ -51,7 +52,7 @@ public class LevelAsyncManager : SingletonPersistent<LevelAsyncManager>
 
     public void SwitchToMap1()
     {
-        LoadScene("Map1");
+        LoadScene("Map22");
     }
     public void SwitchToMainMenu()
     {

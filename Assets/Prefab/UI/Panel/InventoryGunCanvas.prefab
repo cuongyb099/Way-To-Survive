@@ -245,8 +245,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 270, y: -196.33499}
-  m_SizeDelta: {x: 540, y: 130.89}
+  m_AnchoredPosition: {x: 0, y: -0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4445447011973526837
 CanvasRenderer:
@@ -442,7 +442,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0.00020001881}
-  m_SizeDelta: {x: -30, y: 0}
+  m_SizeDelta: {x: 1890, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &7200678230892226609
 MonoBehaviour:
@@ -961,7 +961,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
+  m_fontSize: 10
   m_fontSizeBase: 27
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1444,7 +1444,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 259.75, y: -59.770752}
+  m_AnchoredPosition: {x: -700.25, y: -59.770752}
   m_SizeDelta: {x: 351.42188, y: 79.541504}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5343085250460096988
@@ -1892,8 +1892,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 270, y: -458.115}
-  m_SizeDelta: {x: 540, y: 130.89}
+  m_AnchoredPosition: {x: 0, y: -0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &428998864448499850
 CanvasRenderer:
@@ -2404,7 +2404,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
+  m_fontSize: 10
   m_fontSizeBase: 27
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2482,8 +2482,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 270, y: -65.445}
-  m_SizeDelta: {x: 540, y: 130.89}
+  m_AnchoredPosition: {x: 0, y: -0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7576880612032046098
 CanvasRenderer:
@@ -2822,6 +2822,7 @@ GameObject:
   - component: {fileID: 1529544537548023745}
   - component: {fileID: 3648474157919568974}
   - component: {fileID: 5712634187679707840}
+  - component: {fileID: 7244860072331957812}
   m_Layer: 5
   m_Name: Item Panel (2)
   m_TagString: Untagged
@@ -2847,7 +2848,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 210, y: -110}
+  m_AnchoredPosition: {x: -700.25, y: -599.5415}
   m_SizeDelta: {x: 400, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5546832388535838077
@@ -2902,6 +2903,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemName: {fileID: 7614788570447757476}
   ItemImage: {fileID: 3134673475456614877}
+  BackgroundImage: {fileID: 0}
+  <ItemButton>k__BackingField: {fileID: 0}
 --- !u!114 &5712634187679707840
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2946,6 +2949,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &7244860072331957812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3502553517598183633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 292d865278314f0fa0a0d6a4c2950ad0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3598203421282795204
 GameObject:
   m_ObjectHideFlags: 0
@@ -3406,8 +3421,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 270, y: -719.895}
-  m_SizeDelta: {x: 540, y: 130.89}
+  m_AnchoredPosition: {x: 0, y: -0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6882363056765449161
 CanvasRenderer:
@@ -3575,7 +3590,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
+  m_fontSize: 10
   m_fontSizeBase: 27
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3709,7 +3724,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
+  m_fontSize: 10
   m_fontSizeBase: 27
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3764,6 +3779,7 @@ GameObject:
   - component: {fileID: 4452278989748520326}
   - component: {fileID: 7724851154853544547}
   - component: {fileID: 8293350814519149617}
+  - component: {fileID: 2092505407394715111}
   m_Layer: 5
   m_Name: Item Panel (1)
   m_TagString: Untagged
@@ -3789,7 +3805,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 210, y: -110}
+  m_AnchoredPosition: {x: -700.25, y: -399.5415}
   m_SizeDelta: {x: 400, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6177475295256888148
@@ -3844,6 +3860,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemName: {fileID: 9177251195788873744}
   ItemImage: {fileID: 392743054981714298}
+  BackgroundImage: {fileID: 0}
+  <ItemButton>k__BackingField: {fileID: 0}
 --- !u!114 &8293350814519149617
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3888,6 +3906,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &2092505407394715111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5474144154661487674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 292d865278314f0fa0a0d6a4c2950ad0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5798177873305049915
 GameObject:
   m_ObjectHideFlags: 0
@@ -4300,7 +4330,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
+  m_fontSize: 10
   m_fontSizeBase: 27
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -4746,8 +4776,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 270, y: -589.005}
-  m_SizeDelta: {x: 540, y: 130.89}
+  m_AnchoredPosition: {x: 0, y: -0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2620384188743675989
 CanvasRenderer:
@@ -4954,7 +4984,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
+  m_fontSize: 10
   m_fontSizeBase: 27
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -5218,8 +5248,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 270, y: -327.225}
-  m_SizeDelta: {x: 540, y: 130.89}
+  m_AnchoredPosition: {x: 0, y: -0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2533845001025061376
 CanvasRenderer:
@@ -5643,6 +5673,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2177171291555191744}
   - component: {fileID: 5343193219874366813}
+  - component: {fileID: 8387888502677006842}
   m_Layer: 5
   m_Name: InventoryGunCanvas
   m_TagString: Untagged
@@ -5685,45 +5716,36 @@ MonoBehaviour:
   StopTime: 0
   BlurBackground: 1
   TransitionDuration: 0.2
-  OnEnableDo:
+  OnShowDo:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnDisableDo:
+      m_Calls: []
+  OnHideDo:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
+      m_Calls: []
   GunsPanel: {fileID: 882556861356262961}
   GunDataUI: {fileID: 4366478992285619227}
-  BuyButton: {fileID: 8433275819222369643}
-  BuyButtonText: {fileID: 4597381773190046321}
-  GunMiniPrefab: {fileID: 953009721945292828, guid: f4892d64385379048864b0ceb9ce2705, type: 3}
+  BackButton: {fileID: 0}
+  GunMiniPrefab:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
   GunEquipedSlots:
   - {fileID: 4134638157009972992}
   - {fileID: 7724851154853544547}
   - {fileID: 3648474157919568974}
+--- !u!225 &8387888502677006842
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8102623042851799567}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &8111317881405203035
 GameObject:
   m_ObjectHideFlags: 0
@@ -6053,7 +6075,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
+  m_fontSize: 10
   m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -6108,6 +6130,7 @@ GameObject:
   - component: {fileID: 8393371425022172798}
   - component: {fileID: 4134638157009972992}
   - component: {fileID: 8249169250705993765}
+  - component: {fileID: 2882631669507456039}
   m_Layer: 5
   m_Name: Item Panel
   m_TagString: Untagged
@@ -6133,7 +6156,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 210, y: -110}
+  m_AnchoredPosition: {x: -700.25, y: -199.5415}
   m_SizeDelta: {x: 400, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &102746222947455689
@@ -6188,6 +6211,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemName: {fileID: 2749298611560738155}
   ItemImage: {fileID: 1121068415624286638}
+  BackgroundImage: {fileID: 0}
+  <ItemButton>k__BackingField: {fileID: 0}
 --- !u!114 &8249169250705993765
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6232,6 +6257,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &2882631669507456039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8868422523663618699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 292d865278314f0fa0a0d6a4c2950ad0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8870878090234607941
 GameObject:
   m_ObjectHideFlags: 0

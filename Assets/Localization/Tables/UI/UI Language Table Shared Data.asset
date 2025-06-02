@@ -91,6 +91,10 @@ MonoBehaviour:
     m_Key: UI_Gameplay_SpecialEvent
     m_Metadata:
       m_Items: []
+  - m_Id: 35632660900261888
+    m_Key: MainMenu_TapToStart
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

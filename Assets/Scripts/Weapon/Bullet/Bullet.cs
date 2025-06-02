@@ -85,7 +85,8 @@ public class Bullet : MonoBehaviour,IPoolable
 		countDMG = DamageTime;
 		Vector3 angle = info.Dealer.gameObject.transform.rotation.eulerAngles;
 
-		Quaternion temp = Quaternion.Euler(angle.x, angle.y + Mathf.Clamp(Random.Range(-accuracy, accuracy), -GameValues.RecoilMaxValue, GameValues.RecoilMaxValue), angle.z);
+		Quaternion temp = Quaternion.Euler(angle.x, angle.y + Mathf.Clamp(Random.Range(-accuracy, accuracy), 
+			-GameValues.RecoilMaxValue, GameValues.RecoilMaxValue), angle.z);
 		trailRenderer.Clear();
 		spawnVelocity = temp * Vector3.forward * Force;
 		rb.AddForce(spawnVelocity, ForceMode.VelocityChange);

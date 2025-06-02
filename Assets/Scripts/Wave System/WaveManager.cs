@@ -25,6 +25,8 @@ public class WaveManager : MonoBehaviour
         _timerCallback += HandleShoppingTimeChange;
 
         GameEvent.EnemyDeadEvent += EndWaveCheck;
+        GameEvent.OnStartWinState += () => CurrentWave++;
+        GameEvent.OnStartCombatState += StartWave;
     }
 
     private void OnDestroy()
@@ -33,6 +35,8 @@ public class WaveManager : MonoBehaviour
         _timerCallback -= HandleShoppingTimeChange;
         
         GameEvent.EnemyDeadEvent -= EndWaveCheck;
+        GameEvent.OnStartWinState -= () => CurrentWave++;
+        GameEvent.OnStartCombatState -= StartWave;
     }
     
     private void SkipToNextWave()
@@ -43,12 +47,12 @@ public class WaveManager : MonoBehaviour
 
     private void Start()
     {
-        CurrentWave = 0;
+        CurrentWave = 1;
     }
 
-    private void LoadGame()
+    private void LoadGame(int waveIndex)
     {
-        CurrentWave = 1;
+        CurrentWave = waveIndex;
         StartWave();
     }
 
@@ -57,7 +61,7 @@ public class WaveManager : MonoBehaviour
         GameEvent.ShoppingTimeChangeEvent?.Invoke(currentTime);
     }
     
-    private void StartWave()
+    public void StartWave()
     {
         GameEvent.NextWaveEvent?.Invoke(CurrentWave);
         Wave wave = FindWave(CurrentWave);

@@ -1,6 +1,7 @@
 using BehaviorDesigner.Runtime;
 using BehaviorDesigner.Runtime.Tasks;
 using DG.Tweening;
+using UnityEngine;
 
 [TaskCategory("Utilities")]
 public class PlaySound : Action
@@ -32,7 +33,7 @@ public class PlaySound : Action
     {
         if(!UseDelayTime.Value || _isDelay) return;
         _isDelay = true;
-        DOVirtual.DelayedCall(DelayTime.Value, _tweenCallback);
+        DOVirtual.DelayedCall(Random.Range(DelayTime.Value/2f,DelayTime.Value), _tweenCallback);
         
         if (Setting.Value.SpatialBlend > 0)
         {

@@ -9,7 +9,6 @@ using UnityEngine;
 public class StatsController : MonoBehaviour
 {
 	[SerializeField] private StatsHolderSO _statsHolder;
-
 	protected Dictionary<StatType, Stat> _stats;
 	protected Dictionary<AttributeType, Attribute> _attributes;
 	protected List<BaseStatusEffect> _statusEffects = new List<BaseStatusEffect>();

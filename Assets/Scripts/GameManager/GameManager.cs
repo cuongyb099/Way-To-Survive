@@ -23,9 +23,6 @@ public class GameManager : StateMachine<EGameState>
     //Singleton
     public static GameManager Instance { get; private set; } = null;
     
-    [Header("UI Elements")]
-    public GameObject LoseCanvas;
-    
     protected void Awake()
     {
         if (Instance != null)
@@ -42,9 +39,6 @@ public class GameManager : StateMachine<EGameState>
         States.Add(EGameState.Combat, new CombatState(this));
         States.Add(EGameState.WaveWon, new WaveWonState(this));
         States.Add(EGameState.Died, new DiedState(this));
-
-        Player.OnDeath += () => { LoseCanvas.SetActive(true); };
-
     }
 
     private async void InitializeUIAsync()
@@ -61,7 +55,7 @@ public class GameManager : StateMachine<EGameState>
             UIManager.Instance.CreatePanelAsync(UIConstant.SettingsPanel), 
             UIManager.Instance.CreatePanelAsync(UIConstant.InventoryPanel),
             UIManager.Instance.CreatePanelAsync(UIConstant.BuffPanel),
-            //UIManager.Instance.CreatePanelAsync(UIConstant.LostPanel),
+            UIManager.Instance.CreatePanelAsync(UIConstant.LostPanel),
             UIManager.Instance.CreatePanelAsync(UIConstant.WeaponWheelPanel),
         };
 

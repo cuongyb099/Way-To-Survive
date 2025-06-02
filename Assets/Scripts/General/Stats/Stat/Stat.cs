@@ -5,7 +5,6 @@ using System.Collections.Generic;
 public class Stat
 {
 	private float _baseValue;
-
 	public float BaseValue
 	{
 		get { return _baseValue; }
@@ -15,7 +14,6 @@ public class Stat
 	private bool _isDirty = true;
 
 	private float _value;
-
 	public virtual float Value
 	{
 		get

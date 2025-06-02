@@ -41,10 +41,13 @@ MonoBehaviour:
     - Key: 8
       Value:
         _baseValue: 1
-    - Key: 10
+    - Key: 9
+      Value:
+        _baseValue: 100
+    - Key: 11
       Value:
         _baseValue: 1
-    - Key: 11
+    - Key: 12
       Value:
         _baseValue: 1
   _attributeItems:
@@ -54,3 +57,8 @@ MonoBehaviour:
         _startPercent: 1
         _minValue: 0
         _maxValue: 2
+    - Key: 4
+      Value:
+        _startPercent: 1
+        _minValue: 0
+        _maxValue: 9

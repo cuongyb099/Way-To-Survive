@@ -5,13 +5,14 @@ using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Tech.Json;
-using Tech.Singleton;
+using Unity.VisualScripting;
 using UnityEngine;
+using VolumetricFogAndMist2;
 
 namespace KatInventory
 {
     [RequireComponent(typeof(ItemDataBase))]
-    public class Inventory : Singleton<Inventory>, ISaveable
+    public class Inventory : Tech.Singleton.Singleton<Inventory>
     {
         [field: SerializeField, Range(1, 1000)]
         public int Capacity { get; private set;} = 99;
@@ -178,31 +179,13 @@ namespace KatInventory
             _inventory.Clear();
             OnInventoryChange?.Invoke();
         }
-        [ContextMenu("Save")]
-        public void Save()
+        public void Save(PlayerSaveData data)
         {
-            _inventory.SaveJson(SavePath);
+            data.Inventory = _inventory;
         }
-        [ContextMenu("Load")]
-        public void Load()
+        public void Load(PlayerSaveData data)
         {
-            Json.LoadJson(SavePath, out _inventory);
-           //  var json = Json.ReadAllText(SavePath);
-           // Debug.Log(json);
-           //  JArray itemsArray = JArray.Parse(json);
-           //  
-           //  if(itemsArray.Count == 0) return;
-           //  
-           //  _inventory.Clear();
-           //  
-           //  for (int i = 0; i < itemsArray.Count; i++)
-           //  {
-           //      var token = itemsArray[i];
-           //      var itemData = ItemDataBase.Instance.SearchItem(token[ID]?.ToString()).CreateItem();
-           //      
-           //      JsonConvert.PopulateObject(itemsArray[i].ToString(), itemData);
-           //      _inventory.Add(itemData);
-           //  }
+            _inventory = data.Inventory;
         }
 
         private static readonly string ID = "ID";

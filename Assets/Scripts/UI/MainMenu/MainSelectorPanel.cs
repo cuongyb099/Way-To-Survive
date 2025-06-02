@@ -32,7 +32,7 @@ public class MainSelectorPanel : FadeBlurPanel
         _startBtn.onClick.AddListener(() =>
         {
             Hide();
-            UIManager.Instance.ShowPanel(UIConstant.MainMenuPanel);
+            UIManager.Instance.ShowPanel(UIConstant.SetupBeforePlayPanel);
         });
         _quitBtn.onClick.AddListener(() =>
         {

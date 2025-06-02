@@ -31,21 +31,20 @@ public class PlayerController : BasicController
 	[field: SerializeField]public float GunSwitchCooldown { get; private set; } = .1f;
     [field: SerializeField]public LayerMask GroundLayer{ get; private set; }
     [field: SerializeField] public WeaponBaseSO StartingWeapon{ get; private set; }
-    [field: SerializeField]public int StartingCash { get; private set; } = 0;
-    public int Cash
+    public int Resin
     {
-	    get => cash;
+	    get => resin;
 	    set
 	    {
-		    cash = value;
-		    if (cash < 0)
+		    resin = value;
+		    if (resin < 0)
 		    {
-			    cash = 0;
+			    resin = 0;
 		    }
-		    PlayerEvent.OnCashChange?.Invoke(cash);
+		    PlayerEvent.OnCashChange?.Invoke(resin);
 	    }
     }
-    private int cash;
+    private int resin;
     //WeaponSystem
     public Transform RightHandHoldPoint;
     public Transform LeftHandHoldPoint;
@@ -72,8 +71,8 @@ public class PlayerController : BasicController
         BuffList = new List<int>();
 
         Weapons = new WeaponBase[3];
+		InstantiateWeapon(StartingWeapon,0);
         PlayerDataPersistent.Instance.ApplyToPlayer(this);
-		//InstantiateWeapon(StartingWeapon,0);
 		
 		PlayerEvent.OnAttack += SetShootAnim;
 		PlayerEvent.RecieveCash += AddCash;
@@ -81,6 +80,11 @@ public class PlayerController : BasicController
 		Stats.GetStat(StatType.ATKSpeed).OnValueChange += SetShootingSpeedAnim;
 		Stats.GetStat(StatType.Speed).OnValueChange += SetMovementSpeedAnim;
 		
+		OnDeath += () =>
+		{
+			UIManager.Instance.ShowPanel(UIConstant.LostPanel); 
+			PlayerInput.Instance.InputActions.Disable();
+		};
 	}
     private void OnDestroy()
     {
@@ -97,7 +101,6 @@ public class PlayerController : BasicController
     {
 		EquipWeapon(0);
         InitHealthBar();
-        Cash = StartingCash;
     }
 
     void FixedUpdate()
@@ -229,7 +232,8 @@ public class PlayerController : BasicController
 	}
     public void AfterReload()
     {
-        ((GunBase)Weapons[CurrentWeaponIndex]).SetBulletToMax();
+	    GunBase gun = ((GunBase)Weapons[CurrentWeaponIndex]);
+        gun.ReloadBullet();
 		PlayerEvent.OnReload?.Invoke();
 		Animator.SetBool(ReloadGun, false);
         AfterSwitching();
@@ -266,8 +270,10 @@ public class PlayerController : BasicController
         if(CurrentWeapon.WeaponData.WeaponType == WeaponType.Knife) return;
         GunBase gun = (GunBase)CurrentWeapon;
         float accuracy = gun.GunAccuracy;
-		LineRendererL.SetLineRenderer(gun.ShootPoint, gun.GunData.Aim, Quaternion.Euler(0, Mathf.Clamp(-accuracy, -GameValues.RecoilMaxValue,0), 0) * transform.forward);
-		LineRendererR.SetLineRenderer(gun.ShootPoint, gun.GunData.Aim, Quaternion.Euler(0, Mathf.Clamp(accuracy, 0, GameValues.RecoilMaxValue), 0) * transform.forward);
+		LineRendererL.SetLineRenderer(gun.ShootPoint, gun.GunData.Aim, Quaternion.Euler(
+			0, Mathf.Clamp(-accuracy, -GameValues.RecoilMaxValue,0), 0) * transform.forward);
+		LineRendererR.SetLineRenderer(gun.ShootPoint, gun.GunData.Aim, Quaternion.Euler(
+			0, Mathf.Clamp(accuracy, 0, GameValues.RecoilMaxValue), 0) * transform.forward);
 		
         if(Physics.Raycast(gun.ShootPoint.position,transform.forward, out RaycastHit hit, gun.GunData.Aim) &&
            accuracy <= 1f)
@@ -384,6 +390,6 @@ public class PlayerController : BasicController
     public void AddCash(int amount)
     {
 	    DamagePopUpGenerator.Instance.CreateCashPopUp(transform.position, $"+{amount} $");
-	    Cash += amount;
+	    Resin += amount;
     }
 }

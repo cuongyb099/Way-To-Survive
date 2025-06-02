@@ -23,6 +23,7 @@ public class AnimationEvents : MonoBehaviour
 	//Gun
 	public void AfterReload()
 	{
+		
 		PlayerController.Animator.SetBool("ReloadGun", false);
 		PlayerController.AfterReload();
 	}

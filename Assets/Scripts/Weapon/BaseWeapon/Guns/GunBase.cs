@@ -104,14 +104,15 @@ public class GunBase : WeaponBase
 		temp.Kill();
 		Stats.GetAttribute(AttributeType.Bullets).Value--;
 		PlayerEvent.OnAttack?.Invoke();
-		DOVirtual.DelayedCall(GunData.ShootingSpeed/playerController.Stats.GetStat(StatType.ATKSpeed).Value, () => { repeatAble = true; ResetRecoil(); });
+		DOVirtual.DelayedCall(GunData.ShootingSpeed/playerController.Stats.GetStat(StatType.ATKSpeed).Value, 
+			() => { repeatAble = true; ResetRecoil(); });
 		GunSoundPlay();
 		BulletInstantiate();
 		GunRecoilUpdate();
 	}
 	public void ReloadGun()
 	{
-		if (!gunReloadable || IsFullCap) return;
+		if (!gunReloadable || IsFullCap || playerController.Stats.GetAttribute(AttributeType.HoldingBullets).Value == 0) return;
 		playerController.DisableLineRenderer();
 		ShootAble = false;
 		playerController.Animator.SetBool("ReloadGun", true);
@@ -150,6 +151,23 @@ public class GunBase : WeaponBase
 		Stats.GetStat(StatType.MaxBulletCap).BaseValue = (int)(GunData.MaxCapacity * mul);
 	}
 
+	private Attribute bulletSource,att;
+	public void ReloadBullet()
+	{
+		bulletSource = playerController.Stats.GetAttribute(AttributeType.HoldingBullets);
+		att = Stats.GetAttribute(AttributeType.Bullets);
+		
+		if (bulletSource.Value >= att.MaxValue- att.Value)
+		{
+			bulletSource.Value -= (att.MaxValue- att.Value);
+			att.SetValueToMax();
+		}
+		else
+		{
+			att.Value += bulletSource.Value;
+			bulletSource.Value = 0;
+		}
+	}
 	public void SetBulletToMax()
 	{
 		Stats.GetAttribute(AttributeType.Bullets).SetValueToMax();

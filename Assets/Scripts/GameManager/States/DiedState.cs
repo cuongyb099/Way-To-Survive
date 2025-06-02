@@ -10,26 +10,26 @@ public class DiedState : BaseState<EGameState>
 
     public override void Enter()
     {
-        throw new System.NotImplementedException();
+        
     }
 
     public override void Exit()
     {
-        throw new System.NotImplementedException();
+        
     }
 
     public override EGameState GetNextState()
     {
-        throw new System.NotImplementedException();
+        return Key;
     }
 
     public override void Update()
     {
-        throw new System.NotImplementedException();
+        
     }
 
     public override void FixedUpdate()
     {
-        throw new System.NotImplementedException();
+        
     }
 }

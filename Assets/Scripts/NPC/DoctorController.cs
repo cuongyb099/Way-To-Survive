@@ -8,14 +8,12 @@ public class DoctorController : InteractableController
     
     public override void Interact(PlayerController source)
     {
-        if (source.Cash < buyPrice)
+        if (source.Resin < buyPrice)
         {
             DamagePopUpGenerator.Instance.CreateDamagePopUp(source.transform.position, $"Không đủ tiền!!!");
             return;
         }
-        
-        
-        source.Cash -= buyPrice;
+        source.Resin -= buyPrice;
         
         UIManager.Instance.HidePanel(UIConstant.MainGameplayPanel);
         UIManager.Instance.ShowPanel(UIConstant.BuffPanel);

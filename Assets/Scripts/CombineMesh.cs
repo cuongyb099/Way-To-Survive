@@ -1,6 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
+#if UNITY_EDITOR
 [RequireComponent(typeof(MeshRenderer))]
 public class CombineMesh : MonoBehaviour
 {
@@ -26,3 +27,4 @@ public class CombineMesh : MonoBehaviour
         AssetDatabase.CreateAsset(mesh, "Assets/MapBound.mesh");
     }
 }
+#endif

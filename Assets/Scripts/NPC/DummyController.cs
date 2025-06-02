@@ -11,7 +11,7 @@ public class DummyController : BasicController
         base.Death(dealer);
         if (dealer.TryGetComponent(out PlayerController player))
         {
-            player.Cash += CashDrop;
+            player.Resin += CashDrop;
         }
         Destroy(gameObject);
     }

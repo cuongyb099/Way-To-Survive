@@ -4,5 +4,6 @@
 	Mana,
 	Stamina,
 	Bullets,
+	HoldingBullets,
 }
 

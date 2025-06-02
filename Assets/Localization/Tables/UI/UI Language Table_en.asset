@@ -94,6 +94,10 @@ MonoBehaviour:
     m_Localized: Special Event
     m_Metadata:
       m_Items: []
+  - m_Id: 35632660900261888
+    m_Localized: Tap To Start
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

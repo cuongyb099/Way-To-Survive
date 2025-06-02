@@ -1,5 +1,6 @@
 
 using System.Collections.Generic;
+using System.Linq;
 using KatInventory;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -25,6 +26,7 @@ public class StartingSetupPanel : FadeBlurPanel
     public override void Show()
     {
         base.Show();
+        
         LoadWeaponItems(Inventory.Instance.GetItems(ItemType.Weapon));
     }
 
@@ -42,11 +44,11 @@ public class StartingSetupPanel : FadeBlurPanel
         BackButton.onClick.AddListener(() =>
         {
             Hide();
-            UIManager.Instance.ShowPanel(UIConstant.MainMenuPanel);
+            UIManager.Instance.ShowPanel(UIConstant.StartMenuPanel);
         });
     }
     
-    private void LoadWeaponItems(List<ItemData> items)
+    private void LoadWeaponItems(IEnumerable<ItemData> items)
     {
         for (int i = itemsUI.Count-1; i >= 0; i--)
         {
@@ -59,6 +61,7 @@ public class StartingSetupPanel : FadeBlurPanel
         {
             temp = Instantiate(ItemPrefab, ListContent.transform);
             temp.Initialize((WeaponBaseSO)item.StaticData);
+            itemsUI.Add(temp);
         }
     }
 

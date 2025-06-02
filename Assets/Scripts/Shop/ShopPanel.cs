@@ -18,7 +18,7 @@ public class ShopPanel : FadeBlurPanel
     {
         base.Show();
         PlayerEvent.OnCashChange += UpdateCashText;
-        UpdateCashText(player.Cash);
+        UpdateCashText(player.Resin);
     }
 
     public override void Hide()
@@ -34,12 +34,12 @@ public class ShopPanel : FadeBlurPanel
 
     public void OnBuyBuff()
     {
-        if (player.Cash < BuffPrice)
+        if (player.Resin < BuffPrice)
         {
             Debug.Log("Not enough cash");
             return;
         }
-        player.Cash -= BuffPrice;
+        player.Resin -= BuffPrice;
         BuffPanel.SetActive(true);
     }
 }

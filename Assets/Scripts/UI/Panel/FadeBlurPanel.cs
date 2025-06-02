@@ -37,4 +37,10 @@ public class FadeBlurPanel : PanelBase
         if(BlurBackground)
             GameBlurUI.Instance.UnBlur(TransitionDuration);
     }
+    private void OnDestroy()
+    {
+        Time.timeScale = 1f;
+        tween.SetUpdate(false);
+        tween.Kill();
+    }
 }

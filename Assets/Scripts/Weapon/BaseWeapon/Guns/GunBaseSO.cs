@@ -16,6 +16,7 @@ public class GunBaseSO : WeaponBaseSO
 	[field: SerializeField] public float Recoil{ get; private set; }
     [field: SerializeField] public float RecoilResetTime{ get; private set; }
 	[field: SerializeField] public float MaxCapacity{ get; private set; }
+	[field: SerializeField] public WeaponType GunReloadType{ get; private set; }
 	
     [field:Header("Gun Sounds")]
     [field: SerializeField] public AudioClip TailSound{ get; private set; }

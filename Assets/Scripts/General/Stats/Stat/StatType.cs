@@ -9,8 +9,11 @@ public enum StatType
 	CritDamage,
 	BonusDMG,
 	ATKSpeed,
+	//Multiplier for maxBulletCap
 	MagCapacity,
-	//Guns
+	//Max bullet player can carry
+	MaxBulletsCarry,
+	//Left bullets
 	MaxBulletCap,
 	RecoilReduce,
 	MaxSpreadReduce,

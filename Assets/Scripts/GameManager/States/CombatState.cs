@@ -16,7 +16,6 @@ public class CombatState : BaseState<EGameState>
     {
         GameEvent.OnStartCombatState?.Invoke();
         exitState = false;
-        gameManager.WaveManager.NextWave();
     }
 
     public override void Exit()
@@ -26,6 +25,11 @@ public class CombatState : BaseState<EGameState>
 
     public override EGameState GetNextState()
     {
+
+        if (gameManager.Player.IsDead)
+        {
+            return EGameState.Died;
+        }
         if (exitState)
         {
             return EGameState.WaveWon;

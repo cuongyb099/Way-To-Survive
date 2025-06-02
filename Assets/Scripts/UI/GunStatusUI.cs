@@ -12,6 +12,7 @@ using UnityEngine.UI;
 public class GunStatusUI : MonoBehaviour
 {
     private Attribute gunAmmo;
+    private Attribute holdingAmmo;
     public Image GunIcon;
 	public TextMeshProUGUI TextAmmo;
 	public TextMeshProUGUI TextGunName;
@@ -43,7 +44,7 @@ public class GunStatusUI : MonoBehaviour
 	    if (gunAmmo == null)
 		    TextAmmo.text = string.Empty;
         else 
-		    TextAmmo.text = $"{gunAmmo.Value} <size=70%><voffset=4.86135><color=#FFFFFF4C>/{gunAmmo.MaxValue}</color></voffset></size>";
+		    TextAmmo.text = $"{gunAmmo.Value} <size=70%><voffset=4.86135><color=#FFFFFF8C>/{holdingAmmo.Value}</color></voffset></size>";
     }
 	public void ChangeGun(WeaponBase weapon)
 	{
@@ -51,6 +52,7 @@ public class GunStatusUI : MonoBehaviour
 		{
 			GunBase gun = (GunBase)weapon;
 			gunAmmo = gun.Stats.GetAttribute(AttributeType.Bullets);
+			holdingAmmo = GameManager.Instance.Player.Stats.GetAttribute(AttributeType.HoldingBullets);
 		}
 		else
 			gunAmmo = null;

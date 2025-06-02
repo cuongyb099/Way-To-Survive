@@ -34,13 +34,13 @@ public class TestInventory : MonoBehaviour
     [ContextMenu("Test Save")]
     public void Save()
     {
-        Inventory.Instance.Save();
+        PlayerDataPersistent.Instance.Save();
     }
 
     [ContextMenu("Load")]
     public void Load()
     {
-        Inventory.Instance.Load();
+        PlayerDataPersistent.Instance.Load();
     }
 
     [ContextMenu("Encrypt")]

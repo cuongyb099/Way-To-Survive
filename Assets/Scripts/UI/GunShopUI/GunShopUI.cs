@@ -35,7 +35,7 @@ public class GunShopUI : FadeBlurPanel
         base.OnAwake();
         Initialize();
         PlayerEvent.OnCashChange += ChangeCashText;
-        ChangeCashText(GameManager.Instance.Player.Cash);
+        ChangeCashText(GameManager.Instance.Player.Resin);
     }
 
     private void OnDestroy()
