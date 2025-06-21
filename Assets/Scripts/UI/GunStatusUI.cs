@@ -11,6 +11,7 @@ using UnityEngine.UI;
 
 public class GunStatusUI : MonoBehaviour
 {
+	private GunBase gun;
     private Attribute gunAmmo;
     private Attribute holdingAmmo;
     public Image GunIcon;
@@ -42,22 +43,28 @@ public class GunStatusUI : MonoBehaviour
 	public void UpdateGunAmmo()
     {
 	    if (gunAmmo == null)
-		    TextAmmo.text = string.Empty;
-        else 
-		    TextAmmo.text = $"{gunAmmo.Value} <size=70%><voffset=4.86135><color=#FFFFFF8C>/{holdingAmmo.Value}</color></voffset></size>";
+		    TextAmmo.text = "∞";
+	    else
+	    {
+		    string txt = (gun.GunData.GunSO.WeaponType is WeaponType.Pistol)? "∞": holdingAmmo.Value.ToString();
+		    TextAmmo.text = $"{gunAmmo.Value} <size=70%><voffset=4.86135><color=#FFFFFF8C>/{txt}</color></voffset></size>";
+	    }
     }
 	public void ChangeGun(WeaponBase weapon)
 	{
-		if (weapon.WeaponData.WeaponType != WeaponType.Knife)
+		if (weapon.WeaponData.WeaponSO.WeaponType != WeaponType.Knife)
 		{
-			GunBase gun = (GunBase)weapon;
+			gun = (GunBase)weapon;
 			gunAmmo = gun.Stats.GetAttribute(AttributeType.Bullets);
 			holdingAmmo = GameManager.Instance.Player.Stats.GetAttribute(AttributeType.HoldingBullets);
 		}
 		else
+		{
+			gun = null;
 			gunAmmo = null;
-        GunIcon.sprite = weapon.WeaponData.Icon;
-        CurrentGunName = weapon.WeaponData.Name;
+		}
+        GunIcon.sprite = weapon.WeaponData.WeaponSO.Icon;
+        CurrentGunName = weapon.WeaponData.WeaponSO.Name;
 		TextGunName.text = CurrentGunName.GetLocalizedString();
         UpdateGunAmmo();
     }

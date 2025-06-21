@@ -65,16 +65,16 @@ public class AnimationEvents : MonoBehaviour
 	public void CockingSound()
 	{
 		GunBase gun = (GunBase)PlayerController.CurrentWeapon;
-		AudioManager.Instance.PlaySound(gun?.GunData.CockingSound,volumeType: SoundVolumeType.SOUNDFX_VOLUME);
+		AudioManager.Instance.PlaySound(gun?.GunData.GunSO.CockingSound,volumeType: SoundVolumeType.SOUNDFX_VOLUME);
 	}
 	public void MagSoundIn()
 	{
 		GunBase gun = (GunBase)PlayerController.CurrentWeapon;
-		AudioManager.Instance.PlaySound(gun.GunData.MagSoundIn,volumeType: SoundVolumeType.SOUNDFX_VOLUME);
+		AudioManager.Instance.PlaySound(gun.GunData.GunSO.MagSoundIn,volumeType: SoundVolumeType.SOUNDFX_VOLUME);
 	}
 	public void MagSoundOut()
 	{
 		GunBase gun = (GunBase)PlayerController.CurrentWeapon;
-		AudioManager.Instance.PlaySound(gun.GunData.MagSoundOut,volumeType: SoundVolumeType.SOUNDFX_VOLUME);
+		AudioManager.Instance.PlaySound(gun.GunData.GunSO.MagSoundOut,volumeType: SoundVolumeType.SOUNDFX_VOLUME);
 	}
 }

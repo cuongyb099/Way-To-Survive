@@ -21,7 +21,7 @@ MonoBehaviour:
       startIndex: 
       variableStartIndex: 
       JSONSerialization: '{"EntryTask":{"Type":"BehaviorDesigner.Runtime.Tasks.EntryTask","NodeData":{"Offset":"(-1325.74109,-863.5)"},"ID":0,"Name":"Entry","Instant":true},"RootTask":{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(5.25529861,135.652374)"},"ID":1,"Name":"Sequence","Instant":true,"AbortTypeabortType":"None","Children":[{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(-276.1539,193.0769)"},"ID":2,"Name":"Sequence","Instant":true,"AbortTypeabortType":"None","Children":[{"Type":"SetActiveAgent","NodeData":{"Offset":"(-341.0337,149.790085)"},"ID":3,"Name":"Set
-        Active Agent","Instant":true,"SharedBoolActive":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":true}},{"Type":"ReinitStats","NodeData":{"Offset":"(-228.810547,154.561264)"},"ID":4,"Name":"Reinit
+        Active Agent","Instant":true,"SharedBoolActive":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":true}},{"Type":"ReinitStats","NodeData":{"Offset":"(-217.940979,154.561264)"},"ID":4,"Name":"Reinit
         Stats","Instant":true},{"Type":"SetActiveCollider","NodeData":{"Offset":"(-90.66125,149.790085)"},"ID":5,"Name":"Set
         Active Collider","Instant":true,"SharedTransformTargetObject":{"Type":"BehaviorDesigner.Runtime.SharedTransform","Name":null},"SharedBoolActive":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":true}},{"Type":"RandomSkinSelector","NodeData":{"Offset":"(59.96485,149.790085)"},"ID":6,"Name":"Random
         Skin Selector","Instant":true,"SharedBoolRandomAllBodyPart":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":"Random

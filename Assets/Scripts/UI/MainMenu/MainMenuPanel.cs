@@ -28,7 +28,7 @@ public class MainMenuPanel : FadeBlurPanel
         });
         _tutorialBtn.onClick.AddListener(() =>
         {
-            Hide();
+            //Hide();
         });
         _settingsBtn.onClick.AddListener(() =>
         {
@@ -37,7 +37,8 @@ public class MainMenuPanel : FadeBlurPanel
         });
         _inventoryBtn.onClick.AddListener(() =>
         {
-            Application.Quit();
+            Hide();
+            UIManager.Instance.ShowPanel(UIConstant.WeaponUpgradePanel);
         });
         _shopBtn.onClick.AddListener(() =>
         {

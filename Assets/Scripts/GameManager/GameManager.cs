@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using FidelityFX;
 using UnityEngine;
 
 public enum EGameState
@@ -15,10 +16,12 @@ public class GameManager : StateMachine<EGameState>
     public PlayerController Player { get; private set; }
     public WaveManager WaveManager { get; private set; }
     public EnemyManager EnemyManager { get; private set; }
+    [field:SerializeField] public AudioClip heliSound{ get; private set; }
     [field: Header("Game Variables")]
     [field:SerializeField] public int WaveWonTime{ get; private set; } = 30;
     [field:SerializeField] public float ShoppingTime{ get; private set; } = 30f;
-
+    [field: Header("Game Settings Variables")]
+    [field:SerializeField] public Fsr3UpscalerImageEffect Fsr{ get; private set; }
     public bool SkipShopping { get; set; } = false;
     //Singleton
     public static GameManager Instance { get; private set; } = null;
@@ -39,6 +42,8 @@ public class GameManager : StateMachine<EGameState>
         States.Add(EGameState.Combat, new CombatState(this));
         States.Add(EGameState.WaveWon, new WaveWonState(this));
         States.Add(EGameState.Died, new DiedState(this));
+        
+        
     }
 
     private async void InitializeUIAsync()
@@ -69,6 +74,7 @@ public class GameManager : StateMachine<EGameState>
     {
         CurrentState = States[EGameState.Shopping];
         TransitionToState(EGameState.Shopping);
+        AudioManager.Instance.PlaySound(heliSound);
     }
 
 

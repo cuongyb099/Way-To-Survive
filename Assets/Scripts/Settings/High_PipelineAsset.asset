@@ -26,8 +26,8 @@ MonoBehaviour:
   m_SupportsHDR: 0
   m_HDRColorBufferPrecision: 0
   m_MSAA: 2
-  m_RenderScale: 1
-  m_UpscalingFilter: 1
+  m_RenderScale: 0.4438477
+  m_UpscalingFilter: 3
   m_FsrOverrideSharpness: 0
   m_FsrSharpness: 0.892
   m_EnableLODCrossFade: 1

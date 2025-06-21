@@ -31,7 +31,7 @@ MonoBehaviour:
     m_WaitForCompletion: 0
     m_LocalVariables: []
   <Icon>k__BackingField: {fileID: -602701893, guid: 7d14fe165a6225e499757a3668bbe881, type: 3}
-  <Unique>k__BackingField: 0
+  <Unique>k__BackingField: 1
   <BuyPrice>k__BackingField: 500
   <SellPrice>k__BackingField: 0
   <MaxStack>k__BackingField: 1
@@ -57,6 +57,7 @@ MonoBehaviour:
   <Recoil>k__BackingField: 0.5
   <RecoilResetTime>k__BackingField: 2
   <MaxCapacity>k__BackingField: 6
+  <GunReloadType>k__BackingField: 0
   <TailSound>k__BackingField: {fileID: 0}
   <CockingSound>k__BackingField: {fileID: 8300000, guid: 044f55af4e5f8f64ea083730bdf998dc, type: 3}
   <MagSoundIn>k__BackingField: {fileID: 8300000, guid: d41d7e018a85ded4ba3359b55ef2ecd7, type: 3}

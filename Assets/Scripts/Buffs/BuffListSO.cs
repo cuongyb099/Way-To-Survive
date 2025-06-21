@@ -47,7 +47,7 @@ public class BuffListSO : ScriptableObject
             BaseBuffSO t = ChoseRandomRarityBuff();
             if (!l.Contains(t))
             {
-                if (!t.Stackable && GameManager.Instance.Player.BuffList.Contains(t.ID)) continue;
+                if (!t.Stackable && GameManager.Instance.Player.Stats.HasEffect(t)) continue;
                 l.Add(t);
             }
         }

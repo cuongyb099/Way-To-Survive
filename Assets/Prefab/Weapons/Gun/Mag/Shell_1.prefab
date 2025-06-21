@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5092068988838084577}
   - component: {fileID: 5092068988835184577}
   - component: {fileID: 5092068988836183297}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: shell_rifle
   m_TagString: Untagged
   m_Icon: {fileID: 0}

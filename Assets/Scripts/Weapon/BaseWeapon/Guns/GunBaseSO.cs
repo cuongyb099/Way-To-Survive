@@ -23,4 +23,8 @@ public class GunBaseSO : WeaponBaseSO
     [field: SerializeField] public AudioClip CockingSound{ get; private set; }
     [field: SerializeField] public AudioClip MagSoundIn{ get; private set; }
     [field: SerializeField] public AudioClip MagSoundOut{ get; private set; }
+    public override ItemData CreateItemData(int quantity, GameObject prefab)
+    {
+	    return new GunData(this, quantity, prefab);
+    }
 }

@@ -76,7 +76,7 @@ namespace KatInventory
         }
         private ItemData AddNewItem(ItemBaseSO itemBase, int quantity = 1)
         {
-            var newItemData = itemBase.CreateItem(quantity);
+            var newItemData = itemBase.CreateItemData(quantity);
             _inventory.Add(newItemData);
             OnInventoryChange?.Invoke();
             return newItemData;

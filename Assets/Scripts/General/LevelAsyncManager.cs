@@ -52,7 +52,7 @@ public class LevelAsyncManager : SingletonPersistent<LevelAsyncManager>
 
     public void SwitchToMap1()
     {
-        LoadScene("Map22");
+        LoadScene("Map1");
     }
     public void SwitchToMainMenu()
     {

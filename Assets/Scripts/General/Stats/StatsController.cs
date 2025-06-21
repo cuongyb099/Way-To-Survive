@@ -11,6 +11,8 @@ public class StatsController : MonoBehaviour
 	[SerializeField] private StatsHolderSO _statsHolder;
 	protected Dictionary<StatType, Stat> _stats;
 	protected Dictionary<AttributeType, Attribute> _attributes;
+
+	public List<BaseStatusEffect> StatusEffectsList => _statusEffects;
 	protected List<BaseStatusEffect> _statusEffects = new List<BaseStatusEffect>();
 
 	public Dictionary<StatType, Stat> Stats
@@ -250,8 +252,12 @@ public class StatsController : MonoBehaviour
 		UpdateStatusEffect();
 	}
 
-	public bool HasEffect(BaseStatusEffect effect){
-		return _statusEffects.Contains(effect);
+	public bool HasEffect(BaseBuffSO target){
+		foreach (var effect in _statusEffects)
+		{
+			if (effect.Data.ID == target.ID) return true;
+		}
+		return false;
 	}
 }
 

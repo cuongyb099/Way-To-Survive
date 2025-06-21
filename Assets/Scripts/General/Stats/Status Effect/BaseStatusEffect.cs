@@ -124,7 +124,6 @@ public abstract class BaseStatusEffect :IEquatable<BaseStatusEffect>
     {
         return (Data.ID == other.Data.ID) && timer.Equals(other.timer);
     }
-
 	public virtual void ChangeTarget(StatsController target)
 	{
 		stats = target;

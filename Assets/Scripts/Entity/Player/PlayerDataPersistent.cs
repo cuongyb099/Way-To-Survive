@@ -10,22 +10,23 @@ using UnityEngine.Networking;
 public class PlayerDataPersistent : SingletonPersistent<PlayerDataPersistent>,ISaveable
 {
     public static readonly string DefaultPath = System.IO.Path.Combine(Application.streamingAssetsPath, "SaveFile/BaseData.json");
-    public static readonly string SavePath = "Assets/Save/PData.json";
+    public static readonly string SavePath = "Assets/Save/PlayerData.json";
     public PlayerSaveData PlayerData
     {
         get => _playerData;
         set => _playerData = value;
     }
     [SerializeField]private PlayerSaveData _playerData = new PlayerSaveData();
+    [SerializeField] private InventorySO _beginningInventory;
     [field:SerializeField] public int StartingResin { get;private set; }
     //
-    [field:SerializeField] public WeaponBaseSO[] StartingWeapons { get;private set; }
+    [field:SerializeField] public WeaponData[] StartingWeapons { get;private set; }
     [field:SerializeField] public BaseBuffSO[] StartingBuffs{ get;private set; }
     public Action OnSavePlayerData,OnLoadPlayerData;
     protected override void Awake()
     {
         base.Awake();
-        StartingWeapons = new WeaponBaseSO[3];
+        StartingWeapons = new WeaponData[3];
         StartingBuffs = new BaseBuffSO[4];
         ItemDataBase.OnLoadDone += Load;
     }
@@ -40,32 +41,19 @@ public class PlayerDataPersistent : SingletonPersistent<PlayerDataPersistent>,IS
     [ContextMenu("Load")]
     public void Load()
     {
-        //AndroidRequest();
-        //Json.LoadJson(Path.Combine(Application.streamingAssetsPath, "SaveFile/BaseData.json"), out _playerData);
-        //Inventory.Instance.Load(_playerData);
+        if (!File.Exists(SavePath))
+            _playerData = new PlayerSaveData("0","defaultUser",0f,_beginningInventory.ItemDataList);
+        else
+            Json.LoadJson(SavePath, out _playerData);
+        Inventory.Instance.Load(_playerData);
         OnLoadPlayerData?.Invoke();
     }
-
-    private void AndroidRequest()
+    
+    public void ChangeStartingWeapons(WeaponData[] weaponDatas)
     {
-        var loadingRequest = UnityWebRequest.Get(Path.Combine(Application.streamingAssetsPath, "SaveFile/BaseData.json"));
-        loadingRequest.SendWebRequest();
-        while (!loadingRequest.isDone) {
-            if (loadingRequest.isNetworkError || loadingRequest.isHttpError) {
-                break;
-            }
-        }
-        if (loadingRequest.isNetworkError || loadingRequest.isHttpError) {
-
-        } else {
-            File.WriteAllBytes(Path.Combine(Application.streamingAssetsPath, "SaveFile/BaseData.json"), loadingRequest.downloadHandler.data);
-        }
+        StartingWeapons = weaponDatas;
     }
-    public void ChangeStartingWeapons(WeaponBaseSO[] weaponBaseSo)
-    {
-        StartingWeapons = weaponBaseSo;
-    }
-    public void ChangeStartingWeapons(WeaponBaseSO weapon1,WeaponBaseSO weapon2,WeaponBaseSO weapon3)
+    public void ChangeStartingWeapons(WeaponData weapon1,WeaponData weapon2,WeaponData weapon3)
     {
         StartingWeapons[0] = weapon1;
         StartingWeapons[1] = weapon2;
@@ -88,7 +76,7 @@ public class PlayerDataPersistent : SingletonPersistent<PlayerDataPersistent>,IS
         for (i = 0; i < StartingBuffs.Length; i++)
         {
             if (StartingBuffs[i] != null)
-                playerController.AddBuffToPlayer(StartingBuffs[i]);
+                StartingBuffs[i].AddStatusEffect(playerController.Stats);
         }
 
         playerController.Resin = StartingResin;

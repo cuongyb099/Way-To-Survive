@@ -1082,7 +1082,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsTakingDamage: 0
-  cashGiveAmount: 40
+  cashGiveAmount: 10
+  bulletGiveAmount: 5
   <MaxMoveAnimationSpeed>k__BackingField: 2.5
 --- !u!114 &2466908742509665384
 MonoBehaviour:

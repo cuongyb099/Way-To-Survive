@@ -38,8 +38,8 @@ public class WeaponWheelPanel : FadeBlurPanel
         //0->2 is for guns
         for (int i = 0; i < 3; i++)
         {
-            Items[i].Initialize(i, guns[i] != null ? guns[i].WeaponData.Name.GetLocalizedString() : null,
-                guns[i] != null ? guns[i].WeaponData.Icon : null);
+            Items[i].Initialize(i, guns[i] != null ? guns[i].WeaponData.WeaponSO.Name.GetLocalizedString() : null,
+                guns[i] != null ? guns[i].WeaponData.WeaponSO.Icon : null);
         }
         
     }

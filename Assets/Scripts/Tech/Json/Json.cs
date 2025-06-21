@@ -12,13 +12,14 @@ namespace Tech.Json
     {
         private static readonly string _key = "gCjK+DZ/GCYbKIGiAt1qCA==";
         private static readonly string _iv = "47l5QsSe1POo31adQ/u7nQ==";
+        private static readonly JsonSerializerSettings settings = new() { TypeNameHandling = TypeNameHandling.All };
         
         //Kat Note : If You Want To See Raw File Just Command = new AES(_key, _iv)
         private static IEncryption _encryption /* = new AES(_key, _iv);*/;
 
         public static void SaveJson<T>(this T data, string path)
         {
-            string json = JsonConvert.SerializeObject(data, Formatting.Indented);
+            string json = JsonConvert.SerializeObject(data, Formatting.Indented, settings);
             WriteAllText(path, json);
 #if UNITY_EDITOR
             AssetDatabase.Refresh();
@@ -29,7 +30,7 @@ namespace Tech.Json
         {
             await Task.Run(() =>
             {
-                string json = JsonConvert.SerializeObject(data, Formatting.Indented);
+                string json = JsonConvert.SerializeObject(data, Formatting.Indented,settings);
                 WriteAllText(path, _encryption.Encrypt(json));
             });
 
@@ -44,7 +45,7 @@ namespace Tech.Json
             if (File.Exists(path))
             {
                 string json = ReadAllText(path);
-                T data = JsonConvert.DeserializeObject<T>(json);
+                T data = JsonConvert.DeserializeObject<T>(json, settings);
                 value = data;
                 return;
             }

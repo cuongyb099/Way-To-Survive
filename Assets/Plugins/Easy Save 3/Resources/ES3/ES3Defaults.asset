@@ -34,6 +34,7 @@ MonoBehaviour:
     - Assembly-CSharp-firstpass
     - AYellowpaper.SerializedCollections
     - Cinemachine
+    - FidelityFX.FSR
     - IngameDebugConsole.Runtime
     - ProjectDawn.LocalAvoidance
     - ProjectDawn.Navigation

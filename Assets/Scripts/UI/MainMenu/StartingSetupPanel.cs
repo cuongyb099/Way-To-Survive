@@ -30,6 +30,16 @@ public class StartingSetupPanel : FadeBlurPanel
         LoadWeaponItems(Inventory.Instance.GetItems(ItemType.Weapon));
     }
 
+    public override void Hide()
+    {
+        base.Hide();
+
+        foreach (var weapon in WeaponSlots)
+        {
+            weapon.ResetWeapon();
+        }
+    }
+
     private void LoadButton()
     {
         StartGameButton.onClick.AddListener(() =>
@@ -44,7 +54,7 @@ public class StartingSetupPanel : FadeBlurPanel
         BackButton.onClick.AddListener(() =>
         {
             Hide();
-            UIManager.Instance.ShowPanel(UIConstant.StartMenuPanel);
+            UIManager.Instance.ShowPanel(UIConstant.MainMenuPanel);
         });
     }
     
@@ -60,7 +70,7 @@ public class StartingSetupPanel : FadeBlurPanel
         foreach (var item in items)
         {
             temp = Instantiate(ItemPrefab, ListContent.transform);
-            temp.Initialize((WeaponBaseSO)item.StaticData);
+            temp.Initialize((WeaponData)item);
             itemsUI.Add(temp);
         }
     }

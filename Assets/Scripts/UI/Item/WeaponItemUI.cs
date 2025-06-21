@@ -8,11 +8,11 @@ public class WeaponItemUI : MonoBehaviour
 {
     [SerializeField] private Image ItemImage;
     [SerializeField] private Image BackgroundImage;
-    public WeaponBaseSO ItemBaseSoHolder { get; private set; }
+    public WeaponData ItemBaseSoHolder { get; private set; }
     
-    public void Initialize(WeaponBaseSO itemBaseSo)
+    public void Initialize(WeaponData weaponData)
     {
-        if (!itemBaseSo)
+        if (weaponData == null)
         {
             ItemBaseSoHolder = null;
             ItemImage.sprite = null;
@@ -20,9 +20,9 @@ public class WeaponItemUI : MonoBehaviour
             BackgroundImage.sprite = GameDataManager.Instance.ItemRarityBackground[Rarity.Common];
             return;
         }
-        ItemBaseSoHolder = itemBaseSo;
-        ItemImage.sprite = itemBaseSo.Icon;
+        ItemBaseSoHolder = weaponData;
+        ItemImage.sprite = weaponData.WeaponSO.Icon;
         ItemImage.color = new Color(1, 1, 1, 1);
-        BackgroundImage.sprite = GameDataManager.Instance.ItemRarityBackground[itemBaseSo.Rarity];
+        BackgroundImage.sprite = GameDataManager.Instance.ItemRarityBackground[weaponData.WeaponSO.Rarity];
     }
 }

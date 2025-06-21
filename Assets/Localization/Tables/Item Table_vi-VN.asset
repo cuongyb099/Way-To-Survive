@@ -30,6 +30,10 @@ MonoBehaviour:
     m_Localized: 
     m_Metadata:
       m_Items: []
+  - m_Id: 58675206979104768
+    m_Localized: Hop Cuu Thuong
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

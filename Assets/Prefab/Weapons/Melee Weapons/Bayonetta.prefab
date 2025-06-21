@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 9212072447739369604}
   - component: {fileID: 5957378339055339132}
   - component: {fileID: 2890150364593079106}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Bayonetta
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -83,7 +83,7 @@ GameObject:
   - component: {fileID: 8906946015039108571}
   - component: {fileID: 8906946015035717115}
   - component: {fileID: 8906946015036815163}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: w_knife
   m_TagString: Untagged
   m_Icon: {fileID: 0}

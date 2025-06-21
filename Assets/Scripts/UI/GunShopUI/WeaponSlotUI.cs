@@ -14,7 +14,7 @@ public class WeaponSlotUI : MonoBehaviour
     [SerializeField] private Image ItemImage;
     [SerializeField] private Image BackgroundImage;
     [field: SerializeField]public Button ItemButton { get; private set; }
-    public WeaponBaseSO ItemBaseSoHolder { get; private set; }
+    public WeaponData ItemBaseSoHolder { get; private set; }
     private ItemSlot slot;
     private void Awake()
     {
@@ -36,9 +36,9 @@ public class WeaponSlotUI : MonoBehaviour
         };
     }
 
-    public void Initialize(WeaponBaseSO itemBaseSo)
+    public void Initialize(WeaponData weaponData)
     {
-        if (!itemBaseSo)
+        if (weaponData == null)
         {
             ItemBaseSoHolder = null;
             ItemName.text = "Empty";
@@ -47,21 +47,20 @@ public class WeaponSlotUI : MonoBehaviour
             BackgroundImage.sprite = GameDataManager.Instance.ItemRarityBackground[Rarity.Common];
             return;
         }
-        ItemBaseSoHolder = itemBaseSo;
+        ItemBaseSoHolder = weaponData;
         if(ItemName)
-            ItemName.text = itemBaseSo.Name.GetLocalizedString();
-        ItemImage.sprite = itemBaseSo.Icon;
+            ItemName.text = weaponData.WeaponSO.Name.GetLocalizedString();
+        ItemImage.sprite = weaponData.WeaponSO.Icon;
         ItemImage.color = new Color(1, 1, 1, 1);
-        BackgroundImage.sprite = GameDataManager.Instance.ItemRarityBackground[itemBaseSo.Rarity];
+        BackgroundImage.sprite = GameDataManager.Instance.ItemRarityBackground[weaponData.WeaponSO.Rarity];
     }
 
     public void ResetWeapon()
     {
-        if(!slot) return;
+        if(!slot || ItemBaseSoHolder == null) return;
         slot.DropedItem.gameObject.SetActive(true);
         slot.DropedItem.ResetPosition();
         slot.DropedItem = null;
-        ItemBaseSoHolder = null;
         Initialize(null);
     }
 }

@@ -17,6 +17,7 @@ public class EnemyCtrl : BasicController
     [HideInInspector] public bool IsTakingDamage;
     //Money drop test
     [SerializeField] private int cashGiveAmount;
+    [SerializeField] private int bulletGiveAmount;
 
     [field: Range(0f, 100f), SerializeField]
     public float MaxMoveAnimationSpeed { get; private set; } = 1f;
@@ -46,7 +47,8 @@ public class EnemyCtrl : BasicController
 
         if (dealer.CompareTag("Player"))
         {
-            PlayerEvent.RecieveCash.Invoke(cashGiveAmount);
+            PlayerEvent.OnRecieveCash.Invoke(cashGiveAmount);
+            PlayerEvent.OnRecieveGunAmmo.Invoke(bulletGiveAmount);
         }
 
         TriggerRagdoll(dealer);

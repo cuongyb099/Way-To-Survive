@@ -67,15 +67,14 @@ public class PlayerController : BasicController
         Animator = GetComponentInChildren<Animator>();
         PlayerInteractor = GetComponentInChildren<PlayerInteractor>();
         mainCamera = Camera.main;
-        
-        BuffList = new List<int>();
 
         Weapons = new WeaponBase[3];
-		InstantiateWeapon(StartingWeapon,0);
-        PlayerDataPersistent.Instance.ApplyToPlayer(this);
+		//InstantiateWeapon((WeaponData)StartingWeapon.CreateItemData(1,null),0);
+		PlayerDataPersistent.Instance.ApplyToPlayer(this);
 		
 		PlayerEvent.OnAttack += SetShootAnim;
-		PlayerEvent.RecieveCash += AddCash;
+		PlayerEvent.OnRecieveCash += AddCash;
+		PlayerEvent.OnRecieveGunAmmo += AddGunAmmo;
         Stats.GetStat(StatType.MagCapacity).OnValueChange += CalculateMaxCap;
 		Stats.GetStat(StatType.ATKSpeed).OnValueChange += SetShootingSpeedAnim;
 		Stats.GetStat(StatType.Speed).OnValueChange += SetMovementSpeedAnim;
@@ -90,9 +89,10 @@ public class PlayerController : BasicController
     {
         hp.OnValueChange -= HandleHealthChange;
         maxHp.OnValueChange -= HandleMaxHpChange;
-
+		
 		PlayerEvent.OnAttack -= SetShootAnim;
-		PlayerEvent.RecieveCash -= AddCash;
+		PlayerEvent.OnRecieveCash -= AddCash;
+		PlayerEvent.OnRecieveGunAmmo -= AddGunAmmo;
 		Stats.GetStat(StatType.MagCapacity).OnValueChange -= CalculateMaxCap;
 		Stats.GetStat(StatType.ATKSpeed).OnValueChange -= SetShootingSpeedAnim;
 		Stats.GetStat(StatType.Speed).OnValueChange -= SetMovementSpeedAnim;
@@ -129,15 +129,16 @@ public class PlayerController : BasicController
 
     // Weapon handle
     
-    public void InstantiateWeapon(WeaponBaseSO weapon, int index)
+    public void InstantiateWeapon(WeaponData weapon, int index)
     {
+	    
 	    if (Weapons[index] != null)
 	    {
-		    Stats.GetStat(StatType.Speed).RemoveModifier(new StatModifier(-Weapons[index].WeaponData.Weight,StatModType.Flat));
+		    Stats.GetStat(StatType.Speed).RemoveModifier(new StatModifier(-Weapons[index].WeaponData.Weight.Value,StatModType.Flat));
 		    Destroy(Weapons[index].gameObject);
 	    }
-
-	    Weapons[index] = ((ItemGOData)weapon.CreateItem(parent: RightHandHoldPoint.transform)).GoReference.GetComponent<WeaponBase>();
+		
+	    Weapons[index] = ((ItemGOData)weapon.WeaponSO.CreateExistingItemInWorld(parent: RightHandHoldPoint.transform,data: weapon)).GoReference.GetComponent<WeaponBase>();
 	    Weapons[index].gameObject.layer = gameObject.layer;
 	    Weapons[index].Initialize();
 	    
@@ -165,21 +166,21 @@ public class PlayerController : BasicController
 	    WeaponBase currentSlot = Weapons[index];
 
 	    if (currentSlot == null) return false;
-        Stats.GetStat(StatType.Speed).RemoveModifier(new StatModifier(-Weapons[CurrentWeaponIndex].WeaponData.Weight,StatModType.Flat));
+        Stats.GetStat(StatType.Speed).RemoveModifier(new StatModifier(-Weapons[CurrentWeaponIndex].WeaponData.Weight.Value,StatModType.Flat));
         Weapons[CurrentWeaponIndex].gameObject.SetActive(false);
         currentSlot.gameObject.SetActive(true);
         CurrentWeaponIndex = index;
         CalculateMaxCapacity(Weapons[index]);
-        Animator.SetFloat(Type, (float)currentSlot.WeaponData.WeaponType);
+        Animator.SetFloat(Type, (float)currentSlot.WeaponData.WeaponSO.WeaponType);
         Animator.SetBool(ReloadGun, false);
-        Stats.GetStat(StatType.Speed).AddModifier(new StatModifier(-currentSlot.WeaponData.Weight,StatModType.Flat));
-        if (CurrentWeapon.WeaponData.WeaponType == WeaponType.Knife)
+        Stats.GetStat(StatType.Speed).AddModifier(new StatModifier(-currentSlot.WeaponData.Weight.Value,StatModType.Flat));
+        if (CurrentWeapon.WeaponData.WeaponSO.WeaponType == WeaponType.Knife)
         {
 	        CameraZoom.SetZoom(1f/Mathf.Cos(45f*Mathf.Deg2Rad));
         }
         else
         {
-	        CameraZoom.SetZoom(((GunBase)CurrentWeapon).GunData.Aim/Mathf.Cos(45f*Mathf.Deg2Rad));
+	        CameraZoom.SetZoom(((GunBase)CurrentWeapon).GunData.Aim.Value/Mathf.Cos(45f*Mathf.Deg2Rad));
         }
         PlayerEvent.OnEquipWeapon?.Invoke(currentSlot);
         return true;
@@ -267,15 +268,15 @@ public class PlayerController : BasicController
 	public Gradient LineTargetColor;
 	public void SetLineRenderers()
 	{
-        if(CurrentWeapon.WeaponData.WeaponType == WeaponType.Knife) return;
+        if(CurrentWeapon.WeaponData.WeaponSO.WeaponType == WeaponType.Knife) return;
         GunBase gun = (GunBase)CurrentWeapon;
         float accuracy = gun.GunAccuracy;
-		LineRendererL.SetLineRenderer(gun.ShootPoint, gun.GunData.Aim, Quaternion.Euler(
+		LineRendererL.SetLineRenderer(gun.ShootPoint, gun.GunData.Aim.Value, Quaternion.Euler(
 			0, Mathf.Clamp(-accuracy, -GameValues.RecoilMaxValue,0), 0) * transform.forward);
-		LineRendererR.SetLineRenderer(gun.ShootPoint, gun.GunData.Aim, Quaternion.Euler(
+		LineRendererR.SetLineRenderer(gun.ShootPoint, gun.GunData.Aim.Value, Quaternion.Euler(
 			0, Mathf.Clamp(accuracy, 0, GameValues.RecoilMaxValue), 0) * transform.forward);
 		
-        if(Physics.Raycast(gun.ShootPoint.position,transform.forward, out RaycastHit hit, gun.GunData.Aim) &&
+        if(Physics.Raycast(gun.ShootPoint.position,transform.forward, out RaycastHit hit, gun.GunData.Aim.Value) &&
            accuracy <= 1f)
         {
 	        if (hit.collider.CompareTag("Enemy"))
@@ -359,14 +360,6 @@ public class PlayerController : BasicController
         if (hp == null) return;
         PlayerEvent.OnHeathChange?.Invoke(hp.Value, hp.MaxValue);
     }
-    //Buffs
-    public List<int> BuffList { get; private set; }
-    public void AddBuffToPlayer(BaseBuffSO buff)
-    {
-		BaseStatusEffect buffEffect = buff.AddStatusEffect(Stats);
-        BuffList.Add(buff.ID);
-        buffEffect.OnEnd += () => BuffList.Remove(buff.ID);
-    }
 
     public void CalculateMaxCap()
     {
@@ -391,5 +384,9 @@ public class PlayerController : BasicController
     {
 	    DamagePopUpGenerator.Instance.CreateCashPopUp(transform.position, $"+{amount} $");
 	    Resin += amount;
+    }
+    public void AddGunAmmo(int amount)
+    {
+	    Stats.GetAttribute(AttributeType.HoldingBullets).Value += amount;
     }
 }

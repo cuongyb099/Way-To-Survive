@@ -21,11 +21,15 @@ namespace KatInventory
         public virtual int MaxStack { get; protected  set; } = 1;
         [field: SerializeField] public virtual Manipulator[] Modifiers { get; private set; }
         [field: SerializeField] public Rarity Rarity { get; protected set; }
-        public virtual ItemData CreateItem(int quantity = 1,Transform parent = null)
+        public virtual ItemData CreateItemData(int quantity = 1,GameObject prefab = null)
         {
             return new ItemData(this, Mathf.Clamp(quantity,0, MaxStack));
         }
-        
+
+        public virtual void Use(GameObject user)
+        {
+            Inventory.Instance.RemoveItem(this);
+        }
         public abstract ItemType GetItemType();
         public bool Equals(ItemBaseSO other)
         {
@@ -39,6 +43,7 @@ namespace KatInventory
         Weapon,
         Building,
         Buffs,
+        UpgradeMaterials,
     }
     public enum Rarity
     {

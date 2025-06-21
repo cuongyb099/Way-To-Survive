@@ -141,7 +141,7 @@ GameObject:
   - component: {fileID: 3840491558154286373}
   - component: {fileID: 6394928153023415215}
   - component: {fileID: 2053451981320401606}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: w_aug_mag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -253,7 +253,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7263019394989828145}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Weapons_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -287,7 +287,7 @@ GameObject:
   - component: {fileID: 9030721944562750837}
   - component: {fileID: 8727445903787810433}
   - component: {fileID: 1083710457753455507}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: w_aug
   m_TagString: Untagged
   m_Icon: {fileID: 0}

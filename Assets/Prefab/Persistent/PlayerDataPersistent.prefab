@@ -46,6 +46,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fe7a8b6707745f7aa054462b053e390, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerData:
+    UID: 
+    Username: 
+    Money: 0
+    Inventory: []
+  _beginningInventory: {fileID: 11400000, guid: e261be3731ea0864781f8ff35c30bafb, type: 2}
+  <StartingResin>k__BackingField: 0
   <StartingWeapons>k__BackingField: []
   <StartingBuffs>k__BackingField: []
 --- !u!114 &7548962781017758719

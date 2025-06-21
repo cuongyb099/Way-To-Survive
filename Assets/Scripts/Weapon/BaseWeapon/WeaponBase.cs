@@ -11,10 +11,11 @@ public enum WeaponType
 	Sniper,
 	SMG,
 	Knife,
+	SpecialWeapon,
 }
 public abstract class WeaponBase : ItemBase, IEquatable<WeaponBase>
 {
-	public WeaponBaseSO WeaponData => (WeaponBaseSO)Data.StaticData ;
+	public WeaponData WeaponData => (WeaponData)Data ;
 	public bool ShootAble { get; set; } = true;
 	
 	protected PlayerController playerController;
@@ -58,7 +59,7 @@ public abstract class WeaponBase : ItemBase, IEquatable<WeaponBase>
 		//Mobile
 		if (rotateInput.magnitude > 0.875f)
 		{
-			if (!WeaponData.ReleaseToShoot) { Shoot(); }
+			if (!WeaponData.WeaponSO.ReleaseToShoot) { Shoot(); }
 			trigger = true;
 		}
 		else
@@ -68,7 +69,7 @@ public abstract class WeaponBase : ItemBase, IEquatable<WeaponBase>
 	}
 	private void Rotate_canceled()
 	{
-		if (WeaponData.ReleaseToShoot && trigger) Shoot();
+		if (WeaponData.WeaponSO.ReleaseToShoot && trigger) Shoot();
 	}
 	public virtual void Shoot()
 	{
@@ -76,13 +77,13 @@ public abstract class WeaponBase : ItemBase, IEquatable<WeaponBase>
 		    !repeatAble ) return;
 		repeatAble = false;
 		PlayerEvent.OnAttack?.Invoke();
-		DOVirtual.DelayedCall(WeaponData.ShootingSpeed/playerController.Stats.GetStat(StatType.ATKSpeed).Value, () => { repeatAble = true;});
+		DOVirtual.DelayedCall(WeaponData.ShootingSpeed.Value/playerController.Stats.GetStat(StatType.ATKSpeed).Value, () => { repeatAble = true;});
 		WeaponSoundPlay();
 	}
 
 	protected virtual void WeaponSoundPlay()
 	{
-		AudioManager.Instance.PlaySound(WeaponData.AttackSounds.ToArray(),volumeType: SoundVolumeType.SOUNDFX_VOLUME);
+		AudioManager.Instance.PlaySound(WeaponData.WeaponSO.AttackSounds.ToArray(),volumeType: SoundVolumeType.SOUNDFX_VOLUME);
 	}
 	
 

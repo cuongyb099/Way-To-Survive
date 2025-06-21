@@ -136,6 +136,7 @@ public class EnemyManager : Tech.Singleton.Singleton<EnemyManager>
         }
         catch (Exception e)
         {
+            throw e;
         }
     }
     

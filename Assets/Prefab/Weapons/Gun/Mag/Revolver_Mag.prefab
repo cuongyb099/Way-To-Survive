@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 633472720367115117}
   - component: {fileID: 6383761662279362210}
   - component: {fileID: 5355340679391454833}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Revolver_Mag
   m_TagString: Untagged
   m_Icon: {fileID: 0}

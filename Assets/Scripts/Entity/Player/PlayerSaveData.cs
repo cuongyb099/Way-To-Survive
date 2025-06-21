@@ -15,4 +15,20 @@ public class PlayerSaveData
     {
         Inventory = new List<ItemData>();
     }
+    public PlayerSaveData(string uid, string username, float money, List<ItemData> inventory)
+    {
+        UID = uid;
+        Username = username;
+        Money = money;
+        CreateInventory(inventory);
+    }
+
+    private void CreateInventory(List<ItemData> inventory)
+    {
+        Inventory = new List<ItemData>();
+        foreach (var item in inventory)
+        {
+            Inventory.Add(item.StaticData.CreateItemData(item.Quantity));
+        }
+    }
 }

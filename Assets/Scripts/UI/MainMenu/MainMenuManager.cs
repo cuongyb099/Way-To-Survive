@@ -30,6 +30,7 @@ public class MainMenuManager : MonoBehaviour
             UIManager.Instance.CreatePanelAsync(UIConstant.SetupBeforePlayPanel),
             UIManager.Instance.CreatePanelAsync(UIConstant.MainMenuPanel),
             UIManager.Instance.CreatePanelAsync(UIConstant.StartMenuPanel),
+            UIManager.Instance.CreatePanelAsync(UIConstant.WeaponUpgradePanel),
         };
 
         await Task.WhenAll(tasks);

@@ -16,7 +16,6 @@ public class PoisonArea : MonoBehaviour
         _collider = GetComponent<CompoundCollider>();
         effect = new PoisonEffect(effectData, null, Damage);
         _collider.OnEnter += ApplyPoisonEffect;
-        _collider.OnStay += ApplyPoisonEffect;
         _collider.OnExit += StopApplyEffect;
     }
 
@@ -28,6 +27,7 @@ public class PoisonArea : MonoBehaviour
         
         var tween = DOVirtual.DelayedCall(effectData.Duration + 0.01f, () => {
             DealEffect(stats);
+            
         }).SetLoops(-1);
 
         targets.Add(target, tween);
@@ -43,6 +43,6 @@ public class PoisonArea : MonoBehaviour
     {
         effect.ChangeTarget(stats);
         stats.ApplyEffect(effect);
-        BlindPlayer.Instance.Blind(2f);
+        BlindPlayer.Instance.Blind(effectData.Duration +1f);
     }
 }

@@ -22,6 +22,6 @@ public class BuffCardUI : MonoBehaviour
 	}
 	public void BuffUpPlayer()
     {
-        GameManager.Instance.Player.AddBuffToPlayer(buffData);
+	    buffData.AddStatusEffect(GameManager.Instance.Player.Stats);
     }
 }

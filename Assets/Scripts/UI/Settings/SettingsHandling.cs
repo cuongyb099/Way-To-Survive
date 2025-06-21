@@ -1,22 +1,14 @@
+
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using Tech.Singleton;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
-using static UnityEngine.Rendering.DebugUI;
-
-public enum TargetFPS
-{
-	FPS_30,
-	FPS_45,
-	FPS_60,
-	FPS_120,
-	FPS_Unlimited,
-}
 
 public class SettingsHandling : Singleton<SettingsHandling>
 {
@@ -30,6 +22,8 @@ public class SettingsHandling : Singleton<SettingsHandling>
 	};
 	
 	[field: SerializeField] public Toggle FullScreen { get; private set; }
+	[field: SerializeField] public Slider RenderRes { get; private set; }
+	[field: SerializeField] public TextMeshProUGUI RenderResNumber { get; private set; }
 	[field: SerializeField] public TMP_Dropdown QualityDropdown { get; private set; }
 	[field: SerializeField] public TMP_Dropdown FPSLimitDropdown { get; private set; }
 	[field: SerializeField] public TMP_Dropdown ResolutionDropdown { get; private set; }
@@ -47,6 +41,7 @@ public class SettingsHandling : Singleton<SettingsHandling>
 		//GetMaxRefresh();
 		//SetUpResolutionSetting();
 		SetUpLanguageSetting();
+		
 
 		QualityDropdown.value = QualitySettings.GetQualityLevel();
 		QualityDropdown.onValueChanged.AddListener(ChangeGraphicsQuality);
@@ -54,11 +49,21 @@ public class SettingsHandling : Singleton<SettingsHandling>
 		ChangeFPSLimit(4);
 		FPSLimitDropdown.value = 4;
 		FPSLimitDropdown.onValueChanged.AddListener(ChangeFPSLimit);
+		RenderRes.onValueChanged.AddListener(ChangeRenderScale);
+	}
+
+	private void Start()
+	{
+		var urp = (UniversalRenderPipelineAsset)GraphicsSettings.currentRenderPipeline;
+		RenderRes.value = urp.renderScale;
+		RenderResNumber.text = RenderRes.value.ToString("F1");
 	}
 
 	private void OnDestroy()
 	{
 		QualityDropdown.onValueChanged.RemoveListener(ChangeGraphicsQuality);
+		FPSLimitDropdown.onValueChanged.RemoveListener(ChangeFPSLimit);
+		RenderRes.onValueChanged.RemoveListener(ChangeRenderScale);
 	}
 	private void SetUpResolutionSetting()
 	{
@@ -115,6 +120,8 @@ public class SettingsHandling : Singleton<SettingsHandling>
 	{
 		if (QualitySettings.GetQualityLevel() == value) return;
 		QualitySettings.SetQualityLevel(value);
+		
+		ChangeRenderScale(RenderRes.value);
 	}
 	public void ChangeFPSLimit(int value)
 	{
@@ -146,5 +153,12 @@ public class SettingsHandling : Singleton<SettingsHandling>
 		ChangeLanguage(LanguageDropdown.value);
 		//ChangeResolution(ResolutionDropdown.value);
 		//ChangeFullScreen(FullScreen.isOn);
+	}
+	
+	public void ChangeRenderScale(float scale)
+	{
+		var urp = (UniversalRenderPipelineAsset)GraphicsSettings.currentRenderPipeline;
+		urp.renderScale = scale;
+		RenderResNumber.text = scale.ToString("F1");
 	}
 }

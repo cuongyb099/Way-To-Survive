@@ -43,7 +43,7 @@ MonoBehaviour:
         _baseValue: 1
     - Key: 9
       Value:
-        _baseValue: 100
+        _baseValue: 1000
     - Key: 11
       Value:
         _baseValue: 1

@@ -9,7 +9,7 @@ using UnityEngine;
 
 public class GunBase : WeaponBase
 {
-	public GunBaseSO GunData => (GunBaseSO)Data.StaticData;
+	public GunData GunData => (GunData)Data;
 	[field: SerializeField] public Transform ShootPoint { get; private set; }
 	[field: SerializeField] public Transform ShellDropPoint { get; private set; }
 	[field: SerializeField] public GameObject MagObject { get; private set; }
@@ -17,7 +17,7 @@ public class GunBase : WeaponBase
 	public bool IsEmpty { get { return Stats.GetAttribute(AttributeType.Bullets).Value == 0; } }
 	public float GunAccuracy
 	{
-		get { return GunRecoil * GunData.SpreadMax * playerController.Stats.GetStat(StatType.MaxSpreadReduce).Value; }
+		get { return GunRecoil * GunData.SpreadMax.Value * playerController.Stats.GetStat(StatType.MaxSpreadReduce).Value; }
 	}
 	public float GunRecoil { get; protected set; } = 0f;
 	public StatsController Stats { get; protected set; }
@@ -72,7 +72,7 @@ public class GunBase : WeaponBase
 		//Mobile
 		if (rotateInput.magnitude > 0.875f)
 		{
-			if (!GunData.ReleaseToShoot) { Shoot(); }
+			if (!GunData.GunSO.ReleaseToShoot) { Shoot(); }
 			trigger = true;
 		}
 		else
@@ -88,11 +88,11 @@ public class GunBase : WeaponBase
 	public virtual void ResetRecoil()
 	{
 		temp.Kill();
-		temp = DOVirtual.Float(GunRecoil, 0, GunData.RecoilResetTime, (x) => { GunRecoil = x; });
+		temp = DOVirtual.Float(GunRecoil, 0, GunData.GunSO.RecoilResetTime, (x) => { GunRecoil = x; });
 	}
 	private void Rotate_canceled()
 	{
-		if (GunData.ReleaseToShoot && trigger) Shoot();
+		if (GunData.GunSO.ReleaseToShoot && trigger) Shoot();
 	}
 	public override void Shoot()
 	{
@@ -104,7 +104,7 @@ public class GunBase : WeaponBase
 		temp.Kill();
 		Stats.GetAttribute(AttributeType.Bullets).Value--;
 		PlayerEvent.OnAttack?.Invoke();
-		DOVirtual.DelayedCall(GunData.ShootingSpeed/playerController.Stats.GetStat(StatType.ATKSpeed).Value, 
+		DOVirtual.DelayedCall(GunData.ShootingSpeed.Value/playerController.Stats.GetStat(StatType.ATKSpeed).Value, 
 			() => { repeatAble = true; ResetRecoil(); });
 		GunSoundPlay();
 		BulletInstantiate();
@@ -112,7 +112,7 @@ public class GunBase : WeaponBase
 	}
 	public void ReloadGun()
 	{
-		if (!gunReloadable || IsFullCap || playerController.Stats.GetAttribute(AttributeType.HoldingBullets).Value == 0) return;
+		if (!gunReloadable || IsFullCap || (GunData.GunSO.WeaponType != WeaponType.Pistol && playerController.Stats.GetAttribute(AttributeType.HoldingBullets).Value == 0)) return;
 		playerController.DisableLineRenderer();
 		ShootAble = false;
 		playerController.Animator.SetBool("ReloadGun", true);
@@ -122,50 +122,57 @@ public class GunBase : WeaponBase
 	protected override void WeaponSoundPlay()
 	{
 		base.WeaponSoundPlay();
-		if(GunData.TailSound)
-			AudioManager.Instance.PlaySound(GunData.TailSound,volumeType: SoundVolumeType.SOUNDFX_VOLUME);
+		if(GunData.GunSO.TailSound)
+			AudioManager.Instance.PlaySound(GunData.GunSO.TailSound,volumeType: SoundVolumeType.SOUNDFX_VOLUME);
 	}
 
 	private void GunSoundPlay()
 	{
-		AudioManager.Instance.PlaySound(GunData.AttackSounds.ToArray(),volumeType: SoundVolumeType.SOUNDFX_VOLUME);
-		if(GunData.TailSound)
-			AudioManager.Instance.PlaySound(GunData.TailSound,volumeType: SoundVolumeType.SOUNDFX_VOLUME);
+		AudioManager.Instance.PlaySound(GunData.GunSO.AttackSounds.ToArray(),volumeType: SoundVolumeType.SOUNDFX_VOLUME);
+		if(GunData.GunSO.TailSound)
+			AudioManager.Instance.PlaySound(GunData.GunSO.TailSound,volumeType: SoundVolumeType.SOUNDFX_VOLUME);
 	}
 	
 	public virtual void GunRecoilUpdate()
 	{
-		GunRecoil += GunData.Recoil* playerController.Stats.GetStat(StatType.RecoilReduce).Value;
+		GunRecoil += GunData.Recoil.Value* playerController.Stats.GetStat(StatType.RecoilReduce).Value;
 		if (GunRecoil >= 1) { GunRecoil = 1f; return;}
 		if (GunRecoil < 0) { GunRecoil = 0f; return;}
 	}
 	public virtual void BulletInstantiate()
 	{
-		GameObject a = ObjectPool.Instance.SpawnObject(GunData.BulletPrefab, ShootPoint.position, transform.rotation, PoolType.GameObject);
+		GameObject a = ObjectPool.Instance.SpawnObject(GunData.GunSO.BulletPrefab, ShootPoint.position, transform.rotation, PoolType.GameObject);
 		Bullet bullet = a.GetComponent<Bullet>();
 
-		bullet.InitBullet(ShootPoint.position, GunAccuracy, DamageInfo.GetDamageInfo(GunData.Damage,playerController.Stats, DamageType.Bullet));
+		bullet.InitBullet(ShootPoint.position, GunAccuracy, DamageInfo.GetDamageInfo(GunData.Damage.Value,playerController.Stats, DamageType.Bullet));
 	}
 	public void SetBulletCap(float mul=1)
 	{
-		Stats.GetStat(StatType.MaxBulletCap).BaseValue = (int)(GunData.MaxCapacity * mul);
+		Stats.GetStat(StatType.MaxBulletCap).BaseValue = (int)(GunData.GunSO.MaxCapacity * mul);
 	}
 
 	private Attribute bulletSource,att;
 	public void ReloadBullet()
 	{
-		bulletSource = playerController.Stats.GetAttribute(AttributeType.HoldingBullets);
 		att = Stats.GetAttribute(AttributeType.Bullets);
-		
-		if (bulletSource.Value >= att.MaxValue- att.Value)
+		if(GunData.GunSO.WeaponType != WeaponType.Pistol)
 		{
-			bulletSource.Value -= (att.MaxValue- att.Value);
-			att.SetValueToMax();
+			bulletSource = playerController.Stats.GetAttribute(AttributeType.HoldingBullets);
+			
+			if (bulletSource.Value >= att.MaxValue- att.Value)
+			{
+				bulletSource.Value -= (att.MaxValue- att.Value);
+				att.SetValueToMax();
+			}
+			else
+			{
+				att.Value += bulletSource.Value;
+				bulletSource.Value = 0;
+			}
 		}
 		else
 		{
-			att.Value += bulletSource.Value;
-			bulletSource.Value = 0;
+			att.SetValueToMax();
 		}
 	}
 	public void SetBulletToMax()
@@ -180,7 +187,7 @@ public class GunBase : WeaponBase
 	//Animation Methods
 	public void DropMagazine()
 	{
-		GameObject mag = ObjectPool.Instance.SpawnObject(GunData.MagPrefab,MagObject.transform.position,MagObject.transform.rotation, PoolType.GameObject);
+		GameObject mag = ObjectPool.Instance.SpawnObject(GunData.GunSO.MagPrefab,MagObject.transform.position,MagObject.transform.rotation, PoolType.GameObject);
 		Rigidbody rb = mag.GetComponentInChildren<Rigidbody>();
 		rb.velocity = playerController.Rigidbody.velocity;
 		MagObject.SetActive(false);
@@ -188,7 +195,7 @@ public class GunBase : WeaponBase
 
 	public void DropShell()
 	{
-		GameObject shell = ObjectPool.Instance.SpawnObject(GunData.ShellPrefab,ShellDropPoint.transform.position,transform.rotation* Quaternion.Euler(UnityEngine.Random.Range(0,60),10,0), PoolType.GameObject);
+		GameObject shell = ObjectPool.Instance.SpawnObject(GunData.GunSO.ShellPrefab,ShellDropPoint.transform.position,transform.rotation* Quaternion.Euler(UnityEngine.Random.Range(0,60),10,0), PoolType.GameObject);
 		Rigidbody rb = shell.GetComponent<Rigidbody>();
 		rb.velocity = playerController.Rigidbody.velocity;
 		rb.AddForce(Quaternion.Euler(0,-90,0)*shell.transform.forward*2f, ForceMode.VelocityChange);
